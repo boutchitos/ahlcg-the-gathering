@@ -6,6 +6,7 @@
   type Card = {
     name: string;
     subname: string;
+    url: string;
     xp: number;
   };
 
@@ -23,7 +24,7 @@
 <ul>
   {#each data.cards as card}
     <li>
-      {getDisplayName(card)}
+      <a href={card.url} target="_blank">{getDisplayName(card)}</a>
     </li>
   {/each}
 </ul>
