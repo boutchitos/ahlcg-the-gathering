@@ -1,8 +1,16 @@
 <script lang="ts">
   import ahdbCards from '$lib/ahdb.cards.json';
 
-  const uiSubname = (subname: string | undefined) => {
-    return subname ?? false ? ` - (${subname})` : '';
+  type Card = {
+    name: string;
+    subname: string;
+    xp: number;
+  };
+
+  const getDisplayName = (card: Card) => {
+    const subname = card.subname ? `: ${card.subname}` : '';
+    const xp = card.xp ? ` (${card.xp} xp)` : '';
+    return `${card.name}${subname}${xp}`;
   };
 
   const getCards = () => {
@@ -18,10 +26,9 @@
 <p>You own {cards.length} cards!</p>
 
 <ul>
-  {#each cards as { name, real_name, subname }}
+  {#each cards as card}
     <li>
-      {name}
-      {uiSubname(subname)}{name !== real_name ? '=== REAL NAME DIFF. ===============' : ''}
+      {getDisplayName(card)}
     </li>
   {/each}
 </ul>
