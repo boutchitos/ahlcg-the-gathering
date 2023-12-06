@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest",
-    "ahdb:cards": "curl -X GET https://arkhamdb.com/api/public/cards/ > ./src/lib/ahdb.cards.json && pnpm format"
+    "ahdb:cards": "curl -X GET https://arkhamdb.com/api/public/cards/ > ./src/lib/server/ahdb.cards.json && pnpm format"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",

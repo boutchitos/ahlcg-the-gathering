@@ -1,5 +1,7 @@
 <script lang="ts">
-  import ahdbCards from '$lib/ahdb.cards.json';
+  import type { PageData } from './$types';
+
+  export let data: PageData;
 
   type Card = {
     name: string;
@@ -12,21 +14,14 @@
     const xp = card.xp ? ` (${card.xp} xp)` : '';
     return `${card.name}${subname}${xp}`;
   };
-
-  const getCards = () => {
-    const toRemove = ['Random Basic Weakness'];
-    return ahdbCards.filter((card) => !toRemove.includes(card.name));
-  };
-
-  const cards = getCards();
 </script>
 
 <h1>Arkham Horror LCG : The Gathering</h1>
 
-<p>You own {cards.length} cards!</p>
+<p>You own {data.cards.length} cards!</p>
 
 <ul>
-  {#each cards as card}
+  {#each data.cards as card}
     <li>
       {getDisplayName(card)}
     </li>
