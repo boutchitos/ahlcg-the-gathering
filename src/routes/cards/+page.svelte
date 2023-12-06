@@ -18,7 +18,7 @@
 
 <h1>Arkham Horror LCG : The Gathering</h1>
 
-<p>You own {data.cards.length} cards!</p>
+<p>{data.cards.length} investigator cards available</p>
 
 <ul>
   {#each data.cards as card}
