@@ -25,7 +25,24 @@
     const faction_sort = a.faction_code.localeCompare(b.faction_code);
     if (faction_sort !== 0) return faction_sort;
 
-    const type_code_sort = a.type_code.localeCompare(b.type_code);
+    const typeCodeOrder = [
+      'investigator',
+      'asset',
+      'event',
+      'skill',
+      'story',
+      'enemy',
+      'treachery',
+    ]; // story, enemy???
+    const aTypeCode = typeCodeOrder.indexOf(a.type_code);
+    const bTypeCode = typeCodeOrder.indexOf(b.type_code);
+    if (aTypeCode === -1) {
+      throw new Error(`unknown type code ${a.type_code}`);
+    }
+    if (bTypeCode === -1) {
+      throw new Error(`unknown type code ${b.type_code}`);
+    }
+    const type_code_sort = aTypeCode - bTypeCode;
     if (type_code_sort !== 0) return type_code_sort;
 
     const slot_sort = (a.slot ?? '').localeCompare(b.slot ?? '');
