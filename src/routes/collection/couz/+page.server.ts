@@ -10,9 +10,12 @@ type CollectionPack = {
 };
 
 type Card = {
+  faction_code: string;
   name: string;
   pack_code: string;
+  slot: string;
   subname: string;
+  type_code: string;
   url: string;
   xp: number;
 };
