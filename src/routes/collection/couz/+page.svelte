@@ -17,7 +17,8 @@
   const getDisplayName = (card: Card) => {
     const subname = card.subname ? `: ${card.subname}` : '';
     const xp = card.xp ? ` (${card.xp} xp)` : '';
-    return `${card.faction_code} -- ${card.type_code} -- ${card.slot} -- ${card.name}${subname}${xp}`;
+    const slot = card.type_code === 'asset' && card.slot ? `-- ${card.slot}` : '';
+    return `${card.faction_code} -- ${card.type_code}${slot}  -- ${card.name}${subname}${xp}`;
   };
 
   const sortCardsAsUserWant = (a: Card, b: Card) => {
@@ -27,7 +28,7 @@
     const type_code_sort = a.type_code.localeCompare(b.type_code);
     if (type_code_sort !== 0) return type_code_sort;
 
-    const slot_sort = (a.slot ?? 'no slot').localeCompare(b.slot ?? 'no slot');
+    const slot_sort = (a.slot ?? '').localeCompare(b.slot ?? '');
     if (slot_sort !== 0) return slot_sort;
 
     const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
