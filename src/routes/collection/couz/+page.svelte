@@ -51,6 +51,9 @@
     const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
     if (name_sort !== 0) return name_sort;
 
+    const xp_sort = a.xp - b.xp;
+    if (xp_sort !== 0) return xp_sort;
+
     return 0;
   };
 </script>
