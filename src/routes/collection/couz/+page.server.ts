@@ -38,6 +38,10 @@ type Pack = {
   url: string;
 };
 
+type Pocket = {
+  cards: Card[];
+};
+
 function getCardDisplayName(card: Card) {
   const subname = card.subname ? `: ${card.subname}` : '';
   const xp = card.xp ? ` (${card.xp} xp)` : '';
@@ -87,6 +91,20 @@ function getPacksByCode(ahdbPacks: Pack[]) {
     packsByCode.set(pack.code, pack);
   }
   return packsByCode;
+}
+
+// Pour l'instant, ça assume que les cartes avec mêmes noms sont consécutives.
+function regroupByPockets(cards: Card[]): Pocket[] {
+  return cards.reduce((pockets: Pocket[], card: Card, currentIndex: number) => {
+    if (currentIndex === 0) {
+      pockets.push({ cards: [card] });
+    } else if (card.name === cards[currentIndex - 1].name) {
+      pockets.at(-1)?.cards.push(card);
+    } else {
+      pockets.push({ cards: [card] });
+    }
+    return pockets;
+  }, [] as Pocket[]);
 }
 
 function sortPlayerCardsByType(a: Card, b: Card): number {
@@ -192,10 +210,13 @@ const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsC
   sortCardsAsUserWant,
 );
 
+const pockets = regroupByPockets(investigatorCardsCollection);
+
 export const load: PageServerLoad = () => {
   return {
     username: 'Couz',
     packsCollection,
     investigatorCardsCollection,
+    pockets,
   };
 };

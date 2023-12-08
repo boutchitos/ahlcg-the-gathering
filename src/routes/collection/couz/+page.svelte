@@ -15,10 +15,13 @@
 </ul>
 
 <p>You own {data.investigatorCardsCollection.length} investigator cards</p>
-<ul>
-  {#each data.investigatorCardsCollection as card}
-    <li>
-      <a href={card.url} target="_blank">{card.displayName}</a>
-    </li>
-  {/each}
-</ul>
+{#each data.pockets as pocket}
+  <ul>
+    {#each pocket.cards as card}
+      <li>
+        <a href={card.url} target="_blank">{card.displayName}</a>
+      </li>
+    {/each}
+  </ul>
+  <hr />
+{/each}
