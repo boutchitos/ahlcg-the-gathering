@@ -43,7 +43,7 @@ function getCardDisplayName(card: Card) {
   const xp = card.xp ? ` (${card.xp} xp)` : '';
   const slot = card.type_code === 'asset' && card.slot ? `-- ${card.slot}` : '';
   return `${card.faction_code} -- ${card.type_code}${slot}  -- ${card.name}${subname}${xp}`;
-};
+}
 
 function getCardsByPackCode(ahdbCards: Card[]) {
   const cardsByPackCode = new Map<string, Card[]>();
@@ -91,19 +91,54 @@ function getPacksByCode(ahdbPacks: Pack[]) {
 
 function sortPlayerCardsByType(a: Card, b: Card): number {
   const typeCodeOrder = ['investigator', 'asset', 'event', 'skill', 'story', 'enemy', 'treachery']; // story, enemy???
+
   const aTypeCode = typeCodeOrder.indexOf(a.type_code);
-  const bTypeCode = typeCodeOrder.indexOf(b.type_code);
   if (aTypeCode === -1) {
     throw new Error(`unknown type code ${a.type_code}`);
   }
+
+  const bTypeCode = typeCodeOrder.indexOf(b.type_code);
   if (bTypeCode === -1) {
     throw new Error(`unknown type code ${b.type_code}`);
   }
+
   const type_code_sort = aTypeCode - bTypeCode;
   if (type_code_sort !== 0) return type_code_sort;
 
   return 0;
-};
+}
+
+function sortAssetCardsBySlot(a: Card, b: Card) {
+  // if one is not asset, we can concluded here, so they are the same.
+  if (a.type_code !== 'asset' || b.type_code !== 'asset') {
+    return 0;
+  }
+
+  // I should inject predicate. So, I would find by them. This will be finaly solution when I have
+  // configs for everything...
+  const aHandheld = a.slot?.includes('Hand');
+  const bHandheld = b.slot?.includes('Hand');
+  if (aHandheld === true && bHandheld !== true) return -1;
+  if (aHandheld !== true && bHandheld === true) return 1;
+  if (aHandheld === true && bHandheld === true) return 0;
+
+  const slotOrder = ['Arcane', 'Ally', 'Accessory', 'Body', 'Tarot', undefined];
+
+  const aSlot = slotOrder.indexOf(a.slot);
+  if (aSlot === -1) {
+    throw new Error(`unknown slot ${a.slot}`);
+  }
+
+  const bSlot = slotOrder.indexOf(b.slot);
+  if (bSlot === -1) {
+    throw new Error(`unknown slot ${b.slot}`);
+  }
+
+  const slot_sort = aSlot - bSlot;
+  if (slot_sort !== 0) return slot_sort;
+
+  return 0;
+}
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
 function sortCardsAsUserWant(a: Card, b: Card) {
@@ -113,8 +148,8 @@ function sortCardsAsUserWant(a: Card, b: Card) {
   const byType = sortPlayerCardsByType(a, b);
   if (byType !== 0) return byType;
 
-  const slot_sort = (a.slot ?? '').localeCompare(b.slot ?? '');
-  if (slot_sort !== 0) return slot_sort;
+  const byAssetSlot = sortAssetCardsBySlot(a, b);
+  if (byAssetSlot !== 0) return byAssetSlot;
 
   const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
   if (name_sort !== 0) return name_sort;
@@ -123,7 +158,7 @@ function sortCardsAsUserWant(a: Card, b: Card) {
   if (xp_sort !== 0) return xp_sort;
 
   return 0;
-};
+}
 
 const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
 const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(
