@@ -160,15 +160,22 @@ function sortCardsAsUserWant(a: Card, b: Card) {
   return 0;
 }
 
-const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
-const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(
-  ahdbCards
+function cleanAHDBCards() {
+  const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
+  const allCards = ahdbCards
     .filter((card) => !['Random Basic Weakness'].includes(card.name))
+    .filter((card) => !multiClassTitles.includes(card.name))
     .map((card) => {
       card.displayName = getCardDisplayName(card);
       return card;
-    }),
-);
+    });
+  return allCards;
+}
+
+const allCards = cleanAHDBCards();
+
+const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
+const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(allCards);
 
 const packsCollection: Array<Pack & CollectionPack> = packList.map(
   (collPack: Record<string, unknown>) => {
