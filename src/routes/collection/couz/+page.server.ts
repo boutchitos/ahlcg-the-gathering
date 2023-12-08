@@ -15,10 +15,13 @@ type CollectionPack = {
 };
 
 type Card = {
+  code: string;
   displayName: string;
   faction_code: string;
+  faction2_code?: string;
   name: string;
   pack_code: string;
+  restrictions?: { investigator: Record<string, string> };
   slot: string;
   subname: string;
   type_code: string;
@@ -94,17 +97,54 @@ function getPacksByCode(ahdbPacks: Pack[]) {
 }
 
 // Pour l'instant, ça assume que les cartes avec mêmes noms sont consécutives.
+// Je dois regrouper les cartes signatures des investigateurs aussi.
+// Le best serait d'avoir un mapping des related cards, et de savoir c'est dans quel pocket.
 function regroupByPockets(cards: Card[]): Pocket[] {
+  // Si la pocket est un investigator, je devrais retenir sa pocket.
+  // Oh! je peux le faire à l'envers. La carte a une restriction qui la ramène sur l'investigator.
+  // Cover Up: "restrictions": { "investigator": { "01001": "01001" } },
+  // C'est weak pour l'instant, je me fie que les investigateur sont processés avant leurs carte.
+  // A fallu je mette les neutrals à la fin. Ça c'est l'ordre UI du user. Devrait pas influencer si
+  // jamais je laisse ça varier.
+  const pocketsByInvestigator = new Map<string, Pocket>();
+
   return cards.reduce((pockets: Pocket[], card: Card, currentIndex: number) => {
-    if (currentIndex === 0) {
-      pockets.push({ cards: [card] });
-    } else if (card.name === cards[currentIndex - 1].name) {
-      pockets.at(-1)?.cards.push(card);
+    if (currentIndex === 0 || card.name !== cards[currentIndex - 1].name) {
+      const pocket = { cards: [card] };
+      if (card.type_code === 'investigator') {
+        pocketsByInvestigator.set(card.code, pocket);
+      } else if (card.restrictions?.investigator) {
+        // first investigator pocket found for now...
+        for (const code of Object.keys(card.restrictions.investigator)) {
+          const pocket = pocketsByInvestigator.get(code);
+          if (pocket !== undefined) {
+            pocket.cards.push(card);
+            break;
+          }
+        }
+      }
+      pockets.push(pocket);
     } else {
-      pockets.push({ cards: [card] });
+      pockets.at(-1)?.cards.push(card);
     }
     return pockets;
   }, [] as Pocket[]);
+}
+
+function sortPlayerCardsByClass(a: Card, b: Card): number {
+  const classOrder = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'mythos']; // mythos?
+
+  const aClass = classOrder.indexOf(a.faction_code);
+  if (aClass === -1) {
+    throw new Error(`unknown faction_code ${a.faction_code}`);
+  }
+
+  const bClass = classOrder.indexOf(b.faction_code);
+  if (bClass === -1) {
+    throw new Error(`unknown faction_code ${b.faction_code}`);
+  }
+
+  return aClass - bClass;
 }
 
 function sortPlayerCardsByType(a: Card, b: Card): number {
@@ -120,10 +160,7 @@ function sortPlayerCardsByType(a: Card, b: Card): number {
     throw new Error(`unknown type code ${b.type_code}`);
   }
 
-  const type_code_sort = aTypeCode - bTypeCode;
-  if (type_code_sort !== 0) return type_code_sort;
-
-  return 0;
+  return aTypeCode - bTypeCode;
 }
 
 function sortAssetCardsBySlot(a: Card, b: Card) {
@@ -152,16 +189,13 @@ function sortAssetCardsBySlot(a: Card, b: Card) {
     throw new Error(`unknown slot ${b.slot}`);
   }
 
-  const slot_sort = aSlot - bSlot;
-  if (slot_sort !== 0) return slot_sort;
-
-  return 0;
+  return aSlot - bSlot;
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
 function sortCardsAsUserWant(a: Card, b: Card) {
-  const faction_sort = a.faction_code.localeCompare(b.faction_code);
-  if (faction_sort !== 0) return faction_sort;
+  const byClass = sortPlayerCardsByClass(a, b);
+  if (byClass !== 0) return byClass;
 
   const byType = sortPlayerCardsByType(a, b);
   if (byType !== 0) return byType;
