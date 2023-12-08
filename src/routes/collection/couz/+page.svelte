@@ -19,10 +19,10 @@
   };
 
   const slot = (card: Card) => (card.type_code === 'asset' && card.slot ? ` -- ${card.slot}` : '');
-  const titleXP = (card: Card) => {
+  const title = (card: Card) => {
     const subname = card.subname ? `: ${card.subname}` : '';
-    const xp = card.xp ? ` (${card.xp} xp)` : '';
-    return `${card.name}${subname}${xp}`;
+    const level = card.xp ? ` (lvl ${card.xp})` : '';
+    return `${card.name}${subname}${level}`;
   };
 </script>
 
@@ -42,7 +42,7 @@
   <ul>
     {#each pocket.cards as card}
       <li>
-        {card.quantity}x <a href={card.url} target="_blank">{titleXP(card)}</a>
+        {card.quantity}x <a href={card.url} target="_blank">{title(card)}</a>
         ({card.faction_code} -- {card.type_code}{slot(card)} -- {card.pack_name})
       </li>
     {/each}
