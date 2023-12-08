@@ -9,7 +9,7 @@
 <ul>
   {#each data.packsCollection as pack}
     <li>
-      {pack.nbCopies ?? 1}x {pack.name}
+      {pack.nbCopies}x {pack.name}
     </li>
   {/each}
 </ul>

@@ -3,10 +3,15 @@ import ahdbPacks from '$lib/server/ahdb.packs.json';
 import packList from '$lib/collections/couz.json';
 import type { PageServerLoad } from './$types';
 
+// Un pack loader, avec émulation pour Path to Carcosa qui n'est pas sur ArkhamDB.
+// Je vais me l'inventer de mon bord, le Investigator Expansion. Ce sera aussi plus domaine pour le user.
+// Serait plus simple de simuler la "physique". Donc, j'ai 2 Core dans ma collection.
+// Le traitement devrait fonctionner. Même chose avec les cartes. J'aurais 2 Knifes par Core.
+// Je mettrais 2 cartes dans la liste. Et 4 au total avec le traitement (2 packs qui ajoutent 2 cartes chaque)
+
 type CollectionPack = {
-  investigatorExpansionOnly?: boolean;
-  nbCopies?: number;
-  packCode: string;
+  nbCopies: number;
+  packCode: string; // id?
 };
 
 type Card = {
@@ -53,7 +58,7 @@ function getCardsByPackCode(ahdbCards: Card[]) {
 
 function getInvestigatorCards(
   cardsByPackCode: Map<string, Card[]>,
-  packsCollection: (Pack & CollectionPack)[],
+  packsCollection: Array<CollectionPack>,
 ) {
   const cards = new Array<Card[]>();
   for (const pack of packsCollection) {
@@ -121,9 +126,18 @@ const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(
       return card;
     }),
 );
-const packsCollection = packList.map((collPack: CollectionPack) =>
-  Object.assign({}, packsByCode.get(collPack.packCode), collPack),
+
+const packsCollection: Array<Pack & CollectionPack> = packList.map(
+  (collPack: Record<string, unknown>) => {
+    if (collPack.packCode === undefined || typeof collPack.packCode !== 'string') {
+      throw new Error(`packCode missing or is not a string in pack '${JSON.stringify(collPack)}'`);
+    }
+
+    return Object.assign({ nbCopies: 1 }, packsByCode.get(collPack.packCode), collPack) as Pack &
+      CollectionPack;
+  },
 );
+
 const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
   sortCardsAsUserWant,
 );
