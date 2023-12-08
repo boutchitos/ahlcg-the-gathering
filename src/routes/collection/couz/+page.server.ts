@@ -93,39 +93,40 @@ function getPacksByCode(ahdbPacks: Pack[]) {
   return packsByCode;
 }
 
-// Pour l'instant, ça assume que les cartes avec mêmes noms sont consécutives.
-// Je dois regrouper les cartes signatures des investigateurs aussi.
-// Le best serait d'avoir un mapping des related cards, et de savoir c'est dans quel pocket.
 function regroupByPockets(cards: Card[]): Pocket[] {
-  // Si la pocket est un investigator, je devrais retenir sa pocket.
-  // Oh! je peux le faire à l'envers. La carte a une restriction qui la ramène sur l'investigator.
-  // Cover Up: "restrictions": { "investigator": { "01001": "01001" } },
-  // C'est weak pour l'instant, je me fie que les investigateur sont processés avant leurs carte.
-  // A fallu je mette les neutrals à la fin. Ça c'est l'ordre UI du user. Devrait pas influencer si
-  // jamais je laisse ça varier.
   const pocketsByInvestigator = new Map<string, Pocket>();
+  const pocketsByName = new Map<string, Pocket>();
 
-  return cards.reduce((pockets: Pocket[], card: Card, currentIndex: number) => {
-    if (currentIndex === 0 || card.name !== cards[currentIndex - 1].name) {
-      const pocket = { cards: [card] };
-      if (card.type_code === 'investigator') {
-        pocketsByInvestigator.set(card.code, pocket);
-      } else if (card.restrictions?.investigator) {
-        // first investigator pocket found for now...
-        for (const code of Object.keys(card.restrictions.investigator)) {
-          const pocket = pocketsByInvestigator.get(code);
-          if (pocket !== undefined) {
-            pocket.cards.push(card);
-            break;
-          }
+  return cards.reduce((pockets: Pocket[], card) => {
+    let pocket: Pocket | undefined;
+
+    if (pocketsByName.has(card.name)) {
+      pocket = pocketsByName.get(card.name);
+    } else if (card.restrictions !== undefined) {
+      for (const code of Object.keys(card.restrictions.investigator)) {
+        pocket = pocketsByInvestigator.get(code);
+        if (pocket !== undefined) {
+          break;
         }
       }
-      pockets.push(pocket);
-    } else {
-      pockets.at(-1)?.cards.push(card);
+      if (pocket === undefined) {
+        throw new Error(`should have found pocket for card  ${card.name}`);
+      }
     }
+
+    if (pocket === undefined) {
+      pocket = { cards: [] };
+      pocketsByName.set(card.name, pocket);
+      if (card.type_code === 'investigator') {
+        pocketsByInvestigator.set(card.code, pocket);
+      }
+      pockets.push(pocket);
+    }
+
+    pocket.cards.push(card);
+
     return pockets;
-  }, [] as Pocket[]);
+  }, []);
 }
 
 function sortPlayerCardsByClass(a: Card, b: Card): number {
