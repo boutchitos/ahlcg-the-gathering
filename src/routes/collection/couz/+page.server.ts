@@ -10,6 +10,7 @@ type CollectionPack = {
 };
 
 type Card = {
+  displayName: string;
   faction_code: string;
   name: string;
   pack_code: string;
@@ -30,6 +31,13 @@ type Pack = {
   position: number;
   total: number;
   url: string;
+};
+
+const getCardDisplayName = (card: Card) => {
+  const subname = card.subname ? `: ${card.subname}` : '';
+  const xp = card.xp ? ` (${card.xp} xp)` : '';
+  const slot = card.type_code === 'asset' && card.slot ? `-- ${card.slot}` : '';
+  return `${card.faction_code} -- ${card.type_code}${slot}  -- ${card.name}${subname}${xp}`;
 };
 
 function getCardsByPackCode(ahdbCards: Card[]) {
@@ -76,14 +84,49 @@ function getPacksByCode(ahdbPacks: Pack[]) {
   return packsByCode;
 }
 
+const sortCardsAsUserWant = (a: Card, b: Card) => {
+  const faction_sort = a.faction_code.localeCompare(b.faction_code);
+  if (faction_sort !== 0) return faction_sort;
+
+  const typeCodeOrder = ['investigator', 'asset', 'event', 'skill', 'story', 'enemy', 'treachery']; // story, enemy???
+  const aTypeCode = typeCodeOrder.indexOf(a.type_code);
+  const bTypeCode = typeCodeOrder.indexOf(b.type_code);
+  if (aTypeCode === -1) {
+    throw new Error(`unknown type code ${a.type_code}`);
+  }
+  if (bTypeCode === -1) {
+    throw new Error(`unknown type code ${b.type_code}`);
+  }
+  const type_code_sort = aTypeCode - bTypeCode;
+  if (type_code_sort !== 0) return type_code_sort;
+
+  const slot_sort = (a.slot ?? '').localeCompare(b.slot ?? '');
+  if (slot_sort !== 0) return slot_sort;
+
+  const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
+  if (name_sort !== 0) return name_sort;
+
+  const xp_sort = a.xp - b.xp;
+  if (xp_sort !== 0) return xp_sort;
+
+  return 0;
+};
+
 const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
 const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(
-  ahdbCards.filter((card) => !['Random Basic Weakness'].includes(card.name)),
+  ahdbCards
+    .filter((card) => !['Random Basic Weakness'].includes(card.name))
+    .map((card) => {
+      card.displayName = getCardDisplayName(card);
+      return card;
+    }),
 );
 const packsCollection = packList.map((collPack: CollectionPack) =>
   Object.assign({}, packsByCode.get(collPack.packCode), collPack),
 );
-const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection);
+const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
+  sortCardsAsUserWant,
+);
 
 export const load: PageServerLoad = () => {
   return {
