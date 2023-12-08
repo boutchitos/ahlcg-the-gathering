@@ -21,6 +21,8 @@ type Card = {
   faction2_code?: string;
   name: string;
   pack_code: string;
+  pack_name: string;
+  quantity: number;
   restrictions?: { investigator: Record<string, string> };
   slot: string;
   subname: string;
@@ -73,7 +75,9 @@ function getInvestigatorCards(
       }
       throw new Error(`unknown pack '${pack.packCode}' in collection`);
     }
-    cards.push(cardsInPack);
+    for (let i = 0; i < (pack.nbCopies ?? 1); i++) {
+      cards.push(cardsInPack);
+    }
   }
   return cards.flat();
 }
