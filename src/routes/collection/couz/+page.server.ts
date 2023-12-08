@@ -38,7 +38,7 @@ type Pack = {
   url: string;
 };
 
-const getCardDisplayName = (card: Card) => {
+function getCardDisplayName(card: Card) {
   const subname = card.subname ? `: ${card.subname}` : '';
   const xp = card.xp ? ` (${card.xp} xp)` : '';
   const slot = card.type_code === 'asset' && card.slot ? `-- ${card.slot}` : '';
@@ -89,7 +89,7 @@ function getPacksByCode(ahdbPacks: Pack[]) {
   return packsByCode;
 }
 
-const sortPlayerCardsByType = (a: Card, b: Card): number => {
+function sortPlayerCardsByType(a: Card, b: Card): number {
   const typeCodeOrder = ['investigator', 'asset', 'event', 'skill', 'story', 'enemy', 'treachery']; // story, enemy???
   const aTypeCode = typeCodeOrder.indexOf(a.type_code);
   const bTypeCode = typeCodeOrder.indexOf(b.type_code);
@@ -106,7 +106,7 @@ const sortPlayerCardsByType = (a: Card, b: Card): number => {
 };
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-const sortCardsAsUserWant = (a: Card, b: Card) => {
+function sortCardsAsUserWant(a: Card, b: Card) {
   const faction_sort = a.faction_code.localeCompare(b.faction_code);
   if (faction_sort !== 0) return faction_sort;
 
