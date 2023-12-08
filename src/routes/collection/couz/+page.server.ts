@@ -45,13 +45,6 @@ type Pocket = {
   cards: Card[];
 };
 
-function getCardDisplayName(card: Card) {
-  const subname = card.subname ? `: ${card.subname}` : '';
-  const xp = card.xp ? ` (${card.xp} xp)` : '';
-  const slot = card.type_code === 'asset' && card.slot ? `-- ${card.slot}` : '';
-  return `${card.faction_code} -- ${card.type_code}${slot}  -- ${card.name}${subname}${xp}`;
-}
-
 function getCardsByPackCode(ahdbCards: Card[]) {
   const cardsByPackCode = new Map<string, Card[]>();
   for (const card of ahdbCards) {
@@ -216,11 +209,7 @@ function cleanAHDBCards() {
   const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
   const allCards = ahdbCards
     .filter((card) => !['Random Basic Weakness'].includes(card.name))
-    .filter((card) => !multiClassTitles.includes(card.name))
-    .map((card) => {
-      card.displayName = getCardDisplayName(card);
-      return card;
-    });
+    .filter((card) => !multiClassTitles.includes(card.name));
   return allCards;
 }
 
