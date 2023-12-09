@@ -70,7 +70,10 @@ function getInvestigatorCards(
       // Je me rends compte que je dois donner 'encounter=1' à l'API pour avoir toutes les cartes.
       // Ceci dit, j'ai cherché dans les cartes qui devraient seulement être investigator, et je
       // trouve des '"faction_code": "mythos"'. C'est étrange et à démêler plus tard.
-      if (['coh', 'lol'].includes(pack.packCode)) {
+      // Je viens d'en trouver la cause. Ça vient du pack guardians et ce sont des story qui tant
+      // qu'à moi, ne vont pas dans les player cards. Le throw ici est mal inséré. Car le pack
+      // existe, mais n'a pas de carte.
+      if (['coh', 'lol', 'guardians'].includes(pack.packCode)) {
         continue;
       }
       throw new Error(`unknown pack '${pack.packCode}' in collection`);
@@ -214,7 +217,8 @@ function cleanAHDBCards() {
   const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
   const allCards = ahdbCards
     .filter((card) => !['Random Basic Weakness'].includes(card.name))
-    .filter((card) => !multiClassTitles.includes(card.name));
+    .filter((card) => !multiClassTitles.includes(card.name))
+    .filter((card) => !card.code.match(/[0-9]+b/));
   return allCards;
 }
 
