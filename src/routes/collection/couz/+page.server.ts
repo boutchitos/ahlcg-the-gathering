@@ -15,6 +15,8 @@ type CollectionPack = {
 };
 
 type Card = {
+  bonded_cards?: { code: string }[];
+  bonded_to?: string;
   code: string;
   displayName: string;
   faction_code: string;
@@ -46,6 +48,12 @@ type Pack = {
 type Pocket = {
   cards: Card[];
 };
+
+function assert(expr: boolean, help = 'something went wrong!') {
+  if (!expr) {
+    throw new Error(help);
+  }
+}
 
 function getCardsByPackCode(ahdbCards: Card[]) {
   const cardsByPackCode = new Map<string, Card[]>();
@@ -99,6 +107,7 @@ function getPacksByCode(ahdbPacks: Pack[]) {
 function regroupByPockets(cards: Card[]): Pocket[] {
   const pocketsByInvestigator = new Map<string, Pocket>();
   const pocketsByName = new Map<string, Pocket>();
+  const pocketsByBoundedCard = new Map<string, Pocket>();
 
   return cards.reduce((pockets: Pocket[], card) => {
     let pocket: Pocket | undefined;
@@ -112,17 +121,26 @@ function regroupByPockets(cards: Card[]): Pocket[] {
           break;
         }
       }
-      if (pocket === undefined) {
-        throw new Error(`should have found pocket for card  ${card.name}`);
-      }
+      assert(pocket !== undefined, `should have found pocket for card  ${card.name}`);
+    } else if (card.bonded_to !== undefined) {
+      pocket = pocketsByBoundedCard.get(card.code);
+      assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
     }
 
     if (pocket === undefined) {
       pocket = { cards: [] };
+
       pocketsByName.set(card.name, pocket);
+
       if (card.type_code === 'investigator') {
         pocketsByInvestigator.set(card.code, pocket);
       }
+
+      if (card.bonded_cards !== undefined) {
+        assert(card.bonded_cards.length === 1);
+        pocketsByBoundedCard.set(card.bonded_cards[0].code, pocket);
+      }
+
       pockets.push(pocket);
     }
 
