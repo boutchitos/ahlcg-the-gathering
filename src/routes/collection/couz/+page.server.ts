@@ -28,6 +28,7 @@ type Card = {
   restrictions?: { investigator: Record<string, string> };
   slot: string;
   subname: string;
+  subtype_code?: 'basicweakness' | 'weakness';
   type_code: string;
   url: string;
   xp: number;
@@ -151,7 +152,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
 }
 
 function sortPlayerCardsByClass(a: Card, b: Card): number {
-  const classOrder = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'mythos']; // mythos?
+  const classOrder = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral'];
 
   const aClass = classOrder.indexOf(a.faction_code);
   if (aClass === -1) {
@@ -164,22 +165,6 @@ function sortPlayerCardsByClass(a: Card, b: Card): number {
   }
 
   return aClass - bClass;
-}
-
-function sortPlayerCardsByType(a: Card, b: Card): number {
-  const typeCodeOrder = ['investigator', 'asset', 'event', 'skill', 'story', 'enemy', 'treachery']; // story, enemy???
-
-  const aTypeCode = typeCodeOrder.indexOf(a.type_code);
-  if (aTypeCode === -1) {
-    throw new Error(`unknown type code ${a.type_code}`);
-  }
-
-  const bTypeCode = typeCodeOrder.indexOf(b.type_code);
-  if (bTypeCode === -1) {
-    throw new Error(`unknown type code ${b.type_code}`);
-  }
-
-  return aTypeCode - bTypeCode;
 }
 
 function sortAssetCardsBySlot(a: Card, b: Card) {
@@ -211,16 +196,48 @@ function sortAssetCardsBySlot(a: Card, b: Card) {
   return aSlot - bSlot;
 }
 
+function sortPlayerCardsByType(a: Card, b: Card): number {
+  const typeCodeOrder = ['investigator', 'asset', 'event', 'skill'];
+
+  const aTypeCode = typeCodeOrder.indexOf(a.type_code);
+  if (aTypeCode === -1) {
+    throw new Error(`unknown type code ${a.type_code}`);
+  }
+
+  const bTypeCode = typeCodeOrder.indexOf(b.type_code);
+  if (bTypeCode === -1) {
+    throw new Error(`unknown type code ${b.type_code}`);
+  }
+
+  return aTypeCode - bTypeCode;
+}
+
+function sortPlayerCardsByWeakness(a: Card, b: Card): number {
+  const aIsWeakness = a.subtype_code?.includes('weakness');
+  const bIsWeakness = b.subtype_code?.includes('weakness');
+
+  if (aIsWeakness !== bIsWeakness) {
+    return aIsWeakness ? 1 : -1; // weakness at the end
+  }
+
+  return 0;
+}
+
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
 function sortCardsAsUserWant(a: Card, b: Card) {
-  const byClass = sortPlayerCardsByClass(a, b);
-  if (byClass !== 0) return byClass;
+  const byWeakness = sortPlayerCardsByWeakness(a, b);
+  if (byWeakness !== 0) return byWeakness;
 
-  const byType = sortPlayerCardsByType(a, b);
-  if (byType !== 0) return byType;
+  if (!a.subtype_code?.includes('weakness')) {
+    const byClass = sortPlayerCardsByClass(a, b);
+    if (byClass !== 0) return byClass;
 
-  const byAssetSlot = sortAssetCardsBySlot(a, b);
-  if (byAssetSlot !== 0) return byAssetSlot;
+    const byType = sortPlayerCardsByType(a, b);
+    if (byType !== 0) return byType;
+
+    const byAssetSlot = sortAssetCardsBySlot(a, b);
+    if (byAssetSlot !== 0) return byAssetSlot;
+  }
 
   const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
   if (name_sort !== 0) return name_sort;
