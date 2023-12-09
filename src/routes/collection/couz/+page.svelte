@@ -24,6 +24,12 @@
     const level = card.xp ? ` (lvl ${card.xp})` : '';
     return `${card.name}${subname}${level}`;
   };
+
+  const toInsert = (card: Card) => {
+    // Investigator Expansion is emulated for Path to Carcosa.
+    const packsToInsert = ['ptc', 'eotp', 'tuo', 'apot', 'tpm', 'bsr', 'dca'];
+    return packsToInsert.includes(card.pack_code);
+  };
 </script>
 
 <h1>{data.username}'s Investigator Cards Collection</h1>
@@ -41,10 +47,17 @@
 {#each data.pockets as pocket}
   <ul>
     {#each pocket.cards as card}
-      <li>
-        {card.quantity}x <a href={card.url} target="_blank">{title(card)}</a>
-        ({card.faction_code} -- {card.type_code}{slot(card)} -- {card.pack_name})
-      </li>
+      {#if toInsert(card)}
+        <li style="color: red">
+          {card.quantity}x <a href={card.url} target="_blank">{title(card)}</a>
+          ({card.faction_code} -- {card.type_code}{slot(card)} -- {card.pack_name})
+        </li>
+      {:else}
+        <li>
+          {card.quantity}x <a href={card.url} target="_blank">{title(card)}</a>
+          ({card.faction_code} -- {card.type_code}{slot(card)} -- {card.pack_name})
+        </li>
+      {/if}
     {/each}
   </ul>
   <hr />
