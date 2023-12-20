@@ -32,9 +32,9 @@
   };
 </script>
 
-<h1>{data.username}'s Investigator Cards Collection</h1>
+<h1 class="text-2xl font-bold">{data.username}'s Investigator Cards Collection</h1>
 
-<p>You own {data.packsCollection.length} packs</p>
+<p class="text-lg font-bold">You own {data.packsCollection.length} packs</p>
 <ul>
   {#each data.packsCollection as pack}
     <li>
