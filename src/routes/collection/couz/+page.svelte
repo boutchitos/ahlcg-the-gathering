@@ -1,22 +1,8 @@
 <script lang="ts">
   import type { PageData } from './$types';
+  import type { Card } from '$lib/BinderStorage';
+  import PocketSheet from './PocketSheet.svelte';
   export let data: PageData;
-
-  type Card = {
-    code: string;
-    faction_code: string;
-    faction2_code?: string;
-    name: string;
-    pack_code: string;
-    pack_name: string;
-    quantity: number;
-    restrictions?: { investigator: Record<string, string> };
-    slot: string;
-    subname: string;
-    type_code: string;
-    url: string;
-    xp: number;
-  };
 
   const slot = (card: Card) => (card.type_code === 'asset' && card.slot ? ` -- ${card.slot}` : '');
   const title = (card: Card) => {
@@ -42,6 +28,8 @@
     </li>
   {/each}
 </ul>
+
+<PocketSheet pockets={data.pockets} />
 
 <p>You own {data.investigatorCardsCollection.length} investigator cards</p>
 {#each data.pockets as pocket}

@@ -2,6 +2,7 @@ import ahdbCards from '$lib/server/ahdb.cards.json';
 import ahdbPacks from '$lib/server/ahdb.packs.json';
 import packList from '$lib/collections/couz.json';
 import type { PageServerLoad } from './$types';
+import type { Pocket } from '$lib/BinderStorage';
 
 // Un pack loader, avec émulation pour Path to Carcosa qui n'est pas sur ArkhamDB.
 // Je vais me l'inventer de mon bord, le Investigator Expansion. Ce sera aussi plus domaine pour le user.
@@ -44,10 +45,6 @@ type Pack = {
   position: number;
   total: number;
   url: string;
-};
-
-type Pocket = {
-  cards: Card[];
 };
 
 function assert(expr: boolean, help = 'something went wrong!') {
