@@ -5,7 +5,10 @@
 </script>
 
 <div class="grid grid-cols-3 grid-rows-3">
-  {#each pockets.slice(0,9) as pocket}
+  {#each pockets.slice(0, 9) as pocket}
+    <div>
       <p>{pocket.cards[0].name}</p>
+      <img src={`https://arkhamdb.com${pocket.cards[0].imagesrc}`} alt={pocket.cards[0].name} />
+    </div>
   {/each}
 </div>
