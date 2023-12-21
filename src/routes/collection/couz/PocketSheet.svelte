@@ -4,12 +4,14 @@
   export let pockets: Pocket[];
 </script>
 
-<div class="flex justify-center">
-  <div class="grid grid-cols-3 gap-4">
-    {#each pockets.slice(0, 9) as pocket}
-      <div class="h-[210px] w-[150px] border">
-        <img src={`https://arkhamdb.com${pocket.cards[0].imagesrc}`} alt={pocket.cards[0].name} />
-      </div>
+<div class="mx-auto flex justify-center">
+  <div class="grid grid-cols-3 gap-2 bg-gray-700 p-2">
+    {#each pockets as pocket}
+      <img
+        class="h-auto w-[150px] rounded-md border-2 border-gray-500"
+        src={`https://arkhamdb.com${pocket.cards[0].imagesrc}`}
+        alt={pocket.cards[0].name}
+      />
     {/each}
   </div>
 </div>

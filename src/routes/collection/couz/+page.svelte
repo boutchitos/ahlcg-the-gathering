@@ -18,11 +18,15 @@
   };
 </script>
 
-<h1 class="text-2xl font-bold">{data.username}'s Investigator Cards Collection</h1>
+<h1 class="text-4xl font-bold">{data.username}'s Investigator Cards Collection</h1>
 
 <!-- un binder, list of PocketSheet/ front-back avec un pager-->
-<PocketSheet pockets={data.pockets} />
-
+<div class="mx-auto flex justify-center">
+  <div class="grid grid-cols-2 gap-2">
+    <PocketSheet pockets={data.pockets.slice(9, 18)} />
+    <PocketSheet pockets={data.pockets.slice(40, 49)} />
+  </div>
+</div>
 <!-- <p>You own {data.investigatorCardsCollection.length} investigator cards</p>
 {#each data.pockets as pocket}
   <ul>
