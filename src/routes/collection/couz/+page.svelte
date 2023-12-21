@@ -1,22 +1,8 @@
 <script lang="ts">
   import type { PageData } from './$types';
+  import type { Card } from '$lib/BinderStorage';
+  import PocketSheet from './PocketSheet.svelte';
   export let data: PageData;
-
-  type Card = {
-    code: string;
-    faction_code: string;
-    faction2_code?: string;
-    name: string;
-    pack_code: string;
-    pack_name: string;
-    quantity: number;
-    restrictions?: { investigator: Record<string, string> };
-    slot: string;
-    subname: string;
-    type_code: string;
-    url: string;
-    xp: number;
-  };
 
   const slot = (card: Card) => (card.type_code === 'asset' && card.slot ? ` -- ${card.slot}` : '');
   const title = (card: Card) => {
@@ -32,18 +18,16 @@
   };
 </script>
 
-<h1 class="text-2xl font-bold">{data.username}'s Investigator Cards Collection</h1>
+<h1 class="text-4xl font-bold">{data.username}'s Investigator Cards Collection</h1>
 
-<p class="text-lg font-bold">You own {data.packsCollection.length} packs</p>
-<ul>
-  {#each data.packsCollection as pack}
-    <li>
-      {pack.nbCopies}x {pack.name}
-    </li>
-  {/each}
-</ul>
-
-<p>You own {data.investigatorCardsCollection.length} investigator cards</p>
+<!-- un binder, list of PocketSheet/ front-back avec un pager-->
+<div class="mx-auto flex justify-center">
+  <div class="grid grid-cols-2 gap-2">
+    <PocketSheet pockets={data.pockets.slice(9, 18)} />
+    <PocketSheet pockets={data.pockets.slice(40, 49)} />
+  </div>
+</div>
+<!-- <p>You own {data.investigatorCardsCollection.length} investigator cards</p>
 {#each data.pockets as pocket}
   <ul>
     {#each pocket.cards as card}
@@ -61,4 +45,4 @@
     {/each}
   </ul>
   <hr />
-{/each}
+{/each} -->
