@@ -20,18 +20,10 @@
 
 <h1 class="text-2xl font-bold">{data.username}'s Investigator Cards Collection</h1>
 
-<p class="text-lg font-bold">You own {data.packsCollection.length} packs</p>
-<ul>
-  {#each data.packsCollection as pack}
-    <li>
-      {pack.nbCopies}x {pack.name}
-    </li>
-  {/each}
-</ul>
-
+<!-- un binder, list of PocketSheet/ front-back avec un pager-->
 <PocketSheet pockets={data.pockets} />
 
-<p>You own {data.investigatorCardsCollection.length} investigator cards</p>
+<!-- <p>You own {data.investigatorCardsCollection.length} investigator cards</p>
 {#each data.pockets as pocket}
   <ul>
     {#each pocket.cards as card}
@@ -49,4 +41,4 @@
     {/each}
   </ul>
   <hr />
-{/each}
+{/each} -->
