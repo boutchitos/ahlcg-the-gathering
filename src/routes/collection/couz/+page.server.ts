@@ -2,7 +2,7 @@ import ahdbCards from '$lib/server/ahdb.cards.json';
 import ahdbPacks from '$lib/server/ahdb.packs.json';
 import packList from '$lib/collections/couz.json';
 import type { PageServerLoad } from './$types';
-import type { Pocket } from '$lib/BinderStorage';
+import type { Card, Pocket } from '$lib/BinderStorage';
 
 // Un pack loader, avec émulation pour Path to Carcosa qui n'est pas sur ArkhamDB.
 // Je vais me l'inventer de mon bord, le Investigator Expansion. Ce sera aussi plus domaine pour le user.
@@ -13,26 +13,6 @@ import type { Pocket } from '$lib/BinderStorage';
 type CollectionPack = {
   nbCopies: number;
   packCode: string; // id?
-};
-
-type Card = {
-  bonded_cards?: { code: string }[];
-  bonded_to?: string;
-  code: string;
-  displayName: string;
-  faction_code: string;
-  faction2_code?: string;
-  name: string;
-  pack_code: string;
-  pack_name: string;
-  quantity: number;
-  restrictions?: { investigator: Record<string, string> };
-  slot: string;
-  subname: string;
-  subtype_code?: 'basicweakness' | 'weakness';
-  type_code: string;
-  url: string;
-  xp: number;
 };
 
 type Pack = {
