@@ -23,10 +23,11 @@
 <!-- un binder, list of PocketSheet/ front-back avec un pager-->
 <div class="mx-auto flex justify-center">
   <div class="grid grid-cols-2 gap-2">
-    <PocketSheet pockets={data.pockets.slice(9, 18)} />
+    <PocketSheet pockets={data.pockets.slice(0, 9)} />
     <PocketSheet pockets={data.pockets.slice(40, 49)} />
   </div>
 </div>
+
 <!-- <p>You own {data.investigatorCardsCollection.length} investigator cards</p>
 {#each data.pockets as pocket}
   <ul>
