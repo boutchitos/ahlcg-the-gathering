@@ -4,6 +4,8 @@
   import PocketSheet from './PocketSheet.svelte';
   export let data: PageData;
 
+  let pocketOffset = 0;
+
   const slot = (card: Card) => (card.type_code === 'asset' && card.slot ? ` -- ${card.slot}` : '');
   const title = (card: Card) => {
     const subname = card.subname ? `: ${card.subname}` : '';
@@ -16,6 +18,17 @@
     const packsToInsert = ['ptc', 'eotp', 'tuo', 'apot', 'tpm', 'bsr', 'dca'];
     return packsToInsert.includes(card.pack_code);
   };
+
+  function previousPage() {
+    pocketOffset -= 18;
+    pocketOffset = pocketOffset < 0 ? 0 : pocketOffset;
+
+    console.log(`click ${pocketOffset}`);
+  }
+  function nextPage() {
+    pocketOffset += 18;
+    console.log(`click ${pocketOffset}`);
+  }
 </script>
 
 <h1 class="text-4xl font-bold">{data.username}'s Investigator Cards Collection</h1>
@@ -23,8 +36,12 @@
 <!-- un binder, list of PocketSheet/ front-back avec un pager-->
 <div class="mx-auto flex justify-center">
   <div class="grid grid-cols-2 gap-2">
-    <PocketSheet pockets={data.pockets.slice(0, 9)} />
-    <PocketSheet pockets={data.pockets.slice(40, 49)} />
+    <button on:click={previousPage}>
+      <PocketSheet pockets={data.pockets.slice(pocketOffset, pocketOffset + 9)} />
+    </button>
+    <button on:click={nextPage}>
+      <PocketSheet pockets={data.pockets.slice(pocketOffset + 9, pocketOffset + 9 + 9)} />
+    </button>
   </div>
 </div>
 
