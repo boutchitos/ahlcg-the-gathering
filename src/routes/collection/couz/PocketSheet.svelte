@@ -11,7 +11,7 @@
 <div class="mx-auto flex">
   <div class="grid grid-cols-3 grid-rows-3 gap-2 bg-gray-700 p-2">
     {#each pockets as pocket}
-      <div class={shouldRotate(pocket) ? 'h-[207px] w-[150px] -rotate-90' : 'h-[207px] w-[150px]'}>
+      <div class={shouldRotate(pocket) ? 'h-[207px] w-[150px] -rotate-90 inline-flex justify-center items-center' : 'h-[207px] w-[150px]'}>
         <img
           class="{shouldRotate(pocket) ? 'min-h-[150px] min-w-[207px]' : ''}
      rounded-md border-2 border-gray-300"
