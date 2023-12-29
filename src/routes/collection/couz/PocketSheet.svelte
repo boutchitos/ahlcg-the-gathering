@@ -14,23 +14,22 @@
   function shouldRotate(pocket: Pocket): boolean {
     return pocket.cards[0].type_code === 'investigator';
   }
+
+  function widhtHeight(): string {
+    return 'h-[209px] w-[150px]';
+  }
 </script>
 
-<div class="mx-auto flex">
-  <div class="grid grid-cols-3 grid-rows-3 gap-2 bg-gray-700 p-2">
-    {#each pockets as pocket}
-      <div
-        class="inline-flex h-[209px] w-[150px] items-center justify-center {rotateInvestigators(
-          pocket,
-        )}"
-      >
-        <img
-          class="{minWidthHeight(pocket)}
-     rounded-md border-2 border-gray-300"
-          src={`https://arkhamdb.com${pocket.cards[0].imagesrc}`}
-          alt={pocket.cards[0].name}
-        />
-      </div>
-    {/each}
-  </div>
+<div class="grid grid-cols-3 grid-rows-3 gap-2 bg-gray-700 p-2">
+  {#each pockets as pocket}
+    <div
+      class="inline-flex items-center justify-center {widhtHeight()} {rotateInvestigators(pocket)}"
+    >
+      <img
+        class="rounded-md border-2 border-gray-300 {minWidthHeight(pocket)}"
+        src={`https://arkhamdb.com${pocket.cards[0].imagesrc}`}
+        alt={pocket.cards[0].name}
+      />
+    </div>
+  {/each}
 </div>
