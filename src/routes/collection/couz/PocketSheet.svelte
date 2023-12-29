@@ -3,8 +3,8 @@
 
   export let pockets: Pocket[];
 
-  function minWidthHeight(pocket:Pocket): string {
-    return shouldRotate(pocket) ? 'min-h-[150px] min-w-[209px]' : ''
+  function minWidthHeight(pocket: Pocket): string {
+    return shouldRotate(pocket) ? 'min-h-[150px] min-w-[209px]' : '';
   }
 
   function rotateInvestigators(pocket: Pocket): string {
@@ -13,7 +13,7 @@
 
   function shouldRotate(pocket: Pocket): boolean {
     return pocket.cards[0].type_code === 'investigator';
-  };
+  }
 </script>
 
 <div class="mx-auto flex">
