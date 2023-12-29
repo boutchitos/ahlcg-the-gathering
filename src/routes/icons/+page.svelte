@@ -38,3 +38,13 @@
   <img class="size-24" src="/icon/survivor.webp" alt="survivor icon" />
   <img class="size-24" src="/icon/multi.png" alt="neutral icon" />
 </div>
+<div class="flex bg-slate-400">
+  <img class="size-24" src="/icon/slot_accessory.png" alt="accessory slot icon" />
+  <img class="size-24" src="/icon/slot_ally.png" alt="ally slot icon" />
+  <img class="size-24" src="/icon/slot_arcane_1.png" alt="1x arcane slot icon" />
+  <img class="size-24" src="/icon/slot_arcane_2.png" alt="2x arcane slot icon" />
+  <img class="size-24" src="/icon/slot_body.png" alt="body slot icon" />
+  <img class="size-24" src="/icon/slot_hand_1.png" alt="1x hand slot icon" />
+  <img class="size-24" src="/icon/slot_hand_2.png" alt="2x hand slot icon" />
+  <img class="size-24" src="/icon/slot_tarot.png" alt="tarot slot icon" />
+</div>
