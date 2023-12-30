@@ -1,4 +1,5 @@
 <script lang="ts">
+  import SortableSlotsBar from './SortableSlotsBar.svelte';
   import Guardian from './guardian.svg.svelte';
   import Mystic from './mystic.svg.svelte';
   import Rogue from './rogue.svg.svelte';
@@ -48,3 +49,4 @@
   <img class="size-24" src="/icon/slot_hand_2.png" alt="2x hand slot icon" />
   <img class="size-24" src="/icon/slot_tarot.png" alt="tarot slot icon" />
 </div>
+<SortableSlotsBar />
