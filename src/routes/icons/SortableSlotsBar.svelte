@@ -1,8 +1,4 @@
 <script lang="ts">
-  function onDrop(event: DragEvent) {
-    console.log(JSON.stringify(event, undefined, 2));
-  }
-
   let slots: { name: string }[] = [
     {
       name: 'accessory',
@@ -34,55 +30,59 @@
   let original: { name: string }[];
   let dropped: boolean;
 
-  function onDragEvent(event: DragEvent, slot: { name: string }, index: number, name: string) {
-    // console.log(`${name} ${index} ${draggee}`);
+  function onDragDrop() {
+    // console.log(`Drag drop ${index} ${draggee}`);
     // console.log(JSON.stringify(slots));
-    if (name === 'start') {
-      console.log(`${name} ${index} ${draggee}`);
-      draggee = {
-        slot,
-        index,
-      };
-      original = [...slots];
-      dropped = false;
-    }
+    dropped = true;
+  }
 
-    if (name === 'enter') {
-      slots.splice(draggee.index, 1);
-      slots.splice(index, 0, draggee.slot);
-      draggee.index = index;
+  function onDragEnd() {
+    // console.log(`Drag end ${index} ${draggee}`);
+    // console.log(JSON.stringify(slots));
+    if (!dropped) {
+      // user cancelled...
+      slots = original;
       slots = slots;
     }
-
-    if (name === 'over') {
-      event.preventDefault();
-    }
-
-    if (name === 'end') {
-      if (!dropped) {
-        // user cancelled...
-        slots = original;
-        slots = slots;
-      }
-      original = [];
-      dropped = false;
-    }
-
-    if (name === 'drop') {
-      dropped = true;
-    }
+    original = [];
+    dropped = false;
   }
-</script>
+
+  function onDragEnter(index: number) {
+    // console.log(`Drag enter ${index} ${draggee}`);
+    // console.log(JSON.stringify(slots));
+    slots.splice(draggee.index, 1);
+    slots.splice(index, 0, draggee.slot);
+    draggee.index = index;
+    slots = slots;
+  }
+
+  function onDragOver(event: DragEvent) {
+    // console.log(`Drag over ${index} ${draggee}`);
+    // console.log(JSON.stringify(slots));
+    event.preventDefault();
+  }
+
+  function onDragStart(slot: { name: string }, index: number) {
+    // console.log(`Drag start ${index} ${draggee}`);
+    // console.log(JSON.stringify(slots));
+    draggee = {
+      slot,
+      index,
+    };
+    original = [...slots];
+    dropped = false;
+  }</script>
 
 <div class="flex bg-slate-400">
   {#each slots as slot, index}
     <img
-      on:dragend={(event) => onDragEvent(event, slot, index, 'end')}
-      on:dragenter={(event) => onDragEvent(event, slot, index, 'enter')}
-      on:dragover={(event) => onDragEvent(event, slot, index, 'over')}
-      on:dragstart={(event) => onDragEvent(event, slot, index, 'start')}
-      on:drop={(event) => onDragEvent(event, slot, index, 'drop')}
-      class="size-24"
+      on:dragend={onDragEnd}
+      on:dragenter={() => onDragEnter(index)}
+      on:dragover={(event) => onDragOver(event)}
+      on:dragstart={() => onDragStart(slot, index)}
+      on:drop={onDragDrop}
+      class="size-24 hover:cursor-pointer"
       src={`/icon/slot_${slot.name}.png`}
       alt={`${slot.name} slot icon`}
     />
