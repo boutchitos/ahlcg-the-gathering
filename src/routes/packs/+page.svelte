@@ -20,8 +20,6 @@
   };
 </script>
 
-<h1>Arkham Horror LCG : The Gathering</h1>
-
 <p>{data.packs.length} investigator packs available</p>
 
 <ul>

@@ -72,7 +72,8 @@
     };
     original = [...slots];
     dropped = false;
-  }</script>
+  }
+</script>
 
 <div class="flex bg-slate-400">
   {#each slots as slot, index}

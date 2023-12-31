@@ -17,8 +17,6 @@
   };
 </script>
 
-<h1>Arkham Horror LCG : The Gathering</h1>
-
 <p>{data.cards.length} investigator cards available</p>
 
 <ul>
