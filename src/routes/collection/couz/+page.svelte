@@ -10,14 +10,21 @@
 
   $: currentPage = Math.ceil(pocketOffset / 9) + 1;
   $: howManyPages = Math.ceil(data.pockets.length / 9);
+  $: leftPockets = getPockets(data.pockets, pocketOffset);
+  $: rightPockets = getPockets(data.pockets, pocketOffset, 9);
 
-  function gotoToNextpage() {
+  function gotoToNextPage() {
     pocketOffset += 18;
   }
 
   function gotoPreviousPage() {
     pocketOffset -= 18;
     pocketOffset = pocketOffset < 0 ? 0 : pocketOffset;
+  }
+
+  function getPockets(pockets: Pocket[], pocketOffset: number, offset = 0) {
+    const base = pocketOffset + offset;
+    return pockets.slice(base, base + 9).map(toPocketViewModel);
   }
 
   function toPocketViewModel(pocket: Pocket): PocketViewModel {
@@ -40,14 +47,10 @@
 <div class="mx-auto flex justify-center">
   <div class="grid grid-cols-2 gap-2">
     <button on:click={gotoPreviousPage}>
-      <PocketSheet
-        pockets={data.pockets.slice(pocketOffset, pocketOffset + 9).map(toPocketViewModel)}
-      />
+      <PocketSheet pockets={leftPockets} />
     </button>
-    <button on:click={gotoToNextpage}>
-      <PocketSheet
-        pockets={data.pockets.slice(pocketOffset + 9, pocketOffset + 9 + 9).map(toPocketViewModel)}
-      />
+    <button on:click={gotoToNextPage}>
+      <PocketSheet pockets={rightPockets} />
     </button>
   </div>
 </div>
