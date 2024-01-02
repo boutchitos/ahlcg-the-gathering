@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { Pocket } from '$lib/BinderStorage';
-  import type { Pocket as PocketViewModel } from './pocket';
+  import type { Pocket } from './pocket';
   import PocketSheet from './PocketSheet.svelte';
 
   export let pockets: Pocket[];
@@ -23,18 +22,7 @@
 
   function getPockets(pockets: Pocket[], pocketOffset: number, offset = 0) {
     const base = pocketOffset + offset;
-    return pockets.slice(base, base + 9).map(toPocketViewModel);
-  }
-
-  function toPocketViewModel(pocket: Pocket): PocketViewModel {
-    const coverCard = pocket.cards[0];
-    return {
-      title: coverCard.name,
-      coverImage: {
-        landscape: coverCard.type_code === 'investigator',
-        url: `https://arkhamdb.com${coverCard.imagesrc}`,
-      },
-    };
+    return pockets.slice(base, base + 9);
   }
 </script>
 
