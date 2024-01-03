@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Pocket } from './binder';
+  import type { Pocket } from '$lib/Presenters/binder';
 
   export let pockets: Pocket[];
 

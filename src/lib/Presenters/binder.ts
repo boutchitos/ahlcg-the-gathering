@@ -1,3 +1,5 @@
+import type { Readable } from 'svelte/store';
+
 export type Pocket = {
   title: string;
   coverImage: {
@@ -11,11 +13,12 @@ export type BinderPage = {
 };
 
 export type Binder = {
-  currentPage: number;
-  howManyPages: number;
-  leftPage: BinderPage;
-  rightPage: BinderPage;
+  currentPage: Readable<number>;
+  howManyPages: Readable<number>;
+
+  leftPage: Readable<BinderPage>;
+  rightPage: Readable<BinderPage>;
 
   handleLeftPageClick: () => void;
   handleRightPageClick: () => void;
-}
+};
