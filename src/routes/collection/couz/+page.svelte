@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Pocket } from '$lib/BinderStorage';
   import type { PageData } from './$types';
-  import type { Binder as BinderViewModel, BinderPage, Pocket as PocketViewModel } from './pocket';
+  import type { Binder as BinderViewModel, BinderPage, Pocket as PocketViewModel } from './binder';
 
   import Binder from './Binder.svelte';
 
