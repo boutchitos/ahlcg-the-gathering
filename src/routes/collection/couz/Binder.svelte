@@ -1,6 +1,6 @@
 <script lang="ts">
   import PocketSheet from './PocketSheet.svelte';
-  import type { Binder } from './pocket';
+  import type { Binder } from './binder';
 
   export let binder: Binder;
 </script>
