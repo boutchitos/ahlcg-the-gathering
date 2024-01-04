@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "arch": "depcruise src --include-only \"^src\" --output-type dot | dot -T svg > dependency-graph.svg ",
+    "arch:clean": "find ./src -name '*.svelte.ts' -exec 'rm' {} \\;",
     "dev": "vite dev",
     "build": "vite build",
     "clean": "rm -rf .svelte-kit/ .vercel",
