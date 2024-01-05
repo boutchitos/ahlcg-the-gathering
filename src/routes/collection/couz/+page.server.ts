@@ -1,6 +1,6 @@
 import ahdbCards from '$lib/server/ahdb.cards.json';
 import ahdbPacks from '$lib/server/ahdb.packs.json';
-import packList from '$lib/collections/couz.json';
+import packList from '$lib/server/collection/couz.json';
 import type { PageServerLoad } from './$types';
 import type { Card, Pocket } from '$lib/BinderStorage';
 

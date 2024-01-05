@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "arch": "depcruise src --include-only \"^src\" --output-type dot | dot -T svg > dependency-graph.svg ",
+    "arch:hack_to_be_ran_manually": "find ./src -name '*.svelte' -exec sh -c 'grep import {} | sed s/svelte/svelte.ts/ > {}.ts' \\;",
+    "arch:clean": "find ./src -name '*.svelte.ts' -exec rm {} ;",
     "dev": "vite dev",
     "build": "vite build",
     "clean": "rm -rf .svelte-kit/ .vercel",
@@ -25,6 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "autoprefixer": "^10.4.16",
+    "dependency-cruiser": "^16.0.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-svelte": "^2.30.0",
