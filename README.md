@@ -1,38 +1,41 @@
-# create-svelte
+# The Gathering
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A binder storage solution for Arkham Horror: The Card Game.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Install
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+pnpm install
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm dev
 ```
+
+## Architecture
+
+To refresh dependency-graph.svg, linked below...
+
+```bash
+pnpm arch:clean && manual pnpm arch:hack... && pnpm arch && pnpm arch:clean
+```
+
+<img src="./dependency-graph.svg" alt="dependency graph" width="100%"/>
 
 ## Building
 
 To create a production version of your app:
 
 ```bash
-npm run build
+pnpm clean && pnpm build && pnpm preview
 ```
 
-You can preview the production build with `npm run preview`.
+## Deploying
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Pushing to a remote branch deploys a preview. **Pushing/merging to main deploys to production.**
+
+This is hosted @ Vercel: https://ahtcg-the-gathering.vercel.app/.
