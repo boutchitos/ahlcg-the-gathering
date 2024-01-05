@@ -1,6 +1,6 @@
 <script lang="ts">
   import PocketSheet from './PocketSheet.svelte';
-  import type { Binder, BinderPage, Pocket } from '$lib/Presenters/binder';
+  import type { Binder, BinderPage, Pocket } from '$lib/ViewModels/binder';
 
   export let binder: Binder;
 

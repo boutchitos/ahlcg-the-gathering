@@ -1,6 +1,6 @@
 import { derived, readable, writable } from 'svelte/store';
 import type { Pocket } from '$lib/BinderStorage';
-import type { Binder, BinderPage, Pocket as PocketViewModel } from './binder';
+import type { Binder, BinderPage, Pocket as PocketViewModel } from '$lib/ViewModels/binder';
 
 export function useBinder(pockets: Pocket[]): Binder {
   const pocketsVM = pockets.map(toPocketViewModel);

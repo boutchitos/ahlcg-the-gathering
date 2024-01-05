@@ -1,8 +1,8 @@
 <script lang="ts">
+  import Binder from '$lib/Components/Binder.svelte';
   import { useBinder } from '$lib/Presenters/BinderOutputPort';
 
   import type { PageData } from './$types';
-  import Binder from './Binder.svelte';
 
   export let data: PageData;
   const binder = useBinder(data.pockets);
