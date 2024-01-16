@@ -19,168 +19,159 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M173,-16C173,-16 266,-16 266,-16 272,-16 278,-22 278,-28 278,-28 278,-240 278,-240 278,-246 272,-252 266,-252 266,-252 173,-252 173,-252 167,-252 161,-246 161,-240 161,-240 161,-28 161,-28 161,-22 167,-16 173,-16"/>
 <text text-anchor="middle" x="219.5" y="-240.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">lib</text>
 </g>
+<g id="clust5" class="cluster">
+<title>cluster_src/lib/BinderStorage</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M192.5,-174C192.5,-174 246.5,-174 246.5,-174 252.5,-174 258.5,-180 258.5,-186 258.5,-186 258.5,-214 258.5,-214 258.5,-220 252.5,-226 246.5,-226 246.5,-226 192.5,-226 192.5,-226 186.5,-226 180.5,-220 180.5,-214 180.5,-214 180.5,-186 180.5,-186 180.5,-180 186.5,-174 192.5,-174"/>
+<text text-anchor="middle" x="219.5" y="-214.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">BinderStorage</text>
+</g>
 <g id="clust6" class="cluster">
 <title>cluster_src/lib/server</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M181,-84C181,-84 258,-84 258,-84 264,-84 270,-90 270,-96 270,-96 270,-214 270,-214 270,-220 264,-226 258,-226 258,-226 181,-226 181,-226 175,-226 169,-220 169,-214 169,-214 169,-96 169,-96 169,-90 175,-84 181,-84"/>
-<text text-anchor="middle" x="219.5" y="-214.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">server</text>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M181,-24C181,-24 258,-24 258,-24 264,-24 270,-30 270,-36 270,-36 270,-154 270,-154 270,-160 264,-166 258,-166 258,-166 181,-166 181,-166 175,-166 169,-160 169,-154 169,-154 169,-36 169,-36 169,-30 175,-24 181,-24"/>
+<text text-anchor="middle" x="219.5" y="-154.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">server</text>
 </g>
 <g id="clust7" class="cluster">
 <title>cluster_src/lib/server/collection</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M195.5,-148C195.5,-148 243.5,-148 243.5,-148 249.5,-148 255.5,-154 255.5,-160 255.5,-160 255.5,-188 255.5,-188 255.5,-194 249.5,-200 243.5,-200 243.5,-200 195.5,-200 195.5,-200 189.5,-200 183.5,-194 183.5,-188 183.5,-188 183.5,-160 183.5,-160 183.5,-154 189.5,-148 195.5,-148"/>
-<text text-anchor="middle" x="219.5" y="-188.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">collection</text>
-</g>
-<g id="clust5" class="cluster">
-<title>cluster_src/lib/BinderStorage</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M192.5,-24C192.5,-24 246.5,-24 246.5,-24 252.5,-24 258.5,-30 258.5,-36 258.5,-36 258.5,-64 258.5,-64 258.5,-70 252.5,-76 246.5,-76 246.5,-76 192.5,-76 192.5,-76 186.5,-76 180.5,-70 180.5,-64 180.5,-64 180.5,-36 180.5,-36 180.5,-30 186.5,-24 192.5,-24"/>
-<text text-anchor="middle" x="219.5" y="-64.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">BinderStorage</text>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M195.5,-88C195.5,-88 243.5,-88 243.5,-88 249.5,-88 255.5,-94 255.5,-100 255.5,-100 255.5,-128 255.5,-128 255.5,-134 249.5,-140 243.5,-140 243.5,-140 195.5,-140 195.5,-140 189.5,-140 183.5,-134 183.5,-128 183.5,-128 183.5,-100 183.5,-100 183.5,-94 189.5,-88 195.5,-88"/>
+<text text-anchor="middle" x="219.5" y="-128.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">collection</text>
 </g>
 <g id="clust2" class="cluster">
-<title>cluster_src/app</title>
+<title>cluster_src/gathering</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M28,-260C28,-260 336,-260 336,-260 342,-260 348,-266 348,-272 348,-272 348,-334 348,-334 348,-340 342,-346 336,-346 336,-346 28,-346 28,-346 22,-346 16,-340 16,-334 16,-334 16,-272 16,-272 16,-266 22,-260 28,-260"/>
-<text text-anchor="middle" x="182" y="-334.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">app</text>
+<text text-anchor="middle" x="182" y="-334.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">gathering</text>
 </g>
 <g id="clust3" class="cluster">
-<title>cluster_src/app/CollectionEditor</title>
+<title>cluster_src/gathering/CollectionEditor</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M36,-268C36,-268 264,-268 264,-268 270,-268 276,-274 276,-280 276,-280 276,-308 276,-308 276,-314 270,-320 264,-320 264,-320 36,-320 36,-320 30,-320 24,-314 24,-308 24,-308 24,-280 24,-280 24,-274 30,-268 36,-268"/>
 <text text-anchor="middle" x="150" y="-308.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEditor</text>
 </g>
 <g id="clust8" class="cluster">
 <title>cluster_src/routes</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M37,-83C37,-83 141,-83 141,-83 147,-83 153,-89 153,-95 153,-95 153,-191 153,-191 153,-197 147,-203 141,-203 141,-203 37,-203 37,-203 31,-203 25,-197 25,-191 25,-191 25,-95 25,-95 25,-89 31,-83 37,-83"/>
-<text text-anchor="middle" x="89" y="-191.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">routes</text>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M37,-55C37,-55 141,-55 141,-55 147,-55 153,-61 153,-67 153,-67 153,-163 153,-163 153,-169 147,-175 141,-175 141,-175 37,-175 37,-175 31,-175 25,-169 25,-163 25,-163 25,-67 25,-67 25,-61 31,-55 37,-55"/>
+<text text-anchor="middle" x="89" y="-163.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">routes</text>
 </g>
 <g id="clust9" class="cluster">
 <title>cluster_src/routes/collection</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M45,-91C45,-91 133,-91 133,-91 139,-91 145,-97 145,-103 145,-103 145,-165 145,-165 145,-171 139,-177 133,-177 133,-177 45,-177 45,-177 39,-177 33,-171 33,-165 33,-165 33,-103 33,-103 33,-97 39,-91 45,-91"/>
-<text text-anchor="middle" x="89" y="-165.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">collection</text>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M45,-63C45,-63 133,-63 133,-63 139,-63 145,-69 145,-75 145,-75 145,-137 145,-137 145,-143 139,-149 133,-149 133,-149 45,-149 45,-149 39,-149 33,-143 33,-137 33,-137 33,-75 33,-75 33,-69 39,-63 45,-63"/>
+<text text-anchor="middle" x="89" y="-137.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">collection</text>
 </g>
 <g id="clust10" class="cluster">
 <title>cluster_src/routes/collection/couz</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M53,-99C53,-99 125,-99 125,-99 131,-99 137,-105 137,-111 137,-111 137,-139 137,-139 137,-145 131,-151 125,-151 125,-151 53,-151 53,-151 47,-151 41,-145 41,-139 41,-139 41,-111 41,-111 41,-105 47,-99 53,-99"/>
-<text text-anchor="middle" x="89" y="-139.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">couz</text>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M53,-71C53,-71 125,-71 125,-71 131,-71 137,-77 137,-83 137,-83 137,-111 137,-111 137,-117 131,-123 125,-123 125,-123 53,-123 53,-123 47,-123 41,-117 41,-111 41,-111 41,-83 41,-83 41,-77 47,-71 53,-71"/>
+<text text-anchor="middle" x="89" y="-111.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">couz</text>
 </g>
-<!-- src/app.d.ts -->
+<!-- src/gathering/CollectionEditor/addRemovePack.test.ts -->
 <g id="node1" class="node">
-<title>src/app.d.ts</title>
-<g id="a_node1"><a xlink:href="src/app.d.ts" xlink:title="app.d.ts">
-<path fill="#ccffcc" stroke="black" d="M110,-62C110,-62 68,-62 68,-62 65,-62 62,-59 62,-56 62,-56 62,-50 62,-50 62,-47 65,-44 68,-44 68,-44 110,-44 110,-44 113,-44 116,-47 116,-50 116,-50 116,-56 116,-56 116,-59 113,-62 110,-62"/>
-<text text-anchor="start" x="72" y="-50.8" font-family="Helvetica,sans-Serif" font-size="9.00">app.d.ts</text>
-</a>
-</g>
-</g>
-<!-- src/app/CollectionEditor/addRemovePack.test.ts -->
-<g id="node2" class="node">
-<title>src/app/CollectionEditor/addRemovePack.test.ts</title>
-<g id="a_node2"><a xlink:href="src/app/CollectionEditor/addRemovePack.test.ts" xlink:title="addRemovePack.test.ts">
+<title>src/gathering/CollectionEditor/addRemovePack.test.ts</title>
+<g id="a_node1"><a xlink:href="src/gathering/CollectionEditor/addRemovePack.test.ts" xlink:title="addRemovePack.test.ts">
 <path fill="#ddfeff" stroke="black" d="M140,-294C140,-294 38,-294 38,-294 35,-294 32,-291 32,-288 32,-288 32,-282 32,-282 32,-279 35,-276 38,-276 38,-276 140,-276 140,-276 143,-276 146,-279 146,-282 146,-282 146,-288 146,-288 146,-291 143,-294 140,-294"/>
 <text text-anchor="start" x="40" y="-282.8" font-family="Helvetica,sans-Serif" font-size="9.00">addRemovePack.test.ts</text>
 </a>
 </g>
 </g>
-<!-- src/app/CollectionEditor/addRemovePack.ts -->
-<g id="node3" class="node">
-<title>src/app/CollectionEditor/addRemovePack.ts</title>
-<g id="a_node3"><a xlink:href="src/app/CollectionEditor/addRemovePack.ts" xlink:title="addRemovePack.ts">
+<!-- src/gathering/CollectionEditor/addRemovePack.ts -->
+<g id="node2" class="node">
+<title>src/gathering/CollectionEditor/addRemovePack.ts</title>
+<g id="a_node2"><a xlink:href="src/gathering/CollectionEditor/addRemovePack.ts" xlink:title="addRemovePack.ts">
 <path fill="#ddfeff" stroke="black" d="M262,-294C262,-294 177,-294 177,-294 174,-294 171,-291 171,-288 171,-288 171,-282 171,-282 171,-279 174,-276 177,-276 177,-276 262,-276 262,-276 265,-276 268,-279 268,-282 268,-282 268,-288 268,-288 268,-291 265,-294 262,-294"/>
 <text text-anchor="start" x="179" y="-282.8" font-family="Helvetica,sans-Serif" font-size="9.00">addRemovePack.ts</text>
 </a>
 </g>
 </g>
-<!-- src/app/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/app/CollectionEditor/addRemovePack.ts -->
+<!-- src/gathering/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/gathering/CollectionEditor/addRemovePack.ts -->
 <g id="edge1" class="edge">
-<title>src/app/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/app/CollectionEditor/addRemovePack.ts</title>
+<title>src/gathering/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/gathering/CollectionEditor/addRemovePack.ts</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M146.36,-285C152.3,-285 158.34,-285 164.26,-285"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="164.62,-287.1 170.62,-285 164.62,-282.9 164.62,-287.1"/>
 </g>
-<!-- src/app/index.ts -->
-<g id="node4" class="node">
-<title>src/app/index.ts</title>
-<g id="a_node4"><a xlink:href="src/app/index.ts" xlink:title="index.ts">
+<!-- src/gathering/index.ts -->
+<g id="node3" class="node">
+<title>src/gathering/index.ts</title>
+<g id="a_node3"><a xlink:href="src/gathering/index.ts" xlink:title="index.ts">
 <path fill="#ddfeff" stroke="black" d="M334,-305C334,-305 292,-305 292,-305 289,-305 286,-302 286,-299 286,-299 286,-293 286,-293 286,-290 289,-287 292,-287 292,-287 334,-287 334,-287 337,-287 340,-290 340,-293 340,-293 340,-299 340,-299 340,-302 337,-305 334,-305"/>
 <text text-anchor="start" x="297" y="-293.8" font-family="Helvetica,sans-Serif" font-size="9.00">index.ts</text>
 </a>
 </g>
 </g>
-<!-- src/app/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/app/index.ts -->
+<!-- src/gathering/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/gathering/index.ts -->
 <g id="edge2" class="edge">
-<title>src/app/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/app/index.ts</title>
+<title>src/gathering/CollectionEditor/addRemovePack.test.ts&#45;&gt;src/gathering/index.ts</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M125.52,-294.02C136.79,-296.47 149.35,-298.78 161,-300 212.72,-305.4 226.09,-303.04 278,-300 278.47,-299.97 278.94,-299.94 279.41,-299.91"/>
 <polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="279.86,-301.98 285.67,-299.41 279.52,-297.8 279.86,-301.98"/>
 </g>
-<!-- src/app/CollectionEditor/addRemovePack.ts&#45;&gt;src/app/index.ts -->
+<!-- src/gathering/CollectionEditor/addRemovePack.ts&#45;&gt;src/gathering/index.ts -->
 <g id="edge3" class="edge">
-<title>src/app/CollectionEditor/addRemovePack.ts&#45;&gt;src/app/index.ts</title>
+<title>src/gathering/CollectionEditor/addRemovePack.ts&#45;&gt;src/gathering/index.ts</title>
 <path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M268.13,-290.73C272.02,-291.19 275.9,-291.66 279.64,-292.11"/>
 <polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="279.59,-294.22 285.8,-292.85 280.09,-290.05 279.59,-294.22"/>
 </g>
 <!-- src/lib/BinderStorage/index.ts -->
-<g id="node5" class="node">
+<g id="node4" class="node">
 <title>src/lib/BinderStorage/index.ts</title>
-<g id="a_node5"><a xlink:href="src/lib/BinderStorage/index.ts" xlink:title="index.ts">
-<path fill="#ddfeff" stroke="black" d="M240.5,-50C240.5,-50 198.5,-50 198.5,-50 195.5,-50 192.5,-47 192.5,-44 192.5,-44 192.5,-38 192.5,-38 192.5,-35 195.5,-32 198.5,-32 198.5,-32 240.5,-32 240.5,-32 243.5,-32 246.5,-35 246.5,-38 246.5,-38 246.5,-44 246.5,-44 246.5,-47 243.5,-50 240.5,-50"/>
-<text text-anchor="start" x="203.5" y="-38.8" font-family="Helvetica,sans-Serif" font-size="9.00">index.ts</text>
+<g id="a_node4"><a xlink:href="src/lib/BinderStorage/index.ts" xlink:title="index.ts">
+<path fill="#ddfeff" stroke="black" d="M240.5,-200C240.5,-200 198.5,-200 198.5,-200 195.5,-200 192.5,-197 192.5,-194 192.5,-194 192.5,-188 192.5,-188 192.5,-185 195.5,-182 198.5,-182 198.5,-182 240.5,-182 240.5,-182 243.5,-182 246.5,-185 246.5,-188 246.5,-188 246.5,-194 246.5,-194 246.5,-197 243.5,-200 240.5,-200"/>
+<text text-anchor="start" x="203.5" y="-188.8" font-family="Helvetica,sans-Serif" font-size="9.00">index.ts</text>
 </a>
 </g>
 </g>
 <!-- src/lib/server/ahdb.cards.json -->
-<g id="node6" class="node">
+<g id="node5" class="node">
 <title>src/lib/server/ahdb.cards.json</title>
-<g id="a_node6"><a xlink:href="src/lib/server/ahdb.cards.json" xlink:title="ahdb.cards.json">
-<path fill="#ffee44" stroke="black" d="M255,-140C255,-140 184,-140 184,-140 181,-140 178,-137 178,-134 178,-134 178,-128 178,-128 178,-125 181,-122 184,-122 184,-122 255,-122 255,-122 258,-122 261,-125 261,-128 261,-128 261,-134 261,-134 261,-137 258,-140 255,-140"/>
-<text text-anchor="start" x="186" y="-128.8" font-family="Helvetica,sans-Serif" font-size="9.00">ahdb.cards.json</text>
+<g id="a_node5"><a xlink:href="src/lib/server/ahdb.cards.json" xlink:title="ahdb.cards.json">
+<path fill="#ffee44" stroke="black" d="M255,-80C255,-80 184,-80 184,-80 181,-80 178,-77 178,-74 178,-74 178,-68 178,-68 178,-65 181,-62 184,-62 184,-62 255,-62 255,-62 258,-62 261,-65 261,-68 261,-68 261,-74 261,-74 261,-77 258,-80 255,-80"/>
+<text text-anchor="start" x="186" y="-68.8" font-family="Helvetica,sans-Serif" font-size="9.00">ahdb.cards.json</text>
 </a>
 </g>
 </g>
 <!-- src/lib/server/ahdb.packs.json -->
-<g id="node7" class="node">
+<g id="node6" class="node">
 <title>src/lib/server/ahdb.packs.json</title>
-<g id="a_node7"><a xlink:href="src/lib/server/ahdb.packs.json" xlink:title="ahdb.packs.json">
-<path fill="#ffee44" stroke="black" d="M256,-110C256,-110 183,-110 183,-110 180,-110 177,-107 177,-104 177,-104 177,-98 177,-98 177,-95 180,-92 183,-92 183,-92 256,-92 256,-92 259,-92 262,-95 262,-98 262,-98 262,-104 262,-104 262,-107 259,-110 256,-110"/>
-<text text-anchor="start" x="185" y="-98.8" font-family="Helvetica,sans-Serif" font-size="9.00">ahdb.packs.json</text>
+<g id="a_node6"><a xlink:href="src/lib/server/ahdb.packs.json" xlink:title="ahdb.packs.json">
+<path fill="#ffee44" stroke="black" d="M256,-50C256,-50 183,-50 183,-50 180,-50 177,-47 177,-44 177,-44 177,-38 177,-38 177,-35 180,-32 183,-32 183,-32 256,-32 256,-32 259,-32 262,-35 262,-38 262,-38 262,-44 262,-44 262,-47 259,-50 256,-50"/>
+<text text-anchor="start" x="185" y="-38.8" font-family="Helvetica,sans-Serif" font-size="9.00">ahdb.packs.json</text>
 </a>
 </g>
 </g>
 <!-- src/lib/server/collection/couz.json -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>src/lib/server/collection/couz.json</title>
-<g id="a_node8"><a xlink:href="src/lib/server/collection/couz.json" xlink:title="couz.json">
-<path fill="#ffee44" stroke="black" d="M241.5,-174C241.5,-174 197.5,-174 197.5,-174 194.5,-174 191.5,-171 191.5,-168 191.5,-168 191.5,-162 191.5,-162 191.5,-159 194.5,-156 197.5,-156 197.5,-156 241.5,-156 241.5,-156 244.5,-156 247.5,-159 247.5,-162 247.5,-162 247.5,-168 247.5,-168 247.5,-171 244.5,-174 241.5,-174"/>
-<text text-anchor="start" x="199.5" y="-162.8" font-family="Helvetica,sans-Serif" font-size="9.00">couz.json</text>
+<g id="a_node7"><a xlink:href="src/lib/server/collection/couz.json" xlink:title="couz.json">
+<path fill="#ffee44" stroke="black" d="M241.5,-114C241.5,-114 197.5,-114 197.5,-114 194.5,-114 191.5,-111 191.5,-108 191.5,-108 191.5,-102 191.5,-102 191.5,-99 194.5,-96 197.5,-96 197.5,-96 241.5,-96 241.5,-96 244.5,-96 247.5,-99 247.5,-102 247.5,-102 247.5,-108 247.5,-108 247.5,-111 244.5,-114 241.5,-114"/>
+<text text-anchor="start" x="199.5" y="-102.8" font-family="Helvetica,sans-Serif" font-size="9.00">couz.json</text>
 </a>
 </g>
 </g>
 <!-- src/routes/collection/couz/+page.server.ts -->
-<g id="node9" class="node">
+<g id="node8" class="node">
 <title>src/routes/collection/couz/+page.server.ts</title>
-<g id="a_node9"><a xlink:href="src/routes/collection/couz/+page.server.ts" xlink:title="+page.server.ts">
-<path fill="#ddfeff" stroke="black" d="M123,-125C123,-125 55,-125 55,-125 52,-125 49,-122 49,-119 49,-119 49,-113 49,-113 49,-110 52,-107 55,-107 55,-107 123,-107 123,-107 126,-107 129,-110 129,-113 129,-113 129,-119 129,-119 129,-122 126,-125 123,-125"/>
-<text text-anchor="start" x="57" y="-113.8" font-family="Helvetica,sans-Serif" font-size="9.00">+page.server.ts</text>
+<g id="a_node8"><a xlink:href="src/routes/collection/couz/+page.server.ts" xlink:title="+page.server.ts">
+<path fill="#ddfeff" stroke="black" d="M123,-97C123,-97 55,-97 55,-97 52,-97 49,-94 49,-91 49,-91 49,-85 49,-85 49,-82 52,-79 55,-79 55,-79 123,-79 123,-79 126,-79 129,-82 129,-85 129,-85 129,-91 129,-91 129,-94 126,-97 123,-97"/>
+<text text-anchor="start" x="57" y="-85.8" font-family="Helvetica,sans-Serif" font-size="9.00">+page.server.ts</text>
 </a>
 </g>
 </g>
 <!-- src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/BinderStorage/index.ts -->
 <g id="edge4" class="edge">
 <title>src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/BinderStorage/index.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M129.13,-114.22C137.77,-112.22 146.33,-108.77 153,-103 160.87,-96.2 154.65,-89.25 161,-81 169.86,-69.49 182.97,-60.01 194.44,-53.17"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="195.75,-54.84 199.91,-50.03 193.66,-51.2 195.75,-54.84"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M101.4,-97.14C124.21,-115.42 175.51,-156.54 201.99,-177.76"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="200.94,-179.62 206.94,-181.73 203.57,-176.34 200.94,-179.62"/>
 </g>
 <!-- src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/server/ahdb.cards.json -->
 <g id="edge5" class="edge">
 <title>src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/server/ahdb.cards.json</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M129.25,-120.58C142.57,-122.14 157.57,-123.89 171.43,-125.51"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="171.51,-127.63 177.71,-126.24 171.99,-123.46 171.51,-127.63"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M129.25,-82.81C142.57,-81.05 157.57,-79.06 171.43,-77.23"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="172.04,-79.27 177.71,-76.4 171.49,-75.1 172.04,-79.27"/>
 </g>
 <!-- src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/server/ahdb.packs.json -->
 <g id="edge6" class="edge">
 <title>src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/server/ahdb.packs.json</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M129.25,-111.42C142.31,-109.89 157,-108.18 170.63,-106.59"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="171.1,-108.65 176.81,-105.87 170.61,-104.48 171.1,-108.65"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M107.75,-78.99C121.91,-72.05 142.39,-62.57 161,-56 165.31,-54.48 169.85,-53.04 174.41,-51.69"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="174.99,-53.7 180.18,-50.03 173.84,-49.67 174.99,-53.7"/>
 </g>
 <!-- src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/server/collection/couz.json -->
 <g id="edge7" class="edge">
 <title>src/routes/collection/couz/+page.server.ts&#45;&gt;src/lib/server/collection/couz.json</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M105.3,-125.16C119.35,-133.22 140.98,-144.79 161,-152 168.75,-154.79 177.31,-157.11 185.4,-158.98"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="185.17,-161.08 191.48,-160.33 186.08,-156.98 185.17,-161.08"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M129.25,-93.19C147.13,-95.56 168.07,-98.33 185.17,-100.59"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="185.06,-102.69 191.29,-101.4 185.62,-98.53 185.06,-102.69"/>
 </g>
 </g>
 </svg>
