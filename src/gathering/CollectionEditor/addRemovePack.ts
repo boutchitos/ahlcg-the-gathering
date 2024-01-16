@@ -1,11 +1,5 @@
 import type { Collection, IPackRepository, Pack } from '$gathering';
 
-export class PackRepository implements IPackRepository {
-  getAllPacks(): Iterable<Pack> {
-    return ['Core Set', 'The Dunwich Legacy'];
-  }
-}
-
 export class UnknownPackError extends Error {
   constructor(pack: Pack) {
     super(`Unknown pack '${pack}'`);

@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { PackRepository, UnknownPackError, addPack } from './addRemovePack';
+import { UnknownPackError, addPack } from './addRemovePack';
 import type { Collection } from '$gathering';
+import { PackRepository } from './PackRepository';
 
 describe('Collection Editor : add/remove pack', () => {
   const collection: Collection = [];
