@@ -1,25 +1,26 @@
 import { describe, expect, test } from 'vitest';
-import { addPack } from './addRemovePack';
+import { PackRepository, addPack } from './addRemovePack';
 import type { Collection } from '$gathering';
 
 describe('Collection Editor : add/remove pack', () => {
   const collection: Collection = [];
+  const packRepo = new PackRepository();
 
   test('adds one pack to Collection', () => {
-    let updated = addPack(collection, 'Core Set');
+    let updated = addPack(packRepo, collection, 'Core Set');
     expect(updated).toEqual(['Core Set']);
-    updated = addPack(updated, 'The Dunwich Legacy');
+    updated = addPack(packRepo, updated, 'The Dunwich Legacy');
     expect(updated).toEqual(['Core Set', 'The Dunwich Legacy']);
   });
 
   test('may adds more than once', () => {
-    let updated = addPack(collection, 'Core Set');
-    updated = addPack(updated, 'Core Set');
+    let updated = addPack(packRepo, collection, 'Core Set');
+    updated = addPack(packRepo, updated, 'Core Set');
     expect(updated).toEqual(['Core Set', 'Core Set']);
   });
 
   test("does't mutate 'collection'", () => {
-    addPack(collection, 'Core Set');
+    addPack(packRepo, collection, 'Core Set');
     expect(collection).toEqual([]);
   });
 });
