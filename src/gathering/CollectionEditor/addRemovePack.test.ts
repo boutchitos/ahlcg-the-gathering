@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { UnknownPackError, addPack, removePack } from './addRemovePack';
 import type { Collection } from '$gathering';
-import { PackRepository } from './PackRepository';
+import { PackRepositoryMock } from './PackRepositoryMock';
 
 const CoreSet = 'Core Set';
 const Dunwich = 'The Dunwich Legacy';
 
 describe('Collection Editor : add/remove pack', () => {
   const collection: Collection = [];
-  const packRepo = new PackRepository();
+  const packRepo = new PackRepositoryMock();
 
   it('adds one pack to Collection', () => {
     let updated = addPack(packRepo, collection, CoreSet);
