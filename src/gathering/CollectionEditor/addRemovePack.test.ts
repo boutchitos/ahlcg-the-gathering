@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { UnknownPackError, addPack, removePack } from './addRemovePack';
-import type { Collection } from '$gathering';
+import type { Collection } from '$gathering/Collection';
 import { PackRepositoryMock } from './PackRepositoryMock';
 
 const CoreSet = 'Core Set';

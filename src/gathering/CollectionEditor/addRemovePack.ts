@@ -1,4 +1,6 @@
-import type { Collection, IPackRepository, Pack } from '$gathering';
+import type { Collection } from '$gathering/Collection';
+import type { IPackRepository } from '$gathering/IPackRepository';
+import type { Pack } from '$gathering/Pack';
 
 export class UnknownPackError extends Error {
   constructor(pack: Pack) {
