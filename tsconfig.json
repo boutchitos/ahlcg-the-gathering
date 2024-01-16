@@ -6,8 +6,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "$app": ["./src/app"],
-      "$app/*": ["./src/app/*"],
+      "$gathering": ["./src/gathering"],
+      "$gathering/*": ["./src/gathering/*"],
       "$lib": ["./src/lib"],
       "$lib/*": ["./src/lib/*"]
     },

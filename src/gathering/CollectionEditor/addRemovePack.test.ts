@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { addPack } from './addRemovePack';
-import type { Collection } from '$app/index';
+import type { Collection } from '$gathering';
 
 describe('Collection Editor : add/remove pack', () => {
   const collection: Collection = [];
