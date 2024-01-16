@@ -2,7 +2,7 @@ import type { Collection, Pack } from '$gathering';
 
 export class PackRepository {
   getAllPacks(): Array<Pack> {
-    return ['Core Set'];
+    return ['Core Set', 'The Dunwich Legacy'];
   }
 }
 
