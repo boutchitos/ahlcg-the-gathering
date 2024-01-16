@@ -21,7 +21,7 @@ describe('Collection Editor : add/remove pack', () => {
 
   test('validates pack', () => {
     const typo = 'The Bob That Ate Everything';
-    expect(()=>addPack(packRepo, collection, typo)).toThrowError(UnknownPackError);
+    expect(() => addPack(packRepo, collection, typo)).toThrowError(UnknownPackError);
   });
 
   test("does't mutate 'collection'", () => {
