@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'vitest';
 import { addPack } from './addRemovePack';
+import type { Collection } from '$app/index';
 
 describe('Collection Editor : add/remove pack', () => {
-  const collection: string[] = [];
+  const collection: Collection = [];
 
   test('adds one pack to Collection', () => {
     let updated = addPack(collection, 'Core Set');
