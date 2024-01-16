@@ -1,4 +1,4 @@
-import type { IPackRepository, Pack } from "$gathering";
+import type { IPackRepository, Pack } from '$gathering';
 
 export class PackRepository implements IPackRepository {
   getAllPacks(): Iterable<Pack> {
