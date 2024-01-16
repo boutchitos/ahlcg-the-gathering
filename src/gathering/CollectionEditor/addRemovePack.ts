@@ -6,10 +6,14 @@ export class PackRepository {
   }
 }
 
+export class UnknownPackError extends Error {
+  
+}
+
 export function addPack(packRepo: PackRepository, collection: Collection, pack: Pack): Collection {
   const packs = packRepo.getAllPacks();
   if (!packs.includes(pack)) {
-    console.log('la chu fache');
+    throw new UnknownPackError("bad bad bad");
   }
   return [...collection, pack];
 }

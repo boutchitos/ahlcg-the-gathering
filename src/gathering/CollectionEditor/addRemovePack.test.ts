@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { PackRepository, addPack } from './addRemovePack';
+import { PackRepository, UnknownPackError, addPack } from './addRemovePack';
 import type { Collection } from '$gathering';
 
 describe('Collection Editor : add/remove pack', () => {
@@ -17,6 +17,11 @@ describe('Collection Editor : add/remove pack', () => {
     let updated = addPack(packRepo, collection, 'Core Set');
     updated = addPack(packRepo, updated, 'Core Set');
     expect(updated).toEqual(['Core Set', 'Core Set']);
+  });
+
+  test('validates pack', () => {
+    const typo = 'The Bob That Ate Everything';
+    expect(()=>addPack(packRepo, collection, typo)).toThrowError(UnknownPackError);
   });
 
   test("does't mutate 'collection'", () => {
