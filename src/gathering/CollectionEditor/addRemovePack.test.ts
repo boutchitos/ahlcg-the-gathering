@@ -1,32 +1,59 @@
-import { describe, expect, test } from 'vitest';
-import { UnknownPackError, addPack } from './addRemovePack';
+import { describe, expect, it } from 'vitest';
+import { UnknownPackError, addPack, removePack } from './addRemovePack';
 import type { Collection } from '$gathering';
 import { PackRepository } from './PackRepository';
+
+const CoreSet = 'Core Set';
+const Dunwich = 'The Dunwich Legacy';
 
 describe('Collection Editor : add/remove pack', () => {
   const collection: Collection = [];
   const packRepo = new PackRepository();
 
-  test('adds one pack to Collection', () => {
-    let updated = addPack(packRepo, collection, 'Core Set');
-    expect(updated).toEqual(['Core Set']);
-    updated = addPack(packRepo, updated, 'The Dunwich Legacy');
-    expect(updated).toEqual(['Core Set', 'The Dunwich Legacy']);
+  it('adds one pack to Collection', () => {
+    let updated = addPack(packRepo, collection, CoreSet);
+    expect(updated).toEqual([CoreSet]);
+    updated = addPack(packRepo, updated, Dunwich);
+    expect(updated).toEqual([CoreSet, Dunwich]);
   });
 
-  test('may adds more than once', () => {
-    let updated = addPack(packRepo, collection, 'Core Set');
-    updated = addPack(packRepo, updated, 'Core Set');
-    expect(updated).toEqual(['Core Set', 'Core Set']);
+  it('may adds more than once', () => {
+    let updated = addPack(packRepo, collection, CoreSet);
+    updated = addPack(packRepo, updated, CoreSet);
+    expect(updated).toEqual([CoreSet, CoreSet]);
   });
 
-  test('validates pack', () => {
+  it('validates added pack', () => {
     const typo = 'The Bob That Ate Everything';
     expect(() => addPack(packRepo, collection, typo)).toThrowError(UnknownPackError);
   });
 
-  test("does't mutate 'collection'", () => {
-    addPack(packRepo, collection, 'Core Set');
+  it("adding pack don't mutate the inputted collection", () => {
+    addPack(packRepo, collection, CoreSet);
     expect(collection).toEqual([]);
+  });
+
+  it('removes one pack from Collection', () => {
+    const collection = [CoreSet, Dunwich];
+    const updated = removePack(collection, CoreSet);
+    expect(updated).toEqual([Dunwich]);
+  });
+
+  it('removes only one of many packs from Collection', () => {
+    const collection = [CoreSet, CoreSet];
+    const updated = removePack(collection, CoreSet);
+    expect(updated).toEqual([CoreSet]);
+  });
+
+  it('removes unexistant pack silently', () => {
+    const collection = [CoreSet];
+    const updated = removePack(collection, Dunwich);
+    expect(updated).toEqual([CoreSet]);
+  });
+
+  it("removing pack don't mutate the inputted collection", () => {
+    const collection = [CoreSet];
+    removePack(collection, CoreSet);
+    expect(collection).toEqual([CoreSet]);
   });
 });
