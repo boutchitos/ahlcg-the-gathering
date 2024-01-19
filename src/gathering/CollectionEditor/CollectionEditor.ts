@@ -1,4 +1,3 @@
-import type { Collection } from '$gathering/Collection';
 import type { IPackRepository } from '$gathering/IPackRepository';
 import type { Pack } from '$gathering/Pack';
 import type {
@@ -6,21 +5,27 @@ import type {
   ICollectionEditor,
   RemovePackRequest,
 } from '$gathering/ICollectionEditor';
+import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 
 export class CollectionEditor implements ICollectionEditor {
-  constructor(private readonly packRepo: IPackRepository) {}
+  constructor(
+    private readonly packRepo: IPackRepository,
+    private readonly collectionOutput: ICollectionOutput,
+  ) {}
 
-  addPack({ collection, pack }: AddPackRequest): Collection {
+  addPack({ collection, pack }: AddPackRequest): void {
     validatePack(this.packRepo, pack);
-    return [...collection, pack];
+    this.collectionOutput.collectionUpdated([...collection, pack]);
   }
 
-  removePack({ collection, pack }: RemovePackRequest): Collection {
+  removePack({ collection, pack }: RemovePackRequest): void {
     const idx = collection.indexOf(pack);
-    if (idx === -1) {
-      return [...collection];
+    if (idx !== -1) {
+      this.collectionOutput.collectionUpdated([
+        ...collection.slice(0, idx),
+        ...collection.slice(idx + 1),
+      ]);
     }
-    return [...collection.slice(0, idx), ...collection.slice(idx + 1)];
   }
 }
 

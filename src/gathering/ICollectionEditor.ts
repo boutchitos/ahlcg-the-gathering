@@ -12,6 +12,6 @@ export type RemovePackRequest = {
 };
 
 export interface ICollectionEditor {
-  addPack(request: AddPackRequest): Collection;
-  removePack(request: RemovePackRequest): Collection;
+  addPack(request: AddPackRequest): void;
+  removePack(request: RemovePackRequest): void;
 }
