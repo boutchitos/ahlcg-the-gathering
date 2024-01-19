@@ -1,5 +1,7 @@
 <script lang="ts">
   // import Binder from '$lib/Components/Binder.svelte';
+  import ArrowUp from './arrow-up.svg.svelte';
+  import ArrowDown from './arrow-down.svg.svelte';
   // import { useBinder } from '$lib/Presenters/BinderOutputPort';
 
   import type { PageData } from './$types';
@@ -8,7 +10,7 @@
 
   export let data: PageData;
 
-  const { packsStore } = useCollectionEditor();
+  const { packsStore, addPack, removePack } = useCollectionEditor();
 
   // const binder = useBinder(data.pockets);
 </script>
@@ -21,7 +23,19 @@
 
 <ul>
   {#each $packsStore as pack}
-    <li>{pack}</li>
+    <li>
+      <div class="flex">
+        <div class="grid gap-2">
+          <button on:click={() => addPack(pack)}>
+            <ArrowUp class="h-4 text-gray-800 dark:text-white"></ArrowUp>
+          </button>
+          <button on:click={() => removePack(pack)}>
+            <ArrowDown class="h-4 text-gray-800 dark:text-white"></ArrowDown>
+          </button>
+        </div>
+        <span class={pack.owned === true ? 'bg-blue-400' : ''}>{pack.howMany}x {pack.name}</span>
+      </div>
+    </li>
   {/each}
   <li></li>
 </ul>
