@@ -8,12 +8,7 @@
 
   export let data: PageData;
 
-  let packs: string[];
-
-  const collectionEditor = useCollectionEditor();
-  collectionEditor.packsStore.subscribe((collection) => {
-    packs = collection;
-  })
+  const { packsStore } = useCollectionEditor();
 
   // const binder = useBinder(data.pockets);
 </script>
@@ -25,7 +20,7 @@
 </div> -->
 
 <ul>
-  {#each packs as pack}
+  {#each $packsStore as pack}
     <li>{pack}</li>
   {/each}
   <li></li>
