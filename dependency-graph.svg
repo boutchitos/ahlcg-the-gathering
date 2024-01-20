@@ -24,15 +24,15 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M182.5,-452C182.5,-452 409.5,-452 409.5,-452 415.5,-452 421.5,-458 421.5,-464 421.5,-464 421.5,-492 421.5,-492 421.5,-498 415.5,-504 409.5,-504 409.5,-504 182.5,-504 182.5,-504 176.5,-504 170.5,-498 170.5,-492 170.5,-492 170.5,-464 170.5,-464 170.5,-458 176.5,-452 182.5,-452"/>
 <text text-anchor="middle" x="296" y="-492.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">Components</text>
 </g>
-<g id="clust5" class="cluster">
-<title>cluster_src/lib/BinderStorage</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M191.5,-392C191.5,-392 245.5,-392 245.5,-392 251.5,-392 257.5,-398 257.5,-404 257.5,-404 257.5,-432 257.5,-432 257.5,-438 251.5,-444 245.5,-444 245.5,-444 191.5,-444 191.5,-444 185.5,-444 179.5,-438 179.5,-432 179.5,-432 179.5,-404 179.5,-404 179.5,-398 185.5,-392 191.5,-392"/>
-<text text-anchor="middle" x="218.5" y="-432.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">BinderStorage</text>
-</g>
 <g id="clust7" class="cluster">
 <title>cluster_src/lib/ViewModels</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M441.5,-452C441.5,-452 487.5,-452 487.5,-452 493.5,-452 499.5,-458 499.5,-464 499.5,-464 499.5,-492 499.5,-492 499.5,-498 493.5,-504 487.5,-504 487.5,-504 441.5,-504 441.5,-504 435.5,-504 429.5,-498 429.5,-492 429.5,-492 429.5,-464 429.5,-464 429.5,-458 435.5,-452 441.5,-452"/>
 <text text-anchor="middle" x="464.5" y="-492.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">ViewModels</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_src/lib/BinderStorage</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M191.5,-392C191.5,-392 245.5,-392 245.5,-392 251.5,-392 257.5,-398 257.5,-404 257.5,-404 257.5,-432 257.5,-432 257.5,-438 251.5,-444 245.5,-444 245.5,-444 191.5,-444 191.5,-444 185.5,-444 179.5,-438 179.5,-432 179.5,-432 179.5,-404 179.5,-404 179.5,-398 185.5,-392 191.5,-392"/>
+<text text-anchor="middle" x="218.5" y="-432.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">BinderStorage</text>
 </g>
 <g id="clust10" class="cluster">
 <title>cluster_src/lib/userEditsCollection</title>

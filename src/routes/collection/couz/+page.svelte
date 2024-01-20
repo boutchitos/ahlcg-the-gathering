@@ -10,7 +10,7 @@
 
   export let data: PageData;
 
-  const { packsStore, addPack, removePack } = useCollectionEditor();
+  const { packsStore } = useCollectionEditor();
 
   // const binder = useBinder(data.pockets);
 </script>
@@ -26,10 +26,10 @@
     <li>
       <div class="flex">
         <div class="grid gap-2">
-          <button on:click={() => addPack(pack)}>
+          <button on:click={pack.addPackToCollection}>
             <ArrowUp class="h-4 text-gray-800 dark:text-white"></ArrowUp>
           </button>
-          <button on:click={() => removePack(pack)}>
+          <button on:click={pack.removePackFromCollection}>
             <ArrowDown class="h-4 text-gray-800 dark:text-white"></ArrowDown>
           </button>
         </div>

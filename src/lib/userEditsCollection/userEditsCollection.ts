@@ -4,20 +4,27 @@ type Pack = {
   howMany: number;
   name: string;
   owned: boolean;
+  addPackToCollection: () => void;
+  removePackFromCollection: () => void;
 };
 
 export function useCollectionEditor() {
-  const packs = writable<Pack[]>([
-    { howMany: 1, name: 'Core Set', owned: true },
-    { howMany: 0, name: 'Revised Core Set', owned: false },
-  ]);
+  const packs = writable<Pack[]>([createPack('Core Set'), createPack('Revised Core Set')]);
   return {
     packsStore: readonly(packs),
-    addPack: (pack: Pack) => {
-      console.log(`adding ${pack.name}`);
+  };
+}
+
+function createPack(name: string): Pack {
+  return {
+    howMany: 0,
+    name,
+    owned: false,
+    addPackToCollection: () => {
+      console.log(`${name} added to collection`);
     },
-    removePack: (pack: Pack) => {
-      console.log(`removing ${pack.name}`);
+    removePackFromCollection: () => {
+      console.log(`${name} removed from collection`);
     },
   };
 }
