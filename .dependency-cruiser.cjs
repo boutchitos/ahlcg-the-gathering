@@ -208,7 +208,7 @@ module.exports = {
        regular expression in its output, as well as their neighbours (direct
        dependencies and dependents)
     */
-    focus: 'src/routes/collection|src/gathering|src/lib/Components',
+    focus: 'src/routes/collection/edit|src/gathering',
 
     /* List of module systems to cruise. 
        When left out dependency-cruiser will fall back to the list of _all_ 
