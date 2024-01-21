@@ -26,12 +26,18 @@ export function useCollectionEditor() {
   const collecionOutput = new CollecionOutput();
   const collectionEditor = createCollectionEditor(collecionOutput);
 
-  // createPack called at two places...
+  // createPack called at two places... through initListOfPack
   const packsStore = writable<Pack[]>(initListOfPack(packsRepository, collectionEditor));
 
   collecionOutput.onCollectionUpdated = (collection: Collection) => {
-    // recreate list of packs, 0 not owned, and then count...
-    packsStore.set(collection.map((pack) => createPack(pack, collectionEditor)));
+    const packs = initListOfPack(packsRepository, collectionEditor);
+
+    packs.forEach((pack) => {
+      pack.howMany = collection.filter((collectedPack) => collectedPack === pack.name).length;
+      pack.owned = pack.howMany > 0;
+    });
+
+    packsStore.set(packs);
   };
 
   return {
