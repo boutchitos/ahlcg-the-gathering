@@ -1,8 +1,8 @@
 <script lang="ts">
-  // import Binder from '$lib/Components/Binder.svelte';
+  import Binder from '$lib/Components/Binder.svelte';
   import ArrowUp from './arrow-up.svg.svelte';
   import ArrowDown from './arrow-down.svg.svelte';
-  // import { useBinder } from '$lib/Presenters/BinderOutputPort';
+  import { useBinder } from '$lib/Presenters/BinderOutputPort';
 
   import type { PageData } from './$types';
 
@@ -12,14 +12,10 @@
 
   const { packsStore } = useCollectionEditor();
 
-  // const binder = useBinder(data.pockets);
+  const binder = useBinder(data.pockets);
 </script>
 
 <h1 class="text-4xl font-bold">{data.username}'s Investigator Cards Collection</h1>
-
-<!-- <div class="mx-auto flex justify-center">
-  <Binder {binder} />
-</div> -->
 
 <ul>
   {#each $packsStore as pack}
@@ -39,3 +35,7 @@
   {/each}
   <li></li>
 </ul>
+
+<div class="mx-auto flex justify-center">
+  <Binder {binder} />
+</div>
