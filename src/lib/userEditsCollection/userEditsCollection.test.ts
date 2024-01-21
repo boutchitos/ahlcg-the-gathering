@@ -1,33 +1,66 @@
-import { expect, it } from 'vitest';
-import { useCollectionEditor } from './userEditsCollection';
+import { beforeEach, expect, it } from 'vitest';
+import { useCollectionEditor, type Pack } from './userEditsCollection';
 
-it('has access to all available data packs', () => {
-  let packs;
+let packs: Pack[];
+
+beforeEach(() => {
+  packs = [];
+
   const { packsStore } = useCollectionEditor();
-  packsStore.subscribe((value) => {
+  packsStore.subscribe((value: Pack[]) => {
     packs = value;
   });
-
-  expect(packs).toEqual([
-    expect.objectContaining({ howMany: 0, name: 'Core Set', owned: false }),
-    expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
-    expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
-  ]);
 });
 
-// it('may adds a data pack to collection', () => {
-//   let packs: Pack[];
-//   const { packsStore } = useCollectionEditor();
-//   packsStore.subscribe((value: Pack[]) => {
-//     packs = value;
-//   });
+it('has access to all available data packs', () => {
+  expect(packs!).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ howMany: 0, name: 'Core Set', owned: false }),
+      expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
+      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
+    ]),
+  );
+});
 
-//   const coreSet = packs![0];
-//   coreSet.addPackToCollection();
+it('may adds a data pack to collection', () => {
+  const coreSet = packs![0];
+  coreSet.addPackToCollection();
 
-//   // still doesn't computed owned and howMany...
-//   expect(packs!).toEqual([
-//     expect.objectContaining({ howMany: 0, name: 'Core Set', owned: false }),
-//     expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
-//   ]);
-// });
+  expect(packs!).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ howMany: 1, name: 'Core Set', owned: true }),
+      expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
+      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
+    ]),
+  );
+});
+
+it('may adds data pack to collection multiple times', () => {
+  const coreSet = packs![0];
+  coreSet.addPackToCollection();
+  coreSet.addPackToCollection();
+
+  expect(packs!).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ howMany: 2, name: 'Core Set', owned: true }),
+      expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
+      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
+    ]),
+  );
+});
+
+it('may removes a data pack from collection', () => {
+  const dunwich = packs![1];
+  dunwich.addPackToCollection();
+  dunwich.addPackToCollection();
+
+  dunwich.removePackFromCollection();
+
+  expect(packs!).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ howMany: 0, name: 'Core Set', owned: false }),
+      expect.objectContaining({ howMany: 1, name: 'The Dunwich Legacy', owned: true }),
+      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
+    ]),
+  );
+});

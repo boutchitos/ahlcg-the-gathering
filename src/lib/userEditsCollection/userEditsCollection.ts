@@ -5,7 +5,7 @@ import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import type { IPackRepository } from '$gathering/IPackRepository';
 import { readonly, writable } from 'svelte/store';
 
-type Pack = {
+export type Pack = {
   howMany: number;
   name: string;
   owned: boolean;
