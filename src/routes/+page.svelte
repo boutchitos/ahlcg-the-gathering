@@ -3,7 +3,7 @@
   <a href="/packs">All investigator packs</a>
 </div>
 <div>
-  <a href="/collection/couz">Couz's Collection</a>
+  <a href="/collection/edit">Edit your Collection</a>
 </div>
 <div>
   <a href="/icons">Icons showcase</a>
