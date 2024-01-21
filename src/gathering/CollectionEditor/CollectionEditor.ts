@@ -1,8 +1,9 @@
-import { CollectionEntity } from '$gathering/CollectionEntity';
-import { createPackRepository } from '$gathering';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import type { Pack } from '$gathering/Pack';
+
+import { CollectionEntity } from '$gathering/CollectionEntity';
+import { createPackRepository } from '../PackRepository';
 
 export { UnknownPackError } from '$gathering/CollectionEntity';
 
