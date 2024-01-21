@@ -1,7 +1,8 @@
-import { createCollectionEditor } from '$gathering';
+import { createCollectionEditor, createPackRepository } from '$gathering';
 import type { Collection } from '$gathering/Collection';
-import type { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
+import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
+import type { IPackRepository } from '$gathering/IPackRepository';
 import { readonly, writable } from 'svelte/store';
 
 type Pack = {
@@ -13,25 +14,32 @@ type Pack = {
 };
 
 class CollecionOutput implements ICollectionOutput {
-  packs: string[] = [];
   collectionUpdated(collection: Collection): void {
-    this.packs = [...collection];
+    this.onCollectionUpdated(collection);
   }
+
+  onCollectionUpdated: (collection: Collection) => void = () => {};
 }
 
 export function useCollectionEditor() {
+  const packsRepository = createPackRepository();
   const collecionOutput = new CollecionOutput();
   const collectionEditor = createCollectionEditor(collecionOutput);
-  const packs = writable<Pack[]>([
-    createPack('Core Set', collectionEditor),
-    createPack('Revised Core Set', collectionEditor),
-  ]);
+
+  // createPack called at two places...
+  const packsStore = writable<Pack[]>(initListOfPack(packsRepository, collectionEditor));
+
+  collecionOutput.onCollectionUpdated = (collection: Collection) => {
+    // recreate list of packs, 0 not owned, and then count...
+    packsStore.set(collection.map((pack) => createPack(pack, collectionEditor)));
+  };
+
   return {
-    packsStore: readonly(packs),
+    packsStore: readonly(packsStore),
   };
 }
 
-function createPack(name: string, collectionEditor: CollectionEditor): Pack {
+function createPack(name: string, collectionEditor: ICollectionEditor): Pack {
   return {
     howMany: 0,
     name,
@@ -43,4 +51,8 @@ function createPack(name: string, collectionEditor: CollectionEditor): Pack {
       collectionEditor.removePack(name);
     },
   };
+}
+
+function initListOfPack(packsRepository: IPackRepository, collectionEditor: ICollectionEditor) {
+  return [...packsRepository.getAllPacks()].map((pack) => createPack(pack, collectionEditor));
 }
