@@ -1,3 +1,7 @@
+import { createCollectionEditor } from '$gathering';
+import type { Collection } from '$gathering/Collection';
+import type { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
+import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { readonly, writable } from 'svelte/store';
 
 type Pack = {
@@ -8,23 +12,35 @@ type Pack = {
   removePackFromCollection: () => void;
 };
 
+class CollecionOutput implements ICollectionOutput {
+  packs: string[] = [];
+  collectionUpdated(collection: Collection): void {
+    this.packs = [...collection];
+  }
+}
+
 export function useCollectionEditor() {
-  const packs = writable<Pack[]>([createPack('Core Set'), createPack('Revised Core Set')]);
+  const collecionOutput = new CollecionOutput();
+  const collectionEditor = createCollectionEditor(collecionOutput);
+  const packs = writable<Pack[]>([
+    createPack('Core Set', collectionEditor),
+    createPack('Revised Core Set', collectionEditor),
+  ]);
   return {
     packsStore: readonly(packs),
   };
 }
 
-function createPack(name: string): Pack {
+function createPack(name: string, collectionEditor: CollectionEditor): Pack {
   return {
     howMany: 0,
     name,
     owned: false,
     addPackToCollection: () => {
-      console.log(`${name} added to collection`);
+      collectionEditor.addPack(name);
     },
     removePackFromCollection: () => {
-      console.log(`${name} removed from collection`);
+      collectionEditor.removePack(name);
     },
   };
 }
