@@ -4,6 +4,7 @@ import { CollectionEditor, UnknownPackError } from './CollectionEditor';
 import { PackRepositoryMock } from './PackRepositoryMock';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
+import { CollectionEntity } from '$gathering/CollectionEntity';
 
 const CoreSet = 'Core Set';
 const Dunwich = 'The Dunwich Legacy';
@@ -17,62 +18,53 @@ class CollectionOutput implements ICollectionOutput {
 }
 
 describe('Collection Editor : add/remove pack', () => {
-  const collection: Collection = [];
-  const packRepo = new PackRepositoryMock();
+  const packRepository = new PackRepositoryMock();
+  let collectionEntity: CollectionEntity;
   let collectionOutput: CollectionOutput;
   let editor: ICollectionEditor;
 
   beforeEach(() => {
+    collectionEntity = new CollectionEntity(packRepository);
     collectionOutput = new CollectionOutput();
-    editor = new CollectionEditor(packRepo, collectionOutput);
+    // L'output est un peu anonyme (i.e. cache dans ctor, impl); Pourrait etre dans l<interface.
+    // editor.listenOnCollection( output ); et serait visible dans le type system, arch diagram
+    editor = new CollectionEditor(collectionEntity, collectionOutput);
   });
 
   it('adds one pack to Collection', () => {
-    editor.addPack({ collection, pack: CoreSet });
+    editor.addPack(CoreSet);
     expect(collectionOutput.collection).toEqual([CoreSet]);
-
-    editor.addPack({ collection: collectionOutput.collection, pack: Dunwich });
-    expect(collectionOutput.collection).toEqual([CoreSet, Dunwich]);
   });
 
-  it('may adds more than once', () => {
-    editor.addPack({ collection, pack: CoreSet });
-    editor.addPack({ collection: collectionOutput.collection, pack: CoreSet });
+  it('may adds same pack more than once', () => {
+    editor.addPack(CoreSet);
+    editor.addPack(CoreSet);
     expect(collectionOutput.collection).toEqual([CoreSet, CoreSet]);
   });
 
   it('validates added pack', () => {
     const pack = 'The Bob That Ate Everything';
-    expect(() => editor.addPack({ collection, pack })).toThrowError(UnknownPackError);
+    expect(() => editor.addPack(pack)).toThrowError(UnknownPackError);
     expect(collectionOutput.collection).toEqual([]);
   });
 
-  it("adding pack don't mutate the inputted collection", () => {
-    editor.addPack({ collection, pack: CoreSet });
-    expect(collection).toEqual([]);
-  });
-
   it('removes one pack from Collection', () => {
-    const collection = [CoreSet, Dunwich];
-    editor.removePack({ collection, pack: CoreSet });
+    editor.addPack(CoreSet);
+    editor.addPack(Dunwich);
+    editor.removePack(CoreSet);
     expect(collectionOutput.collection).toEqual([Dunwich]);
   });
 
   it('removes only one of many packs from Collection', () => {
-    const collection = [CoreSet, CoreSet];
-    editor.removePack({ collection, pack: CoreSet });
+    editor.addPack(CoreSet);
+    editor.addPack(CoreSet);
+    editor.removePack(CoreSet);
     expect(collectionOutput.collection).toEqual([CoreSet]);
   });
 
   it('removes unexistant pack silently', () => {
-    editor.addPack({ collection, pack: CoreSet });
-    editor.removePack({ collection: collectionOutput.collection, pack: Dunwich });
+    editor.addPack(CoreSet);
+    editor.removePack(Dunwich);
     expect(collectionOutput.collection).toEqual([CoreSet]);
-  });
-
-  it("removing pack don't mutate the inputted collection", () => {
-    const collection = [CoreSet];
-    editor.removePack({ collection, pack: CoreSet });
-    expect(collection).toEqual([CoreSet]);
   });
 });

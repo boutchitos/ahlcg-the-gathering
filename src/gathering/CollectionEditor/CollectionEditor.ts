@@ -1,43 +1,23 @@
-import type { IPackRepository } from '$gathering/IPackRepository';
-import type { Pack } from '$gathering/Pack';
-import type {
-  AddPackRequest,
-  ICollectionEditor,
-  RemovePackRequest,
-} from '$gathering/ICollectionEditor';
+import type { CollectionEntity } from '$gathering/CollectionEntity';
+import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
+import type { Pack } from '$gathering/Pack';
+
+export { UnknownPackError } from '$gathering/CollectionEntity';
 
 export class CollectionEditor implements ICollectionEditor {
   constructor(
-    private readonly packRepo: IPackRepository,
+    private readonly collection: CollectionEntity,
     private readonly collectionOutput: ICollectionOutput,
   ) {}
 
-  addPack({ collection, pack }: AddPackRequest): void {
-    validatePack(this.packRepo, pack);
-    this.collectionOutput.collectionUpdated([...collection, pack]);
+  addPack(pack: Pack): void {
+    this.collection.addPack(pack);
+    this.collectionOutput.collectionUpdated(this.collection.getPacks());
   }
 
-  removePack({ collection, pack }: RemovePackRequest): void {
-    const idx = collection.indexOf(pack);
-    if (idx !== -1) {
-      this.collectionOutput.collectionUpdated([
-        ...collection.slice(0, idx),
-        ...collection.slice(idx + 1),
-      ]);
-    }
-  }
-}
-
-export class UnknownPackError extends Error {
-  constructor(pack: Pack) {
-    super(`Unknown pack '${pack}'`);
-  }
-}
-
-function validatePack(packRepo: IPackRepository, pack: Pack) {
-  const packs = [...packRepo.getAllPacks()];
-  if (!packs.includes(pack)) {
-    throw new UnknownPackError(pack);
+  removePack(pack: Pack): void {
+    this.collection.removePack(pack);
+    this.collectionOutput.collectionUpdated(this.collection.getPacks());
   }
 }
