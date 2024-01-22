@@ -1,17 +1,13 @@
 <script lang="ts">
-  import CollectiblePack from './CollectiblePack.svelte';
   import { useCollectionEditor } from '$lib/userEditsCollection/userEditsCollection';
+  import PacksBundle from './PacksBundle/PacksBundle.svelte';
 
   const { packsStore } = useCollectionEditor();
 </script>
 
 <h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>
 
-<ul>
-  {#each $packsStore as pack}
-    <li>
-      <CollectiblePack {pack} />
-    </li>
-  {/each}
-  <li></li>
-</ul>
+<div class="grid gap-4">
+  <PacksBundle title="Arkham Horror: The Card Game" packs={$packsStore} />
+  <PacksBundle title="Arkham Horror: The Card Game" packs={$packsStore} />
+</div>
