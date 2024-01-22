@@ -27,6 +27,7 @@ export function useCollectionEditor() {
   const collectionEditor = createCollectionEditor(collecionOutput);
 
   // createPack called at two places... through initListOfPack
+  //   TODO try use the Store in init like $packStore.
   const packsStore = writable<Pack[]>(initListOfPack(packsRepository, collectionEditor));
 
   collecionOutput.onCollectionUpdated = (collection: Collection) => {
