@@ -5,7 +5,7 @@ import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import type { IPackRepository } from '$gathering/IPackRepository';
 import { readonly, writable } from 'svelte/store';
 
-export type Pack = {
+export type CardsPack = {
   howMany: number;
   name: string;
   owned: boolean;
@@ -28,7 +28,7 @@ export function useCollectionEditor() {
 
   // createPack called at two places... through initListOfPack
   //   TODO try use the Store in init like $packStore.
-  const packsStore = writable<Pack[]>(initListOfPack(packsRepository, collectionEditor));
+  const packsStore = writable<CardsPack[]>(initListOfPack(packsRepository, collectionEditor));
 
   collecionOutput.onCollectionUpdated = (collection: Collection) => {
     const packs = initListOfPack(packsRepository, collectionEditor);
@@ -46,7 +46,7 @@ export function useCollectionEditor() {
   };
 }
 
-function createPack(name: string, collectionEditor: ICollectionEditor): Pack {
+function createPack(name: string, collectionEditor: ICollectionEditor): CardsPack {
   return {
     howMany: 0,
     name,

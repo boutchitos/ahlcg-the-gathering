@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Pack } from '$lib/userEditsCollection/userEditsCollection';
+  import type { CardsPack } from '$lib/userEditsCollection/userEditsCollection';
   import CollectiblePack from './CollectiblePack.svelte';
 
   export let title: string;
-  export let packs: Pack[];
+  export let packs: CardsPack[];
 </script>
 
 <div class="w-80">

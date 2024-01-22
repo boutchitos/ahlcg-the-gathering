@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Pack } from '$lib/userEditsCollection/userEditsCollection';
+  import type { CardsPack } from '$lib/userEditsCollection/userEditsCollection';
 
   import ArrowUp from './arrow-up.svg.svelte';
   import ArrowDown from './arrow-down.svg.svelte';
 
-  export let pack: Pack;
+  export let pack: CardsPack;
 </script>
 
 <div class="flex">

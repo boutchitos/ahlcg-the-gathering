@@ -1,13 +1,13 @@
 import { beforeEach, expect, it } from 'vitest';
-import { useCollectionEditor, type Pack } from './userEditsCollection';
+import { useCollectionEditor, type CardsPack } from './userEditsCollection';
 
-let packs: Pack[];
+let packs: CardsPack[];
 
 beforeEach(() => {
   packs = [];
 
   const { packsStore } = useCollectionEditor();
-  packsStore.subscribe((value: Pack[]) => {
+  packsStore.subscribe((value: CardsPack[]) => {
     packs = value;
   });
 });
