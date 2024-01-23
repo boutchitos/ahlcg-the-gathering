@@ -21,7 +21,7 @@ class CollecionOutput implements ICollectionOutput {
   onCollectionUpdated: (collection: Collection) => void = () => {};
 }
 
-export function useCollectionEditor() {
+export function userEditsCollection() {
   const packsRepository = createPackRepository();
   const collecionOutput = new CollecionOutput();
   const collectionEditor = createCollectionEditor(collecionOutput);

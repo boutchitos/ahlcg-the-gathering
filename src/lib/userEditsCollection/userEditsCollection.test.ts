@@ -1,12 +1,12 @@
 import { beforeEach, expect, it } from 'vitest';
-import { useCollectionEditor, type CardsPack } from './userEditsCollection';
+import { userEditsCollection, type CardsPack } from './userEditsCollection';
 
 let packs: CardsPack[];
 
 beforeEach(() => {
   packs = [];
 
-  const { packsStore } = useCollectionEditor();
+  const { packsStore } = userEditsCollection();
   packsStore.subscribe((value: CardsPack[]) => {
     packs = value;
   });

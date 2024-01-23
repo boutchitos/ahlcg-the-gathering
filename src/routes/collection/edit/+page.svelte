@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { useCollectionEditor } from '$lib/userEditsCollection/userEditsCollection';
+  import { userEditsCollection } from '$lib/userEditsCollection/userEditsCollection';
   import PacksBundle from './PacksBundle/PacksBundle.svelte';
 
-  const { packsStore } = useCollectionEditor();
+  const { packsStore } = userEditsCollection();
   const title = 'Arkham Horror: The Card Game';
 
   $: packs = $packsStore;
