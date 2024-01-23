@@ -30,6 +30,7 @@ export function userEditsCollectionBundle(): {
   const collectionEditor = createCollectionEditor(collecionOutput);
 
   const packs = allAvailableBundles.map((bundle) => bundle.packs).flat();
+  console.log(JSON.stringify(packs));
   const howManyDepot = new Map<string, Writable<number>>(packs.map((name) => [name, writable(0)]));
 
   collecionOutput.onCollectionUpdated = (collection: Collection) => {
