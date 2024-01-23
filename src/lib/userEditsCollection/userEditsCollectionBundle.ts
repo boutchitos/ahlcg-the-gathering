@@ -1,64 +1,68 @@
+import { createCollectionEditor } from '$gathering';
+import type { Collection } from '$gathering/Collection';
+import type { ICollectionOutput } from '$gathering/ICollectionOutput';
+import { writable, type Readable, type Writable, readonly } from 'svelte/store';
+
 export type BundleOfPacks = {
   title: string;
   packs: CardsPack[];
 };
 
 export type CardsPack = {
-  // howMany: number;
+  howMany: Readable<number>;
   name: string;
-  // addPackToCollection: () => void;
-  // removePackFromCollection: () => void;
+  addPackToCollection: () => void;
+  removePackFromCollection: () => void;
 };
 
-// class CollecionOutput implements ICollectionOutput {
-//   collectionUpdated(collection: Collection): void {
-//     this.onCollectionUpdated(collection);
-//   }
+class CollecionOutput implements ICollectionOutput {
+  collectionUpdated(collection: Collection): void {
+    this.onCollectionUpdated(collection);
+  }
 
-//   onCollectionUpdated: (collection: Collection) => void = () => {};
-// }
+  onCollectionUpdated: (collection: Collection) => void = () => {};
+}
 
 export function userEditsCollectionBundle(): {
   allAvailableBundles: BundleOfPacks[];
 } {
-  // const packsRepository = createPackRepository();
-  // const collecionOutput = new CollecionOutput();
-  // const collectionEditor = createCollectionEditor(collecionOutput);
+  const collecionOutput = new CollecionOutput();
+  const collectionEditor = createCollectionEditor(collecionOutput);
 
-  // collecionOutput.onCollectionUpdated = (collection: Collection) => {
-  //   const packs = initListOfPack(packsRepository, collectionEditor);
+  const packs = allAvailableBundles.map((bundle) => bundle.packs).flat();
+  const howManyDepot = new Map<string, Writable<number>>(packs.map((name) => [name, writable(0)]));
 
-  //   packs.forEach((pack) => {
-  //     pack.howMany = collection.filter((collectedPack) => collectedPack === pack.name).length;
-  //     pack.owned = pack.howMany > 0;
-  //   });
+  collecionOutput.onCollectionUpdated = (collection: Collection) => {
+    packs.forEach((name) => {
+      const howManyInCollection = collection.filter(
+        (collectedPack) => collectedPack === name,
+      ).length;
+      howManyDepot.get(name)!.set(howManyInCollection);
+    });
+  };
 
-  //   packsStore.set(packs);
-  // };
+  function createPack(name: string): CardsPack {
+    return {
+      howMany: readonly(howManyDepot.get(name)!),
+      name,
+      addPackToCollection: () => {
+        collectionEditor.addPack(name);
+      },
+      removePackFromCollection: () => {
+        collectionEditor.removePack(name);
+      },
+    };
+  }
 
   return {
     allAvailableBundles: allAvailableBundles.map(({ packs, title }) => {
       return {
-        packs: packs.map((pack) => ({ name: pack })),
+        packs: packs.map(createPack),
         title,
       };
     }),
   };
 }
-
-// function createPack(name: string, collectionEditor: ICollectionEditor): CardsPack {
-//   return {
-//     howMany: 0,
-//     name,
-//     owned: false,
-//     addPackToCollection: () => {
-//       collectionEditor.addPack(name);
-//     },
-//     removePackFromCollection: () => {
-//       collectionEditor.removePack(name);
-//     },
-//   };
-// }
 
 const allAvailableBundles = [
   {
@@ -67,6 +71,6 @@ const allAvailableBundles = [
   },
   {
     title: 'The Dunwich Legacy',
-    packs: ['The Dunwich Legacy', 'Return to ...'],
+    packs: ['The Dunwich Legacy', 'Return to'],
   },
 ];
