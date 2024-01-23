@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { userEditsCollectionBundle } from '$lib/userEditsCollection/userEditsCollectionBundle';
+  import { userEditsCollection } from '$lib/userEditsCollection/userEditsCollection';
   import PacksBundle from './PacksBundle/PacksBundle.svelte';
 
-  const { allAvailableBundles } = userEditsCollectionBundle();
+  const { allAvailableBundles } = userEditsCollection();
 </script>
 
 <h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>

@@ -1,66 +1,59 @@
 import { beforeEach, expect, it } from 'vitest';
-import { userEditsCollection, type CardsPack } from './userEditsCollection';
+import { userEditsCollection, type BundleOfPacks, type CardsPack } from './userEditsCollection';
 
-let packs: CardsPack[];
+let allAvailableBundles: BundleOfPacks[];
+let ahtcgBundle: BundleOfPacks;
+let coreSet: CardsPack;
+let howManyCoreSet: number;
 
 beforeEach(() => {
-  packs = [];
+  ({ allAvailableBundles } = userEditsCollection());
+  ahtcgBundle = allAvailableBundles[0];
+  coreSet = ahtcgBundle.packs[0];
 
-  const { packsStore } = userEditsCollection();
-  packsStore.subscribe((value: CardsPack[]) => {
-    packs = value;
+  howManyCoreSet = 666;
+  coreSet.howMany.subscribe((value: number) => {
+    howManyCoreSet = value;
   });
 });
 
-it('has access to all available data packs', () => {
-  expect(packs!).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ howMany: 0, name: 'Core Set', owned: false }),
-      expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
-      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
-    ]),
-  );
+it('has access to any available bundle', () => {
+  expect(ahtcgBundle.title).toEqual('Arkham Horror: The Card Game');
 });
 
-it('may adds a data pack to collection', () => {
-  const coreSet = packs![0];
-  coreSet.addPackToCollection();
-
-  expect(packs!).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ howMany: 1, name: 'Core Set', owned: true }),
-      expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
-      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
-    ]),
-  );
+it('has access to any available cards pack in bundle', () => {
+  expect(coreSet.name).toEqual('Core Set');
 });
 
-it('may adds data pack to collection multiple times', () => {
-  const coreSet = packs![0];
-  coreSet.addPackToCollection();
-  coreSet.addPackToCollection();
-
-  expect(packs!).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ howMany: 2, name: 'Core Set', owned: true }),
-      expect.objectContaining({ howMany: 0, name: 'The Dunwich Legacy', owned: false }),
-      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
-    ]),
-  );
+it('has access to how many packs in collection', () => {
+  expect(howManyCoreSet).toEqual(0);
 });
 
-it('may removes a data pack from collection', () => {
-  const dunwich = packs![1];
-  dunwich.addPackToCollection();
-  dunwich.addPackToCollection();
+it('may adds a cards pack to its collection', () => {
+  coreSet.addPackToCollection();
 
-  dunwich.removePackFromCollection();
+  expect(howManyCoreSet!).toEqual(1);
+});
 
-  expect(packs!).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ howMany: 0, name: 'Core Set', owned: false }),
-      expect.objectContaining({ howMany: 1, name: 'The Dunwich Legacy', owned: true }),
-      expect.objectContaining({ howMany: 0, name: 'Revised Core Set', owned: false }),
-    ]),
-  );
+it('may adds cards pack to its collection multiple times', () => {
+  coreSet.addPackToCollection();
+
+  coreSet.addPackToCollection();
+
+  expect(howManyCoreSet!).toEqual(2);
+});
+
+it('may removes a cards pack from its collection', () => {
+  coreSet.addPackToCollection();
+  coreSet.addPackToCollection();
+
+  coreSet.removePackFromCollection();
+
+  expect(howManyCoreSet!).toEqual(1);
+});
+
+it('may removes a cards pack, even if not in its collection', () => {
+  coreSet.removePackFromCollection();
+
+  expect(howManyCoreSet!).toEqual(0);
 });
