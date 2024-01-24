@@ -1,16 +1,11 @@
-import type { IPackRepository } from '$gathering/IPackRepository';
-import type { Pack } from '$gathering/Pack';
-
-export function createPackRepository(): IPackRepository {
-  return thePackRepository;
-}
-
-class PackRepository implements IPackRepository {
-  getAllPacks(): Iterable<Pack> {
-    return [
-      'Core Set',
-      'Revised Core Set',
-      'Return to the Night of the Zealot',
+export const allAvailableBundles = [
+  {
+    title: 'Arkham Horror: The Card Game',
+    packs: ['Core Set', 'Revised Core Set', 'Return to the Night of the Zealot'],
+  },
+  {
+    title: 'The Dunwich Legacy',
+    packs: [
       'The Dunwich Legacy Investigator Expansion',
       'The Dunwich Legacy Campaign Expansion',
       'Return to the Dunwich Legacy',
@@ -21,6 +16,11 @@ class PackRepository implements IPackRepository {
       'Undimensioned and Unseen',
       'Where Doom Awaits',
       'Lost in Time and Space',
+    ],
+  },
+  {
+    title: 'The Path to Carcosa',
+    packs: [
       'The Path to Carcosa Investigator Expansion',
       'The Path to Carcosa Campaign Expansion',
       'Return to the Path to Carcosa',
@@ -31,6 +31,11 @@ class PackRepository implements IPackRepository {
       'The Pallid Mask',
       'Black Stars Rise',
       'Dim Carcosa',
+    ],
+  },
+  {
+    title: 'The Forgotten Age',
+    packs: [
       'The Forgotten Age Investigator Expansion',
       'The Forgotten Age Campaign Expansion',
       'Return to the Forgotten Age',
@@ -42,6 +47,11 @@ class PackRepository implements IPackRepository {
       'The Depths of Yoth',
       'Shattered Aeons',
       'Return to the Forgotten Age',
+    ],
+  },
+  {
+    title: 'The Circle Undone',
+    packs: [
       'The Circle Undone Investigator Expansion',
       'The Circle Undone Campaign Expansion',
       'Return to the Circle Undone',
@@ -52,6 +62,11 @@ class PackRepository implements IPackRepository {
       'Union and Disillusion',
       'In the Clutches of Chaos',
       'Before the Black Throne',
+    ],
+  },
+  {
+    title: 'The Dream-Eaters',
+    packs: [
       'The Dream-Eaters',
       'The Search for Kadath',
       'A Thousand Shapes of Horror',
@@ -59,6 +74,11 @@ class PackRepository implements IPackRepository {
       'Point of No Return',
       'Where the Gods Dwell',
       'Weaver of the Cosmos',
+    ],
+  },
+  {
+    title: 'The Innsmouth Conspiracy',
+    packs: [
       'The Innsmouth Conspiracy',
       'In Too Deep',
       'Devil Reef',
@@ -66,17 +86,36 @@ class PackRepository implements IPackRepository {
       'A Light in the Fog',
       'The Lair of Dagon',
       'Into the Maelstrom',
-      'Edge of the Earth Investigator Expansion',
-      'Edge of the Earth Campaign Expansion',
-      'The Scarlet Keys Campaign Expansion',
-      'The Scarlet Keys Investigator Expansion',
+    ],
+  },
+  {
+    title: 'Edge of the Earth',
+    packs: ['Edge of the Earth Investigator Expansion', 'Edge of the Earth Campaign Expansion'],
+  },
+  {
+    title: 'The Scarlet Keys',
+    packs: ['The Scarlet Keys Campaign Expansion', 'The Scarlet Keys Investigator Expansion'],
+  },
+  {
+    title: 'The Feast of Hemlock Vale',
+    packs: [
       'The Feast of Hemlock Vale Investigator Expansion',
       'The Feast of Hemlock Vale Campaign Expansion',
+    ],
+  },
+  {
+    title: 'Investigator Starter Decks',
+    packs: [
       'Winifred Habbamock Investigator Starter Deck',
       'Nathaniel Cho Investigator Starter Deck',
       'Harvey Walters Investigator Starter Deck',
       'Jacqueline Fine Investigator Starter Deck',
       'Stella Clark Investigator Starter Deck',
+    ],
+  },
+  {
+    title: 'Standalone Adventures',
+    packs: [
       'Curse of the Rougarou',
       'Carnevale of Horrors',
       'The Labyrinths of Lunacy',
@@ -87,9 +126,8 @@ class PackRepository implements IPackRepository {
       'War of the Outer Gods',
       'Machinations Through Time',
       'Fortune and Folly',
-    ];
-  }
-}
+    ],
+  },
+];
 
-// no need to get many instance of static data.
-const thePackRepository = new PackRepository();
+export const allAvailablePacks = allAvailableBundles.map((bundle) => bundle.packs).flat();
