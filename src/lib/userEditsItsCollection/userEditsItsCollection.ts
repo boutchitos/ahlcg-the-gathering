@@ -5,7 +5,7 @@ import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { writable, type Readable, type Writable, readonly } from 'svelte/store';
 import { allAvailableBundles, allAvailablePacks } from './ahtcgProducts';
 
-export interface IUserEditsCollection {
+export interface IUserEditsItsCollection {
   allAvailableBundles: BundleOfPacks[];
 }
 
@@ -21,7 +21,7 @@ export type CardsPack = {
   removePackFromCollection: () => void;
 };
 
-export function userEditsCollection(): IUserEditsCollection {
+export function userEditsItsCollection(): IUserEditsItsCollection {
   const howManyPacksByName = createHowManyPacksByName();
   const collecionOutput = new CollecionOutput(howManyPacksByName);
   const collectionEditor = createCollectionEditor(collecionOutput);

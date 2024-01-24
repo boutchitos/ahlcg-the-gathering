@@ -1,5 +1,9 @@
 import { beforeEach, expect, it } from 'vitest';
-import { userEditsCollection, type BundleOfPacks, type CardsPack } from './userEditsCollection';
+import {
+  userEditsItsCollection,
+  type BundleOfPacks,
+  type CardsPack,
+} from './userEditsItsCollection';
 
 let allAvailableBundles: BundleOfPacks[];
 let ahtcgBundle: BundleOfPacks;
@@ -7,7 +11,7 @@ let coreSet: CardsPack;
 let howManyCoreSet: number;
 
 beforeEach(() => {
-  ({ allAvailableBundles } = userEditsCollection());
+  ({ allAvailableBundles } = userEditsItsCollection());
   ahtcgBundle = allAvailableBundles[0];
   coreSet = ahtcgBundle.packs[0];
 

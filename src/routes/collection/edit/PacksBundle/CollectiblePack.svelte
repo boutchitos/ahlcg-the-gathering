@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CardsPack } from '$lib/userEditsCollection/userEditsCollection';
+  import type { CardsPack } from '$lib/userEditsItsCollection/userEditsItsCollection';
   import { derived } from 'svelte/store';
 
   import ArrowUp from './arrow-up.svg.svelte';
