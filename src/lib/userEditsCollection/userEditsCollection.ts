@@ -41,12 +41,11 @@ export function userEditsCollection(): IUserEditsCollection {
 type HowManyPacksByName = Map<string, Writable<number>>;
 
 class CollecionOutput implements ICollectionOutput {
-  constructor(private readonly howManyPacksStore: HowManyPacksByName) {}
+  constructor(private readonly howManyPacksByName: HowManyPacksByName) {}
 
   collectionUpdated(collection: Collection): void {
-    collection.forEach((name) => {
-      const howManyStore = this.howManyPacksStore.get(name)!;
-      howManyStore.set(countPackInCollection(name, collection));
+    this.howManyPacksByName.forEach((howManyPacks, name) => {
+      howManyPacks.set(countPackInCollection(name, collection));
     });
   }
 }

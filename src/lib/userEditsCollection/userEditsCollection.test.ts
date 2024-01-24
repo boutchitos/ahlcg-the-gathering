@@ -45,11 +45,10 @@ it('may adds cards pack to its collection multiple times', () => {
 
 it('may removes a cards pack from its collection', () => {
   coreSet.addPackToCollection();
-  coreSet.addPackToCollection();
 
   coreSet.removePackFromCollection();
 
-  expect(howManyCoreSet!).toEqual(1);
+  expect(howManyCoreSet!).toEqual(0);
 });
 
 it('may removes a cards pack, even if not in its collection', () => {
