@@ -22,15 +22,15 @@ export type CardsPack = {
 };
 
 export function userEditsItsCollection(): IUserEditsItsCollection {
-  const howManyPacksByName = createHowManyPacksByName();
-  const collecionOutput = new CollecionOutput(howManyPacksByName);
+  const howManyPacksIndex = createHowManyPacksIndex();
+  const collecionOutput = new CollecionOutput(howManyPacksIndex);
   const collectionEditor = createCollectionEditor(collecionOutput);
 
   return {
     allAvailableBundles: allAvailableBundles.map(({ packs, title }) => {
       return {
         packs: packs.map((name: string) =>
-          createCardsPack(name, howManyPacksByName, collectionEditor),
+          createCardsPack(name, howManyPacksIndex, collectionEditor),
         ),
         title,
       };
@@ -38,29 +38,30 @@ export function userEditsItsCollection(): IUserEditsItsCollection {
   };
 }
 
-type HowManyPacksByName = Map<string, Writable<number>>;
+type HowManyPacksIndex = Map<string, Writable<number>>;
 
 class CollecionOutput implements ICollectionOutput {
-  constructor(private readonly howManyPacksByName: HowManyPacksByName) {}
+  constructor(private readonly howManyPacksIndex: HowManyPacksIndex) {}
 
   collectionUpdated(collection: Collection): void {
-    this.howManyPacksByName.forEach((howManyPacks, name) => {
-      howManyPacks.set(countPackInCollection(name, collection));
+    this.howManyPacksIndex.forEach((howManyPacks, name) => {
+      const howMany = countPackInCollection(name, collection);
+      howManyPacks.set(howMany);
     });
   }
 }
 
-function createHowManyPacksByName(): HowManyPacksByName {
+function createHowManyPacksIndex(): HowManyPacksIndex {
   return new Map(allAvailablePacks.map((name) => [name, writable(0)]));
 }
 
 function createCardsPack(
   name: string,
-  howManyPacksByName: HowManyPacksByName,
+  howManyPacksIndex: HowManyPacksIndex,
   collectionEditor: CollectionEditor,
 ): CardsPack {
   return {
-    howMany: readonly(howManyPacksByName.get(name)!),
+    howMany: readonly(howManyPacksIndex.get(name)!),
     name,
     addPackToCollection: () => {
       collectionEditor.addPack(name);
