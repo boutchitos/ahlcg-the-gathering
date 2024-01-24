@@ -29,15 +29,15 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M559.5,-66C559.5,-66 1097.5,-66 1097.5,-66 1103.5,-66 1109.5,-72 1109.5,-78 1109.5,-78 1109.5,-282 1109.5,-282 1109.5,-288 1103.5,-294 1097.5,-294 1097.5,-294 559.5,-294 559.5,-294 553.5,-294 547.5,-288 547.5,-282 547.5,-282 547.5,-78 547.5,-78 547.5,-72 553.5,-66 559.5,-66"/>
 <text text-anchor="middle" x="828.5" y="-282.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">gathering</text>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_src/gathering/PackRepository</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M841,-216C841,-216 901,-216 901,-216 907,-216 913,-222 913,-228 913,-228 913,-256 913,-256 913,-262 907,-268 901,-268 901,-268 841,-268 841,-268 835,-268 829,-262 829,-256 829,-256 829,-228 829,-228 829,-222 835,-216 841,-216"/>
-<text text-anchor="middle" x="871" y="-256.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">PackRepository</text>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_src/gathering/CollectionEditor</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M567.5,-132C567.5,-132 793.5,-132 793.5,-132 799.5,-132 805.5,-138 805.5,-144 805.5,-144 805.5,-202 805.5,-202 805.5,-208 799.5,-214 793.5,-214 793.5,-214 567.5,-214 567.5,-214 561.5,-214 555.5,-208 555.5,-202 555.5,-202 555.5,-144 555.5,-144 555.5,-138 561.5,-132 567.5,-132"/>
 <text text-anchor="middle" x="680.5" y="-202.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEditor</text>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_src/gathering/PackRepository</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M841,-216C841,-216 901,-216 901,-216 907,-216 913,-222 913,-228 913,-228 913,-256 913,-256 913,-262 907,-268 901,-268 901,-268 841,-268 841,-268 835,-268 829,-262 829,-256 829,-256 829,-228 829,-228 829,-222 835,-216 841,-216"/>
+<text text-anchor="middle" x="871" y="-256.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">PackRepository</text>
 </g>
 <g id="clust7" class="cluster">
 <title>cluster_src/routes</title>
