@@ -14,6 +14,10 @@ export class CollectionLoader implements ICollectionLoader {
   }
 }
 
-export function createCollectionLoader(collectionOutput: ICollectionOutput): ICollectionLoader {
-  return new CollectionLoader(createCollectionEditor(collectionOutput));
+export function createCollectionLoader(collectionOutput?: ICollectionOutput): ICollectionLoader {
+  return new CollectionLoader(createCollectionEditor(collectionOutput ?? new SilentOperation()));
+}
+
+class SilentOperation implements ICollectionOutput {
+  collectionUpdated(): void {}
 }

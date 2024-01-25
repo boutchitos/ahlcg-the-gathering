@@ -7,20 +7,27 @@ export class CollectionEditor implements ICollectionEditor {
   constructor(
     private readonly collection: CollectionEntity,
     private readonly collectionOutput: ICollectionOutput,
-  ) {}
+  ) {
+    this.onCollectionupdated();
+  }
 
   addPack(pack: Pack): void {
     this.collection.addPack(pack);
-    this.collectionOutput.collectionUpdated(this.collection.getPacks());
+    this.onCollectionupdated();
   }
 
   removePack(pack: Pack): void {
     this.collection.removePack(pack);
-    this.collectionOutput.collectionUpdated(this.collection.getPacks());
+    this.onCollectionupdated();
   }
 
   resetCollection(): void {
     this.collection.reset();
+    this.onCollectionupdated();
+  }
+
+  private onCollectionupdated() {
+    this.collectionOutput.collectionUpdated(this.collection.getPacks());
   }
 }
 
