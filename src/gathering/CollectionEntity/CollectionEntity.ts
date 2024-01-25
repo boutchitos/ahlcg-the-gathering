@@ -1,5 +1,5 @@
-import type { IPackRepository } from './IPackRepository';
-import type { Pack } from './Pack';
+import type { IPackRepository } from '../IPackRepository';
+import type { Pack } from '../Pack';
 
 export class CollectionEntity {
   private packs: Pack[] = [];
@@ -21,6 +21,10 @@ export class CollectionEntity {
       // splice here...
       this.packs = [...this.packs.slice(0, idx), ...this.packs.slice(idx + 1)];
     }
+  }
+
+  reset(): void {
+    this.packs = [];
   }
 }
 

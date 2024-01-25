@@ -1,11 +1,7 @@
+import { CollectionEntity, theUserCollection } from '$gathering/CollectionEntity';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import type { Pack } from '$gathering/Pack';
-
-import { CollectionEntity } from '$gathering/CollectionEntity';
-import { createPackRepository } from '../PackRepository';
-
-export { UnknownPackError } from '$gathering/CollectionEntity';
 
 export class CollectionEditor implements ICollectionEditor {
   constructor(
@@ -22,9 +18,12 @@ export class CollectionEditor implements ICollectionEditor {
     this.collection.removePack(pack);
     this.collectionOutput.collectionUpdated(this.collection.getPacks());
   }
+
+  resetCollection(): void {
+    this.collection.reset();
+  }
 }
 
 export function createCollectionEditor(collectionOutput: ICollectionOutput) {
-  const collection = new CollectionEntity(createPackRepository());
-  return new CollectionEditor(collection, collectionOutput);
+  return new CollectionEditor(theUserCollection, collectionOutput);
 }

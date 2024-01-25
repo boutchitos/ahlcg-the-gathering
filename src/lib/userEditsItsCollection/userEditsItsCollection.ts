@@ -1,12 +1,13 @@
 import { createCollectionEditor } from '$gathering';
 import type { Collection } from '$gathering/Collection';
-import type { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { writable, type Readable, type Writable, readonly } from 'svelte/store';
 import { allAvailableBundles, allAvailablePacks } from './ahtcgProducts';
+import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 
 export interface IUserEditsItsCollection {
   allAvailableBundles: BundleOfPacks[];
+  resetCollection: () => void;
 }
 
 export type BundleOfPacks = {
@@ -35,6 +36,9 @@ export function userEditsItsCollection(): IUserEditsItsCollection {
         title,
       };
     }),
+    resetCollection: () => {
+      collectionEditor.resetCollection();
+    },
   };
 }
 
@@ -58,7 +62,7 @@ function createHowManyPacksIndex(): HowManyPacksIndex {
 function createCardsPack(
   name: string,
   howManyPacksIndex: HowManyPacksIndex,
-  collectionEditor: CollectionEditor,
+  collectionEditor: ICollectionEditor,
 ): CardsPack {
   return {
     howMany: readonly(howManyPacksIndex.get(name)!),

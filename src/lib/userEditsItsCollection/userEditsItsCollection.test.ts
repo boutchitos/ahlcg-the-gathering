@@ -5,13 +5,13 @@ import {
   type CardsPack,
 } from './userEditsItsCollection';
 
-let allAvailableBundles: BundleOfPacks[];
 let ahtcgBundle: BundleOfPacks;
 let coreSet: CardsPack;
 let howManyCoreSet: number;
 
 beforeEach(() => {
-  ({ allAvailableBundles } = userEditsItsCollection());
+  const { allAvailableBundles, resetCollection } = userEditsItsCollection();
+
   ahtcgBundle = allAvailableBundles[0];
   coreSet = ahtcgBundle.packs[0];
 
@@ -19,6 +19,8 @@ beforeEach(() => {
   coreSet.howMany.subscribe((value: number) => {
     howManyCoreSet = value;
   });
+
+  resetCollection();
 });
 
 it('has access to any available bundle', () => {

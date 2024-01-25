@@ -1,4 +1,3 @@
-import type { Collection } from "$gathering/Collection";
+import type { Collection } from '$gathering/Collection';
 
-export function userLoadsItsCollection(collection: Collection): void {
-}
+export function userLoadsItsCollection(collection: Collection): void {}
