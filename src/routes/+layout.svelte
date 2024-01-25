@@ -1,10 +1,12 @@
 <script lang="ts">
   import './app.css';
 
-  import type { Collection } from '$gathering/Collection';
   import { createCollectionLoader } from '$gathering';
 
-  const collection: Collection = ['Core Set', 'The Feast of Hemlock Vale Campaign Expansion'];
+  const isBrowser = typeof window !== 'undefined';
+
+  const collection = isBrowser ? JSON.parse(localStorage.collection) : [];
+
   const loader = createCollectionLoader();
   loader.loadCollection(collection);
 </script>

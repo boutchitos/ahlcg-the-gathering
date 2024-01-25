@@ -22,10 +22,18 @@ export type CardsPack = {
   removePackFromCollection: () => void;
 };
 
-export function userEditsItsCollection(): IUserEditsItsCollection {
+export function userEditsItsCollection(
+  onCollectionUpdated?: ICollectionOutput,
+): IUserEditsItsCollection {
   const howManyPacksIndex = createHowManyPacksIndex();
-  const collecionOutput = new CollecionOutput(howManyPacksIndex);
-  const collectionEditor = createCollectionEditor(collecionOutput);
+  const syncHowManyPacksIndex = new SyncHowManyPacksIndex(howManyPacksIndex);
+  const outputs: ICollectionOutput = {
+    collectionUpdated(collection: Collection) {
+      syncHowManyPacksIndex.collectionUpdated(collection);
+      onCollectionUpdated?.collectionUpdated(collection);
+    },
+  };
+  const collectionEditor = createCollectionEditor(outputs);
 
   return {
     allAvailableBundles: allAvailableBundles.map(({ packs, title }) => {
@@ -44,7 +52,7 @@ export function userEditsItsCollection(): IUserEditsItsCollection {
 
 type HowManyPacksIndex = Map<string, Writable<number>>;
 
-class CollecionOutput implements ICollectionOutput {
+class SyncHowManyPacksIndex implements ICollectionOutput {
   constructor(private readonly howManyPacksIndex: HowManyPacksIndex) {}
 
   collectionUpdated(collection: Collection): void {
