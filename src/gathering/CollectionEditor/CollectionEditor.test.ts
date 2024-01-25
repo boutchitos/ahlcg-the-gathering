@@ -29,7 +29,6 @@ describe('Collection Editor : add/remove pack', () => {
     // L'output est un peu anonyme (i.e. cache dans ctor, impl); Pourrait etre dans l<interface.
     // editor.listenOnCollection( output ); et serait visible dans le type system, arch diagram
     editor = new CollectionEditor(collectionEntity, collectionOutput);
-    editor.resetCollection();
   });
 
   it('adds one pack to Collection', () => {

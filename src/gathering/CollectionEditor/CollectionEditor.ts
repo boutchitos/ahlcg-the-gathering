@@ -24,6 +24,6 @@ export class CollectionEditor implements ICollectionEditor {
   }
 }
 
-export function createCollectionEditor(collectionOutput: ICollectionOutput) {
+export function createCollectionEditor(collectionOutput: ICollectionOutput): ICollectionEditor {
   return new CollectionEditor(theUserCollection, collectionOutput);
 }
