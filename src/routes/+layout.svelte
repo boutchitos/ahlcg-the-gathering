@@ -5,7 +5,10 @@
 
   const isBrowser = typeof window !== 'undefined';
 
-  const collection = isBrowser ? JSON.parse(localStorage.collection) : [];
+  const collection =
+    isBrowser && typeof localStorage.collection === 'string'
+      ? JSON.parse(localStorage.collection)
+      : [];
 
   const loader = createCollectionLoader();
   loader.loadCollection(collection);
