@@ -4,11 +4,24 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    name: "build, test, lint, ..."
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20]
     steps:
-      - uses: actions/checkout@v3
-      - run: pnpm build
-      - run: pnpm test:unit
-      - run: pnpm lint
-      - run: pnpm arch
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
+    - name: Install dependencies
+      run: pnpm install
+    - run: pnpm build
+    - run: pnpm test:unit
+    - run: pnpm lint
+    - run: pnpm arch
