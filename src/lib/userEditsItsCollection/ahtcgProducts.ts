@@ -46,7 +46,6 @@ export const allAvailableBundles = [
       'The City of Archives',
       'The Depths of Yoth',
       'Shattered Aeons',
-      'Return to the Forgotten Age',
     ],
   },
   {
