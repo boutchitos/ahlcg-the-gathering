@@ -27,6 +27,8 @@ jobs:
         run: pnpm test:unit
       - name: Lint
         run: pnpm lint
+      - name: Setup Graphviz (dot)
+        uses: ts-graphviz/setup-graphviz@v1
       - name: Generate Architecture Diagrams
         run: |
           chmod +x ./scripts/generate_fake_svelte_dependencies.sh
