@@ -1,8 +1,18 @@
 <script lang="ts">
+  import type { Collection } from '$gathering/Collection';
+  import type { ICollectionOutput } from '$gathering/ICollectionOutput';
   import { userEditsItsCollection } from '$lib/userEditsItsCollection/userEditsItsCollection';
   import PacksBundle from './PacksBundle/PacksBundle.svelte';
 
-  const { allAvailableBundles } = userEditsItsCollection();
+  const isBrowser = typeof window !== 'undefined';
+
+  class SaveLocalStorage implements ICollectionOutput {
+    collectionUpdated(collection: Collection): void {
+      isBrowser && (localStorage.collection = JSON.stringify(collection));
+    }
+  }
+
+  const { allAvailableBundles } = userEditsItsCollection(new SaveLocalStorage());
 </script>
 
 <h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>

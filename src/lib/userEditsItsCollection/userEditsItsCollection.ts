@@ -1,12 +1,13 @@
 import { createCollectionEditor } from '$gathering';
 import type { Collection } from '$gathering/Collection';
-import type { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { writable, type Readable, type Writable, readonly } from 'svelte/store';
 import { allAvailableBundles, allAvailablePacks } from './ahtcgProducts';
+import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 
 export interface IUserEditsItsCollection {
   allAvailableBundles: BundleOfPacks[];
+  resetCollection: () => void;
 }
 
 export type BundleOfPacks = {
@@ -21,10 +22,18 @@ export type CardsPack = {
   removePackFromCollection: () => void;
 };
 
-export function userEditsItsCollection(): IUserEditsItsCollection {
+export function userEditsItsCollection(
+  onCollectionUpdated?: ICollectionOutput,
+): IUserEditsItsCollection {
   const howManyPacksIndex = createHowManyPacksIndex();
-  const collecionOutput = new CollecionOutput(howManyPacksIndex);
-  const collectionEditor = createCollectionEditor(collecionOutput);
+  const syncHowManyPacksIndex = new SyncHowManyPacksIndex(howManyPacksIndex);
+  const outputs: ICollectionOutput = {
+    collectionUpdated(collection: Collection) {
+      syncHowManyPacksIndex.collectionUpdated(collection);
+      onCollectionUpdated?.collectionUpdated(collection);
+    },
+  };
+  const collectionEditor = createCollectionEditor(outputs);
 
   return {
     allAvailableBundles: allAvailableBundles.map(({ packs, title }) => {
@@ -35,12 +44,15 @@ export function userEditsItsCollection(): IUserEditsItsCollection {
         title,
       };
     }),
+    resetCollection: () => {
+      collectionEditor.resetCollection();
+    },
   };
 }
 
 type HowManyPacksIndex = Map<string, Writable<number>>;
 
-class CollecionOutput implements ICollectionOutput {
+class SyncHowManyPacksIndex implements ICollectionOutput {
   constructor(private readonly howManyPacksIndex: HowManyPacksIndex) {}
 
   collectionUpdated(collection: Collection): void {
@@ -58,7 +70,7 @@ function createHowManyPacksIndex(): HowManyPacksIndex {
 function createCardsPack(
   name: string,
   howManyPacksIndex: HowManyPacksIndex,
-  collectionEditor: CollectionEditor,
+  collectionEditor: ICollectionEditor,
 ): CardsPack {
   return {
     howMany: readonly(howManyPacksIndex.get(name)!),
