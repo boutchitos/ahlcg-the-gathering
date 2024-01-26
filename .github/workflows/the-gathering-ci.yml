@@ -31,5 +31,5 @@ jobs:
         uses: ts-graphviz/setup-graphviz@v1
       - name: Generate Architecture Diagrams
         run: |
-          chmod +x ./scripts/generate_fake_svelte_dependencies.sh
+          chmod +x ./scripts/*.sh
           pnpm arch
