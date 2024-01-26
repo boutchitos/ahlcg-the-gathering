@@ -195,7 +195,7 @@ module.exports = {
           leave out if you want to exclude neither (recommended!)
     */
     exclude: {
-      path: '.*.test..*|.*index.ts',
+      path: '.*.test..*|.*index.ts|.*collection/edit/.*',
       //   dynamic: true
     },
 
@@ -208,7 +208,7 @@ module.exports = {
        regular expression in its output, as well as their neighbours (direct
        dependencies and dependents)
     */
-    focus: 'src/routes/collection/edit|src/gathering',
+    focus: 'src/routes/collection',
 
     /* List of module systems to cruise. 
        When left out dependency-cruiser will fall back to the list of _all_ 

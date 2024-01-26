@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { PageData } from './$types';
 
-  import Binder from '$lib/Components/Binder.svelte';
-  import { useBinder } from '$lib/Presenters/BinderOutputPort';
+  import { useBinder } from '$lib/userBrowsesItsCollection/BinderOutputPort';
+  import Binder from './Binder.svelte';
 
   export let data: PageData;
 

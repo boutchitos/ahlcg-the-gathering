@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Pocket } from '$lib/ViewModels/binder';
+  import type { Pocket } from '$lib/userBrowsesItsCollection/binder';
 
   export let pockets: Pocket[];
 
