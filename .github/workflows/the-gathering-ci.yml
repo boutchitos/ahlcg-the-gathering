@@ -28,4 +28,6 @@ jobs:
       - name: Lint
         run: pnpm lint
       - name: Generate Architecture Diagrams
-        run: pnpm arch
+        run: |
+          chmod +x ./scripts/generate_fake_svelte_dependencies.sh
+          pnpm arch
