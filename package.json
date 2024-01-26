@@ -6,7 +6,7 @@
     "arch": "pnpm arch:fake_svelte && pnpm arch:gen_diagram && pnpm arch:clean_fake",
     "arch:gen_diagram": "depcruise src --include-only \"^src\" --output-type dot | dot -T svg > dependency-graph.svg ",
     "arch:fake_svelte": "bash -c ./scripts/generate_fake_svelte_dependencies.sh",
-    "arch:clean_fake": "find ./src -name '*.svelte.ts' -exec rm {} ;",
+    "arch:clean_fake": "bash -c ./scripts/remove_fake_svelte_dependencies.sh",
     "dev": "vite dev",
     "build": "vite build",
     "clean": "rm -rf .svelte-kit/ .vercel",

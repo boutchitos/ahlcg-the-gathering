@@ -34,7 +34,7 @@ beforeEach(() => {
 
 it('outputs its collection at instantiation time', () => {
   expect(collectionOutput.hasBeenUpdated).toStrictEqual(true);
-})
+});
 
 it('adds one pack to Collection', () => {
   editor.addPack(CoreSet);
