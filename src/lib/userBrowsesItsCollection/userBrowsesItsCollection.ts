@@ -2,8 +2,6 @@ import { derived, readable, writable, type Readable } from 'svelte/store';
 import ahdbPacks from './ahdb.packs.json';
 import couzListOfPacks from './couz.json';
 import {
-  type Card,
-  type Pocket,
   type CollectionPack,
   type Pack,
   cleanAHDBCards,
@@ -12,7 +10,8 @@ import {
   getInvestigatorCards,
   sortCardsAsUserWant,
   regroupByPockets,
-} from './regroupByPockets';
+} from '$gathering/CollectionOrganizer/regroupByPockets';
+import type { Card, Pocket } from '$gathering/IBinderOutput';
 
 export type PocketViewModel = {
   title: string;
