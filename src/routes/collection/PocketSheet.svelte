@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Pocket } from '$lib/userBrowsesItsCollection/binder';
+  import type { PocketViewModel } from '$lib/userBrowsesItsCollection/binder';
 
-  export let pockets: Pocket[];
+  export let pockets: PocketViewModel[];
 
-  function rotateLandscape(pocket: Pocket): string {
+  function rotateLandscape(pocket: PocketViewModel): string {
     return pocket.coverImage.landscape ? '-rotate-90' : '';
   }
 
-  function setMinWidthHeight(pocket: Pocket): string {
+  function setMinWidthHeight(pocket: PocketViewModel): string {
     return pocket.coverImage.landscape ? 'min-h-[150px] min-w-[209px]' : '';
   }
 </script>

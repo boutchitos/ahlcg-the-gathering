@@ -1,7 +1,4 @@
-import ahdbCards from '$lib/server/ahdb.cards.json';
-import ahdbPacks from '$lib/server/ahdb.packs.json';
-import packList from '$lib/server/collection/couz.json';
-import type { PageServerLoad } from './$types';
+import ahdbCards from './ahdb.cards.json';
 import type { Card, Pocket } from '$lib/BinderStorage';
 
 // Un pack loader, avec émulation pour Path to Carcosa qui n'est pas sur ArkhamDB.
@@ -10,12 +7,12 @@ import type { Card, Pocket } from '$lib/BinderStorage';
 // Le traitement devrait fonctionner. Même chose avec les cartes. J'aurais 2 Knifes par Core.
 // Je mettrais 2 cartes dans la liste. Et 4 au total avec le traitement (2 packs qui ajoutent 2 cartes chaque)
 
-type CollectionPack = {
+export type CollectionPack = {
   nbCopies: number;
   packCode: string; // id?
 };
 
-type Pack = {
+export type Pack = {
   available: string;
   code: string;
   cycle_position: number;
@@ -33,7 +30,7 @@ function assert(expr: boolean, help = 'something went wrong!') {
   }
 }
 
-function getCardsByPackCode(ahdbCards: Card[]) {
+export function getCardsByPackCode(ahdbCards: Card[]) {
   const cardsByPackCode = new Map<string, Card[]>();
   for (const card of ahdbCards) {
     if (!cardsByPackCode.has(card.pack_code)) {
@@ -44,7 +41,7 @@ function getCardsByPackCode(ahdbCards: Card[]) {
   return cardsByPackCode;
 }
 
-function getInvestigatorCards(
+export function getInvestigatorCards(
   cardsByPackCode: Map<string, Card[]>,
   packsCollection: Array<CollectionPack>,
 ) {
@@ -71,7 +68,7 @@ function getInvestigatorCards(
   return cards.flat();
 }
 
-function getPacksByCode(ahdbPacks: Pack[]) {
+export function getPacksByCode(ahdbPacks: Pack[]) {
   const packsByCode = new Map<string, Pack>();
   for (const pack of ahdbPacks) {
     if (packsByCode.has(pack.code)) {
@@ -82,7 +79,7 @@ function getPacksByCode(ahdbPacks: Pack[]) {
   return packsByCode;
 }
 
-function regroupByPockets(cards: Card[]): Pocket[] {
+export function regroupByPockets(cards: Card[]): Pocket[] {
   const pocketsByInvestigator = new Map<string, Pocket>();
   const pocketsByName = new Map<string, Pocket>();
   const pocketsByBoundedCard = new Map<string, Pocket>();
@@ -201,7 +198,7 @@ function sortPlayerCardsByWeakness(a: Card, b: Card): number {
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-function sortCardsAsUserWant(a: Card, b: Card) {
+export function sortCardsAsUserWant(a: Card, b: Card) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 
@@ -225,7 +222,7 @@ function sortCardsAsUserWant(a: Card, b: Card) {
   return 0;
 }
 
-function cleanAHDBCards() {
+export function cleanAHDBCards() {
   const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
   const allCards = ahdbCards
     .filter((card) => !['Random Basic Weakness'].includes(card.name))
@@ -233,34 +230,3 @@ function cleanAHDBCards() {
     .filter((card) => !card.code.match(/[0-9]+b/));
   return allCards;
 }
-
-const allCards = cleanAHDBCards();
-
-const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
-const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(allCards);
-
-const packsCollection: Array<Pack & CollectionPack> = packList.map(
-  (collPack: Record<string, unknown>) => {
-    if (collPack.packCode === undefined || typeof collPack.packCode !== 'string') {
-      throw new Error(`packCode missing or is not a string in pack '${JSON.stringify(collPack)}'`);
-    }
-
-    return Object.assign({ nbCopies: 1 }, packsByCode.get(collPack.packCode), collPack) as Pack &
-      CollectionPack;
-  },
-);
-
-const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
-  sortCardsAsUserWant,
-);
-
-const pockets = regroupByPockets(investigatorCardsCollection);
-
-export const load: PageServerLoad = () => {
-  return {
-    username: 'Couz',
-    packsCollection,
-    investigatorCardsCollection,
-    pockets,
-  };
-};

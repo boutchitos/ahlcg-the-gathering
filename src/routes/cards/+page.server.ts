@@ -1,4 +1,4 @@
-import ahdbCards from '$lib/server/ahdb.cards.json';
+import ahdbCards from '$lib/userBrowsesItsCollection/ahdb.cards.json';
 import type { PageServerLoad } from './$types';
 
 export const prerender = true;

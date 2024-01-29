@@ -18,8 +18,8 @@
     "format": "prettier --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest",
-    "ahdb:cards": "curl -X GET https://arkhamdb.com/api/public/cards/ > ./src/lib/server/ahdb.cards.json && pnpm format",
-    "ahdb:packs": "curl -X GET https://arkhamdb.com/api/public/packs/ > ./src/lib/server/ahdb.packs.json && pnpm format"
+    "ahdb:cards": "curl -X GET https://arkhamdb.com/api/public/cards/ > ./src/lib/userBrowsesItsCollection/ahdb.cards.json && pnpm format",
+    "ahdb:packs": "curl -X GET https://arkhamdb.com/api/public/packs/ > ./src/lib/userBrowsesItsCollection/ahdb.packs.json && pnpm format"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
