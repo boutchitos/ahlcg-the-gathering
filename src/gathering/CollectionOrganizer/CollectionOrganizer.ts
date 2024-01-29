@@ -1,31 +1,15 @@
+import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
 import type { Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 import ahdbCards from '$gathering/ahdb.cards.json';
-import ahdbPacks from '$gathering/ahdb.packs.json';
-import couzListOfPacks from '$gathering/couz.json';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
+  constructor(private collection: CollectionEntity) {}
+
   organizeCollection(binderOutput: IBinderOutput): void {
-    const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
-    const packsCollection: Array<Pack & CollectionPack> = couzListOfPacks.map(
-      (collPack: Record<string, unknown>) => {
-        if (collPack.packCode === undefined || typeof collPack.packCode !== 'string') {
-          throw new Error(
-            `packCode missing or is not a string in pack '${JSON.stringify(collPack)}'`,
-          );
-        }
-
-        return Object.assign(
-          { nbCopies: 1 },
-          packsByCode.get(collPack.packCode),
-          collPack,
-        ) as Pack & CollectionPack;
-      },
-    );
-
     const allCards = cleanAHDBCards();
-    const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(allCards);
-    const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
+    const cardsByPackName: Map<string, Card[]> = getCardsByPackName(allCards);
+    const investigatorCardsCollection = getInvestigatorCards(cardsByPackName, this.collection).sort(
       sortCardsAsUserWant,
     );
 
@@ -35,7 +19,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 }
 
 export function createCollectionOrganizer(): ICollectionOrganizer {
-  return new CollectionOrganizer();
+  return new CollectionOrganizer(theUserCollection);
 }
 
 export type CollectionPack = {
@@ -61,24 +45,21 @@ function assert(expr: boolean, help = 'something went wrong!') {
   }
 }
 
-function getCardsByPackCode(ahdbCards: Card[]) {
-  const cardsByPackCode = new Map<string, Card[]>();
+function getCardsByPackName(ahdbCards: Card[]) {
+  const cardsByPackName = new Map<string, Card[]>();
   for (const card of ahdbCards) {
-    if (!cardsByPackCode.has(card.pack_code)) {
-      cardsByPackCode.set(card.pack_code, []);
+    if (!cardsByPackName.has(card.pack_name)) {
+      cardsByPackName.set(card.pack_name, []);
     }
-    cardsByPackCode.get(card.pack_code)?.push(card);
+    cardsByPackName.get(card.pack_name)?.push(card);
   }
-  return cardsByPackCode;
+  return cardsByPackName;
 }
 
-function getInvestigatorCards(
-  cardsByPackCode: Map<string, Card[]>,
-  packsCollection: Array<CollectionPack>,
-) {
+function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, collection: CollectionEntity) {
   const cards = new Array<Card[]>();
-  for (const pack of packsCollection) {
-    const cardsInPack = cardsByPackCode.get(pack.packCode);
+  for (const packName of collection.getPacks()) {
+    const cardsInPack = cardsByPackName.get(packName);
     if (cardsInPack === undefined) {
       // Carnevale of Horrors n'a pas de cartes investigator.
       // Je me rends compte que je dois donner 'encounter=1' à l'API pour avoir toutes les cartes.
@@ -87,27 +68,14 @@ function getInvestigatorCards(
       // Je viens d'en trouver la cause. Ça vient du pack guardians et ce sont des story qui tant
       // qu'à moi, ne vont pas dans les player cards. Le throw ici est mal inséré. Car le pack
       // existe, mais n'a pas de carte.
-      if (['coh', 'lol', 'guardians'].includes(pack.packCode)) {
+      if (['coh', 'lol', 'guardians'].includes(packName)) {
         continue;
       }
-      throw new Error(`unknown pack '${pack.packCode}' in collection`);
+      throw new Error(`unknown pack '${packName}' in collection`);
     }
-    for (let i = 0; i < (pack.nbCopies ?? 1); i++) {
-      cards.push(cardsInPack);
-    }
+    cards.push(cardsInPack);
   }
   return cards.flat();
-}
-
-function getPacksByCode(ahdbPacks: Pack[]) {
-  const packsByCode = new Map<string, Pack>();
-  for (const pack of ahdbPacks) {
-    if (packsByCode.has(pack.code)) {
-      throw new Error('pack already there');
-    }
-    packsByCode.set(pack.code, pack);
-  }
-  return packsByCode;
 }
 
 function regroupByPockets(cards: Card[]): Pocket[] {
