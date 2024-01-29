@@ -21,7 +21,7 @@ pnpm dev
 To refresh dependency-graph.svg, linked below...
 
 ```bash
-pnpm arch:clean && manual pnpm arch:hack... && pnpm arch && pnpm arch:clean
+pnpm arch
 ```
 
 <img src="./dependency-graph.svg" alt="dependency graph" width="100%"/>
