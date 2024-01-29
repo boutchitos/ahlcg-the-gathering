@@ -21,3 +21,11 @@ export type Card = {
 export type Pocket = {
   cards: Card[];
 };
+
+export type Binder = {
+  pockets: Pocket[];
+};
+
+export interface IBinderOutput {
+  binderUpdated(binder: Binder): void;
+}

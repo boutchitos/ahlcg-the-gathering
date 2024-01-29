@@ -1,9 +1,45 @@
-import { derived, readable, writable } from 'svelte/store';
-import type { Pocket } from '$lib/BinderStorage';
-import type { Binder, BinderPage, Pocket as PocketViewModel } from '$lib/ViewModels/binder';
+import { derived, readable, writable, type Readable } from 'svelte/store';
+import { createCollectionOrganizer } from '$gathering';
+import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
-export function useBinder(pockets: Pocket[]): Binder {
-  const pocketsVM = pockets.map(toPocketViewModel);
+export type PocketViewModel = {
+  title: string;
+  coverImage: {
+    landscape: boolean;
+    url: string;
+  };
+};
+
+export type BinderPage = {
+  pockets: PocketViewModel[];
+};
+
+export type BinderAs2Pages = {
+  currentPage: Readable<number>;
+  howManyPages: Readable<number>;
+
+  leftPage: Readable<BinderPage>;
+  rightPage: Readable<BinderPage>;
+
+  handleLeftPageClick: () => void;
+  handleRightPageClick: () => void;
+};
+
+class BinderOutput implements IBinderOutput {
+  binder: Binder = { pockets: [] };
+
+  binderUpdated(binder: Binder): void {
+    this.binder = { pockets: [...binder.pockets] };
+  }
+}
+
+export function userBrowsesItsCollection(): BinderAs2Pages {
+  const organizer: ICollectionOrganizer = createCollectionOrganizer();
+  const binderOutput = new BinderOutput();
+  organizer.organizeCollection(binderOutput);
+
+  const pocketsVM = binderOutput.binder.pockets.map(toPocketViewModel);
 
   const pocketOffset = writable(0);
   const currentPage = derived(pocketOffset, (pocketOffset) => Math.ceil(pocketOffset / 9) + 1);

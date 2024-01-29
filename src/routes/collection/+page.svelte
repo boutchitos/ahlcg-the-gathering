@@ -1,15 +1,11 @@
 <script lang="ts">
-  import type { PageData } from './$types';
+  import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
+  import Binder from './Binder.svelte';
 
-  import Binder from '$lib/Components/Binder.svelte';
-  import { useBinder } from '$lib/Presenters/BinderOutputPort';
-
-  export let data: PageData;
-
-  const binder = useBinder(data.pockets);
+  const binder = userBrowsesItsCollection();
 </script>
 
-<h1 class="text-4xl font-bold">{data.username}'s Investigator Cards Collection</h1>
+<h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>
 
 <div class="mx-auto flex justify-center">
   <Binder {binder} />

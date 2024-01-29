@@ -1,21 +1,33 @@
-import ahdbCards from '$lib/server/ahdb.cards.json';
-import ahdbPacks from '$lib/server/ahdb.packs.json';
-import packList from '$lib/server/collection/couz.json';
-import type { PageServerLoad } from './$types';
-import type { Card, Pocket } from '$lib/BinderStorage';
+import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
+import type { Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
+import ahdbCards from '$gathering/ahdb.cards.json';
 
-// Un pack loader, avec émulation pour Path to Carcosa qui n'est pas sur ArkhamDB.
-// Je vais me l'inventer de mon bord, le Investigator Expansion. Ce sera aussi plus domaine pour le user.
-// Serait plus simple de simuler la "physique". Donc, j'ai 2 Core dans ma collection.
-// Le traitement devrait fonctionner. Même chose avec les cartes. J'aurais 2 Knifes par Core.
-// Je mettrais 2 cartes dans la liste. Et 4 au total avec le traitement (2 packs qui ajoutent 2 cartes chaque)
+export class CollectionOrganizer implements ICollectionOrganizer {
+  constructor(private collection: CollectionEntity) {}
 
-type CollectionPack = {
+  organizeCollection(binderOutput: IBinderOutput): void {
+    const allCards = cleanAHDBCards();
+    const cardsByPackName: Map<string, Card[]> = getCardsByPackName(allCards);
+    const investigatorCardsCollection = getInvestigatorCards(cardsByPackName, this.collection).sort(
+      sortCardsAsUserWant,
+    );
+
+    const pockets = regroupByPockets(investigatorCardsCollection);
+    binderOutput.binderUpdated({ pockets });
+  }
+}
+
+export function createCollectionOrganizer(): ICollectionOrganizer {
+  return new CollectionOrganizer(theUserCollection);
+}
+
+export type CollectionPack = {
   nbCopies: number;
   packCode: string; // id?
 };
 
-type Pack = {
+export type Pack = {
   available: string;
   code: string;
   cycle_position: number;
@@ -33,24 +45,21 @@ function assert(expr: boolean, help = 'something went wrong!') {
   }
 }
 
-function getCardsByPackCode(ahdbCards: Card[]) {
-  const cardsByPackCode = new Map<string, Card[]>();
+function getCardsByPackName(ahdbCards: Card[]) {
+  const cardsByPackName = new Map<string, Card[]>();
   for (const card of ahdbCards) {
-    if (!cardsByPackCode.has(card.pack_code)) {
-      cardsByPackCode.set(card.pack_code, []);
+    if (!cardsByPackName.has(card.pack_name)) {
+      cardsByPackName.set(card.pack_name, []);
     }
-    cardsByPackCode.get(card.pack_code)?.push(card);
+    cardsByPackName.get(card.pack_name)?.push(card);
   }
-  return cardsByPackCode;
+  return cardsByPackName;
 }
 
-function getInvestigatorCards(
-  cardsByPackCode: Map<string, Card[]>,
-  packsCollection: Array<CollectionPack>,
-) {
+function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, collection: CollectionEntity) {
   const cards = new Array<Card[]>();
-  for (const pack of packsCollection) {
-    const cardsInPack = cardsByPackCode.get(pack.packCode);
+  for (const packName of collection.getPacks()) {
+    const cardsInPack = cardsByPackName.get(packName);
     if (cardsInPack === undefined) {
       // Carnevale of Horrors n'a pas de cartes investigator.
       // Je me rends compte que je dois donner 'encounter=1' à l'API pour avoir toutes les cartes.
@@ -59,27 +68,14 @@ function getInvestigatorCards(
       // Je viens d'en trouver la cause. Ça vient du pack guardians et ce sont des story qui tant
       // qu'à moi, ne vont pas dans les player cards. Le throw ici est mal inséré. Car le pack
       // existe, mais n'a pas de carte.
-      if (['coh', 'lol', 'guardians'].includes(pack.packCode)) {
+      if (['coh', 'lol', 'guardians'].includes(packName)) {
         continue;
       }
-      throw new Error(`unknown pack '${pack.packCode}' in collection`);
+      throw new Error(`unknown pack '${packName}' in collection`);
     }
-    for (let i = 0; i < (pack.nbCopies ?? 1); i++) {
-      cards.push(cardsInPack);
-    }
+    cards.push(cardsInPack);
   }
   return cards.flat();
-}
-
-function getPacksByCode(ahdbPacks: Pack[]) {
-  const packsByCode = new Map<string, Pack>();
-  for (const pack of ahdbPacks) {
-    if (packsByCode.has(pack.code)) {
-      throw new Error('pack already there');
-    }
-    packsByCode.set(pack.code, pack);
-  }
-  return packsByCode;
 }
 
 function regroupByPockets(cards: Card[]): Pocket[] {
@@ -233,34 +229,3 @@ function cleanAHDBCards() {
     .filter((card) => !card.code.match(/[0-9]+b/));
   return allCards;
 }
-
-const allCards = cleanAHDBCards();
-
-const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
-const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(allCards);
-
-const packsCollection: Array<Pack & CollectionPack> = packList.map(
-  (collPack: Record<string, unknown>) => {
-    if (collPack.packCode === undefined || typeof collPack.packCode !== 'string') {
-      throw new Error(`packCode missing or is not a string in pack '${JSON.stringify(collPack)}'`);
-    }
-
-    return Object.assign({ nbCopies: 1 }, packsByCode.get(collPack.packCode), collPack) as Pack &
-      CollectionPack;
-  },
-);
-
-const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
-  sortCardsAsUserWant,
-);
-
-const pockets = regroupByPockets(investigatorCardsCollection);
-
-export const load: PageServerLoad = () => {
-  return {
-    username: 'Couz',
-    packsCollection,
-    investigatorCardsCollection,
-    pockets,
-  };
-};
