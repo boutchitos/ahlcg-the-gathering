@@ -1,6 +1,7 @@
 import { derived, readable, writable, type Readable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
 export type PocketViewModel = {
   title: string;
@@ -34,7 +35,7 @@ class BinderOutput implements IBinderOutput {
 }
 
 export function userBrowsesItsCollection(): BinderAs2Pages {
-  const organizer = createCollectionOrganizer();
+  const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
   organizer.organizeCollection(binderOutput);
 

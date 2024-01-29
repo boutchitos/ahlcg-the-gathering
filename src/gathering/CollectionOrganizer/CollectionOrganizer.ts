@@ -61,7 +61,7 @@ function assert(expr: boolean, help = 'something went wrong!') {
   }
 }
 
-export function getCardsByPackCode(ahdbCards: Card[]) {
+function getCardsByPackCode(ahdbCards: Card[]) {
   const cardsByPackCode = new Map<string, Card[]>();
   for (const card of ahdbCards) {
     if (!cardsByPackCode.has(card.pack_code)) {
@@ -72,7 +72,7 @@ export function getCardsByPackCode(ahdbCards: Card[]) {
   return cardsByPackCode;
 }
 
-export function getInvestigatorCards(
+function getInvestigatorCards(
   cardsByPackCode: Map<string, Card[]>,
   packsCollection: Array<CollectionPack>,
 ) {
@@ -99,7 +99,7 @@ export function getInvestigatorCards(
   return cards.flat();
 }
 
-export function getPacksByCode(ahdbPacks: Pack[]) {
+function getPacksByCode(ahdbPacks: Pack[]) {
   const packsByCode = new Map<string, Pack>();
   for (const pack of ahdbPacks) {
     if (packsByCode.has(pack.code)) {
@@ -229,7 +229,7 @@ function sortPlayerCardsByWeakness(a: Card, b: Card): number {
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-export function sortCardsAsUserWant(a: Card, b: Card) {
+function sortCardsAsUserWant(a: Card, b: Card) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 
@@ -253,7 +253,7 @@ export function sortCardsAsUserWant(a: Card, b: Card) {
   return 0;
 }
 
-export function cleanAHDBCards() {
+function cleanAHDBCards() {
   const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
   const allCards = ahdbCards
     .filter((card) => !['Random Basic Weakness'].includes(card.name))
