@@ -1,3 +1,5 @@
+// Un regroupement de ce qu'on trouve sur FFG et sur arkhamdb.com.
+// ahdb a plus d'historique (heureusement).
 export const allAvailableBundles = [
   {
     title: 'Arkham Horror: The Card Game',
@@ -105,11 +107,25 @@ export const allAvailableBundles = [
   {
     title: 'Investigator Starter Decks',
     packs: [
-      'Winifred Habbamock Investigator Starter Deck',
-      'Nathaniel Cho Investigator Starter Deck',
-      'Harvey Walters Investigator Starter Deck',
-      'Jacqueline Fine Investigator Starter Deck',
-      'Stella Clark Investigator Starter Deck',
+      'Winifred Habbamock',
+      'Nathaniel Cho',
+      'Harvey Walters',
+      'Jacqueline Fine',
+      'Stella Clark',
+    ],
+  },
+  {
+    title: 'Parallel investigators',
+    packs: [
+      'Read or Die',
+      'All or Nothing',
+      'Bad Blood',
+      'By the Book',
+      'Red Tide Rising',
+      'Relics of the Past',
+      'On the Road Again',
+      'Laid to Rest',
+      'Path of the Righteous',
     ],
   },
   {
@@ -120,7 +136,7 @@ export const allAvailableBundles = [
       'The Labyrinths of Lunacy',
       'Guardians of the Abyss',
       'Murder at the Excelsior Hotel',
-      'Barkham Horror: The Meddling of Meowlathotep',
+      // 'Barkham Horror: The Meddling of Meowlathotep', no ahdb
       'The Blob That Ate Everything',
       'War of the Outer Gods',
       'Machinations Through Time',
@@ -130,3 +146,31 @@ export const allAvailableBundles = [
 ];
 
 export const allAvailablePacks = allAvailableBundles.map((bundle) => bundle.packs).flat();
+
+// Not in the views: Promo
+// Not in the views: Hour of the Huntress
+// Not in the views: Books
+// Not in the views: Ire of the Void
+// Not in the views: The Dirge of Reason
+// Not in the views: To Fight the Black Wind
+// Not in the views: The Deep Gate
+// Not in the views: Read or Die
+// Not in the views: Blood of Baalshandor
+// Not in the views: All or Nothing
+// Not in the views: Dark Revelations
+// Not in the views: Bad Blood
+// Not in the views: By the Book
+// Not in the views: Red Tide Rising
+// Not in the views: On the Road Again
+// Not in the views: The Blob That Ate Everything ELSE!
+// Not in the views: Laid to Rest
+// Not in the views: Path of the Righteous
+// Not in the views: Relics of the Past
+// Not in the ahdb: The Circle Undone Campaign Expansion
+// Not in the ahdb: The Circle Undone Investigator Expansion
+// Not in the ahdb: The Dunwich Legacy Campaign Expansion
+// Not in the ahdb: The Dunwich Legacy Investigator Expansion
+// Not in the ahdb: The Forgotten Age Campaign Expansion
+// Not in the ahdb: The Forgotten Age Investigator Expansion
+// Not in the ahdb: The Path to Carcosa Campaign Expansion
+// Not in the ahdb: The Path to Carcosa Investigator Expansion

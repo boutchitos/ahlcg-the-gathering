@@ -11,10 +11,13 @@ class PackRepository implements IPackRepository {
       'A Light in the Fog',
       'A Phantom of Truth',
       'A Thousand Shapes of Horror',
-      'Barkham Horror: The Meddling of Meowlathotep',
+      'All or Nothing',
+      'Bad Blood',
+      // not in ahdb: 'Barkham Horror: The Meddling of Meowlathotep',
       'Before the Black Throne',
       'Black Stars Rise',
       'Blood on the Altar',
+      'By the Book',
       'Carnevale of Horrors',
       'Core Set',
       'Curse of the Rougarou',
@@ -27,18 +30,24 @@ class PackRepository implements IPackRepository {
       'For the Greater Good',
       'Fortune and Folly',
       'Guardians of the Abyss',
-      'Harvey Walters Investigator Starter Deck',
+      'Harvey Walters',
       'Heart of the Elders',
       'Horror in High Gear',
       'In the Clutches of Chaos',
       'In Too Deep',
       'Into the Maelstrom',
-      'Jacqueline Fine Investigator Starter Deck',
+      'Jacqueline Fine',
+      'Laid to Rest',
       'Lost in Time and Space',
       'Machinations Through Time',
       'Murder at the Excelsior Hotel',
-      'Nathaniel Cho Investigator Starter Deck',
+      'Nathaniel Cho',
+      'On the Road Again',
+      'Path of the Righteous',
       'Point of No Return',
+      'Read or Die',
+      'Red Tide Rising',
+      'Relics of the Past',
       'Return to the Circle Undone',
       'Return to the Dunwich Legacy',
       'Return to the Forgotten Age',
@@ -46,7 +55,7 @@ class PackRepository implements IPackRepository {
       'Return to the Path to Carcosa',
       'Revised Core Set',
       'Shattered Aeons',
-      'Stella Clark Investigator Starter Deck',
+      'Stella Clark',
       'The Blob That Ate Everything',
       'The Boundary Beyond',
       'The Circle Undone Campaign Expansion',
@@ -85,10 +94,26 @@ class PackRepository implements IPackRepository {
       'Weaver of the Cosmos',
       'Where Doom Awaits',
       'Where the Gods Dwell',
-      'Winifred Habbamock Investigator Starter Deck',
+      'Winifred Habbamock',
     ];
   }
 }
 
 // no need to get many instance of static data.
 const thePackRepository = new PackRepository();
+const thePacksInView = new Set(thePackRepository.getAllPacks());
+
+import ahdbPacks from './ahdb.packs.json';
+
+ahdbPacks.forEach(({ name }) => {
+  if (!thePacksInView.has(name)) {
+    console.log(`Not in the views: ${name}`);
+  }
+});
+
+thePacksInView.forEach((packInView) => {
+  const items = ahdbPacks.filter(({ name }) => packInView === name);
+  if (items.length === 0) {
+    console.log(`Not in the ahdb: ${packInView}`);
+  }
+});
