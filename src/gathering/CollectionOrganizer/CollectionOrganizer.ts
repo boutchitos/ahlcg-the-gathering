@@ -1,11 +1,42 @@
-import type { Card, Pocket } from '$gathering/IBinderOutput';
-import ahdbCards from '../../lib/userBrowsesItsCollection/ahdb.cards.json';
+import type { Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
+import ahdbCards from '$gathering/ahdb.cards.json';
+import ahdbPacks from '$gathering/ahdb.packs.json';
+import couzListOfPacks from '$gathering/couz.json';
 
-// Un pack loader, avec émulation pour Path to Carcosa qui n'est pas sur ArkhamDB.
-// Je vais me l'inventer de mon bord, le Investigator Expansion. Ce sera aussi plus domaine pour le user.
-// Serait plus simple de simuler la "physique". Donc, j'ai 2 Core dans ma collection.
-// Le traitement devrait fonctionner. Même chose avec les cartes. J'aurais 2 Knifes par Core.
-// Je mettrais 2 cartes dans la liste. Et 4 au total avec le traitement (2 packs qui ajoutent 2 cartes chaque)
+export class CollectionOrganizer implements ICollectionOrganizer {
+  organizeCollection(binderOutput: IBinderOutput): void {
+    const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
+    const packsCollection: Array<Pack & CollectionPack> = couzListOfPacks.map(
+      (collPack: Record<string, unknown>) => {
+        if (collPack.packCode === undefined || typeof collPack.packCode !== 'string') {
+          throw new Error(
+            `packCode missing or is not a string in pack '${JSON.stringify(collPack)}'`,
+          );
+        }
+
+        return Object.assign(
+          { nbCopies: 1 },
+          packsByCode.get(collPack.packCode),
+          collPack,
+        ) as Pack & CollectionPack;
+      },
+    );
+
+    const allCards = cleanAHDBCards();
+    const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(allCards);
+    const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
+      sortCardsAsUserWant,
+    );
+
+    const pockets = regroupByPockets(investigatorCardsCollection);
+    binderOutput.binderUpdated({ pockets });
+  }
+}
+
+export function createCollectionOrganizer(): ICollectionOrganizer {
+  return new CollectionOrganizer();
+}
 
 export type CollectionPack = {
   nbCopies: number;
@@ -79,7 +110,7 @@ export function getPacksByCode(ahdbPacks: Pack[]) {
   return packsByCode;
 }
 
-export function regroupByPockets(cards: Card[]): Pocket[] {
+function regroupByPockets(cards: Card[]): Pocket[] {
   const pocketsByInvestigator = new Map<string, Pocket>();
   const pocketsByName = new Map<string, Pocket>();
   const pocketsByBoundedCard = new Map<string, Pocket>();

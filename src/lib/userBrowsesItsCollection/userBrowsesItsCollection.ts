@@ -1,17 +1,6 @@
 import { derived, readable, writable, type Readable } from 'svelte/store';
-import ahdbPacks from './ahdb.packs.json';
-import couzListOfPacks from './couz.json';
-import {
-  type CollectionPack,
-  type Pack,
-  cleanAHDBCards,
-  getCardsByPackCode,
-  getPacksByCode,
-  getInvestigatorCards,
-  sortCardsAsUserWant,
-  regroupByPockets,
-} from '$gathering/CollectionOrganizer/regroupByPockets';
-import type { Card, Pocket } from '$gathering/IBinderOutput';
+import { createCollectionOrganizer } from '$gathering';
+import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 
 export type PocketViewModel = {
   title: string;
@@ -25,7 +14,7 @@ export type BinderPage = {
   pockets: PocketViewModel[];
 };
 
-export type Binder = {
+export type BinderAs2Pages = {
   currentPage: Readable<number>;
   howManyPages: Readable<number>;
 
@@ -36,30 +25,20 @@ export type Binder = {
   handleRightPageClick: () => void;
 };
 
-export function userBrowsesItsCollection(): Binder {
-  const allCards = cleanAHDBCards();
+class BinderOutput implements IBinderOutput {
+  binder: Binder = { pockets: [] };
 
-  const packsByCode: Map<string, Pack> = getPacksByCode(ahdbPacks);
-  const cardsByPackCode: Map<string, Card[]> = getCardsByPackCode(allCards);
+  binderUpdated(binder: Binder): void {
+    this.binder = { pockets: [...binder.pockets] };
+  }
+}
 
-  const packsCollection: Array<Pack & CollectionPack> = couzListOfPacks.map(
-    (collPack: Record<string, unknown>) => {
-      if (collPack.packCode === undefined || typeof collPack.packCode !== 'string') {
-        throw new Error(
-          `packCode missing or is not a string in pack '${JSON.stringify(collPack)}'`,
-        );
-      }
+export function userBrowsesItsCollection(): BinderAs2Pages {
+  const organizer = createCollectionOrganizer();
+  const binderOutput = new BinderOutput();
+  organizer.organizeCollection(binderOutput);
 
-      return Object.assign({ nbCopies: 1 }, packsByCode.get(collPack.packCode), collPack) as Pack &
-        CollectionPack;
-    },
-  );
-
-  const investigatorCardsCollection = getInvestigatorCards(cardsByPackCode, packsCollection).sort(
-    sortCardsAsUserWant,
-  );
-  const pockets = regroupByPockets(investigatorCardsCollection);
-  const pocketsVM = pockets.map(toPocketViewModel);
+  const pocketsVM = binderOutput.binder.pockets.map(toPocketViewModel);
 
   const pocketOffset = writable(0);
   const currentPage = derived(pocketOffset, (pocketOffset) => Math.ceil(pocketOffset / 9) + 1);

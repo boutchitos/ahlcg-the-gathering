@@ -1,5 +1,3 @@
-// import type { Collection } from './Collection';
-
 export type Card = {
   bonded_cards?: { code: string }[];
   bonded_to?: string;
