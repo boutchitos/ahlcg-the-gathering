@@ -907,7 +907,7 @@
     "position": 1,
     "cycle_position": 10,
     "available": "2023-01-30",
-    "known": 34,
+    "known": 76,
     "total": 300,
     "url": "https://arkhamdb.com/set/fhvp",
     "id": 84
@@ -955,5 +955,16 @@
     "total": 3,
     "url": "https://arkhamdb.com/set/ptr",
     "id": 87
+  },
+  {
+    "name": "Relics of the Past",
+    "code": "rop",
+    "position": 9,
+    "cycle_position": 90,
+    "available": "2024-01-01",
+    "known": 3,
+    "total": 16,
+    "url": "https://arkhamdb.com/set/rop",
+    "id": 88
   }
 ]
