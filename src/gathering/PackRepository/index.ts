@@ -16,11 +16,13 @@ class PackRepository implements IPackRepository {
       // not in ahdb: 'Barkham Horror: The Meddling of Meowlathotep',
       'Before the Black Throne',
       'Black Stars Rise',
+      'Blood of Baalshandor',
       'Blood on the Altar',
       'By the Book',
       'Carnevale of Horrors',
       'Core Set',
       'Curse of the Rougarou',
+      'Dark Revelations',
       'Dark Side of the Moon',
       'Devil Reef',
       'Dim Carcosa',
@@ -33,9 +35,11 @@ class PackRepository implements IPackRepository {
       'Harvey Walters',
       'Heart of the Elders',
       'Horror in High Gear',
+      'Hour of the Huntress',
       'In the Clutches of Chaos',
       'In Too Deep',
       'Into the Maelstrom',
+      'Ire of the Void',
       'Jacqueline Fine',
       'Laid to Rest',
       'Lost in Time and Space',
@@ -62,7 +66,9 @@ class PackRepository implements IPackRepository {
       'The Circle Undone Investigator Expansion',
       'The Circle Undone',
       'The City of Archives',
+      'The Deep Gate',
       'The Depths of Yoth',
+      'The Dirge of Reason',
       'The Dream-Eaters',
       'The Dunwich Legacy Campaign Expansion',
       'The Dunwich Legacy Investigator Expansion',
@@ -88,6 +94,7 @@ class PackRepository implements IPackRepository {
       'The Unspeakable Oath',
       'The Wages of Sin',
       'Threads of Fate',
+      'To Fight the Black Wind',
       'Undimensioned and Unseen',
       'Union and Disillusion',
       'War of the Outer Gods',
@@ -106,14 +113,16 @@ const thePacksInView = new Set(thePackRepository.getAllPacks());
 import ahdbPacks from './ahdb.packs.json';
 
 ahdbPacks.forEach(({ name }) => {
-  if (!thePacksInView.has(name)) {
+  if (!thePacksInView.has(name) && !['Books', 'Promo'].includes(name)) {
     console.log(`Not in the views: ${name}`);
   }
 });
 
 thePacksInView.forEach((packInView) => {
   const items = ahdbPacks.filter(({ name }) => packInView === name);
-  if (items.length === 0) {
+  const emulate =
+    packInView.includes(' Campaign Expansion') || packInView.includes(' Investigator Expansion');
+  if (items.length === 0 && !emulate) {
     console.log(`Not in the ahdb: ${packInView}`);
   }
 });
