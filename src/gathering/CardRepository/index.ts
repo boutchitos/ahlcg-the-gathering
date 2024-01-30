@@ -1,5 +1,6 @@
 import type { Card } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
+import type { Pack } from '$gathering/Pack';
 import ahdbCards from './ahdb.cards.json';
 
 export function createCardRepository(): ICardRepository {
@@ -7,15 +8,17 @@ export function createCardRepository(): ICardRepository {
 }
 
 class CardRepository implements ICardRepository {
-  getInvestigatorCards(packs: string[]): Iterable<Card> {
-    const allCards = cleanAHDBCards();
-    const cardsByPackName: Map<string, Card[]> = getCardsByPackName(allCards);
-    return getInvestigatorCards(cardsByPackName, packs);
+  getInvestigatorCards(packs: Pack[]): Iterable<Card> {
+    const emulatedPacks = emulatePacks(packs);
+    return getInvestigatorCards(cardsByPackName, emulatedPacks);
   }
 }
 
 // no need to get many instance of static data.
 const theCardRepository = new CardRepository();
+
+const allCards = cleanAHDBCards();
+const cardsByPackName: Map<string, Card[]> = getCardsByPackName(allCards);
 
 function getCardsByPackName(ahdbCards: Card[]) {
   const cardsByPackName = new Map<string, Card[]>();
@@ -57,4 +60,63 @@ function cleanAHDBCards() {
     .filter((card) => !multiClassTitles.includes(card.name))
     .filter((card) => !card.code.match(/[0-9]+b/));
   return allCards;
+}
+
+function emulatePacks(packs: Pack[]): Pack[] {
+  return packs
+    .map((pack) => {
+      switch (pack) {
+        case 'The Circle Undone Campaign Expansion':
+        case 'The Circle Undone Investigator Expansion':
+          return [
+            'The Circle Undone',
+            'The Secret Name',
+            'The Wages of Sin',
+            'For the Greater Good',
+            'Union and Disillusion',
+            'In the Clutches of Chaos',
+            'Before the Black Throne',
+          ];
+
+        case 'The Dunwich Legacy Campaign Expansion':
+        case 'The Dunwich Legacy Investigator Expansion':
+          return [
+            'The Dunwich Legacy',
+            'The Miskatonic Museum',
+            'The Essex County Express',
+            'Blood on the Altar',
+            'Undimensioned and Unseen',
+            'Where Doom Awaits',
+            'Lost in Time and Space',
+          ];
+
+        case 'The Forgotten Age Campaign Expansion':
+        case 'The Forgotten Age Investigator Expansion':
+          return [
+            'The Forgotten Age',
+            'Threads of Fate',
+            'The Boundary Beyond',
+            'Heart of the Elders',
+            'The City of Archives',
+            'The Depths of Yoth',
+            'Shattered Aeons',
+          ];
+
+        case 'The Path to Carcosa Campaign Expansion':
+        case 'The Path to Carcosa Investigator Expansion':
+          return [
+            'The Path to Carcosa',
+            'Echoes of the Past',
+            'The Unspeakable Oath',
+            'A Phantom of Truth',
+            'The Pallid Mask',
+            'Black Stars Rise',
+            'Dim Carcosa',
+          ];
+
+        default:
+          return [pack];
+      }
+    })
+    .flat();
 }
