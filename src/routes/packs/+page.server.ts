@@ -1,4 +1,4 @@
-import ahdbPacks from '$gathering/ahdb.packs.json';
+import ahdbPacks from '$gathering/PackRepository/ahdb.packs.json';
 import type { PageServerLoad } from './$types';
 
 export const prerender = true;
