@@ -16,8 +16,9 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
+    "test:coverage": "vitest run --coverage",
     "test:integration": "playwright test",
-    "test:unit": "vitest run --coverage",
+    "test:unit": "vitest",
     "ahdb": "pnpm ahdb:cards && pnpm ahdb:packs && pnpm format",
     "ahdb:cards": "curl -X GET https://arkhamdb.com/api/public/cards/ > ./src/gathering/ahdb.cards.json",
     "ahdb:packs": "curl -X GET https://arkhamdb.com/api/public/packs/ > ./src/gathering/PackRepository/ahdb.packs.json"
