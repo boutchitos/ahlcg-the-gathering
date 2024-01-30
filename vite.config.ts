@@ -9,5 +9,12 @@ export default defineConfig({
   },
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
+    coverage: {
+      all: true,
+      exclude: ['**/*.d.ts', '**/*.server.ts'],
+      include: ['src/**'],
+      extension: ['.js', '.cjs', '.mjs', '.ts'],
+      reporter: ['text', 'html', 'lcov'],
+    },
   },
 });
