@@ -8,7 +8,6 @@ export function createPackRepository(): IPackRepository {
 
 class PackRepository implements IPackRepository {
   getAllPacks(): Iterable<Pack> {
-    // not in ahdb: 'Barkham Horror: The Meddling of Meowlathotep',
     return ahdbPacks.map((pack) => pack.name);
   }
 }

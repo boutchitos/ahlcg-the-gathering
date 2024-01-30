@@ -1,5 +1,3 @@
-// Un regroupement de ce qu'on trouve sur FFG et sur arkhamdb.com.
-// ahdb a plus d'historique (heureusement).
 export const allAvailableBundles = [
   {
     title: 'Arkham Horror: The Card Game',
