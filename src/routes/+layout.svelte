@@ -17,5 +17,10 @@
 <h1 class="text-4xl font-bold">
   The Gathering, a binder storage solution for Arkham Horror The Card Game
 </h1>
+<div class="flex gap-4">
+  <a href="/collection/">View your Collection</a>
+  <a href="/collection/edit">Edit your Collection</a>
+  <a href="/icons">Icons showcase</a>
+</div>
 
 <slot />
