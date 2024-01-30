@@ -144,13 +144,13 @@ export const allAvailableBundles = [
   {
     title: 'Promotional',
     packs: [
-      'Hour of the Huntress',
-      'The Dirge of Reason',
-      'Ire of the Void',
-      'The Deep Gate',
-      'To Fight the Black Wind',
       'Blood of Baalshandor',
       'Dark Revelations',
+      'Hour of the Huntress',
+      'Ire of the Void',
+      'The Deep Gate',
+      'The Dirge of Reason',
+      'To Fight the Black Wind',
     ],
   },
 ];
