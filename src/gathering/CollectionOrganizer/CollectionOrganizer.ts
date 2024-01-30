@@ -1,19 +1,19 @@
+import { createCardRepository } from '$gathering';
 import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
 import type { Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { ICardRepository } from '$gathering/ICardRepository';
 import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
-import ahdbCards from '$gathering/ahdb.cards.json';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   constructor(private collection: CollectionEntity) {}
 
   organizeCollection(binderOutput: IBinderOutput): void {
-    const allCards = cleanAHDBCards();
-    const cardsByPackName: Map<string, Card[]> = getCardsByPackName(allCards);
-    const investigatorCardsCollection = getInvestigatorCards(cardsByPackName, this.collection).sort(
-      sortCardsAsUserWant,
-    );
+    const cardRepository: ICardRepository = createCardRepository();
+    const collectedCards = cardRepository.getInvestigatorCards(this.collection.getPacks());
 
-    const pockets = regroupByPockets(investigatorCardsCollection);
+    const organized = [...collectedCards].sort(sortCardsAsUserWant);
+
+    const pockets = regroupByPockets(organized);
     binderOutput.binderUpdated({ pockets });
   }
 }
@@ -27,55 +27,10 @@ export type CollectionPack = {
   packCode: string; // id?
 };
 
-export type Pack = {
-  available: string;
-  code: string;
-  cycle_position: number;
-  id: number;
-  known: number;
-  name: string;
-  position: number;
-  total: number;
-  url: string;
-};
-
 function assert(expr: boolean, help = 'something went wrong!') {
   if (!expr) {
     throw new Error(help);
   }
-}
-
-function getCardsByPackName(ahdbCards: Card[]) {
-  const cardsByPackName = new Map<string, Card[]>();
-  for (const card of ahdbCards) {
-    if (!cardsByPackName.has(card.pack_name)) {
-      cardsByPackName.set(card.pack_name, []);
-    }
-    cardsByPackName.get(card.pack_name)?.push(card);
-  }
-  return cardsByPackName;
-}
-
-function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, collection: CollectionEntity) {
-  const cards = new Array<Card[]>();
-  for (const packName of collection.getPacks()) {
-    const cardsInPack = cardsByPackName.get(packName);
-    if (cardsInPack === undefined) {
-      // Carnevale of Horrors n'a pas de cartes investigator.
-      // Je me rends compte que je dois donner 'encounter=1' à l'API pour avoir toutes les cartes.
-      // Ceci dit, j'ai cherché dans les cartes qui devraient seulement être investigator, et je
-      // trouve des '"faction_code": "mythos"'. C'est étrange et à démêler plus tard.
-      // Je viens d'en trouver la cause. Ça vient du pack guardians et ce sont des story qui tant
-      // qu'à moi, ne vont pas dans les player cards. Le throw ici est mal inséré. Car le pack
-      // existe, mais n'a pas de carte.
-      if (['coh', 'lol', 'guardians'].includes(packName)) {
-        continue;
-      }
-      throw new Error(`unknown pack '${packName}' in collection`);
-    }
-    cards.push(cardsInPack);
-  }
-  return cards.flat();
 }
 
 function regroupByPockets(cards: Card[]): Pocket[] {
@@ -219,13 +174,4 @@ function sortCardsAsUserWant(a: Card, b: Card) {
   if (xp_sort !== 0) return xp_sort;
 
   return 0;
-}
-
-function cleanAHDBCards() {
-  const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
-  const allCards = ahdbCards
-    .filter((card) => !['Random Basic Weakness'].includes(card.name))
-    .filter((card) => !multiClassTitles.includes(card.name))
-    .filter((card) => !card.code.match(/[0-9]+b/));
-  return allCards;
 }

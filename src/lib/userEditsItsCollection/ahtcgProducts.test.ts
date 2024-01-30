@@ -21,12 +21,7 @@ it('all gathering packs are presented or ignored', () => {
 });
 
 it('all presented packs are offered by gathering', () => {
-  // we will emulate some, but don't want to ignore them. We present, them actually.
-  const notOffered = [...presented].filter((name) => {
-    const emulate =
-      name.includes(' Campaign Expansion') || name.includes(' Investigator Expansion');
-    return !gathering.has(name) && !emulate;
-  });
+  const notOffered = [...presented].filter((name) => !gathering.has(name));
 
   // Not so much to do, probably not supported by ArkhamDB. Better not to
   // present it.
