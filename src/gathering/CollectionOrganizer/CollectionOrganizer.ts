@@ -109,7 +109,17 @@ function sortAssetCardsBySlot(a: Card, b: Card) {
   if (aHandheld !== true && bHandheld === true) return 1;
   if (aHandheld === true && bHandheld === true) return 0;
 
-  const slotOrder = ['Arcane', 'Ally', 'Accessory', 'Body', 'Tarot', undefined];
+  const slotOrder = [
+    'Arcane',
+    'Arcane x2',
+    'Ally',
+    'Ally. Arcane',
+    'Accessory',
+    'Body',
+    'Body. Arcane',
+    'Tarot',
+    undefined,
+  ];
 
   const aSlot = slotOrder.indexOf(a.slot);
   if (aSlot === -1) {
@@ -140,9 +150,20 @@ function sortPlayerCardsByType(a: Card, b: Card): number {
   return aTypeCode - bTypeCode;
 }
 
+function sortPlayerCardsByLocation(a: Card, b: Card): number {
+  const aIsLocation = isLocationCard(a);
+  const bIsLocation = isLocationCard(b);
+
+  if (aIsLocation !== bIsLocation) {
+    return aIsLocation ? 1 : -1; // location at the end
+  }
+
+  return 0;
+}
+
 function sortPlayerCardsByWeakness(a: Card, b: Card): number {
-  const aIsWeakness = a.subtype_code?.includes('weakness');
-  const bIsWeakness = b.subtype_code?.includes('weakness');
+  const aIsWeakness = isWeaknessCard(a);
+  const bIsWeakness = isWeaknessCard(b);
 
   if (aIsWeakness !== bIsWeakness) {
     return aIsWeakness ? 1 : -1; // weakness at the end
@@ -151,12 +172,27 @@ function sortPlayerCardsByWeakness(a: Card, b: Card): number {
   return 0;
 }
 
+function isLocationCard(card: Card) {
+  return card.type_code === 'location';
+}
+
+function isWeaknessCard(card: Card) {
+  const enemy = card.type_code === 'enemy';
+  const weakness = card.subtype_code?.includes('weakness');
+  return enemy || weakness;
+}
+
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
 function sortCardsAsUserWant(a: Card, b: Card) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 
-  if (!a.subtype_code?.includes('weakness')) {
+  // I would put locations here after weakness, probably
+  // investigator cards that are catched up by pocket regrouping.
+  const bylocations = sortPlayerCardsByLocation(a, b);
+  if (bylocations !== 0) return bylocations;
+
+  if (!isWeaknessCard(a) && !isLocationCard(a)) {
     const byClass = sortPlayerCardsByClass(a, b);
     if (byClass !== 0) return byClass;
 

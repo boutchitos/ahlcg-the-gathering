@@ -36,16 +36,23 @@ function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, packs: strin
   for (const packName of packs) {
     const cardsInPack = cardsByPackName.get(packName);
     if (cardsInPack === undefined) {
-      // // Carnevale of Horrors n'a pas de cartes investigator.
-      // // Je me rends compte que je dois donner 'encounter=1' à l'API pour avoir toutes les cartes.
-      // // Ceci dit, j'ai cherché dans les cartes qui devraient seulement être investigator, et je
-      // // trouve des '"faction_code": "mythos"'. C'est étrange et à démêler plus tard.
-      // // Je viens d'en trouver la cause. Ça vient du pack guardians et ce sont des story qui tant
-      // // qu'à moi, ne vont pas dans les player cards. Le throw ici est mal inséré. Car le pack
-      // // existe, mais n'a pas de carte.
-      // if (['coh', 'lol', 'guardians'].includes(packName)) {
-      //   continue;
-      // }
+      // may be present those as useless in binders for no investigator cards...
+      if (
+        [
+          'Carnevale of Horrors',
+          'Curse of the Rougarou',
+          'Fortune and Folly',
+          'Guardians of the Abyss',
+          'Machinations Through Time',
+          'Murder at the Excelsior Hotel',
+          'The Blob That Ate Everything',
+          'The Labyrinths of Lunacy',
+          'War of the Outer Gods',
+        ].includes(packName) ||
+        !!packName.match(/ Campaign Expansion$/)
+      ) {
+        continue;
+      }
       throw new Error(`unknown pack '${packName}'`);
     }
     cards.push(cardsInPack);

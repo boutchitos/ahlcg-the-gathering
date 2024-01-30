@@ -6,6 +6,7 @@
   import ArrowDown from './arrow-down.svg.svelte';
 
   export let pack: CardsPack;
+  // pack.addPackToCollection();
 
   let howMany = pack.howMany;
   $: owned = derived(howMany, (value) => value > 0);

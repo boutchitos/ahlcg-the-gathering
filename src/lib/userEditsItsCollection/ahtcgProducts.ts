@@ -136,7 +136,6 @@ export const allAvailableBundles = [
       'Machinations Through Time',
       'Murder at the Excelsior Hotel',
       'The Blob That Ate Everything',
-      'The Blob That Ate Everything ELSE!',
       'The Labyrinths of Lunacy',
       'War of the Outer Gods',
     ],

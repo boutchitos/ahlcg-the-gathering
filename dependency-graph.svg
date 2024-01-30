@@ -19,16 +19,6 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M157.5,-170C157.5,-170 641,-170 641,-170 647,-170 653,-176 653,-182 653,-182 653,-442 653,-442 653,-448 647,-454 641,-454 641,-454 157.5,-454 157.5,-454 151.5,-454 145.5,-448 145.5,-442 145.5,-442 145.5,-182 145.5,-182 145.5,-176 151.5,-170 157.5,-170"/>
 <text text-anchor="middle" x="399.25" y="-442.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">gathering</text>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_src/gathering/CollectionEditor</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M165.5,-312C165.5,-312 269.5,-312 269.5,-312 275.5,-312 281.5,-318 281.5,-324 281.5,-324 281.5,-382 281.5,-382 281.5,-388 275.5,-394 269.5,-394 269.5,-394 165.5,-394 165.5,-394 159.5,-394 153.5,-388 153.5,-382 153.5,-382 153.5,-324 153.5,-324 153.5,-318 159.5,-312 165.5,-312"/>
-<text text-anchor="middle" x="217.5" y="-382.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEditor</text>
-</g>
-<g id="clust6" class="cluster">
-<title>cluster_src/gathering/CollectionOrganizer</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M320,-178C320,-178 419,-178 419,-178 425,-178 431,-184 431,-190 431,-190 431,-218 431,-218 431,-224 425,-230 419,-230 419,-230 320,-230 320,-230 314,-230 308,-224 308,-218 308,-218 308,-190 308,-190 308,-184 314,-178 320,-178"/>
-<text text-anchor="middle" x="369.5" y="-218.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionOrganizer</text>
-</g>
 <g id="clust5" class="cluster">
 <title>cluster_src/gathering/CollectionLoader</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M173,-252C173,-252 262,-252 262,-252 268,-252 274,-258 274,-264 274,-264 274,-292 274,-292 274,-298 268,-304 262,-304 262,-304 173,-304 173,-304 167,-304 161,-298 161,-292 161,-292 161,-264 161,-264 161,-258 167,-252 173,-252"/>
@@ -38,6 +28,16 @@
 <title>cluster_src/gathering/CollectionEntity</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M329,-352C329,-352 410,-352 410,-352 416,-352 422,-358 422,-364 422,-364 422,-392 422,-392 422,-398 416,-404 410,-404 410,-404 329,-404 329,-404 323,-404 317,-398 317,-392 317,-392 317,-364 317,-364 317,-358 323,-352 329,-352"/>
 <text text-anchor="middle" x="369.5" y="-392.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEntity</text>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_src/gathering/CollectionOrganizer</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M320,-178C320,-178 419,-178 419,-178 425,-178 431,-184 431,-190 431,-190 431,-218 431,-218 431,-224 425,-230 419,-230 419,-230 320,-230 320,-230 314,-230 308,-224 308,-218 308,-218 308,-190 308,-190 308,-184 314,-178 320,-178"/>
+<text text-anchor="middle" x="369.5" y="-218.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionOrganizer</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_src/gathering/CollectionEditor</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M165.5,-312C165.5,-312 269.5,-312 269.5,-312 275.5,-312 281.5,-318 281.5,-324 281.5,-324 281.5,-382 281.5,-382 281.5,-388 275.5,-394 269.5,-394 269.5,-394 165.5,-394 165.5,-394 159.5,-394 153.5,-388 153.5,-382 153.5,-382 153.5,-324 153.5,-324 153.5,-318 159.5,-312 165.5,-312"/>
+<text text-anchor="middle" x="217.5" y="-382.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEditor</text>
 </g>
 <g id="clust7" class="cluster">
 <title>cluster_src/lib</title>
@@ -122,16 +122,16 @@
 <g id="node5" class="node">
 <title>src/gathering/ICollectionOutput.ts</title>
 <g id="a_node5"><a xlink:href="src/gathering/ICollectionOutput.ts" xlink:title="ICollectionOutput.ts">
-<path fill="#ddfeff" stroke="black" d="M412,-256C412,-256 327,-256 327,-256 324,-256 321,-253 321,-250 321,-250 321,-244 321,-244 321,-241 324,-238 327,-238 327,-238 412,-238 412,-238 415,-238 418,-241 418,-244 418,-244 418,-250 418,-250 418,-253 415,-256 412,-256"/>
-<text text-anchor="start" x="329" y="-244.8" font-family="Helvetica,sans-Serif" font-size="9.00">ICollectionOutput.ts</text>
+<path fill="#ddfeff" stroke="black" d="M412,-300C412,-300 327,-300 327,-300 324,-300 321,-297 321,-294 321,-294 321,-288 321,-288 321,-285 324,-282 327,-282 327,-282 412,-282 412,-282 415,-282 418,-285 418,-288 418,-288 418,-294 418,-294 418,-297 415,-300 412,-300"/>
+<text text-anchor="start" x="329" y="-288.8" font-family="Helvetica,sans-Serif" font-size="9.00">ICollectionOutput.ts</text>
 </a>
 </g>
 </g>
 <!-- src/gathering/CollectionEditor/CollectionEditor.ts&#45;&gt;src/gathering/ICollectionOutput.ts -->
 <g id="edge3" class="edge">
 <title>src/gathering/CollectionEditor/CollectionEditor.ts&#45;&gt;src/gathering/ICollectionOutput.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M263.89,-325.39C277.04,-322.24 290.42,-316.69 300,-307 310.01,-296.88 298.96,-286.99 308,-276 314.19,-268.48 322.79,-262.77 331.57,-258.5"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="332.44,-260.41 337.04,-256.03 330.71,-256.59 332.44,-260.41"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M253.34,-319.97C269.89,-315.7 289.96,-310.56 308,-306 313.74,-304.55 319.8,-303.03 325.77,-301.55"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="326.38,-303.56 331.69,-300.07 325.37,-299.48 326.38,-303.56"/>
 </g>
 <!-- src/gathering/ICollectionEditor.ts&#45;&gt;src/gathering/Pack.ts -->
 <g id="edge18" class="edge">
@@ -142,8 +142,8 @@
 <!-- src/gathering/ICollectionOutput.ts&#45;&gt;src/gathering/Collection.ts -->
 <g id="edge21" class="edge">
 <title>src/gathering/ICollectionOutput.ts&#45;&gt;src/gathering/Collection.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M418.21,-255.57C430,-257.69 442.5,-259.93 453.83,-261.96"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="453.71,-264.08 459.99,-263.07 454.46,-259.94 453.71,-264.08"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M418.21,-282.43C430,-280.31 442.5,-278.07 453.83,-276.04"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="454.46,-278.06 459.99,-274.93 453.71,-273.92 454.46,-278.06"/>
 </g>
 <!-- src/gathering/CollectionEditor/PackRepositoryMock.ts -->
 <g id="node6" class="node">
@@ -226,29 +226,29 @@
 <!-- src/gathering/CollectionLoader/CollectionLoader.ts&#45;&gt;src/gathering/ICollectionOutput.ts -->
 <g id="edge12" class="edge">
 <title>src/gathering/CollectionLoader/CollectionLoader.ts&#45;&gt;src/gathering/ICollectionOutput.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M266.37,-261.98C281.74,-259.72 298.86,-257.21 314.62,-254.9"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="315.19,-256.94 320.82,-253.99 314.58,-252.79 315.19,-256.94"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M266.37,-276.02C281.74,-278.28 298.86,-280.79 314.62,-283.1"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="314.58,-285.21 320.82,-284.01 315.19,-281.06 314.58,-285.21"/>
 </g>
 <!-- src/gathering/ICollectionLoader.ts -->
 <g id="node10" class="node">
 <title>src/gathering/ICollectionLoader.ts</title>
 <g id="a_node10"><a xlink:href="src/gathering/ICollectionLoader.ts" xlink:title="ICollectionLoader.ts">
-<path fill="#ddfeff" stroke="black" d="M413,-300C413,-300 326,-300 326,-300 323,-300 320,-297 320,-294 320,-294 320,-288 320,-288 320,-285 323,-282 326,-282 326,-282 413,-282 413,-282 416,-282 419,-285 419,-288 419,-288 419,-294 419,-294 419,-297 416,-300 413,-300"/>
-<text text-anchor="start" x="328" y="-288.8" font-family="Helvetica,sans-Serif" font-size="9.00">ICollectionLoader.ts</text>
+<path fill="#ddfeff" stroke="black" d="M413,-256C413,-256 326,-256 326,-256 323,-256 320,-253 320,-250 320,-250 320,-244 320,-244 320,-241 323,-238 326,-238 326,-238 413,-238 413,-238 416,-238 419,-241 419,-244 419,-244 419,-250 419,-250 419,-253 416,-256 413,-256"/>
+<text text-anchor="start" x="328" y="-244.8" font-family="Helvetica,sans-Serif" font-size="9.00">ICollectionLoader.ts</text>
 </a>
 </g>
 </g>
 <!-- src/gathering/CollectionLoader/CollectionLoader.ts&#45;&gt;src/gathering/ICollectionLoader.ts -->
 <g id="edge11" class="edge">
 <title>src/gathering/CollectionLoader/CollectionLoader.ts&#45;&gt;src/gathering/ICollectionLoader.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M266.37,-276.02C281.44,-278.23 298.19,-280.69 313.69,-282.96"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="313.55,-285.06 319.79,-283.86 314.16,-280.91 313.55,-285.06"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M266.37,-261.98C281.44,-259.77 298.19,-257.31 313.69,-255.04"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="314.16,-257.09 319.79,-254.14 313.55,-252.94 314.16,-257.09"/>
 </g>
 <!-- src/gathering/ICollectionLoader.ts&#45;&gt;src/gathering/Collection.ts -->
 <g id="edge19" class="edge">
 <title>src/gathering/ICollectionLoader.ts&#45;&gt;src/gathering/Collection.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M419.27,-282.24C430.75,-280.18 442.85,-278.01 453.85,-276.03"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="454.3,-278.08 459.83,-274.96 453.56,-273.95 454.3,-278.08"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M419.27,-255.76C430.75,-257.82 442.85,-259.99 453.85,-261.97"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="453.56,-264.05 459.83,-263.04 454.3,-259.92 453.56,-264.05"/>
 </g>
 <!-- src/gathering/CollectionOrganizer/CollectionOrganizer.ts -->
 <g id="node11" class="node">
@@ -367,8 +367,8 @@
 <!-- src/lib/userEditsItsCollection/userEditsItsCollection.ts&#45;&gt;src/gathering/ICollectionOutput.ts -->
 <g id="edge27" class="edge">
 <title>src/lib/userEditsItsCollection/userEditsItsCollection.ts&#45;&gt;src/gathering/ICollectionOutput.ts</title>
-<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M221.89,-110.09C231.39,-134.29 260.74,-200.58 308,-233 310.2,-234.51 312.54,-235.86 314.97,-237.06"/>
-<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="314.46,-239.13 320.8,-239.62 316.15,-235.28 314.46,-239.13"/>
+<path fill="none" stroke="#000000" stroke-opacity="0.200000" d="M223.62,-110.39C242.16,-144.36 304.83,-259.01 308,-262 315.73,-269.27 325.62,-275.04 335.15,-279.46"/>
+<polygon fill="none" stroke="#000000" stroke-opacity="0.200000" points="334.37,-281.41 340.71,-281.9 336.06,-277.56 334.37,-281.41"/>
 </g>
 <!-- src/routes/collection/+page.svelte.ts -->
 <g id="node17" class="node">
