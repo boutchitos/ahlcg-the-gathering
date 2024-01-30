@@ -129,7 +129,6 @@ export const allAvailableBundles = [
   {
     title: 'Standalone Adventures',
     packs: [
-      // 'Barkham Horror: The Meddling of Meowlathotep', no ahdb
       'Carnevale of Horrors',
       'Curse of the Rougarou',
       'Fortune and Folly',
