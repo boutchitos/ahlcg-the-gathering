@@ -1,4 +1,4 @@
-import { derived, readable, writable, type Readable } from 'svelte/store';
+import { derived, readable, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
@@ -34,7 +34,10 @@ class BinderOutput implements IBinderOutput {
   }
 }
 
-export function userBrowsesItsCollection(): BinderAs2Pages {
+export function userBrowsesItsCollection(): {
+  binder: BinderAs2Pages;
+  classes: Writable<string[]>;
+} {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
   organizer.organizeCollection(binderOutput);
@@ -68,23 +71,26 @@ export function userBrowsesItsCollection(): BinderAs2Pages {
   }
 
   return {
-    currentPage,
-    howManyPages,
+    binder: {
+      currentPage,
+      howManyPages,
 
-    leftPage,
-    rightPage,
+      leftPage,
+      rightPage,
 
-    handleLeftPageClick: () => {
-      pocketOffset.update((pocketOffset) => {
-        pocketOffset -= 18;
-        return pocketOffset < 0 ? 0 : pocketOffset;
-      });
+      handleLeftPageClick: () => {
+        pocketOffset.update((pocketOffset) => {
+          pocketOffset -= 18;
+          return pocketOffset < 0 ? 0 : pocketOffset;
+        });
+      },
+
+      handleRightPageClick: () => {
+        pocketOffset.update((pocketOffset) => {
+          return pocketOffset + 18;
+        });
+      },
     },
-
-    handleRightPageClick: () => {
-      pocketOffset.update((pocketOffset) => {
-        return pocketOffset + 18;
-      });
-    },
+    classes: writable(['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']),
   };
 }

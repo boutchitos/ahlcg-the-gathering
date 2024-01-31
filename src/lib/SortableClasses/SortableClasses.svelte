@@ -1,6 +1,6 @@
 <script lang="ts">
+  import type { Writable } from 'svelte/store';
   import { DragDrop } from '$lib/dragDrop';
-  import { userOrganizesItsCollection } from '$lib/userOrganizesItsCollection/userOrganizesItsCollection';
 
   import GuardianIcon from './GuardianIcon.svelte';
   import MultiIcon from './MultiClassIcon.svelte';
@@ -10,7 +10,7 @@
   import SeekerIcon from './SeekerIcon.svelte';
   import SurvivorIcon from './SurvivorIcon.svelte';
 
-  const classes = userOrganizesItsCollection().classes;
+  export let classes: Writable<string[]>;
 
   function toIcon(name: string) {
     switch (name) {
