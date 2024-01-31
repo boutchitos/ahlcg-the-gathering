@@ -5,16 +5,19 @@ import type { ICardRepository } from '$gathering/ICardRepository';
 import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
+  private cardRepository: ICardRepository = createCardRepository();
+
   constructor(private collection: CollectionEntity) {}
 
   organizeCollection(binderOutput: IBinderOutput): void {
-    const cardRepository: ICardRepository = createCardRepository();
-    const collectedCards = cardRepository.getInvestigatorCards(this.collection.getPacks());
-
-    const organized = [...collectedCards].sort(sortCardsAsUserWant);
+    const organized = [...this.investigatorCards].sort(sortCardsAsUserWant);
 
     const pockets = regroupByPockets(organized);
     binderOutput.binderUpdated({ pockets });
+  }
+
+  private get investigatorCards(): Iterable<Card> {
+    return this.cardRepository.getInvestigatorCards(this.collection.getPacks());
   }
 }
 
