@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { DragDrop } from '$lib/dragDrop';
   import { userOrganizesItsCollection } from '$lib/userOrganizesItsCollection/userOrganizesItsCollection';
 
   import GuardianIcon from './GuardianIcon.svelte';
@@ -29,8 +30,17 @@
         return MultiIcon;
     }
   }
+
+  const dragDrop = new DragDrop<string>(classes);
 </script>
 
-{#each $classes as klass}
-  <svelte:component this={toIcon(klass)} />
+{#each $classes as klass, index}
+  <button
+    on:dragend={() => dragDrop.onDragEnd()}
+    on:dragenter={() => dragDrop.onDragEnter(index)}
+    on:dragover={(event) => dragDrop.onDragOver(event)}
+    on:dragstart={() => dragDrop.onDragStart(index)}
+    on:drop={() => dragDrop.onDragDrop()}
+    ><svelte:component this={toIcon(klass)} />
+  </button>
 {/each}

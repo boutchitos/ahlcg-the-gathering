@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DragDrop } from '$lib/SortableClasses/dragDrop';
+  import { DragDrop } from '$lib/dragDrop';
   import { writable } from 'svelte/store';
 
   let slots = writable([

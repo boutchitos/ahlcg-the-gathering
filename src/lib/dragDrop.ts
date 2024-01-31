@@ -41,5 +41,12 @@ export class DragDrop<Item> {
   onDragStart(index: number) {
     this.index = index;
     this.dropped = false;
+
+    // neater trick to get value. update instead of subscribe ;)
+    // will see if this hits performence.
+    this.items.update((value) => {
+      this.original = value;
+      return value;
+    });
   }
 }
