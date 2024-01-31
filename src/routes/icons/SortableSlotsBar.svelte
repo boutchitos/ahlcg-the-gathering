@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    onDragDrop,
-    onDragEnd,
-    onDragEnter,
-    onDragOver,
-    onDragStart,
-  } from '$lib/SortableClasses/dragDrop';
+  import { DragDrop } from '$lib/SortableClasses/dragDrop';
   import { writable } from 'svelte/store';
 
   let slots = writable([
@@ -34,16 +28,18 @@
       name: 'tarot',
     },
   ]);
+
+  const dragDrop = new DragDrop<{ name: string }>(slots);
 </script>
 
 <div class="flex bg-slate-400">
   {#each $slots as slot, index}
     <img
-      on:dragend={onDragEnd}
-      on:dragenter={() => onDragEnter(index)}
-      on:dragover={(event) => onDragOver(event)}
-      on:dragstart={() => onDragStart(slots, index)}
-      on:drop={onDragDrop}
+      on:dragend={() => dragDrop.onDragEnd()}
+      on:dragenter={() => dragDrop.onDragEnter(index)}
+      on:dragover={(event) => dragDrop.onDragOver(event)}
+      on:dragstart={() => dragDrop.onDragStart(index)}
+      on:drop={() => dragDrop.onDragDrop()}
       class="size-24 hover:cursor-pointer"
       src={`/icon/slot_${slot.name}.png`}
       alt={`${slot.name} slot icon`}

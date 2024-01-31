@@ -1,48 +1,45 @@
 import type { Writable } from 'svelte/store';
 
-let dragged: { slots: Writable<{ name: string }[]>; index: number };
-let original: { name: string }[];
-let dropped: boolean;
+export class DragDrop<Item> {
+  private index: number = 0;
+  private original: Item[] = [];
+  private dropped: boolean = false;
 
-export function onDragDrop() {
-  dropped = true;
-}
-
-export function onDragEnd() {
-  if (!dropped) {
-    // user cancelled...
-    dragged.slots.set(original);
+  constructor(private readonly items: Writable<Item[]>) {
+    const unsubscribe = items.subscribe((value) => (this.original = [...value]));
+    unsubscribe();
   }
-  original = [];
-  dropped = false;
-}
 
-export function onDragEnter(index: number) {
-  dragged.slots.update((slots) => {
-    const slot = slots[dragged.index];
-    slots.splice(dragged.index, 1);
-    slots.splice(index, 0, slot);
-    return slots;
-  });
+  onDragDrop() {
+    this.dropped = true;
+  }
 
-  dragged.index = index;
-}
+  onDragEnd() {
+    if (!this.dropped) {
+      // user cancelled...
+      this.items.set(this.original);
+    }
+    this.original = [];
+    this.dropped = false;
+  }
 
-export function onDragOver(event: DragEvent) {
-  event.preventDefault();
-}
+  onDragEnter(index: number) {
+    this.items.update((value) => {
+      const item = value[this.index];
+      value.splice(this.index, 1);
+      value.splice(index, 0, item);
+      return value;
+    });
 
-export function onDragStart(
-  slots: Writable<{ name: string }[]>,
-  index: number,
-) {
-  dragged = {
-    slots,
-    index,
-  };
+    this.index = index;
+  }
 
-  const unsubscribe = slots.subscribe((value) => (original = [...value]));
-  unsubscribe();
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
 
-  dropped = false;
+  onDragStart(index: number) {
+    this.index = index;
+    this.dropped = false;
+  }
 }
