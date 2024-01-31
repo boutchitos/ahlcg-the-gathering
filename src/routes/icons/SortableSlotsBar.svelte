@@ -42,7 +42,7 @@
       on:dragend={onDragEnd}
       on:dragenter={() => onDragEnter(index)}
       on:dragover={(event) => onDragOver(event)}
-      on:dragstart={() => onDragStart(slots, slot, index)}
+      on:dragstart={() => onDragStart(slots, index)}
       on:drop={onDragDrop}
       class="size-24 hover:cursor-pointer"
       src={`/icon/slot_${slot.name}.png`}
