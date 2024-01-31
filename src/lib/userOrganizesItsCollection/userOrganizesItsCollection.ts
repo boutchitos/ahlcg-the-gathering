@@ -4,7 +4,7 @@
 // import { writable, type Readable, type Writable, readonly } from 'svelte/store';
 // import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 
 // class
 
@@ -21,9 +21,9 @@ import { writable } from "svelte/store";
 // };
 
 export function userOrganizesItsCollection() {
-//onCollectionUpdated?: ICollectionOutput,
+  //onCollectionUpdated?: ICollectionOutput,
   return {
-    classes: writable(['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral'])
+    classes: writable(['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']),
   };
 }
 //   const howManyPacksIndex = createHowManyPacksIndex();

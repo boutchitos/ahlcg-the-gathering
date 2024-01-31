@@ -7,7 +7,7 @@ it('has access to its actual classes', () => {
   let initially: string[];
   classes.subscribe((value) => {
     initially = value;
-  })
+  });
 
   expect(initially!).toEqual(['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral']);
 });
@@ -18,7 +18,7 @@ it('could reorder classes', () => {
   let updated: string[];
   classes.subscribe((value) => {
     updated = value;
-  })
+  });
 
   classes.set(['mystic', 'rogue', 'seeker', 'survivor', 'neutral']);
 
