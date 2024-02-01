@@ -16,7 +16,7 @@ it('all gathering packs are presented or ignored', () => {
 
   // To fix this test, either present it in ahtcgProducts.ts; or ignore it here.
   // This is the list of packs in ArkhamDB that we choose to not present.
-  const ignored = ['Promo', 'Books'];
+  const ignored = ['Promo', 'Books', 'The Blob That Ate Everything ELSE!'];
   expect(new Set(notPresented)).toEqual(new Set(ignored));
 });
 

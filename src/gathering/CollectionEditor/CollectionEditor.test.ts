@@ -1,10 +1,10 @@
 import { beforeEach, expect, it } from 'vitest';
 import type { Collection } from '$gathering/Collection';
 import { CollectionEditor } from './CollectionEditor';
-import { PackRepositoryMock } from './PackRepositoryMock';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { CollectionEntity } from '$gathering/CollectionEntity';
 import { UnknownPackError } from '$gathering/CollectionEntity/CollectionEntity';
+import { createPackRepository } from '$gathering';
 
 const CoreSet = 'Core Set';
 const Dunwich = 'The Dunwich Legacy';
@@ -25,7 +25,7 @@ let collectionOutput: CollectionOutput;
 let editor: CollectionEditor;
 
 beforeEach(() => {
-  collectionEntity = new CollectionEntity(new PackRepositoryMock());
+  collectionEntity = new CollectionEntity(createPackRepository());
   collectionOutput = new CollectionOutput();
   // L'output est un peu anonyme (i.e. cache dans ctor, impl); Pourrait etre dans l<interface.
   // editor.listenOnCollection( output ); et serait visible dans le type system, arch diagram

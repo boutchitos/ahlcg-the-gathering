@@ -1,5 +1,9 @@
 import type { IBinderOutput } from './IBinderOutput';
 
+export type CLASS = 'guardian' | 'mystic' | 'rogue' | 'seeker' | 'survivor' | 'neutral' | 'multi';
+
 export interface ICollectionOrganizer {
-  organizeCollection(binderOutput: IBinderOutput): void;
+  onBinderUpdated(binderOutput: IBinderOutput): void;
+
+  reorderClasses(classes: CLASS[]): void;
 }

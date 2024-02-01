@@ -1,24 +1,22 @@
 <script lang="ts">
+  import type { BinderAs2Pages } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import PocketSheet from './PocketSheet.svelte';
-  import type { Binder, BinderPage, Pocket } from '$lib/ViewModels/binder';
 
-  export let binder: Binder;
+  export let binder: BinderAs2Pages;
 
-  let leftPockets: Pocket[];
-  let rightPockets: Pocket[];
   let currentPage = binder.currentPage;
   let howManyPages = binder.howManyPages;
-  binder.leftPage.subscribe((page: BinderPage) => (leftPockets = page.pockets));
-  binder.rightPage.subscribe((page: BinderPage) => (rightPockets = page.pockets));
+  let leftPage = binder.leftPage;
+  let rightPage = binder.rightPage;
 </script>
 
 <div class="block">
   <div class="grid grid-cols-2 gap-2">
     <button on:click={() => binder.handleLeftPageClick()}>
-      <PocketSheet pockets={leftPockets} />
+      <PocketSheet pockets={$leftPage.pockets} />
     </button>
     <button on:click={() => binder.handleRightPageClick()}>
-      <PocketSheet pockets={rightPockets} />
+      <PocketSheet pockets={$rightPage.pockets} />
     </button>
   </div>
 

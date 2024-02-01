@@ -1,11 +1,11 @@
 import type { Collection } from '$gathering/Collection';
-import { PackRepositoryMock } from '$gathering/CollectionEditor/PackRepositoryMock';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { beforeEach, expect, it } from 'vitest';
 import { CollectionLoader } from './CollectionLoader';
 import { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
 import { CollectionEntity } from '$gathering/CollectionEntity';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
+import { createPackRepository } from '$gathering';
 
 const CoreSet = 'Core Set';
 const Dunwich = 'The Dunwich Legacy';
@@ -19,13 +19,12 @@ class CollectionOutput implements ICollectionOutput {
   }
 }
 
-const packRepository = new PackRepositoryMock();
 let collectionOutput: CollectionOutput;
 let editor: ICollectionEditor;
 let loader: CollectionLoader;
 
 beforeEach(() => {
-  const collection = new CollectionEntity(packRepository);
+  const collection = new CollectionEntity(createPackRepository());
   collectionOutput = new CollectionOutput();
   editor = new CollectionEditor(collection, collectionOutput);
   loader = new CollectionLoader(editor);
