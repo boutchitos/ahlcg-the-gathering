@@ -46,10 +46,10 @@ it('organizes a collection with 2x Core Set', () => {
 
 it('updates many outputs', () => {
   const organizer = createOrganizer(createCollection('Core Set'));
-  const output2 = mock<IBinderOutput>();
-  organizer.onBinderUpdated(output2);
+  const binderOutput2 = mock<IBinderOutput>();
+  organizer.onBinderUpdated(binderOutput2);
 
-  expect(output2.binderUpdated).toHaveBeenCalledWith(binder);
+  expect(binderOutput2.binderUpdated).toHaveBeenCalledWith(binder);
 
   const pockets = binder.value.pockets;
   const cardsOf1stPocket = pockets[0].cards;
@@ -57,6 +57,15 @@ it('updates many outputs', () => {
   const copies = cardsOf1stPocket.filter((card) => card.name === 'Roland Banks');
   expect(roland.name).toStrictEqual('Roland Banks');
   expect(copies).toHaveLength(1);
+});
+
+it("doesn't update previously attached outputs while attaching to outputs", () => {
+  const organizer = createOrganizer(createCollection('Core Set'));
+  organizer.onBinderUpdated(mock<IBinderOutput>());
+  organizer.onBinderUpdated(mock<IBinderOutput>());
+  organizer.onBinderUpdated(mock<IBinderOutput>());
+
+  expect(binderOutput.binderUpdated).toHaveBeenCalledTimes(1);
 });
 
 function createOrganizer(collection: CollectionEntity) {
