@@ -3,7 +3,7 @@ import { captor, CaptorMatcher, mock, mockClear, type MockProxy } from 'vitest-m
 import { CollectionEntity } from '$gathering/CollectionEntity';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { CollectionOrganizer } from './CollectionOrganizer';
-import { PackRepositoryMock } from './PackRepositoryMock';
+import { createPackRepository } from '$gathering';
 
 let binder: CaptorMatcher<Binder>;
 let binderOutput: MockProxy<IBinderOutput>;
@@ -95,7 +95,7 @@ function createOrganizer(collection: CollectionEntity) {
 }
 
 function createCollection(...packs: string[]) {
-  const collection = new CollectionEntity(new PackRepositoryMock());
+  const collection = new CollectionEntity(createPackRepository());
   packs.forEach((pack) => collection.addPack(pack));
   return collection;
 }
