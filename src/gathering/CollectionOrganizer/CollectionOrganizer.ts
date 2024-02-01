@@ -75,19 +75,16 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   const pocketsByName = new Map<string, Pocket>();
   const pocketsByBoundedCard = new Map<string, Pocket>();
 
-  return cards.reduce((pockets: Pocket[], card) => {
+  const withRestrictions: Card[] = [];
+
+  const regrouped = cards.reduce((pockets: Pocket[], card) => {
     let pocket: Pocket | undefined;
 
     if (pocketsByName.has(card.name)) {
       pocket = pocketsByName.get(card.name);
     } else if (card.restrictions !== undefined) {
-      for (const code of Object.keys(card.restrictions.investigator)) {
-        pocket = pocketsByInvestigator.get(code);
-        if (pocket !== undefined) {
-          break;
-        }
-      }
-      //      assert(pocket !== undefined, `should have found pocket for card  ${card.name}`);
+      withRestrictions.push(card);
+      return pockets;
     } else if (card.bonded_to !== undefined) {
       pocket = pocketsByBoundedCard.get(card.code);
       assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
@@ -114,6 +111,22 @@ function regroupByPockets(cards: Card[]): Pocket[] {
 
     return pockets;
   }, []);
+
+  withRestrictions.forEach((card) => {
+    if (card.restrictions === undefined) {
+      assert(false);
+      return;
+    }
+    for (const code of Object.keys(card.restrictions.investigator)) {
+      const pocket = pocketsByInvestigator.get(code);
+      if (pocket !== undefined) {
+        pocket.cards.push(card);
+        break;
+      }
+    }
+  });
+
+  return regrouped;
 }
 
 function toClasses(card: Card): CLASS {
