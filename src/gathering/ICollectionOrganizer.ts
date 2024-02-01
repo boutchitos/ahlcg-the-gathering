@@ -1,5 +1,5 @@
 import type { IBinderOutput } from './IBinderOutput';
 
 export interface ICollectionOrganizer {
-  organizeCollection(binderOutput: IBinderOutput): void;
+  onBinderUpdated(binderOutput: IBinderOutput): void;
 }

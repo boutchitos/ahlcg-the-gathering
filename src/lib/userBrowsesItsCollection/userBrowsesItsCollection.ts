@@ -40,7 +40,7 @@ export function userBrowsesItsCollection(): {
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
-  organizer.organizeCollection(binderOutput);
+  organizer.onBinderUpdated(binderOutput);
 
   const pocketsVM = binderOutput.binder.pockets.map(toPocketViewModel);
 

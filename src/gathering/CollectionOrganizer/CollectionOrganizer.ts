@@ -9,7 +9,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   constructor(private collection: CollectionEntity) {}
 
-  organizeCollection(binderOutput: IBinderOutput): void {
+  onBinderUpdated(binderOutput: IBinderOutput): void {
     const organized = [...this.investigatorCards].sort(sortCardsAsUserWant);
 
     const pockets = regroupByPockets(organized);
