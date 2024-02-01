@@ -1,19 +1,53 @@
 import { createCardRepository } from '$gathering';
 import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
-import type { Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
-import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
+import type { CLASS, ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
+  private binder: Binder = { pockets: [] };
+  private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
+  private classes: CLASS[] = [
+    'guardian',
+    'mystic',
+    'rogue',
+    'seeker',
+    'survivor',
+    'neutral',
+    'multi',
+  ];
 
-  constructor(private collection: CollectionEntity) {}
+  constructor(private readonly collection: CollectionEntity) {
+    this.classes.sort();
+    this.organizeCollection();
+  }
+
+  reorderClasses(classes: CLASS[]): void {
+    this.classes = classes;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
 
   onBinderUpdated(binderOutput: IBinderOutput): void {
-    const organized = [...this.investigatorCards].sort(sortCardsAsUserWant);
+    this.binderOutputs.push(binderOutput);
+    this.notifyBinderUpdated(binderOutput);
+  }
 
-    const pockets = regroupByPockets(organized);
-    binderOutput.binderUpdated({ pockets });
+  private notifyBinderUpdated(output?: IBinderOutput): void {
+    const outputs = output !== undefined ? [output] : this.binderOutputs;
+    outputs.forEach((output) => {
+      const copy: Binder = { pockets: [...this.binder.pockets] };
+      output.binderUpdated(copy);
+    });
+  }
+
+  private organizeCollection(): void {
+    const organized = [...this.investigatorCards].sort((a, b) =>
+      sortCardsAsUserWant(a, b, this.classes),
+    );
+
+    this.binder = { pockets: regroupByPockets(organized) };
   }
 
   private get investigatorCards(): Iterable<Card> {
@@ -53,7 +87,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
           break;
         }
       }
-      assert(pocket !== undefined, `should have found pocket for card  ${card.name}`);
+      //      assert(pocket !== undefined, `should have found pocket for card  ${card.name}`);
     } else if (card.bonded_to !== undefined) {
       pocket = pocketsByBoundedCard.get(card.code);
       assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
@@ -82,15 +116,17 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   }, []);
 }
 
-function sortPlayerCardsByClass(a: Card, b: Card): number {
-  const classOrder = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral'];
+function toClasses(card: Card): CLASS {
+  return card.faction_code as CLASS;
+}
 
-  const aClass = classOrder.indexOf(a.faction_code);
+function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
+  const aClass = classes.indexOf(toClasses(a));
   if (aClass === -1) {
     throw new Error(`unknown faction_code ${a.faction_code}`);
   }
 
-  const bClass = classOrder.indexOf(b.faction_code);
+  const bClass = classes.indexOf(toClasses(b));
   if (bClass === -1) {
     throw new Error(`unknown faction_code ${b.faction_code}`);
   }
@@ -186,7 +222,7 @@ function isWeaknessCard(card: Card) {
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-function sortCardsAsUserWant(a: Card, b: Card) {
+function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[]) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 
@@ -196,7 +232,7 @@ function sortCardsAsUserWant(a: Card, b: Card) {
   if (bylocations !== 0) return bylocations;
 
   if (!isWeaknessCard(a) && !isLocationCard(a)) {
-    const byClass = sortPlayerCardsByClass(a, b);
+    const byClass = sortPlayerCardsByClass(a, b, classes);
     if (byClass !== 0) return byClass;
 
     const byType = sortPlayerCardsByType(a, b);

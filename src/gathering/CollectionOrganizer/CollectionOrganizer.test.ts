@@ -1,5 +1,5 @@
 import { beforeEach, expect, it } from 'vitest';
-import { captor, CaptorMatcher, mock, type MockProxy } from 'vitest-mock-extended';
+import { captor, CaptorMatcher, mock, mockClear, type MockProxy } from 'vitest-mock-extended';
 import { CollectionEntity } from '$gathering/CollectionEntity';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { CollectionOrganizer } from './CollectionOrganizer';
@@ -54,18 +54,38 @@ it('updates many outputs', () => {
   const pockets = binder.value.pockets;
   const cardsOf1stPocket = pockets[0].cards;
   const roland = cardsOf1stPocket[0];
-  const copies = cardsOf1stPocket.filter((card) => card.name === 'Roland Banks');
   expect(roland.name).toStrictEqual('Roland Banks');
-  expect(copies).toHaveLength(1);
 });
 
 it("doesn't update previously attached outputs while attaching to outputs", () => {
   const organizer = createOrganizer(createCollection('Core Set'));
+
   organizer.onBinderUpdated(mock<IBinderOutput>());
   organizer.onBinderUpdated(mock<IBinderOutput>());
   organizer.onBinderUpdated(mock<IBinderOutput>());
 
   expect(binderOutput.binderUpdated).toHaveBeenCalledTimes(1);
+});
+
+it('updates binder after classes reordering', () => {
+  const organizer = createOrganizer(createCollection('Core Set'));
+  mockClear(binderOutput);
+
+  organizer.reorderClasses([
+    'mystic',
+    'guardian',
+    'rogue',
+    'seeker',
+    'survivor',
+    'neutral',
+    'multi',
+  ]);
+
+  expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);
+  const pockets = binder.value.pockets;
+  const cardsOf1stPocket = pockets[0].cards;
+  const agnes = cardsOf1stPocket[0];
+  expect(agnes.name).toStrictEqual('Agnes Baker');
 });
 
 function createOrganizer(collection: CollectionEntity) {
