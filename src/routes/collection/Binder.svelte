@@ -1,15 +1,18 @@
 <script lang="ts">
+  import type {
+    BinderAs2Pages,
+    PocketViewModel,
+  } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import PocketSheet from './PocketSheet.svelte';
-  import type { Binder, BinderPage, Pocket } from '$lib/ViewModels/binder';
 
-  export let binder: Binder;
+  export let binder: BinderAs2Pages;
 
-  let leftPockets: Pocket[];
-  let rightPockets: Pocket[];
   let currentPage = binder.currentPage;
   let howManyPages = binder.howManyPages;
-  binder.leftPage.subscribe((page: BinderPage) => (leftPockets = page.pockets));
-  binder.rightPage.subscribe((page: BinderPage) => (rightPockets = page.pockets));
+  let leftPockets: PocketViewModel[];
+  let rightPockets: PocketViewModel[];
+  binder.leftPage.subscribe((page) => (leftPockets = page.pockets));
+  binder.rightPage.subscribe((page) => (rightPockets = page.pockets));
 </script>
 
 <div class="block">
