@@ -1,7 +1,7 @@
-import { derived, readable, writable, type Readable, type Writable } from 'svelte/store';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
+import type { CLASS, ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
 export type PocketViewModel = {
   title: string;
@@ -27,11 +27,22 @@ export type BinderAs2Pages = {
 };
 
 class BinderOutput implements IBinderOutput {
-  binder: Binder = { pockets: [] };
+  public binder = writable<Binder>();
 
   binderUpdated(binder: Binder): void {
-    this.binder = { pockets: [...binder.pockets] };
+    this.binder.set(binder);
   }
+}
+
+function toPocketViewModel(pocket: Pocket): PocketViewModel {
+  const coverCard = pocket.cards[0];
+  return {
+    title: coverCard.name,
+    coverImage: {
+      landscape: coverCard.type_code === 'investigator',
+      url: `https://arkhamdb.com${coverCard.imagesrc}`,
+    },
+  };
 }
 
 export function userBrowsesItsCollection(): {
@@ -42,13 +53,18 @@ export function userBrowsesItsCollection(): {
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
 
-  const pocketsVM = binderOutput.binder.pockets.map(toPocketViewModel);
-
+  const pocketsVM = derived(binderOutput.binder, (binder: Binder) =>
+    binder.pockets.map(toPocketViewModel),
+  );
   const pocketOffset = writable(0);
   const currentPage = derived(pocketOffset, (pocketOffset) => Math.ceil(pocketOffset / 9) + 1);
-  const howManyPages = readable(Math.ceil(pocketsVM.length / 9));
-  const leftPage = derived(pocketOffset, (pocketOffset) => getPockets(pocketsVM, pocketOffset, 0));
-  const rightPage = derived(pocketOffset, (pocketOffset) => getPockets(pocketsVM, pocketOffset, 9));
+  const howManyPages = derived(pocketsVM, (pocketsVM) => Math.ceil(pocketsVM.length / 9));
+  const leftPage = derived([pocketsVM, pocketOffset], ([pocketsVM, pocketOffset]) =>
+    getPockets(pocketsVM, pocketOffset, 0),
+  );
+  const rightPage = derived([pocketsVM, pocketOffset], ([pocketsVM, pocketOffset]) =>
+    getPockets(pocketsVM, pocketOffset, 9),
+  );
 
   function getPockets(
     pockets: PocketViewModel[],
@@ -59,16 +75,18 @@ export function userBrowsesItsCollection(): {
     return { pockets: pockets.slice(base, base + 9) };
   }
 
-  function toPocketViewModel(pocket: Pocket): PocketViewModel {
-    const coverCard = pocket.cards[0];
-    return {
-      title: coverCard.name,
-      coverImage: {
-        landscape: coverCard.type_code === 'investigator',
-        url: `https://arkhamdb.com${coverCard.imagesrc}`,
-      },
-    };
-  }
+  const classes = writable<CLASS[]>([
+    'guardian',
+    'mystic',
+    'rogue',
+    'seeker',
+    'survivor',
+    'neutral',
+    'multi',
+  ]);
+  classes.subscribe((value) => {
+    organizer.reorderClasses(value);
+  });
 
   return {
     binder: {
@@ -91,6 +109,6 @@ export function userBrowsesItsCollection(): {
         });
       },
     },
-    classes: writable(['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']),
+    classes,
   };
 }
