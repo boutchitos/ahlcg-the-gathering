@@ -255,6 +255,7 @@ function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[]) {
 
   // I would put locations here after weakness, probably
   // investigator cards that are catched up by pocket regrouping.
+  // yup for now : Luke Robinson
   const bylocations = sortPlayerCardsByLocation(a, b);
   if (bylocations !== 0) return bylocations;
 
