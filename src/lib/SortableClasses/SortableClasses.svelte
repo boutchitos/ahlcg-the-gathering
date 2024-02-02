@@ -34,13 +34,15 @@
   const dragDrop = new DragDrop<string>(classes);
 </script>
 
-{#each $classes as klass, index}
-  <button
-    on:dragend={() => dragDrop.onDragEnd()}
-    on:dragenter={() => dragDrop.onDragEnter(index)}
-    on:dragover={(event) => dragDrop.onDragOver(event)}
-    on:dragstart={() => dragDrop.onDragStart(index)}
-    on:drop={() => dragDrop.onDragDrop()}
-    ><svelte:component this={toIcon(klass)} />
-  </button>
-{/each}
+<div>
+  {#each $classes as klass, index}
+    <button
+      on:dragend={() => dragDrop.onDragEnd()}
+      on:dragenter={() => dragDrop.onDragEnter(index)}
+      on:dragover={(event) => dragDrop.onDragOver(event)}
+      on:dragstart={() => dragDrop.onDragStart(index)}
+      on:drop={() => dragDrop.onDragDrop()}
+      ><svelte:component this={toIcon(klass)} />
+    </button>
+  {/each}
+</div>
