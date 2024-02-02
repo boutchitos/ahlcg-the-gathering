@@ -101,8 +101,9 @@ function regroupByPockets(cards: Card[]): Pocket[] {
       }
 
       if (card.bonded_cards !== undefined) {
-        assert(card.bonded_cards.length === 1);
-        pocketsByBoundedCard.set(card.bonded_cards[0].code, pocket);
+        card.bonded_cards.forEach((bondedCard) => {
+          pocketsByBoundedCard.set(bondedCard.code, pocket!);
+        });
       }
 
       pockets.push(pocket);
@@ -114,14 +115,15 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   }, []);
 
   cardsWithRestrictions.forEach((card) => {
-    if (card.restrictions === undefined) {
-      assert(false);
-      return;
-    }
-    for (const code of Object.keys(card.restrictions.investigator)) {
+    for (const code of Object.keys(card.restrictions!.investigator)) {
       const pocket = pocketsByInvestigator.get(code);
       if (pocket !== undefined) {
         pocket.cards.push(card);
+        if (card.bonded_cards !== undefined) {
+          card.bonded_cards.forEach((bondedCard) => {
+            pocketsByBoundedCard.set(bondedCard.code, pocket!);
+          });
+        }
         break;
       }
     }
