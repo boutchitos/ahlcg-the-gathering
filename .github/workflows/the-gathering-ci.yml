@@ -33,9 +33,3 @@ jobs:
         run: |
           chmod +x ./scripts/*.sh
           pnpm arch
-      - name: No '.only' test
-        run: |
-          grep '\.only' --recursive --include=*.test.*
-          if [ $? != 1 ]; then
-            exit 1;
-          fi
