@@ -14,11 +14,11 @@
 
 <div class="grid grid-cols-3 grid-rows-3 gap-2 bg-gray-700 p-2">
   {#each pockets as pocket}
-    <div
-      class="inline-flex h-[209px] w-[150px] items-center justify-center {rotateLandscape(pocket)}"
-    >
+    <div class="inline-flex h-[209px] w-[150px] items-center justify-center">
       <img
-        class="rounded-md border-2 border-gray-300 {setMinWidthHeight(pocket)}"
+        class="rounded-md border-2 border-gray-300 {setMinWidthHeight(pocket)} {rotateLandscape(
+          pocket,
+        )}"
         src={pocket.coverImage.url}
         alt={pocket.title}
       />
