@@ -2,6 +2,7 @@
   import type { PocketViewModel } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
 
   export let pocket: PocketViewModel;
+  let listContent = false;
 
   function rotateLandscape(pocket: PocketViewModel): string {
     return pocket.coverImage.landscape ? '-rotate-90' : '';
@@ -12,12 +13,25 @@
   }
 </script>
 
-<div class="inline-flex h-[209px] w-[150px] items-center justify-center">
-  <img
-    class="rounded-md border-2 border-gray-300 {setMinWidthHeight(pocket)} {rotateLandscape(
-      pocket,
-    )}"
-    src={pocket.coverImage.url}
-    alt={pocket.title}
-  />
+<div
+  role="listitem"
+  class="inline-flex h-[209px] w-[150px] items-center justify-center"
+  on:mouseenter={() => (listContent = true)}
+  on:mouseleave={() => (listContent = false)}
+>
+  {#if listContent}
+    <ul class="text-left text-white">
+      {#each pocket.cards as { title }}
+        <li>{title}</li>
+      {/each}
+    </ul>
+  {:else}
+    <img
+      class="rounded-md border-2 border-gray-300 {setMinWidthHeight(pocket)} {rotateLandscape(
+        pocket,
+      )}"
+      src={pocket.coverImage.url}
+      alt={pocket.title}
+    />
+  {/if}
 </div>
