@@ -5,35 +5,23 @@ import type { IBinderOutput } from '$gathering/IBinderOutput';
 import { CollectionOrganizer } from './CollectionOrganizer';
 import { createPackRepository } from '$gathering';
 
-it('regroups investigator required cards, per Deckbuilding Requirement, with investigator card', () => {
-  const { roland } = setup('Core Set');
+it.only('regroups bonded card with its related card', () => {
+  const { hallowedMirror } = setup('Before the Black Throne');
 
-  expect(roland.cards[0].name).toEqual('Roland Banks');
-  expect(roland.cards[1].name).toEqual("Roland's .38 Special");
-  expect(roland.cards[2].name).toEqual('Cover Up');
-  expect(roland.cards).toHaveLength(3);
-});
-
-it('regroups also all copies of all packs (no hard limit for now)', () => {
-  const { roland } = setup('Core Set', 'Core Set');
-
-  expect(roland.cards[0].name).toEqual('Roland Banks');
-  expect(roland.cards[1].name).toEqual('Roland Banks');
-  expect(roland.cards[2].name).toEqual("Roland's .38 Special");
-  expect(roland.cards[3].name).toEqual("Roland's .38 Special");
-  expect(roland.cards[4].name).toEqual('Cover Up');
-  expect(roland.cards[5].name).toEqual('Cover Up');
-  expect(roland.cards).toHaveLength(6);
+  expect(hallowedMirror.cards[0].name).toEqual('Hallowed Mirror');
+  expect(hallowedMirror.cards[1].name).toEqual('Soothing Melody');
+  expect(hallowedMirror.cards[2].name).toEqual('Soothing Melody');
+  expect(hallowedMirror.cards[3].name).toEqual('Soothing Melody');
+  expect(hallowedMirror.cards).toHaveLength(4);
 });
 
 function setup(...packs: string[]) {
   const collection = createCollection(...packs);
   const { binderOutput } = createOrganizer(collection);
-
   const binder = captor();
   expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);
 
-  return { roland: binder.value.pockets[0] };
+  return { hallowedMirror: binder.value.pockets[0] };
 }
 
 function createOrganizer(collection: CollectionEntity) {
