@@ -5,7 +5,7 @@ import type { IBinderOutput } from '$gathering/IBinderOutput';
 import { CollectionOrganizer } from './CollectionOrganizer';
 import { createPackRepository } from '$gathering';
 
-it.only('regroups bonded card with its related card', () => {
+it('regroups bonded card with its related card', () => {
   const { hallowedMirror } = setup('Before the Black Throne');
 
   expect(hallowedMirror.cards[0].name).toEqual('Hallowed Mirror');
