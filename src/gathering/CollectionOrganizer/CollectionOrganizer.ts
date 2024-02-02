@@ -75,7 +75,8 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   const pocketsByName = new Map<string, Pocket>();
   const pocketsByBoundedCard = new Map<string, Pocket>();
 
-  const withRestrictions: Card[] = [];
+  const cardsBondedTo: Card[] = [];
+  const cardsWithRestrictions: Card[] = [];
 
   const regrouped = cards.reduce((pockets: Pocket[], card) => {
     let pocket: Pocket | undefined;
@@ -83,11 +84,11 @@ function regroupByPockets(cards: Card[]): Pocket[] {
     if (pocketsByName.has(card.name)) {
       pocket = pocketsByName.get(card.name);
     } else if (card.restrictions !== undefined) {
-      withRestrictions.push(card);
+      cardsWithRestrictions.push(card);
       return pockets;
     } else if (card.bonded_to !== undefined) {
-      pocket = pocketsByBoundedCard.get(card.code);
-      assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
+      cardsBondedTo.push(card);
+      return pockets;
     }
 
     if (pocket === undefined) {
@@ -112,7 +113,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
     return pockets;
   }, []);
 
-  withRestrictions.forEach((card) => {
+  cardsWithRestrictions.forEach((card) => {
     if (card.restrictions === undefined) {
       assert(false);
       return;
@@ -124,6 +125,12 @@ function regroupByPockets(cards: Card[]): Pocket[] {
         break;
       }
     }
+  });
+
+  cardsBondedTo.forEach((card) => {
+    const pocket = pocketsByBoundedCard.get(card.code);
+    assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
+    pocket!.cards.push(card);
   });
 
   return regrouped;
