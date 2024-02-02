@@ -37,3 +37,7 @@ export function createCollection(...packs: string[]) {
 export function findPocketWithCard(pockets: Pocket[], name: string) {
   return pockets.find((pocket) => pocket.cards.map((c) => c.name).includes(name));
 }
+
+export function indexOfPocketWithCard(pockets: Pocket[], name: string) {
+  return pockets.findIndex((pocket) => pocket.cards.map((c) => c.name).includes(name));
+}
