@@ -1,14 +1,17 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
-import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { CLASS, ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
+export type CardListing = { label: string }[];
+
 export type PocketViewModel = {
-  title: string;
+  cardListing: CardListing;
   coverImage: {
     landscape: boolean;
     url: string;
   };
+  title: string;
 };
 
 export type BinderPage = {
@@ -25,25 +28,6 @@ export type BinderAs2Pages = {
   handleLeftPageClick: () => void;
   handleRightPageClick: () => void;
 };
-
-class BinderOutput implements IBinderOutput {
-  public binder = writable<Binder>();
-
-  binderUpdated(binder: Binder): void {
-    this.binder.set(binder);
-  }
-}
-
-function toPocketViewModel(pocket: Pocket): PocketViewModel {
-  const coverCard = pocket.cards[0];
-  return {
-    title: coverCard.name,
-    coverImage: {
-      landscape: coverCard.type_code === 'investigator',
-      url: `https://arkhamdb.com${coverCard.imagesrc}`,
-    },
-  };
-}
 
 export function userBrowsesItsCollection(): {
   binder: BinderAs2Pages;
@@ -111,4 +95,42 @@ export function userBrowsesItsCollection(): {
     },
     classes,
   };
+}
+
+class BinderOutput implements IBinderOutput {
+  public binder = writable<Binder>();
+
+  binderUpdated(binder: Binder): void {
+    this.binder.set(binder);
+  }
+}
+
+function toPocketViewModel(pocket: Pocket): PocketViewModel {
+  const coverCard = pocket.cards[0];
+  return {
+    cardListing: getCardListing(pocket.cards),
+    coverImage: {
+      landscape: coverCard.type_code === 'investigator',
+      url: `https://arkhamdb.com${coverCard.imagesrc}`,
+    },
+    title: coverCard.name,
+  };
+}
+
+function getCardListing(cards: Card[]): CardListing {
+  const pip = '\u2022';
+  const labels: string[] = [];
+  const count = new Map<string, number>();
+
+  cards.forEach((card) => {
+    const label = `${card.name} ${pip.repeat(card.xp)}`;
+    if (count.has(label)) {
+      count.set(label, count.get(label)! + 1);
+    } else {
+      count.set(label, 1);
+      labels.push(label);
+    }
+  });
+
+  return labels.map((label) => `${count.get(label)}x ${label}`).map((label) => ({ label }));
 }

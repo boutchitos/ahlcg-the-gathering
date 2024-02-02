@@ -109,7 +109,9 @@ function regroupByPockets(cards: Card[]): Pocket[] {
       pockets.push(pocket);
     }
 
-    pocket.cards.push(card);
+    for (let i = 0; i < card.quantity; ++i) {
+      pocket!.cards.push(card);
+    }
 
     return pockets;
   }, []);
