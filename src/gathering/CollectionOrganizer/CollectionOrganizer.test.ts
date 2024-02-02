@@ -33,6 +33,19 @@ it('organizes a collection with 1x Core Set', () => {
   expect(copies).toHaveLength(1);
 });
 
+it('takes into account the number of copies in packs', () => {
+  createOrganizer(createCollection('Core Set'));
+
+  expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);
+
+  const pockets = binder.value.pockets;
+  const cardsOf1stPocket = pockets[0].cards;
+  const roland = cardsOf1stPocket[0];
+  const copies = cardsOf1stPocket.filter((card) => card.name === 'Roland Banks');
+  expect(roland.name).toStrictEqual('Roland Banks');
+  expect(copies).toHaveLength(1);
+});
+
 it('organizes a collection with 2x Core Set', () => {
   createOrganizer(createCollection('Core Set', 'Core Set'));
 
