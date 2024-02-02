@@ -1,7 +1,7 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import type { CLASS, ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
+import type { CLASS, ICollectionOrganizer, SLOT } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
 
@@ -31,7 +31,8 @@ export type BinderAs2Pages = {
 
 export function userBrowsesItsCollection(): {
   binder: BinderAs2Pages;
-  classes: Writable<string[]>;
+  classes: Writable<CLASS[]>;
+  slots: Writable<SLOT[]>;
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
@@ -72,6 +73,23 @@ export function userBrowsesItsCollection(): {
     organizer.reorderClasses(value);
   });
 
+  const slots = writable<SLOT[]>([
+    'Arcane',
+    'Arcane x2',
+    'Hand',
+    'Hand x2',
+    'Ally',
+    'Ally. Arcane',
+    'Accessory',
+    'Body',
+    'Body. Arcane',
+    'Tarot',
+    undefined,
+  ]);
+  slots.subscribe((value) => {
+    organizer.reorderSlots(value);
+  });
+
   return {
     binder: {
       currentPage,
@@ -94,6 +112,7 @@ export function userBrowsesItsCollection(): {
       },
     },
     classes,
+    slots,
   };
 }
 

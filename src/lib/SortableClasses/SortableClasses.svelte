@@ -9,10 +9,11 @@
   import RogueIcon from './RogueIcon.svelte';
   import SeekerIcon from './SeekerIcon.svelte';
   import SurvivorIcon from './SurvivorIcon.svelte';
+  import type { CLASS } from '$gathering/ICollectionOrganizer';
 
-  export let classes: Writable<string[]>;
+  export let classes: Writable<CLASS[]>;
 
-  function toIcon(name: string) {
+  function toIcon(name: CLASS) {
     switch (name) {
       case 'guardian':
         return GuardianIcon;
@@ -31,7 +32,7 @@
     }
   }
 
-  const dragDrop = new DragDrop<string>(classes);
+  const dragDrop = new DragDrop<CLASS>(classes);
 </script>
 
 <div>
