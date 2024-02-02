@@ -34,7 +34,7 @@
         return 'tarot';
 
       case undefined:
-        return 'tarot';
+        return 'no_slot';
     }
   }
 
