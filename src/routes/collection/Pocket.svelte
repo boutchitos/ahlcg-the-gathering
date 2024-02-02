@@ -21,8 +21,8 @@
 >
   {#if listContent}
     <ul class="text-left text-white">
-      {#each pocket.cards as { title }}
-        <li>{title}</li>
+      {#each pocket.cardListing as { label }}
+        <li class="text-sm">{label}</li>
       {/each}
     </ul>
   {:else}
