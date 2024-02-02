@@ -6,7 +6,8 @@ import { CollectionOrganizer } from './CollectionOrganizer';
 import { createPackRepository } from '$gathering';
 
 it('regroups bonded cards with its related card', () => {
-  const hallowedMirrorPocket = setup('Before the Black Throne').findPocketWithCard('Hallowed Mirror')!;
+  const hallowedMirrorPocket =
+    setup('Before the Black Throne').findPocketWithCard('Hallowed Mirror')!;
 
   expect(hallowedMirrorPocket.cards[0].name).toEqual('Hallowed Mirror');
   expect(hallowedMirrorPocket.cards[1].name).toEqual('Soothing Melody');
@@ -15,15 +16,15 @@ it('regroups bonded cards with its related card', () => {
   expect(hallowedMirrorPocket.cards).toHaveLength(4);
 });
 
-// it('regroups bonded card with all its related cards', () => {
-//   const hallowedMirror = setup('Before the Black Throne').findPocketWithCard('Miss chat')!;
+it('regroups bonded card with all its related cards', () => {
+  const missDoylePocket = setup('The Dream-Eaters').findPocketWithCard('Miss Doyle')!;
 
-//   expect(hallowedMirror.cards[0].name).toEqual('Hallowed Mirror');
-//   expect(hallowedMirror.cards[1].name).toEqual('Soothing Melody');
-//   expect(hallowedMirror.cards[2].name).toEqual('Soothing Melody');
-//   expect(hallowedMirror.cards[3].name).toEqual('Soothing Melody');
-//   expect(hallowedMirror.cards).toHaveLength(4);
-// });
+  expect(missDoylePocket.cards[0].name).toEqual('Miss Doyle');
+  expect(missDoylePocket.cards[1].name).toEqual('Augur');
+  expect(missDoylePocket.cards[2].name).toEqual('Hope');
+  expect(missDoylePocket.cards[3].name).toEqual('Zeal');
+  expect(missDoylePocket.cards).toHaveLength(4);
+});
 
 it('regroups bonded cards with its investigator signature related cards', () => {
   const lukePocket = setup('The Dream-Eaters').findPocketWithCard('Luke Robinson')!;
