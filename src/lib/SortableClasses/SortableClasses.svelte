@@ -10,7 +10,6 @@
   import SeekerIcon from './SeekerIcon.svelte';
   import SurvivorIcon from './SurvivorIcon.svelte';
   import type { CLASS } from '$gathering/ICollectionOrganizer';
-  import type { SvelteComponent } from 'svelte';
 
   export let classes: Writable<CLASS[]>;
 
