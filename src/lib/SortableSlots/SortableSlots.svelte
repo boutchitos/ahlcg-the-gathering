@@ -3,40 +3,21 @@
   import { DragDrop } from '$lib/dragDrop';
 
   import type { SLOT } from '$gathering/ICollectionOrganizer';
-
   export let slots: Writable<SLOT[]>;
-  function toIcon(name: SLOT) {
-    switch (name) {
-      case 'Arcane':
-        return 'arcane_1';
 
-      case 'Arcane x2':
-        return 'arcane_2';
-
-      case 'Hand':
-        return 'hand_1';
-
-      case 'Hand x2':
-        return 'hand_2';
-
-      case 'Ally':
-      case 'Ally. Arcane':
-        return 'ally';
-
-      case 'Accessory':
-        return 'accessory';
-
-      case 'Body':
-      case 'Body. Arcane':
-        return 'body';
-
-      case 'Tarot':
-        return 'tarot';
-
-      case undefined:
-        return 'no_slot';
-    }
-  }
+  const icons = {
+    Accessory: 'accessory',
+    Ally: 'ally',
+    'Ally. Arcane': 'ally',
+    Arcane: 'arcane_1',
+    'Arcane x2': 'arcane_2',
+    Body: 'body',
+    'Body. Arcane': 'body',
+    Hand: 'hand_1',
+    'Hand x2': 'hand_2',
+    Tarot: 'tarot',
+    no_slot: 'no_slot',
+  };
 
   const dragDrop = new DragDrop<SLOT>(slots);
 </script>
@@ -49,9 +30,9 @@
       on:dragover={(event) => dragDrop.onDragOver(event)}
       on:dragstart={() => dragDrop.onDragStart(index)}
       on:drop={() => dragDrop.onDragDrop()}
-      class="size-24 hover:cursor-pointer"
+      class="size-20 hover:cursor-pointer"
       title={slot ?? 'no slot'}
-      src={`/icon/slot_${toIcon(slot)}.png`}
+      src={`/icon/slot_${icons[slot ?? 'no_slot']}.png`}
       alt={`${slot} slot icon`}
     />
   {/each}
