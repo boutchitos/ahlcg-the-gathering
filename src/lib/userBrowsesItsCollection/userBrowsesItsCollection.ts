@@ -79,6 +79,7 @@ export function userBrowsesItsCollection(): {
     'Hand',
     'Hand x2',
     'Hand. Arcane',
+    'Hand x2. Arcane',
     'Ally',
     'Ally. Arcane',
     'Accessory',

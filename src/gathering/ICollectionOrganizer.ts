@@ -10,6 +10,7 @@ export type SLOT =
   | 'Body. Arcane'
   | 'Body. Hand x2'
   | 'Body'
+  | 'Hand x2. Arcane'
   | 'Hand x2'
   | 'Hand. Arcane'
   | 'Hand'

@@ -61,10 +61,8 @@ function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, packs: strin
 }
 
 function cleanAHDBCards() {
-  const multiClassTitles = ahdbCards.filter((card) => card.faction2_code).map((card) => card.name);
   const allCards = ahdbCards
     .filter((card) => !['Random Basic Weakness'].includes(card.name))
-    .filter((card) => !multiClassTitles.includes(card.name))
     .filter((card) => !card.code.match(/[0-9]+b/));
   return allCards;
 }
