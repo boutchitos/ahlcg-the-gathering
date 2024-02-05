@@ -77,10 +77,12 @@ it('updates binder after asset slots reordering', () => {
     'Arcane x2',
     'Hand',
     'Hand x2',
+    'Hand. Arcane',
     'Ally. Arcane',
     'Accessory',
     'Body',
     'Body. Arcane',
+    'Body. Hand x2',
     'Tarot',
     undefined,
   ];
