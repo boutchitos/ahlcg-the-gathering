@@ -13,8 +13,10 @@
     'Arcane x2': 'arcane_2',
     Body: 'body',
     'Body. Arcane': 'body',
+    'Body. Hand x2': 'body',
     Hand: 'hand_1',
     'Hand x2': 'hand_2',
+    'Hand. Arcane': 'hand_1',
     Tarot: 'tarot',
     no_slot: 'no_slot',
   };

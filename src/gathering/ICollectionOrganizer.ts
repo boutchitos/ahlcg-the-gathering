@@ -8,8 +8,10 @@ export type SLOT =
   | 'Arcane x2'
   | 'Arcane'
   | 'Body. Arcane'
+  | 'Body. Hand x2'
   | 'Body'
   | 'Hand x2'
+  | 'Hand. Arcane'
   | 'Hand'
   | 'Tarot'
   | undefined;

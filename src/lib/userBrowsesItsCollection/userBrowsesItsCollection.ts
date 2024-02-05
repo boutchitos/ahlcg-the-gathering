@@ -78,11 +78,13 @@ export function userBrowsesItsCollection(): {
     'Arcane x2',
     'Hand',
     'Hand x2',
+    'Hand. Arcane',
     'Ally',
     'Ally. Arcane',
     'Accessory',
     'Body',
     'Body. Arcane',
+    'Body. Hand x2',
     'Tarot',
     undefined,
   ]);
