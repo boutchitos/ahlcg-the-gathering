@@ -1,9 +1,22 @@
 import type { IBinderOutput } from './IBinderOutput';
 
 export type CLASS = 'guardian' | 'mystic' | 'rogue' | 'seeker' | 'survivor' | 'neutral' | 'multi';
+export type SLOT =
+  | 'Accessory'
+  | 'Ally. Arcane'
+  | 'Ally'
+  | 'Arcane x2'
+  | 'Arcane'
+  | 'Body. Arcane'
+  | 'Body'
+  | 'Hand x2'
+  | 'Hand'
+  | 'Tarot'
+  | undefined;
 
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;
 
   reorderClasses(classes: CLASS[]): void;
+  reorderSlots(slots: SLOT[]): void;
 }

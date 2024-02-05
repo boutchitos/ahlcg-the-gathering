@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
-import { findPocketWithCard, setup } from './test-utils';
-import type { CLASS } from '$gathering/ICollectionOrganizer';
+import { findPocketWithCard, indexOfPocketWithCard, setup } from './test-utils';
+import type { CLASS, SLOT } from '$gathering/ICollectionOrganizer';
 
 it('organizes an empty collection', () => {
   const { binder } = setup();
@@ -65,4 +65,30 @@ it('updates binder after classes reordering', () => {
   const cardsOf1stPocket = pockets[0].cards;
   const agnes = cardsOf1stPocket[0];
   expect(agnes.name).toStrictEqual('Agnes Baker');
+});
+
+it('updates binder after asset slots reordering', () => {
+  const { binderOutput, binder: binderAtSetup, organizer } = setup('Core Set');
+  mockClear(binderOutput);
+
+  const allyFirst: SLOT[] = [
+    'Ally',
+    'Arcane',
+    'Arcane x2',
+    'Hand',
+    'Hand x2',
+    'Ally. Arcane',
+    'Accessory',
+    'Body',
+    'Body. Arcane',
+    'Tarot',
+    undefined,
+  ];
+  organizer.reorderSlots(allyFirst);
+
+  const binder = captor<Binder>();
+  expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);
+  const indexAtSetup = indexOfPocketWithCard(binderAtSetup.pockets, 'Beat Cop');
+  const indexAllyFirst = indexOfPocketWithCard(binder.value.pockets, 'Beat Cop');
+  expect(indexAllyFirst).toBeLessThan(indexAtSetup);
 });

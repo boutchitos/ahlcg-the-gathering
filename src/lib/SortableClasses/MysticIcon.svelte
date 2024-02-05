@@ -1,1 +1,6 @@
-<img class="size-12" src="/icon/mystic.webp" alt="mystic icon" />
+<script lang="ts">
+  let klass = '';
+  export { klass as class };
+</script>
+
+<img class={klass} src="/icon/mystic.webp" alt="mystic icon" />

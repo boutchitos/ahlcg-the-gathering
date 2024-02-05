@@ -1,1 +1,6 @@
-<img class="size-12" src="/icon/rogue.webp" alt="rogue icon" />
+<script lang="ts">
+  let klass = '';
+  export { klass as class };
+</script>
+
+<img class={klass} src="/icon/rogue.webp" alt="rogue icon" />

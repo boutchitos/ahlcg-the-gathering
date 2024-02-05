@@ -9,29 +9,21 @@
   import RogueIcon from './RogueIcon.svelte';
   import SeekerIcon from './SeekerIcon.svelte';
   import SurvivorIcon from './SurvivorIcon.svelte';
+  import type { CLASS } from '$gathering/ICollectionOrganizer';
 
-  export let classes: Writable<string[]>;
+  export let classes: Writable<CLASS[]>;
 
-  function toIcon(name: string) {
-    switch (name) {
-      case 'guardian':
-        return GuardianIcon;
-      case 'mystic':
-        return MysticIcon;
-      case 'rogue':
-        return RogueIcon;
-      case 'seeker':
-        return SeekerIcon;
-      case 'survivor':
-        return SurvivorIcon;
-      case 'neutral':
-        return NeutralIcon;
-      case 'multi':
-        return MultiIcon;
-    }
-  }
+  const icons = {
+    guardian: GuardianIcon,
+    mystic: MysticIcon,
+    rogue: RogueIcon,
+    seeker: SeekerIcon,
+    survivor: SurvivorIcon,
+    neutral: NeutralIcon,
+    multi: MultiIcon,
+  };
 
-  const dragDrop = new DragDrop<string>(classes);
+  const dragDrop = new DragDrop<CLASS>(classes);
 </script>
 
 <div>
@@ -42,7 +34,7 @@
       on:dragover={(event) => dragDrop.onDragOver(event)}
       on:dragstart={() => dragDrop.onDragStart(index)}
       on:drop={() => dragDrop.onDragDrop()}
-      ><svelte:component this={toIcon(klass)} />
+      ><svelte:component this={icons[klass]} class="size-20" />
     </button>
   {/each}
 </div>

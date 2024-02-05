@@ -25,6 +25,6 @@
   <slot />
 
   <h1 class="justify-center text-4xl font-bold">
-    a binder storage solution for Arkham Horror The Card Game
+    a binder storage solution for Arkham Horror: The Card Game
   </h1>
 </div>

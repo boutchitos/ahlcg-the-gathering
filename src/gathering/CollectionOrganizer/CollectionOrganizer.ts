@@ -2,7 +2,7 @@ import { createCardRepository } from '$gathering';
 import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
-import type { CLASS, ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
+import type { CLASS, ICollectionOrganizer, SLOT } from '$gathering/ICollectionOrganizer';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
@@ -17,10 +17,28 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     'neutral',
     'multi',
   ];
+  private slots: SLOT[] = [
+    'Arcane',
+    'Arcane x2',
+    'Hand',
+    'Hand x2',
+    'Ally',
+    'Ally. Arcane',
+    'Accessory',
+    'Body',
+    'Body. Arcane',
+    'Tarot',
+    undefined,
+  ];
 
   constructor(private readonly collection: CollectionEntity) {
     this.classes.sort();
     this.organizeCollection();
+  }
+
+  onBinderUpdated(binderOutput: IBinderOutput): void {
+    this.binderOutputs.push(binderOutput);
+    this.notifyBinderUpdated(binderOutput);
   }
 
   reorderClasses(classes: CLASS[]): void {
@@ -29,9 +47,10 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.notifyBinderUpdated();
   }
 
-  onBinderUpdated(binderOutput: IBinderOutput): void {
-    this.binderOutputs.push(binderOutput);
-    this.notifyBinderUpdated(binderOutput);
+  reorderSlots(slots: SLOT[]): void {
+    this.slots = slots;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
   }
 
   private notifyBinderUpdated(output?: IBinderOutput): void {
@@ -44,7 +63,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   private organizeCollection(): void {
     const organized = [...this.investigatorCards].sort((a, b) =>
-      sortCardsAsUserWant(a, b, this.classes),
+      sortCardsAsUserWant(a, b, this.classes, this.slots),
     );
 
     this.binder = { pockets: regroupByPockets(organized) };
@@ -146,6 +165,9 @@ function regroupByPockets(cards: Card[]): Pocket[] {
 function toClasses(card: Card): CLASS {
   return card.faction_code as CLASS;
 }
+function toSlot(card: Card): SLOT {
+  return card.slot as SLOT;
+}
 
 function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
   const aClass = classes.indexOf(toClasses(a));
@@ -161,38 +183,27 @@ function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
   return aClass - bClass;
 }
 
-function sortAssetCardsBySlot(a: Card, b: Card) {
+function sortAssetCardsBySlot(a: Card, b: Card, slots: SLOT[]) {
   // if one is not asset, we can concluded here, so they are the same.
   if (a.type_code !== 'asset' || b.type_code !== 'asset') {
     return 0;
   }
 
-  // I should inject predicate. So, I would find by them. This will be finaly solution when I have
-  // configs for everything...
-  const aHandheld = a.slot?.includes('Hand');
-  const bHandheld = b.slot?.includes('Hand');
-  if (aHandheld === true && bHandheld !== true) return -1;
-  if (aHandheld !== true && bHandheld === true) return 1;
-  if (aHandheld === true && bHandheld === true) return 0;
+  // handheld will be a config, not yet, but this is for me.
+  // // I should inject predicate. So, I would find by them. This will be finaly solution when I have
+  // // configs for everything...
+  // const aHandheld = a.slot?.includes('Hand');
+  // const bHandheld = b.slot?.includes('Hand');
+  // if (aHandheld === true && bHandheld !== true) return -1;
+  // if (aHandheld !== true && bHandheld === true) return 1;
+  // if (aHandheld === true && bHandheld === true) return 0;
 
-  const slotOrder = [
-    'Arcane',
-    'Arcane x2',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Tarot',
-    undefined,
-  ];
-
-  const aSlot = slotOrder.indexOf(a.slot);
+  const aSlot = slots.indexOf(toSlot(a));
   if (aSlot === -1) {
     throw new Error(`unknown slot ${a.slot}`);
   }
 
-  const bSlot = slotOrder.indexOf(b.slot);
+  const bSlot = slots.indexOf(toSlot(b));
   if (bSlot === -1) {
     throw new Error(`unknown slot ${b.slot}`);
   }
@@ -249,12 +260,13 @@ function isWeaknessCard(card: Card) {
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[]) {
+function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[], slots: SLOT[]) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 
   // I would put locations here after weakness, probably
   // investigator cards that are catched up by pocket regrouping.
+  // yup for now : Luke Robinson
   const bylocations = sortPlayerCardsByLocation(a, b);
   if (bylocations !== 0) return bylocations;
 
@@ -265,7 +277,7 @@ function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[]) {
     const byType = sortPlayerCardsByType(a, b);
     if (byType !== 0) return byType;
 
-    const byAssetSlot = sortAssetCardsBySlot(a, b);
+    const byAssetSlot = sortAssetCardsBySlot(a, b, slots);
     if (byAssetSlot !== 0) return byAssetSlot;
   }
 

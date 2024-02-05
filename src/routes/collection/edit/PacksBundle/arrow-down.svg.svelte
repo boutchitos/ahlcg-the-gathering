@@ -1,5 +1,6 @@
 <script lang="ts">
-  let klass = ($$props.class ?? '') + ' fill-[#286da5]';
+  let klass = '';
+  export { klass as class };
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class={klass} viewBox="0 0 10 14">

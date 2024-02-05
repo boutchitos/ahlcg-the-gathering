@@ -1,1 +1,6 @@
-<img class="size-12" src="/icon/survivor.webp" alt="survivor icon" />
+<script lang="ts">
+  let klass = '';
+  export { klass as class };
+</script>
+
+<img class={klass} src="/icon/survivor.webp" alt="survivor icon" />
