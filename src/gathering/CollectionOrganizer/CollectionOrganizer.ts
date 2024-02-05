@@ -23,6 +23,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     'Hand',
     'Hand x2',
     'Hand. Arcane',
+    'Hand x2. Arcane',
     'Ally',
     'Ally. Arcane',
     'Accessory',
@@ -165,6 +166,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
 }
 
 function toClasses(card: Card): CLASS {
+  if (card.faction2_code !== undefined) return 'multi';
   return card.faction_code as CLASS;
 }
 function toSlot(card: Card): SLOT {

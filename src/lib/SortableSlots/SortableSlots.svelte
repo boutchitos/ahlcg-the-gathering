@@ -15,6 +15,7 @@
     'Body. Arcane': 'body',
     'Body. Hand x2': 'body',
     Hand: 'hand_1',
+    'Hand x2. Arcane': 'hand_2',
     'Hand x2': 'hand_2',
     'Hand. Arcane': 'hand_1',
     Tarot: 'tarot',
