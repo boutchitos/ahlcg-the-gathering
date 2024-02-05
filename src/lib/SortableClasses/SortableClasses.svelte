@@ -34,7 +34,10 @@
       on:dragover={(event) => dragDrop.onDragOver(event)}
       on:dragstart={() => dragDrop.onDragStart(index)}
       on:drop={() => dragDrop.onDragDrop()}
-      ><svelte:component this={icons[klass]} class="size-20" />
+      ><svelte:component
+        this={icons[klass]}
+        class="size-20 rounded-full hover:shadow-md hover:shadow-black"
+      />
     </button>
   {/each}
 </div>
