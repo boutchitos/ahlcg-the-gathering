@@ -76,7 +76,7 @@ export function userBrowsesItsCollection(): {
     'multi',
   ]);
   classes.subscribe((value) => {
-    organizer.reorderClasses(value);
+    organizer.reorderByClasses(value);
   });
 
   const slots = writable<SLOT[]>([
@@ -96,12 +96,12 @@ export function userBrowsesItsCollection(): {
     undefined,
   ]);
   slots.subscribe((value) => {
-    organizer.reorderSlots(value);
+    organizer.reorderBySlots(value);
   });
 
   const playerCardTypes = writable<PLAYER_CARD_TYPE[]>(['investigator', 'asset', 'event', 'skill']);
-  playerCardTypes.subscribe(() => {
-    //organizer.reorderPlayerCardType(value);
+  playerCardTypes.subscribe((value) => {
+    organizer.reorderByPlayerCardTypes(value);
   });
 
   return {

@@ -21,6 +21,7 @@ export type SLOT =
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;
 
-  reorderClasses(classes: CLASS[]): void;
-  reorderSlots(slots: SLOT[]): void;
+  reorderByClasses(classes: CLASS[]): void;
+  reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void;
+  reorderBySlots(slots: SLOT[]): void;
 }

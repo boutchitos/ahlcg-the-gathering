@@ -2,8 +2,18 @@ import { createCardRepository } from '$gathering';
 import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
-import type { CLASS, ICollectionOrganizer, SLOT } from '$gathering/ICollectionOrganizer';
-import { sortByClasses, type ICardsSorter, sortAssetsBySlots } from './sort-cards-by';
+import type {
+  CLASS,
+  ICollectionOrganizer,
+  PLAYER_CARD_TYPE,
+  SLOT,
+} from '$gathering/ICollectionOrganizer';
+import {
+  sortByClasses,
+  type ICardsSorter,
+  sortAssetsBySlots,
+  sortByPlayerCardTypes,
+} from './sort-cards-by';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
@@ -18,6 +28,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     'neutral',
     'multi',
   ];
+  private playerCardTypes: PLAYER_CARD_TYPE[] = ['investigator', 'asset', 'event', 'skill'];
   private slots: SLOT[] = [
     'Arcane',
     'Arcane x2',
@@ -45,13 +56,19 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.notifyBinderUpdated(binderOutput);
   }
 
-  reorderClasses(classes: CLASS[]): void {
+  reorderByClasses(classes: CLASS[]): void {
     this.classes = classes;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
-  reorderSlots(slots: SLOT[]): void {
+  reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void {
+    this.playerCardTypes = types;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
+
+  reorderBySlots(slots: SLOT[]): void {
     this.slots = slots;
     this.organizeCollection();
     this.notifyBinderUpdated();
@@ -66,10 +83,10 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
-    const cardsSorters = new Array<ICardsSorter>();
     const byClasses = sortByClasses(this.classes);
     const assetBySlots = sortAssetsBySlots(this.slots);
-    cardsSorters.push(byClasses, assetBySlots);
+    const byPlayerCardTypes = sortByPlayerCardTypes(this.playerCardTypes);
+    const cardsSorters = [byClasses, byPlayerCardTypes, assetBySlots];
 
     const organized = [...this.investigatorCards].sort((a, b) =>
       sortCardsAsUserWant(a, b, cardsSorters),
@@ -166,22 +183,6 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   return regrouped;
 }
 
-function sortByPlayerCardTypes(a: Card, b: Card): number {
-  const typeCodeOrder = ['investigator', 'asset', 'event', 'skill'];
-
-  const aTypeCode = typeCodeOrder.indexOf(a.type_code);
-  if (aTypeCode === -1) {
-    throw new Error(`unknown type code ${a.type_code}`);
-  }
-
-  const bTypeCode = typeCodeOrder.indexOf(b.type_code);
-  if (bTypeCode === -1) {
-    throw new Error(`unknown type code ${b.type_code}`);
-  }
-
-  return aTypeCode - bTypeCode;
-}
-
 function sortPlayerCardsByLocation(a: Card, b: Card): number {
   const aIsLocation = isLocationCard(a);
   const bIsLocation = isLocationCard(b);
@@ -226,14 +227,14 @@ function sortCardsAsUserWant(a: Card, b: Card, sorters: ICardsSorter[]) {
   if (bylocations !== 0) return bylocations;
 
   if (!isWeaknessCard(a) && !isLocationCard(a)) {
-    const byClass = sorters[0].sortCards(a, b);
-    if (byClass !== 0) return byClass;
+    const one = sorters[0].sortCards(a, b);
+    if (one !== 0) return one;
 
-    const byType = sortByPlayerCardTypes(a, b);
-    if (byType !== 0) return byType;
+    const two = sorters[1].sortCards(a, b);
+    if (two !== 0) return two;
 
-    const byAssetSlot = sorters[1].sortCards(a, b);
-    if (byAssetSlot !== 0) return byAssetSlot;
+    const three = sorters[2].sortCards(a, b);
+    if (three !== 0) return three;
   }
 
   const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
