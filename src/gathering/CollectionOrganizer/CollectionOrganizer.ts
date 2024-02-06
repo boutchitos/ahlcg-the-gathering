@@ -65,8 +65,13 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
+    const cardsSorters = new Array<ICardsSorter>();
+    const byClass = new SortCardsByClass(this.classes);
+    const byAssetSlot = new SortCardsByAssetSlot(this.slots);
+    cardsSorters.push(byClass, byAssetSlot);
+
     const organized = [...this.investigatorCards].sort((a, b) =>
-      sortCardsAsUserWant(a, b, this.classes, this.slots),
+      sortCardsAsUserWant(a, b, cardsSorters),
     );
 
     this.binder = { pockets: regroupByPockets(organized) };
@@ -81,10 +86,9 @@ export function createCollectionOrganizer(): ICollectionOrganizer {
   return new CollectionOrganizer(theUserCollection);
 }
 
-export type CollectionPack = {
-  nbCopies: number;
-  packCode: string; // id?
-};
+interface ICardsSorter {
+  sortCards(a: Card, b: Card): number;
+}
 
 function assert(expr: boolean, help = 'something went wrong!') {
   if (!expr) {
@@ -171,6 +175,22 @@ function toClasses(card: Card): CLASS {
 }
 function toSlot(card: Card): SLOT {
   return card.slot as SLOT;
+}
+
+class SortCardsByClass implements ICardsSorter {
+  constructor(private classes: CLASS[]) {}
+
+  sortCards(a: Card, b: Card): number {
+    return sortPlayerCardsByClass(a, b, this.classes);
+  }
+}
+
+class SortCardsByAssetSlot implements ICardsSorter {
+  constructor(private slots: SLOT[]) {}
+
+  sortCards(a: Card, b: Card): number {
+    return sortAssetCardsBySlot(a, b, this.slots);
+  }
 }
 
 function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
@@ -264,7 +284,7 @@ function isWeaknessCard(card: Card) {
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[], slots: SLOT[]) {
+function sortCardsAsUserWant(a: Card, b: Card, sorters: ICardsSorter[]) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 
@@ -275,13 +295,13 @@ function sortCardsAsUserWant(a: Card, b: Card, classes: CLASS[], slots: SLOT[]) 
   if (bylocations !== 0) return bylocations;
 
   if (!isWeaknessCard(a) && !isLocationCard(a)) {
-    const byClass = sortPlayerCardsByClass(a, b, classes);
+    const byClass = sorters[0].sortCards(a, b);
     if (byClass !== 0) return byClass;
 
     const byType = sortPlayerCardsByType(a, b);
     if (byType !== 0) return byType;
 
-    const byAssetSlot = sortAssetCardsBySlot(a, b, slots);
+    const byAssetSlot = sorters[1].sortCards(a, b);
     if (byAssetSlot !== 0) return byAssetSlot;
   }
 
