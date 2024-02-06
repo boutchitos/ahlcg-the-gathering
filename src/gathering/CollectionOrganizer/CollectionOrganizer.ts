@@ -3,7 +3,7 @@ import { theUserCollection, type CollectionEntity } from '$gathering/CollectionE
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
 import type { CLASS, ICollectionOrganizer, SLOT } from '$gathering/ICollectionOrganizer';
-import { sortByClasses, type ICardsSorter } from './sort-cards-by';
+import { sortByClasses, type ICardsSorter, sortAssetsBySlots } from './sort-cards-by';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
@@ -67,9 +67,9 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   private organizeCollection(): void {
     const cardsSorters = new Array<ICardsSorter>();
-    const byClass = sortByClasses(this.classes);
-    const byAssetSlot = new SortCardsByAssetSlot(this.slots);
-    cardsSorters.push(byClass, byAssetSlot);
+    const byClasses = sortByClasses(this.classes);
+    const assetBySlots = sortAssetsBySlots(this.slots);
+    cardsSorters.push(byClasses, assetBySlots);
 
     const organized = [...this.investigatorCards].sort((a, b) =>
       sortCardsAsUserWant(a, b, cardsSorters),
@@ -164,46 +164,6 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   });
 
   return regrouped;
-}
-
-function toSlot(card: Card): SLOT {
-  return card.slot as SLOT;
-}
-
-class SortCardsByAssetSlot implements ICardsSorter {
-  constructor(private slots: SLOT[]) {}
-
-  sortCards(a: Card, b: Card): number {
-    return sortAssetCardsBySlot(a, b, this.slots);
-  }
-}
-
-function sortAssetCardsBySlot(a: Card, b: Card, slots: SLOT[]) {
-  // if one is not asset, we can concluded here, so they are the same.
-  if (a.type_code !== 'asset' || b.type_code !== 'asset') {
-    return 0;
-  }
-
-  // handheld will be a config, not yet, but this is for me.
-  // // I should inject predicate. So, I would find by them. This will be finaly solution when I have
-  // // configs for everything...
-  // const aHandheld = a.slot?.includes('Hand');
-  // const bHandheld = b.slot?.includes('Hand');
-  // if (aHandheld === true && bHandheld !== true) return -1;
-  // if (aHandheld !== true && bHandheld === true) return 1;
-  // if (aHandheld === true && bHandheld === true) return 0;
-
-  const aSlot = slots.indexOf(toSlot(a));
-  if (aSlot === -1) {
-    throw new Error(`unknown slot ${a.slot}`);
-  }
-
-  const bSlot = slots.indexOf(toSlot(b));
-  if (bSlot === -1) {
-    throw new Error(`unknown slot ${b.slot}`);
-  }
-
-  return aSlot - bSlot;
 }
 
 function sortPlayerCardsByType(a: Card, b: Card): number {

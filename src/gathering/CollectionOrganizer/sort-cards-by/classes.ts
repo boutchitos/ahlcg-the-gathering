@@ -6,11 +6,11 @@ export class SortByClasses implements ICardsSorter {
   constructor(private classes: CLASS[]) {}
 
   sortCards(a: Card, b: Card): number {
-    return sortPlayerCardsByClass(a, b, this.classes);
+    return sortByClasses(a, b, this.classes);
   }
 }
 
-function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
+function sortByClasses(a: Card, b: Card, classes: CLASS[]): number {
   const aClass = classes.indexOf(toClasses(a));
   if (aClass === -1) {
     throw new Error(`unknown faction_code ${a.faction_code}`);
