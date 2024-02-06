@@ -14,7 +14,7 @@
 
 <ul>
   {#each $items as item, index}
-    <li class="mb-3 {$dragging ? 'shadow-md' : ''}">
+    <li class="p-1 {$dragging ? 'shadow-md' : ''}">
       <div
         class="inline-flex items-center"
         role="listitem"
@@ -35,7 +35,7 @@
           on:dragstart={() => dragDrop.onDragStart(index)}
           on:drop={() => dragDrop.onDragDrop()}
         >
-          <ReorderIcon class="mr-10 size-10 {$hovering ? '' : 'invisible'}" />
+          <ReorderIcon class="mr-2 size-10 {$hovering ? '' : 'invisible'} fill-gray-500" />
         </div>
         <slot {item} />
       </div>
