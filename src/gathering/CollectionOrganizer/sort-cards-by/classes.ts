@@ -1,0 +1,30 @@
+import type { Card } from '$gathering/IBinderOutput';
+import type { CLASS } from '$gathering/ICollectionOrganizer';
+import type { ICardsSorter } from '.';
+
+export class SortByClasses implements ICardsSorter {
+  constructor(private classes: CLASS[]) {}
+
+  sortCards(a: Card, b: Card): number {
+    return sortPlayerCardsByClass(a, b, this.classes);
+  }
+}
+
+function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
+  const aClass = classes.indexOf(toClasses(a));
+  if (aClass === -1) {
+    throw new Error(`unknown faction_code ${a.faction_code}`);
+  }
+
+  const bClass = classes.indexOf(toClasses(b));
+  if (bClass === -1) {
+    throw new Error(`unknown faction_code ${b.faction_code}`);
+  }
+
+  return aClass - bClass;
+}
+
+function toClasses(card: Card): CLASS {
+  if (card.faction2_code !== undefined) return 'multi';
+  return card.faction_code as CLASS;
+}

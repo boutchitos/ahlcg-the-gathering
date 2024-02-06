@@ -3,6 +3,7 @@ import { theUserCollection, type CollectionEntity } from '$gathering/CollectionE
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
 import type { CLASS, ICollectionOrganizer, SLOT } from '$gathering/ICollectionOrganizer';
+import { sortByClasses, type ICardsSorter } from './sort-cards-by';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
@@ -66,7 +67,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   private organizeCollection(): void {
     const cardsSorters = new Array<ICardsSorter>();
-    const byClass = new SortCardsByClass(this.classes);
+    const byClass = sortByClasses(this.classes);
     const byAssetSlot = new SortCardsByAssetSlot(this.slots);
     cardsSorters.push(byClass, byAssetSlot);
 
@@ -84,10 +85,6 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
 export function createCollectionOrganizer(): ICollectionOrganizer {
   return new CollectionOrganizer(theUserCollection);
-}
-
-interface ICardsSorter {
-  sortCards(a: Card, b: Card): number;
 }
 
 function assert(expr: boolean, help = 'something went wrong!') {
@@ -169,20 +166,8 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   return regrouped;
 }
 
-function toClasses(card: Card): CLASS {
-  if (card.faction2_code !== undefined) return 'multi';
-  return card.faction_code as CLASS;
-}
 function toSlot(card: Card): SLOT {
   return card.slot as SLOT;
-}
-
-class SortCardsByClass implements ICardsSorter {
-  constructor(private classes: CLASS[]) {}
-
-  sortCards(a: Card, b: Card): number {
-    return sortPlayerCardsByClass(a, b, this.classes);
-  }
 }
 
 class SortCardsByAssetSlot implements ICardsSorter {
@@ -191,20 +176,6 @@ class SortCardsByAssetSlot implements ICardsSorter {
   sortCards(a: Card, b: Card): number {
     return sortAssetCardsBySlot(a, b, this.slots);
   }
-}
-
-function sortPlayerCardsByClass(a: Card, b: Card, classes: CLASS[]): number {
-  const aClass = classes.indexOf(toClasses(a));
-  if (aClass === -1) {
-    throw new Error(`unknown faction_code ${a.faction_code}`);
-  }
-
-  const bClass = classes.indexOf(toClasses(b));
-  if (bClass === -1) {
-    throw new Error(`unknown faction_code ${b.faction_code}`);
-  }
-
-  return aClass - bClass;
 }
 
 function sortAssetCardsBySlot(a: Card, b: Card, slots: SLOT[]) {
