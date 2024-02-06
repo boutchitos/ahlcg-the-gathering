@@ -1,13 +1,18 @@
-import type { Writable } from 'svelte/store';
+import { readonly, writable, type Writable } from 'svelte/store';
 
 export class DragDrop<Item> {
+  private wDragging = writable(false);
+  private dropped: boolean = false;
   private index: number = 0;
   private original: Item[] = [];
-  private dropped: boolean = false;
 
   constructor(private readonly items: Writable<Item[]>) {
     const unsubscribe = items.subscribe((value) => (this.original = [...value]));
     unsubscribe();
+  }
+
+  get dragging() {
+    return readonly(this.wDragging);
   }
 
   onDragDrop() {
@@ -15,6 +20,7 @@ export class DragDrop<Item> {
   }
 
   onDragEnd() {
+    this.wDragging.set(false);
     if (!this.dropped) {
       // user cancelled...
       this.items.set(this.original);
@@ -39,6 +45,7 @@ export class DragDrop<Item> {
   }
 
   onDragStart(index: number) {
+    this.wDragging.set(true);
     this.index = index;
     this.dropped = false;
 
