@@ -1,6 +1,7 @@
 import type { IBinderOutput } from './IBinderOutput';
 
 export type CLASS = 'guardian' | 'mystic' | 'rogue' | 'seeker' | 'survivor' | 'neutral' | 'multi';
+export type PLAYER_CARD_TYPE = 'investigator' | 'asset' | 'event' | 'skill';
 export type SLOT =
   | 'Accessory'
   | 'Ally. Arcane'

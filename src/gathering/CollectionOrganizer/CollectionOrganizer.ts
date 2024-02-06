@@ -166,7 +166,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   return regrouped;
 }
 
-function sortPlayerCardsByType(a: Card, b: Card): number {
+function sortByPlayerCardTypes(a: Card, b: Card): number {
   const typeCodeOrder = ['investigator', 'asset', 'event', 'skill'];
 
   const aTypeCode = typeCodeOrder.indexOf(a.type_code);
@@ -229,7 +229,7 @@ function sortCardsAsUserWant(a: Card, b: Card, sorters: ICardsSorter[]) {
     const byClass = sorters[0].sortCards(a, b);
     if (byClass !== 0) return byClass;
 
-    const byType = sortPlayerCardsByType(a, b);
+    const byType = sortByPlayerCardTypes(a, b);
     if (byType !== 0) return byType;
 
     const byAssetSlot = sorters[1].sortCards(a, b);
