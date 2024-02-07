@@ -1,5 +1,5 @@
-import type { CLASS } from './classes';
-import type { PLAYER_CARD_TYPE } from './player-card-types';
-import type { SLOT } from './asset-slots';
+import type { CLASS } from './by-classes';
+import type { PLAYER_CARD_TYPE } from './by-player-card-types';
+import type { SLOT } from './by-asset-slots';
 
 export { CLASS, PLAYER_CARD_TYPE, SLOT };

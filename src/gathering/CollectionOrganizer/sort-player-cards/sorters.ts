@@ -1,7 +1,7 @@
 import type { ICardsSorter } from './ICardsSorter';
-import { SortAssetBySlots, type SLOT } from './asset-slots';
-import { SortByClasses, type CLASS } from './classes';
-import { SortByPlayerCardTypes, type PLAYER_CARD_TYPE } from './player-card-types';
+import { SortAssetBySlots, type SLOT } from './by-asset-slots';
+import { SortByClasses, type CLASS } from './by-classes';
+import { SortByPlayerCardTypes, type PLAYER_CARD_TYPE } from './by-player-card-types';
 
 export function sortByClasses(classes: CLASS[]): ICardsSorter {
   return new SortByClasses(classes);
