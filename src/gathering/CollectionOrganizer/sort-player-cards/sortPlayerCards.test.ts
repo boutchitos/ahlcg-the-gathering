@@ -48,7 +48,7 @@ it('sorts by name over xp', () => {
   expect(sort(b1, b0, a1, a0)).toEqual([a0, a1, b0, b1]);
 });
 
-it.only('sorts weaknesses at end', () => {
+it('sorts weaknesses at end', () => {
   const w = card({ type_code: 'treachery', subtype_code: 'weakness' });
   const a = card({ type_code: 'asset' });
   const i = card({ type_code: 'investigator' });
@@ -57,13 +57,20 @@ it.only('sorts weaknesses at end', () => {
   expect(sort(w, a, i, s, e)).toEqual([i, a, e, s, w]);
 });
 
-it.only('sorts location at end', () => {
-  const l = card({ type_code: 'location'});
+it('sorts location at end', () => {
+  const l = card({ type_code: 'location' });
   const a = card({ type_code: 'asset' });
   const i = card({ type_code: 'investigator' });
   const s = card({ type_code: 'skill' });
   const e = card({ type_code: 'event' });
   expect(sort(l, a, i, s, e)).toEqual([i, a, e, s, l]);
+});
+
+it('sorts by location over by weakness', () => {
+  const w = card({ type_code: 'treachery', subtype_code: 'weakness' });
+  const l = card({ type_code: 'location' });
+  expect(sort(l, w)).toEqual([l, w]);
+  expect(sort(w, l)).toEqual([l, w]);
 });
 
 type CardInit = {
