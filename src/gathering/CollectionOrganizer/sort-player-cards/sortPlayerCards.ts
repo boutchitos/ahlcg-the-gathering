@@ -1,13 +1,6 @@
-import {
-  sortByClasses,
-  sortAssetsBySlots,
-  sortByPlayerCardTypes,
-  type ICardsSorter,
-  type CLASS,
-  type PLAYER_CARD_TYPE,
-  type SLOT,
-  type Card,
-} from './ICardsSorter';
+import type { Card, ICardsSorter } from './ICardsSorter';
+import type { CLASS, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
+import { sortByClasses, sortAssetsBySlots, sortByPlayerCardTypes } from './sorters';
 
 export type SortOptions = {
   classes: CLASS[];

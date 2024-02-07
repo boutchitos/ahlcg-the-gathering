@@ -1,4 +1,20 @@
-import type { Card, ICardsSorter, SLOT } from './ICardsSorter';
+import type { Card, ICardsSorter } from './ICardsSorter';
+
+export type SLOT =
+  | 'Accessory'
+  | 'Ally. Arcane'
+  | 'Ally'
+  | 'Arcane x2'
+  | 'Arcane'
+  | 'Body. Arcane'
+  | 'Body. Hand x2'
+  | 'Body'
+  | 'Hand x2. Arcane'
+  | 'Hand x2'
+  | 'Hand. Arcane'
+  | 'Hand'
+  | 'Tarot'
+  | undefined;
 
 export class SortAssetBySlots implements ICardsSorter {
   constructor(private slots: SLOT[]) {}

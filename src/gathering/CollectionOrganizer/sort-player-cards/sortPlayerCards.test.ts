@@ -1,6 +1,7 @@
 import { beforeEach, expect, it } from 'vitest';
 import { sortPlayerCards } from '.';
-import type { CLASS, Card, PLAYER_CARD_TYPE, SLOT } from './ICardsSorter';
+import type { Card } from '$gathering/IBinderOutput';
+import type { CLASS, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
 
 const assetSlots: SLOT[] = [
   'Arcane',

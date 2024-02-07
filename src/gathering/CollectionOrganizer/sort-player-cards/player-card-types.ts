@@ -1,4 +1,6 @@
-import type { Card, ICardsSorter, PLAYER_CARD_TYPE } from './ICardsSorter';
+import type { Card, ICardsSorter } from './ICardsSorter';
+
+export type PLAYER_CARD_TYPE = 'investigator' | 'asset' | 'event' | 'skill';
 
 export class SortByPlayerCardTypes implements ICardsSorter {
   constructor(private playerCardTypes: PLAYER_CARD_TYPE[]) {}

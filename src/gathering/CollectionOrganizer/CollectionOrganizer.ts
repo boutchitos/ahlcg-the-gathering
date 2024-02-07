@@ -1,4 +1,4 @@
-import { createCardRepository } from '$gathering';
+import { createCardRepository } from '$gathering/CardRepository';
 import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';

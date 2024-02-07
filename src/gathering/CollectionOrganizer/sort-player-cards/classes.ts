@@ -1,4 +1,6 @@
-import type { CLASS, Card, ICardsSorter } from './ICardsSorter';
+import type { Card, ICardsSorter } from './ICardsSorter';
+
+export type CLASS = 'guardian' | 'mystic' | 'rogue' | 'seeker' | 'survivor' | 'neutral' | 'multi';
 
 export class SortByClasses implements ICardsSorter {
   constructor(private classes: CLASS[]) {}
