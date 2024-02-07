@@ -23,6 +23,7 @@ const assetSlots: SLOT[] = [
 
 beforeEach(() => {
   classes.sort();
+  assetSlots.sort();
 });
 
 it('sorts empty cards', () => {
@@ -78,11 +79,17 @@ it('sorts by location over by weakness', () => {
 });
 
 it('sorts by classes', () => {
-  const cards = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']
-    .sort()
-    .map((klass) => card({ faction_code: klass }));
+  const cards = classes.sort().map((klass) => card({ faction_code: klass }));
 
   classes.reverse();
+
+  expect(sort(...cards)).toEqual(cards.reverse());
+});
+
+it('sorts by asset slots', () => {
+  const cards = assetSlots.sort().map((slot) => card({ slot }));
+
+  assetSlots.reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
@@ -90,8 +97,9 @@ it('sorts by classes', () => {
 type CardInit = {
   faction_code?: string;
   name?: string;
-  type_code?: string;
+  slot?: string;
   subtype_code?: 'weakness';
+  type_code?: string;
   xp?: number;
 };
 
