@@ -57,6 +57,15 @@ it.only('sorts weaknesses at end', () => {
   expect(sort(w, a, i, s, e)).toEqual([i, a, e, s, w]);
 });
 
+it.only('sorts location at end', () => {
+  const l = card({ type_code: 'location'});
+  const a = card({ type_code: 'asset' });
+  const i = card({ type_code: 'investigator' });
+  const s = card({ type_code: 'skill' });
+  const e = card({ type_code: 'event' });
+  expect(sort(l, a, i, s, e)).toEqual([i, a, e, s, l]);
+});
+
 type CardInit = {
   faction_code?: string;
   name?: string;
