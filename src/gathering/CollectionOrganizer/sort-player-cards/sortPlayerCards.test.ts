@@ -2,8 +2,6 @@ import { beforeEach, expect, it } from 'vitest';
 import { sortPlayerCards } from '.';
 import type { CLASS, Card, PLAYER_CARD_TYPE, SLOT } from './ICardsSorter';
 
-const classes: CLASS[] = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
-const playerCardTypes: PLAYER_CARD_TYPE[] = ['investigator', 'asset', 'event', 'skill'];
 const assetSlots: SLOT[] = [
   'Arcane',
   'Arcane x2',
@@ -20,14 +18,17 @@ const assetSlots: SLOT[] = [
   'Tarot',
   undefined,
 ];
+const classes: CLASS[] = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
+const playerCardTypes: PLAYER_CARD_TYPE[] = ['investigator', 'asset', 'event', 'skill'];
 
 beforeEach(() => {
-  classes.sort();
   assetSlots.sort();
+  classes.sort();
+  playerCardTypes.sort();
 });
 
 it('sorts empty cards', () => {
-  const cards = sortPlayerCards([], { assetSlots, classes, playerCardTypes });
+  const cards = sort();
   expect(cards).toEqual([]);
 });
 
@@ -59,16 +60,16 @@ it('sorts weaknesses at end', () => {
   const i = card({ type_code: 'investigator' });
   const s = card({ type_code: 'skill' });
   const e = card({ type_code: 'event' });
-  expect(sort(w, a, i, s, e)).toEqual([i, a, e, s, w]);
+  expect(sort(w, a, i, s, e)).toEqual([a, e, i, s, w]);
 });
 
 it('sorts location at end', () => {
   const l = card({ type_code: 'location' });
   const a = card({ type_code: 'asset' });
+  const e = card({ type_code: 'event' });
   const i = card({ type_code: 'investigator' });
   const s = card({ type_code: 'skill' });
-  const e = card({ type_code: 'event' });
-  expect(sort(l, a, i, s, e)).toEqual([i, a, e, s, l]);
+  expect(sort(l, s, i, e, a)).toEqual([a, e, i, s, l]);
 });
 
 it('sorts by location over by weakness', () => {
@@ -90,6 +91,14 @@ it('sorts by asset slots', () => {
   const cards = assetSlots.sort().map((slot) => card({ slot }));
 
   assetSlots.reverse();
+
+  expect(sort(...cards)).toEqual(cards.reverse());
+});
+
+it('sorts by player card types', () => {
+  const cards = playerCardTypes.sort().map((type_code) => card({ type_code }));
+
+  playerCardTypes.reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
