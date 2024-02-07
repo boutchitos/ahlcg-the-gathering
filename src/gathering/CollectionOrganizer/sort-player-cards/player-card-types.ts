@@ -1,6 +1,4 @@
-import type { Card } from '$gathering/IBinderOutput';
-import type { PLAYER_CARD_TYPE } from '$gathering/ICollectionOrganizer';
-import type { ICardsSorter } from '.';
+import type { Card, ICardsSorter, PLAYER_CARD_TYPE } from './ICardsSorter';
 
 export class SortByPlayerCardTypes implements ICardsSorter {
   constructor(private playerCardTypes: PLAYER_CARD_TYPE[]) {}

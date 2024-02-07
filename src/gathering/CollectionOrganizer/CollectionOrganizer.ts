@@ -8,12 +8,7 @@ import type {
   PLAYER_CARD_TYPE,
   SLOT,
 } from '$gathering/ICollectionOrganizer';
-import {
-  sortByClasses,
-  type ICardsSorter,
-  sortAssetsBySlots,
-  sortByPlayerCardTypes,
-} from './sort-cards-by';
+import { sortPlayerCards } from './sort-player-cards';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
@@ -83,16 +78,14 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
-    const byClasses = sortByClasses(this.classes);
-    const assetBySlots = sortAssetsBySlots(this.slots);
-    const byPlayerCardTypes = sortByPlayerCardTypes(this.playerCardTypes);
-    const cardsSorters = [byClasses, byPlayerCardTypes, assetBySlots];
+    const sorted = sortPlayerCards(this.investigatorCards, {
+      classes: this.classes,
+      assetSlots: this.slots,
+      playerCardTypes: this.playerCardTypes,
+      // sortingOrder: this.criterias
+    });
 
-    const organized = [...this.investigatorCards].sort((a, b) =>
-      sortCardsAsUserWant(a, b, cardsSorters),
-    );
-
-    this.binder = { pockets: regroupByPockets(organized) };
+    this.binder = { pockets: regroupByPockets(sorted) };
   }
 
   private get investigatorCards(): Iterable<Card> {
@@ -181,67 +174,4 @@ function regroupByPockets(cards: Card[]): Pocket[] {
   });
 
   return regrouped;
-}
-
-function sortPlayerCardsByLocation(a: Card, b: Card): number {
-  const aIsLocation = isLocationCard(a);
-  const bIsLocation = isLocationCard(b);
-
-  if (aIsLocation !== bIsLocation) {
-    return aIsLocation ? 1 : -1; // location at the end
-  }
-
-  return 0;
-}
-
-function sortPlayerCardsByWeakness(a: Card, b: Card): number {
-  const aIsWeakness = isWeaknessCard(a);
-  const bIsWeakness = isWeaknessCard(b);
-
-  if (aIsWeakness !== bIsWeakness) {
-    return aIsWeakness ? 1 : -1; // weakness at the end
-  }
-
-  return 0;
-}
-
-function isLocationCard(card: Card) {
-  return card.type_code === 'location';
-}
-
-function isWeaknessCard(card: Card) {
-  const enemy = card.type_code === 'enemy';
-  const weakness = card.subtype_code?.includes('weakness');
-  return enemy || weakness;
-}
-
-// Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-function sortCardsAsUserWant(a: Card, b: Card, sorters: ICardsSorter[]) {
-  const byWeakness = sortPlayerCardsByWeakness(a, b);
-  if (byWeakness !== 0) return byWeakness;
-
-  // I would put locations here after weakness, probably
-  // investigator cards that are catched up by pocket regrouping.
-  // yup for now : Luke Robinson
-  const bylocations = sortPlayerCardsByLocation(a, b);
-  if (bylocations !== 0) return bylocations;
-
-  if (!isWeaknessCard(a) && !isLocationCard(a)) {
-    const one = sorters[0].sortCards(a, b);
-    if (one !== 0) return one;
-
-    const two = sorters[1].sortCards(a, b);
-    if (two !== 0) return two;
-
-    const three = sorters[2].sortCards(a, b);
-    if (three !== 0) return three;
-  }
-
-  const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
-  if (name_sort !== 0) return name_sort;
-
-  const xp_sort = a.xp - b.xp;
-  if (xp_sort !== 0) return xp_sort;
-
-  return 0;
 }

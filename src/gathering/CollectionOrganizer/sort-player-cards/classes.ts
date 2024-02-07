@@ -1,6 +1,4 @@
-import type { Card } from '$gathering/IBinderOutput';
-import type { CLASS } from '$gathering/ICollectionOrganizer';
-import type { ICardsSorter } from '.';
+import type { CLASS, Card, ICardsSorter } from './ICardsSorter';
 
 export class SortByClasses implements ICardsSorter {
   constructor(private classes: CLASS[]) {}

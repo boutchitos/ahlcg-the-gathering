@@ -1,8 +1,10 @@
 import type { Card } from '$gathering/IBinderOutput';
 import type { CLASS, PLAYER_CARD_TYPE, SLOT } from '$gathering/ICollectionOrganizer';
+import { SortAssetBySlots } from './asset-slots';
 import { SortByClasses } from './classes';
 import { SortByPlayerCardTypes } from './player-card-types';
-import { SortAssetBySlots } from './asset-slots';
+
+export { Card, CLASS, PLAYER_CARD_TYPE, SLOT };
 
 export interface ICardsSorter {
   sortCards(a: Card, b: Card): number;
