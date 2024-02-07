@@ -1,4 +1,4 @@
-import { expect, it } from 'vitest';
+import { beforeEach, expect, it } from 'vitest';
 import { sortPlayerCards } from '.';
 import type { CLASS, Card, PLAYER_CARD_TYPE, SLOT } from './ICardsSorter';
 
@@ -20,6 +20,10 @@ const assetSlots: SLOT[] = [
   'Tarot',
   undefined,
 ];
+
+beforeEach(() => {
+  classes.sort();
+});
 
 it('sorts empty cards', () => {
   const cards = sortPlayerCards([], { assetSlots, classes, playerCardTypes });
@@ -73,6 +77,14 @@ it('sorts by location over by weakness', () => {
   expect(sort(w, l)).toEqual([l, w]);
 });
 
+it('sorts by classes', () => {
+  const cards = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']
+    .sort()
+    .map((klass) => card({ faction_code: klass }));
+  sort(...cards);
+  // expect().toEqual();
+});
+
 type CardInit = {
   faction_code?: string;
   name?: string;
@@ -81,7 +93,7 @@ type CardInit = {
   xp?: number;
 };
 
-function card({ type_code, faction_code, name, subtype_code, xp }: CardInit) {
+function card({ type_code, faction_code, name, subtype_code, xp }: CardInit): CardInit {
   return {
     type_code: type_code ?? 'asset',
     faction_code: faction_code ?? 'guardian',
