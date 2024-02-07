@@ -81,8 +81,10 @@ it('sorts by classes', () => {
   const cards = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']
     .sort()
     .map((klass) => card({ faction_code: klass }));
-  sort(...cards);
-  // expect().toEqual();
+
+  classes.reverse();
+
+  expect(sort(...cards)).toEqual(cards.reverse());
 });
 
 type CardInit = {
