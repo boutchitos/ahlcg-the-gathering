@@ -1,31 +1,33 @@
 import { beforeEach, expect, it } from 'vitest';
 import { sortPlayerCards } from '.';
 import type { Card } from '$gathering/IBinderOutput';
-import type { CLASS, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
+import type { CLASS, PLAYER_CARDS_SORTER, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
 
-const assetSlots: SLOT[] = [
-  'Arcane',
-  'Arcane x2',
-  'Hand',
-  'Hand x2',
-  'Hand. Arcane',
-  'Hand x2. Arcane',
-  'Ally',
-  'Ally. Arcane',
-  'Accessory',
-  'Body',
-  'Body. Arcane',
-  'Body. Hand x2',
-  'Tarot',
-  undefined,
-];
-const classes: CLASS[] = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
-const playerCardTypes: PLAYER_CARD_TYPE[] = ['investigator', 'asset', 'event', 'skill'];
+let assetSlots: SLOT[];
+let classes: CLASS[];
+let playerCardTypes: PLAYER_CARD_TYPE[];
+let sortingOrder: PLAYER_CARDS_SORTER[];
 
 beforeEach(() => {
-  assetSlots.sort();
-  classes.sort();
-  playerCardTypes.sort();
+  assetSlots = [
+    'Arcane',
+    'Arcane x2',
+    'Hand',
+    'Hand x2',
+    'Hand. Arcane',
+    'Hand x2. Arcane',
+    'Ally',
+    'Ally. Arcane',
+    'Accessory',
+    'Body',
+    'Body. Arcane',
+    'Body. Hand x2',
+    'Tarot',
+    undefined,
+  ];
+  classes = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
+  playerCardTypes = ['investigator', 'asset', 'event', 'skill'];
+  sortingOrder = ['by-classes', 'by-player-card-types', 'by-asset-slots'];
 });
 
 it('sorts empty cards', () => {
@@ -61,7 +63,7 @@ it('sorts weaknesses at end', () => {
   const i = card({ type_code: 'investigator' });
   const s = card({ type_code: 'skill' });
   const e = card({ type_code: 'event' });
-  expect(sort(w, a, i, s, e)).toEqual([a, e, i, s, w]);
+  expect(sort(w, a, i, s, e)).toEqual([i, a, e, s, w]);
 });
 
 it('sorts location at end', () => {
@@ -70,7 +72,7 @@ it('sorts location at end', () => {
   const e = card({ type_code: 'event' });
   const i = card({ type_code: 'investigator' });
   const s = card({ type_code: 'skill' });
-  expect(sort(l, s, i, e, a)).toEqual([a, e, i, s, l]);
+  expect(sort(l, s, i, e, a)).toEqual([i, a, e, s, l]);
 });
 
 it('sorts by location over by weakness', () => {
@@ -104,6 +106,19 @@ it('sorts by player card types', () => {
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
+it('sorts with sorting order', () => {
+  const cards: CardInit[] = [];
+  cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
+  cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));
+  // assomption: already sorted against test default: by classes, by types, by slots
+  expect(sort(...cards)).toEqual(cards);
+
+  sortingOrder = ['by-player-card-types', 'by-classes', 'by-asset-slots'];
+
+  // investigator is in front of the guardian asset
+  expect(sort(...cards)).toEqual(cards.reverse());
+});
+
 type CardInit = {
   faction_code?: string;
   name?: string;
@@ -124,5 +139,5 @@ function card({ type_code, faction_code, name, subtype_code, xp }: CardInit): Ca
 }
 
 function sort(...cards: CardInit[]) {
-  return sortPlayerCards(cards as Card[], { assetSlots, classes, playerCardTypes });
+  return sortPlayerCards(cards as Card[], { assetSlots, classes, playerCardTypes, sortingOrder });
 }

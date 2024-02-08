@@ -106,7 +106,11 @@ export function userBrowsesItsCollection(): {
     organizer.reorderByPlayerCardTypes(value);
   });
 
-  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(['by-classes', 'by-slots', 'by-player-card-types']);
+  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>([
+    'by-classes',
+    'by-asset-slots',
+    'by-player-card-types',
+  ]);
   sortingOrder.subscribe((value) => {
     organizer.reorderPlayerCardSorters(value);
   });

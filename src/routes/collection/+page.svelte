@@ -5,7 +5,6 @@
   import SortableSlots from '$lib/SortableSlots/SortableSlots.svelte';
   import SortableCriterias from '$lib/SortableCriterias/SortableCriterias.svelte';
   import SortablePlayerCardTypes from '$lib/SortablePlayerCardTypes/SortablePlayerCardTypes.svelte';
-  import { writable } from 'svelte/store';
 
   const isBrowser = typeof window !== 'undefined';
 
@@ -37,7 +36,7 @@
 <SortableCriterias items={sortingOrder} let:item>
   {#if item === 'by-classes'}
     <SortableClasses {classes} />
-  {:else if item === 'by-slots'}
+  {:else if item === 'by-asset-slots'}
     <SortableSlots {slots} />
   {:else if item === 'by-player-card-types'}
     <SortablePlayerCardTypes {playerCardTypes} />

@@ -1,27 +1,31 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
-import type { CLASS, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
+import type { CLASS, PLAYER_CARDS_SORTER, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
 import { sortByClasses, sortAssetsBySlots, sortByPlayerCardTypes } from './sorters';
 
 export type SortOptions = {
   classes: CLASS[];
   assetSlots: SLOT[];
   playerCardTypes: PLAYER_CARD_TYPE[];
+  sortingOrder: PLAYER_CARDS_SORTER[];
 };
 
 export function sortPlayerCards(
   cards: Iterable<Card>,
-  { classes, playerCardTypes, assetSlots }: SortOptions,
+  { assetSlots, classes, playerCardTypes, sortingOrder }: SortOptions,
 ): Card[] {
-  const byClasses = sortByClasses(classes);
-  const assetBySlots = sortAssetsBySlots(assetSlots);
-  const byPlayerCardTypes = sortByPlayerCardTypes(playerCardTypes);
-  const cardsSorters = [byClasses, byPlayerCardTypes, assetBySlots];
+  const availSorters: Record<PLAYER_CARDS_SORTER, ICardsSorter> = {
+    'by-asset-slots': sortAssetsBySlots(assetSlots),
+    'by-classes': sortByClasses(classes),
+    'by-player-card-types': sortByPlayerCardTypes(playerCardTypes),
+  };
+  const cardsSorters = sortingOrder.map((sorter) => availSorters[sorter]);
 
-  return [...cards].sort((a, b) => sortCardsAsUserWant(a, b, cardsSorters));
+  const cardSorter = (a: Card, b: Card) => sortCards(a, b, cardsSorters);
+  return [...cards].sort(cardSorter);
 }
 
 // Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
-function sortCardsAsUserWant(a: Card, b: Card, sorters: ICardsSorter[]) {
+function sortCards(a: Card, b: Card, sorters: ICardsSorter[]) {
   const byWeakness = sortPlayerCardsByWeakness(a, b);
   if (byWeakness !== 0) return byWeakness;
 

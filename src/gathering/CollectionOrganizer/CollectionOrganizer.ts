@@ -41,7 +41,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     'Tarot',
     undefined,
   ];
-  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-slots', 'by-player-card-types'];
+  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-asset-slots', 'by-player-card-types'];
 
   constructor(private readonly collection: CollectionEntity) {
     this.classes.sort();
@@ -89,7 +89,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
       classes: this.classes,
       assetSlots: this.slots,
       playerCardTypes: this.playerCardTypes,
-      // sortingOrder: this.criterias
+      sortingOrder: this.sorters,
     });
 
     this.binder = { pockets: regroupByPockets(sorted) };
