@@ -1,7 +1,13 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import type { CLASS, ICollectionOrganizer, SLOT } from '$gathering/ICollectionOrganizer';
+import type {
+  CLASS,
+  ICollectionOrganizer,
+  PLAYER_CARDS_SORTER,
+  PLAYER_CARD_TYPE,
+  SLOT,
+} from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
 
@@ -32,7 +38,9 @@ export type BinderAs2Pages = {
 export function userBrowsesItsCollection(): {
   binder: BinderAs2Pages;
   classes: Writable<CLASS[]>;
+  playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
   slots: Writable<SLOT[]>;
+  sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
@@ -70,7 +78,7 @@ export function userBrowsesItsCollection(): {
     'multi',
   ]);
   classes.subscribe((value) => {
-    organizer.reorderClasses(value);
+    organizer.reorderByClasses(value);
   });
 
   const slots = writable<SLOT[]>([
@@ -90,7 +98,17 @@ export function userBrowsesItsCollection(): {
     undefined,
   ]);
   slots.subscribe((value) => {
-    organizer.reorderSlots(value);
+    organizer.reorderBySlots(value);
+  });
+
+  const playerCardTypes = writable<PLAYER_CARD_TYPE[]>(['investigator', 'asset', 'event', 'skill']);
+  playerCardTypes.subscribe((value) => {
+    organizer.reorderByPlayerCardTypes(value);
+  });
+
+  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(['by-classes', 'by-player-card-types']);
+  sortingOrder.subscribe((value) => {
+    organizer.reorderPlayerCardSorters(value);
   });
 
   return {
@@ -115,7 +133,9 @@ export function userBrowsesItsCollection(): {
       },
     },
     classes,
+    playerCardTypes,
     slots,
+    sortingOrder,
   };
 }
 

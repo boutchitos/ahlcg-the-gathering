@@ -57,7 +57,7 @@ it('updates binder after classes reordering', () => {
     'neutral',
     'multi',
   ];
-  organizer.reorderClasses(mysticFirst);
+  organizer.reorderByClasses(mysticFirst);
 
   const binder = captor<Binder>();
   expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);
@@ -87,7 +87,7 @@ it('updates binder after asset slots reordering', () => {
     'Tarot',
     undefined,
   ];
-  organizer.reorderSlots(allyFirst);
+  organizer.reorderBySlots(allyFirst);
 
   const binder = captor<Binder>();
   expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);

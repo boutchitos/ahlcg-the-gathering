@@ -20,7 +20,7 @@ it('organize multi-class cards as a class', () => {
     'guardian',
     'mystic',
   ];
-  organizer.reorderClasses(multiFirst);
+  organizer.reorderByClasses(multiFirst);
 
   const binder = captor<Binder>();
   expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);

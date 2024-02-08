@@ -33,7 +33,7 @@
       on:dragover={(event) => dragDrop.onDragOver(event)}
       on:dragstart={() => dragDrop.onDragStart(index)}
       on:drop={() => dragDrop.onDragDrop()}
-      class="size-20 hover:cursor-pointer"
+      class="size-20 rounded-full hover:cursor-pointer hover:shadow-md hover:shadow-black"
       title={slot ?? 'no slot'}
       src={`/icon/slot_${icons[slot ?? 'no_slot']}.png`}
       alt={`${slot} slot icon`}

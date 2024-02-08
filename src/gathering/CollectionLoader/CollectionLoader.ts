@@ -1,5 +1,5 @@
-import { createCollectionEditor } from '$gathering';
 import type { Collection } from '$gathering/Collection';
+import { createCollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionLoader } from '$gathering/ICollectionLoader';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';

@@ -1,25 +1,18 @@
+import type {
+  CLASS,
+  PLAYER_CARDS_SORTER,
+  PLAYER_CARD_TYPE,
+  SLOT,
+} from './CollectionOrganizer/sort-player-cards/sorter-config';
 import type { IBinderOutput } from './IBinderOutput';
 
-export type CLASS = 'guardian' | 'mystic' | 'rogue' | 'seeker' | 'survivor' | 'neutral' | 'multi';
-export type SLOT =
-  | 'Accessory'
-  | 'Ally. Arcane'
-  | 'Ally'
-  | 'Arcane x2'
-  | 'Arcane'
-  | 'Body. Arcane'
-  | 'Body. Hand x2'
-  | 'Body'
-  | 'Hand x2. Arcane'
-  | 'Hand x2'
-  | 'Hand. Arcane'
-  | 'Hand'
-  | 'Tarot'
-  | undefined;
+export { CLASS, PLAYER_CARD_TYPE, PLAYER_CARDS_SORTER, SLOT };
 
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;
 
-  reorderClasses(classes: CLASS[]): void;
-  reorderSlots(slots: SLOT[]): void;
+  reorderByClasses(classes: CLASS[]): void;
+  reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void;
+  reorderBySlots(slots: SLOT[]): void;
+  reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]): void;
 }
