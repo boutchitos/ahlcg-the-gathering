@@ -47,6 +47,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.classes.sort();
     this.organizeCollection();
   }
+
   onBinderUpdated(binderOutput: IBinderOutput): void {
     this.binderOutputs.push(binderOutput);
     this.notifyBinderUpdated(binderOutput);
@@ -86,9 +87,9 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   private organizeCollection(): void {
     const sorted = sortPlayerCards(this.investigatorCards, {
-      classes: this.classes,
-      assetSlots: this.slots,
-      playerCardTypes: this.playerCardTypes,
+      byClasses: this.classes,
+      assetsBySlots: this.slots,
+      byPlayerCardTypes: this.playerCardTypes,
       sortingOrder: this.sorters,
     });
 

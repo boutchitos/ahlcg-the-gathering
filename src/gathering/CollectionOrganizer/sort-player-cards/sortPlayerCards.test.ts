@@ -139,5 +139,10 @@ function card({ type_code, faction_code, name, subtype_code, xp }: CardInit): Ca
 }
 
 function sort(...cards: CardInit[]) {
-  return sortPlayerCards(cards as Card[], { assetSlots, classes, playerCardTypes, sortingOrder });
+  return sortPlayerCards(cards as Card[], {
+    assetsBySlots: assetSlots,
+    byClasses: classes,
+    byPlayerCardTypes: playerCardTypes,
+    sortingOrder,
+  });
 }

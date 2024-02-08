@@ -1,17 +1,15 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
-import type { CLASS, PLAYER_CARDS_SORTER, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
+import type { PLAYER_CARDS_SORTER, SortPlayerCardsDirectives } from './sorter-config';
 import { sortByClasses, sortByPlayerCardTypes } from './sorters';
-
-export type SortOptions = {
-  classes: CLASS[];
-  assetSlots: SLOT[];
-  playerCardTypes: PLAYER_CARD_TYPE[];
-  sortingOrder: PLAYER_CARDS_SORTER[];
-};
 
 export function sortPlayerCards(
   cards: Iterable<Card>,
-  { assetSlots, classes, playerCardTypes, sortingOrder }: SortOptions,
+  {
+    assetsBySlots: assetSlots,
+    byClasses: classes,
+    byPlayerCardTypes: playerCardTypes,
+    sortingOrder,
+  }: SortPlayerCardsDirectives,
 ): Card[] {
   const availSorters: Record<PLAYER_CARDS_SORTER, ICardsSorter> = {
     'by-classes': sortByClasses(classes),
