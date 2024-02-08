@@ -28,20 +28,18 @@
 
   isBrowser &&
     localStorage.sortingOrder &&
-    sortingOrder.set(
-      JSON.parse(localStorage.sortingOrder).map((s: string) => s ?? undefined),
-    );
+    sortingOrder.set(JSON.parse(localStorage.sortingOrder).map((s: string) => s ?? undefined));
   $: isBrowser && (localStorage.sortingOrder = JSON.stringify($sortingOrder));
 </script>
 
 <h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>
 
 <SortableCriterias items={sortingOrder} let:item>
-  {#if item === 'classes'}
+  {#if item === 'by-classes'}
     <SortableClasses {classes} />
-  {:else if item === 'slots'}
+  {:else if item === 'by-slots'}
     <SortableSlots {slots} />
-  {:else if item === 'player-card-types'}
+  {:else if item === 'by-player-card-types'}
     <SortablePlayerCardTypes {playerCardTypes} />
   {/if}
 </SortableCriterias>

@@ -6,6 +6,7 @@ import type {
   CLASS,
   ICollectionOrganizer,
   PLAYER_CARD_TYPE,
+  PLAYER_CARDS_SORTER,
   SLOT,
 } from '$gathering/ICollectionOrganizer';
 import { sortPlayerCards } from './sort-player-cards';
@@ -40,12 +41,12 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     'Tarot',
     undefined,
   ];
+  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-slots', 'by-player-card-types'];
 
   constructor(private readonly collection: CollectionEntity) {
     this.classes.sort();
     this.organizeCollection();
   }
-
   onBinderUpdated(binderOutput: IBinderOutput): void {
     this.binderOutputs.push(binderOutput);
     this.notifyBinderUpdated(binderOutput);
@@ -65,6 +66,12 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   reorderBySlots(slots: SLOT[]): void {
     this.slots = slots;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
+
+  reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]) {
+    this.sorters = sorters;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }

@@ -4,6 +4,7 @@ import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutp
 import type {
   CLASS,
   ICollectionOrganizer,
+  PLAYER_CARDS_SORTER,
   PLAYER_CARD_TYPE,
   SLOT,
 } from '$gathering/ICollectionOrganizer';
@@ -33,8 +34,6 @@ export type BinderAs2Pages = {
   handleLeftPageClick: () => void;
   handleRightPageClick: () => void;
 };
-
-type PLAYER_CARDS_SORTER = string;
 
 export function userBrowsesItsCollection(): {
   binder: BinderAs2Pages;
@@ -107,6 +106,11 @@ export function userBrowsesItsCollection(): {
     organizer.reorderByPlayerCardTypes(value);
   });
 
+  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(['by-classes', 'by-slots', 'by-player-card-types']);
+  sortingOrder.subscribe((value) => {
+    organizer.reorderPlayerCardSorters(value);
+  });
+
   return {
     binder: {
       currentPage,
@@ -131,7 +135,7 @@ export function userBrowsesItsCollection(): {
     classes,
     playerCardTypes,
     slots,
-    sortingOrder: writable(['classes', 'slots', 'player-card-types']),
+    sortingOrder,
   };
 }
 
