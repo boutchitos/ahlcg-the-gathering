@@ -34,11 +34,14 @@ export type BinderAs2Pages = {
   handleRightPageClick: () => void;
 };
 
+type PLAYER_CARDS_SORTER = string;
+
 export function userBrowsesItsCollection(): {
   binder: BinderAs2Pages;
   classes: Writable<CLASS[]>;
   playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
   slots: Writable<SLOT[]>;
+  sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
@@ -128,6 +131,7 @@ export function userBrowsesItsCollection(): {
     classes,
     playerCardTypes,
     slots,
+    sortingOrder: writable(['classes', 'slots', 'player-card-types']),
   };
 }
 

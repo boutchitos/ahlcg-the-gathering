@@ -9,7 +9,7 @@
 
   const isBrowser = typeof window !== 'undefined';
 
-  const { binder, classes, playerCardTypes, slots } = userBrowsesItsCollection();
+  const { binder, classes, playerCardTypes, slots, sortingOrder } = userBrowsesItsCollection();
 
   isBrowser && localStorage.classes && classes.set(JSON.parse(localStorage.classes));
   $: isBrowser && (localStorage.classes = JSON.stringify($classes));
@@ -26,12 +26,17 @@
     );
   $: isBrowser && (localStorage.playerCardTypes = JSON.stringify($playerCardTypes));
 
-  const criterias = writable(['classes', 'slots', 'player-card-types']);
+  isBrowser &&
+    localStorage.sortingOrder &&
+    sortingOrder.set(
+      JSON.parse(localStorage.sortingOrder).map((s: string) => s ?? undefined),
+    );
+  $: isBrowser && (localStorage.sortingOrder = JSON.stringify($sortingOrder));
 </script>
 
 <h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>
 
-<SortableCriterias items={criterias} let:item>
+<SortableCriterias items={sortingOrder} let:item>
   {#if item === 'classes'}
     <SortableClasses {classes} />
   {:else if item === 'slots'}
