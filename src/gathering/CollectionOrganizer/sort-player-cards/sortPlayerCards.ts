@@ -36,14 +36,10 @@ function sortCards(a: Card, b: Card, sorters: ICardsSorter[]) {
   if (bylocations !== 0) return bylocations;
 
   if (!isWeaknessCard(a) && !isLocationCard(a)) {
-    const one = sorters[0].sortCards(a, b);
-    if (one !== 0) return one;
-
-    const two = sorters[1].sortCards(a, b);
-    if (two !== 0) return two;
-
-    const three = sorters[2].sortCards(a, b);
-    if (three !== 0) return three;
+    for (const sorter of sorters) {
+      const result = sorter.sortCards(a, b);
+      if (result !== 0) return result;
+    }
   }
 
   const name_sort = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
