@@ -27,7 +27,7 @@ beforeEach(() => {
   ];
   classes = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
   playerCardTypes = ['investigator', 'asset', 'event', 'skill'];
-  sortingOrder = ['by-classes', 'by-player-card-types', 'by-asset-slots'];
+  sortingOrder = ['by-classes', 'by-player-card-types'];
 });
 
 it('sorts empty cards', () => {
@@ -113,7 +113,7 @@ it('sorts with sorting order', () => {
   // assomption: already sorted against test default: by classes, by types, by slots
   expect(sort(...cards)).toEqual(cards);
 
-  sortingOrder = ['by-player-card-types', 'by-classes', 'by-asset-slots'];
+  sortingOrder = ['by-player-card-types', 'by-classes'];
 
   // investigator is in front of the guardian asset
   expect(sort(...cards)).toEqual(cards.reverse());

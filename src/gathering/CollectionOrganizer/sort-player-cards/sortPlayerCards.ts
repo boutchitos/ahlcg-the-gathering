@@ -1,6 +1,6 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
 import type { CLASS, PLAYER_CARDS_SORTER, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
-import { sortByClasses, sortAssetsBySlots, sortByPlayerCardTypes } from './sorters';
+import { sortByClasses, sortByPlayerCardTypes } from './sorters';
 
 export type SortOptions = {
   classes: CLASS[];
@@ -14,9 +14,8 @@ export function sortPlayerCards(
   { assetSlots, classes, playerCardTypes, sortingOrder }: SortOptions,
 ): Card[] {
   const availSorters: Record<PLAYER_CARDS_SORTER, ICardsSorter> = {
-    'by-asset-slots': sortAssetsBySlots(assetSlots),
     'by-classes': sortByClasses(classes),
-    'by-player-card-types': sortByPlayerCardTypes(playerCardTypes),
+    'by-player-card-types': sortByPlayerCardTypes(playerCardTypes, assetSlots),
   };
   const cardsSorters = sortingOrder.map((sorter) => availSorters[sorter]);
 

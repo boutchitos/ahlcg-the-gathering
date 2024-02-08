@@ -7,10 +7,10 @@ export function sortByClasses(classes: CLASS[]): ICardsSorter {
   return new SortByClasses(classes);
 }
 
-export function sortByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): ICardsSorter {
-  return new SortByPlayerCardTypes(types);
+export function sortByPlayerCardTypes(types: PLAYER_CARD_TYPE[], slots: SLOT[]): ICardsSorter {
+  return new SortByPlayerCardTypes(types, sortAssetsBySlots(slots));
 }
 
-export function sortAssetsBySlots(slots: SLOT[]): ICardsSorter {
+function sortAssetsBySlots(slots: SLOT[]): ICardsSorter {
   return new SortAssetBySlots(slots);
 }

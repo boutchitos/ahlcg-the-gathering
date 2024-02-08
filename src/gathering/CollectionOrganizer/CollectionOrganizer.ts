@@ -41,7 +41,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     'Tarot',
     undefined,
   ];
-  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-asset-slots', 'by-player-card-types'];
+  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-player-card-types'];
 
   constructor(private readonly collection: CollectionEntity) {
     this.classes.sort();

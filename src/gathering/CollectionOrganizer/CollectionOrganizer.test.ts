@@ -63,8 +63,8 @@ it('updates binder after classes reordering', () => {
   expect(binderOutput.binderUpdated).toHaveBeenCalledWith(binder);
   const pockets = binder.value.pockets;
   const cardsOf1stPocket = pockets[0].cards;
-  const scrying = cardsOf1stPocket[0];
-  expect(scrying.name).toStrictEqual('Scrying');
+  const agnes = cardsOf1stPocket[0];
+  expect(agnes.name).toStrictEqual('Agnes Baker');
 });
 
 it('updates binder after asset slots reordering', () => {

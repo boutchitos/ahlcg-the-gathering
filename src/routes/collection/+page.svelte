@@ -36,12 +36,11 @@
 <SortableCriterias items={sortingOrder} let:item>
   {#if item === 'by-classes'}
     <SortableClasses {classes} />
-  {:else if item === 'by-asset-slots'}
-    <SortableSlots {slots} />
   {:else if item === 'by-player-card-types'}
     <SortablePlayerCardTypes {playerCardTypes} />
   {/if}
 </SortableCriterias>
+<SortableSlots {slots} />
 <div class="mx-auto flex justify-center">
   <Binder {binder} />
 </div>

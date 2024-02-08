@@ -3,7 +3,10 @@ import type { Card, ICardsSorter } from './ICardsSorter';
 export type PLAYER_CARD_TYPE = 'investigator' | 'asset' | 'event' | 'skill';
 
 export class SortByPlayerCardTypes implements ICardsSorter {
-  constructor(private playerCardTypes: PLAYER_CARD_TYPE[]) {}
+  constructor(
+    private playerCardTypes: PLAYER_CARD_TYPE[],
+    private assetsSorter: ICardsSorter,
+  ) {}
 
   sortCards(a: Card, b: Card): number {
     const aTypeCode = this.playerCardTypes.indexOf(a.type_code as PLAYER_CARD_TYPE);
@@ -16,6 +19,13 @@ export class SortByPlayerCardTypes implements ICardsSorter {
       throw new Error(`unknown type code ${b.type_code}`);
     }
 
-    return aTypeCode - bTypeCode;
+    const result = aTypeCode - bTypeCode;
+    if (result !== 0) {
+      return result;
+    }
+    if (a.type_code === 'asset') {
+      return this.assetsSorter.sortCards(a, b);
+    }
+    return 0;
   }
 }
