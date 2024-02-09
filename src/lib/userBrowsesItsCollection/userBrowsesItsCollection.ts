@@ -94,9 +94,7 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
     organizer.reorderByPlayerCardTypes(value);
   });
 
-  const sortingOrder = writable(
-    fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder),
-  );
+  const sortingOrder = writable(fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder));
   sortingOrder.subscribe((value) => {
     organizer.reorderPlayerCardSorters(value);
   });

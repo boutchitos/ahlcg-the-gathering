@@ -14,7 +14,9 @@ export const DEFAULT_PLAYER_CARDTYPES_ORDER = Object.keys(PlayerCardtypes).filte
 
 export function fixByPlayerCardtypes(wannaBe: string[]): PLAYER_CARD_TYPE[] {
   const incoming = new Set(
-    wannaBe.filter((playerCardtype) => DEFAULT_PLAYER_CARDTYPES_ORDER.includes(playerCardtype as PLAYER_CARD_TYPE)),
+    wannaBe.filter((playerCardtype) =>
+      DEFAULT_PLAYER_CARDTYPES_ORDER.includes(playerCardtype as PLAYER_CARD_TYPE),
+    ),
   );
   if (incoming.size !== DEFAULT_PLAYER_CARDTYPES_ORDER.length) {
     return DEFAULT_PLAYER_CARDTYPES_ORDER;
