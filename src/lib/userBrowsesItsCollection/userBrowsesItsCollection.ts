@@ -1,12 +1,16 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import type {
-  CLASS,
-  ICollectionOrganizer,
-  PLAYER_CARDS_SORTER,
-  PLAYER_CARD_TYPE,
-  SLOT,
+import {
+  fixAssetsBySlotsOrder,
+  fixByClassesOrder,
+  fixByPlayerCardtypesOrder,
+  fixPlayerCardsSortingOrder,
+  type PlayerCardClass,
+  type ICollectionOrganizer,
+  type PlayerCardsSorter,
+  type AssetSlot,
+  type PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
@@ -35,12 +39,19 @@ export type BinderAs2Pages = {
   handleRightPageClick: () => void;
 };
 
-export function userBrowsesItsCollection(): {
+type SortingDirectives = {
+  classes: string[];
+  assetsSlots: string[];
+  playerCardTypes: string[];
+  sortingOrder: string[];
+};
+
+export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): {
   binder: BinderAs2Pages;
-  classes: Writable<CLASS[]>;
-  playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
-  slots: Writable<SLOT[]>;
-  sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;
+  classes: Writable<PlayerCardClass[]>;
+  playerCardTypes: Writable<PlayerCardtype[]>;
+  slots: Writable<AssetSlot[]>;
+  sortingOrder: Writable<PlayerCardsSorter[]>;
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();
@@ -68,46 +79,31 @@ export function userBrowsesItsCollection(): {
     return { pockets: pockets.slice(base, base + 9) };
   }
 
-  const classes = writable<CLASS[]>([
-    'guardian',
-    'mystic',
-    'rogue',
-    'seeker',
-    'survivor',
-    'neutral',
-    'multi',
-  ]);
+  const classes = writable(fixByClassesOrder(sortingDirectives.classes));
   classes.subscribe((value) => {
-    organizer.reorderByClasses(value);
+    const fixed = fixByClassesOrder(value);
+    sortingDirectives.classes = fixed;
+    organizer.reorderByClasses(fixed);
   });
 
-  const slots = writable<SLOT[]>([
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ]);
+  const slots = writable(fixAssetsBySlotsOrder(sortingDirectives.assetsSlots));
   slots.subscribe((value) => {
+    const fixed = fixAssetsBySlotsOrder(value);
+    sortingDirectives.assetsSlots = fixed;
     organizer.reorderBySlots(value);
   });
 
-  const playerCardTypes = writable<PLAYER_CARD_TYPE[]>(['investigator', 'asset', 'event', 'skill']);
+  const playerCardTypes = writable(fixByPlayerCardtypesOrder(sortingDirectives.playerCardTypes));
   playerCardTypes.subscribe((value) => {
+    const fixed = fixByPlayerCardtypesOrder(value);
+    sortingDirectives.playerCardTypes = fixed;
     organizer.reorderByPlayerCardTypes(value);
   });
 
-  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(['by-classes', 'by-player-card-types']);
+  const sortingOrder = writable(fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder));
   sortingOrder.subscribe((value) => {
+    const fixed = fixPlayerCardsSortingOrder(value);
+    sortingDirectives.sortingOrder = fixed;
     organizer.reorderPlayerCardSorters(value);
   });
 

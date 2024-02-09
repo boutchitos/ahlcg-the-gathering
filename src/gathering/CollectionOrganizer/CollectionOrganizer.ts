@@ -3,74 +3,59 @@ import { theUserCollection, type CollectionEntity } from '$gathering/CollectionE
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
 import type {
-  CLASS,
+  PlayerCardClass,
   ICollectionOrganizer,
-  PLAYER_CARD_TYPE,
-  PLAYER_CARDS_SORTER,
-  SLOT,
+  PlayerCardsSorter,
+  AssetSlot,
+  PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
-import { sortPlayerCards } from './sort-player-cards';
+import {
+  DEFAULT_ASSET_SLOTS_ORDER,
+  DEFAULT_CLASSES_ORDER,
+  DEFAULT_PLAYER_CARDS_SORTING_ORDER,
+  DEFAULT_PLAYER_CARDTYPES_ORDER,
+  sortPlayerCards,
+} from './sort-player-cards';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
   private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
-  private classes: CLASS[] = [
-    'guardian',
-    'mystic',
-    'rogue',
-    'seeker',
-    'survivor',
-    'neutral',
-    'multi',
-  ];
-  private playerCardTypes: PLAYER_CARD_TYPE[] = ['investigator', 'asset', 'event', 'skill'];
-  private slots: SLOT[] = [
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ];
-  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-player-card-types'];
+
+  private classes = DEFAULT_CLASSES_ORDER;
+  private playerCardTypes = DEFAULT_PLAYER_CARDTYPES_ORDER;
+  private slots = DEFAULT_ASSET_SLOTS_ORDER;
+  private sorters = DEFAULT_PLAYER_CARDS_SORTING_ORDER;
 
   constructor(private readonly collection: CollectionEntity) {
     this.classes.sort();
     this.organizeCollection();
   }
+
   onBinderUpdated(binderOutput: IBinderOutput): void {
     this.binderOutputs.push(binderOutput);
     this.notifyBinderUpdated(binderOutput);
   }
 
-  reorderByClasses(classes: CLASS[]): void {
+  reorderByClasses(classes: PlayerCardClass[]): void {
     this.classes = classes;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
-  reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void {
+  reorderByPlayerCardTypes(types: PlayerCardtype[]): void {
     this.playerCardTypes = types;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
-  reorderBySlots(slots: SLOT[]): void {
+  reorderBySlots(slots: AssetSlot[]): void {
     this.slots = slots;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
-  reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]) {
+  reorderPlayerCardSorters(sorters: PlayerCardsSorter[]) {
     this.sorters = sorters;
     this.organizeCollection();
     this.notifyBinderUpdated();
@@ -86,9 +71,9 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   private organizeCollection(): void {
     const sorted = sortPlayerCards(this.investigatorCards, {
-      classes: this.classes,
-      assetSlots: this.slots,
-      playerCardTypes: this.playerCardTypes,
+      byClasses: this.classes,
+      assetsBySlots: this.slots,
+      byPlayerCardTypes: this.playerCardTypes,
       sortingOrder: this.sorters,
     });
 

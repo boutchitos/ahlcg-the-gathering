@@ -1,7 +1,11 @@
-import type { CLASS } from './by-classes';
-import type { PLAYER_CARD_TYPE } from './by-player-card-types';
-import type { SLOT } from './by-asset-slots';
+import type { AssetSlot } from './AssetSlot';
+import type { PlayerCardClass } from './PlayerCardClass';
+import type { PlayerCardsSorter } from './PlayerCardsSorter';
+import type { PlayerCardtype } from './PlayerCardtype';
 
-export type PLAYER_CARDS_SORTER = 'by-classes' | 'by-player-card-types';
-
-export { CLASS, PLAYER_CARD_TYPE, SLOT };
+export type SortPlayerCardsDirectives = {
+  byClasses: PlayerCardClass[];
+  assetsBySlots: AssetSlot[];
+  byPlayerCardTypes: PlayerCardtype[];
+  sortingOrder: PlayerCardsSorter[];
+};

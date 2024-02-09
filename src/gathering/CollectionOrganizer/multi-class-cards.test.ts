@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { indexOfPocketWithCard, setup } from './test-utils';
-import type { CLASS } from '$gathering/ICollectionOrganizer';
+import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
 import { captor, mockClear } from 'vitest-mock-extended';
 import type { Binder } from '$gathering/IBinderOutput';
 
@@ -10,7 +10,7 @@ it('organize multi-class cards as a class', () => {
 
   // 'Enchanted Blade' is guardian/mystic. We order multi classes first,
   //then guardian / mystic last. https://arkhamdb.com/card/05118
-  const multiFirst: CLASS[] = [
+  const multiFirst: PlayerCardClass[] = [
     'multi',
     'rogue',
     'seeker',

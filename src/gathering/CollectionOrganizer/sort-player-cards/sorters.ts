@@ -1,16 +1,19 @@
+import type { AssetSlot } from './AssetSlot';
 import type { ICardsSorter } from './ICardsSorter';
-import { SortAssetBySlots, type SLOT } from './by-asset-slots';
-import { SortByClasses, type CLASS } from './by-classes';
-import { SortByPlayerCardTypes, type PLAYER_CARD_TYPE } from './by-player-card-types';
+import type { PlayerCardClass } from './PlayerCardClass';
+import type { PlayerCardtype } from './PlayerCardtype';
+import { SortAssetsBySlots } from './by-asset-slots';
+import { SortByClasses } from './by-classes';
+import { SortByPlayerCardTypes } from './by-player-card-types';
 
-export function sortByClasses(classes: CLASS[]): ICardsSorter {
+export function sortByClasses(classes: PlayerCardClass[]): ICardsSorter {
   return new SortByClasses(classes);
 }
 
-export function sortByPlayerCardTypes(types: PLAYER_CARD_TYPE[], slots: SLOT[]): ICardsSorter {
+export function sortByPlayerCardTypes(types: PlayerCardtype[], slots: AssetSlot[]): ICardsSorter {
   return new SortByPlayerCardTypes(types, sortAssetsBySlots(slots));
 }
 
-function sortAssetsBySlots(slots: SLOT[]): ICardsSorter {
-  return new SortAssetBySlots(slots);
+function sortAssetsBySlots(slots: AssetSlot[]): ICardsSorter {
+  return new SortAssetsBySlots(slots);
 }

@@ -1,33 +1,25 @@
 import { beforeEach, expect, it } from 'vitest';
-import { sortPlayerCards } from '.';
+import type { AssetSlot } from './AssetSlot';
 import type { Card } from '$gathering/IBinderOutput';
-import type { CLASS, PLAYER_CARDS_SORTER, PLAYER_CARD_TYPE, SLOT } from './sorter-config';
+import type { PlayerCardClass } from './PlayerCardClass';
+import type { PlayerCardsSorter } from './PlayerCardsSorter';
+import type { PlayerCardtype } from './PlayerCardtype';
+import { DEFAULT_ASSET_SLOTS_ORDER } from './by-asset-slots';
+import { DEFAULT_CLASSES_ORDER } from './by-classes';
+import { DEFAULT_PLAYER_CARDS_SORTING_ORDER } from './sorting-orders';
+import { DEFAULT_PLAYER_CARDTYPES_ORDER } from './by-player-card-types';
+import { sortPlayerCards } from './sortPlayerCards';
 
-let assetSlots: SLOT[];
-let classes: CLASS[];
-let playerCardTypes: PLAYER_CARD_TYPE[];
-let sortingOrder: PLAYER_CARDS_SORTER[];
+let assetSlots: AssetSlot[];
+let classes: PlayerCardClass[];
+let playerCardTypes: PlayerCardtype[];
+let sortingOrder: PlayerCardsSorter[];
 
 beforeEach(() => {
-  assetSlots = [
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ];
-  classes = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
-  playerCardTypes = ['investigator', 'asset', 'event', 'skill'];
-  sortingOrder = ['by-classes', 'by-player-card-types'];
+  assetSlots = [...DEFAULT_ASSET_SLOTS_ORDER];
+  classes = [...DEFAULT_CLASSES_ORDER];
+  playerCardTypes = [...DEFAULT_PLAYER_CARDTYPES_ORDER];
+  sortingOrder = [...DEFAULT_PLAYER_CARDS_SORTING_ORDER];
 });
 
 it('sorts empty cards', () => {
@@ -128,16 +120,23 @@ type CardInit = {
   xp?: number;
 };
 
-function card({ type_code, faction_code, name, subtype_code, xp }: CardInit): CardInit {
+function card({ faction_code, name, slot, subtype_code, type_code, xp }: CardInit): CardInit {
+  const typeCode = type_code ?? 'asset';
   return {
-    type_code: type_code ?? 'asset',
+    type_code: typeCode,
     faction_code: faction_code ?? 'guardian',
     name: name ?? 'a card',
+    slot: slot ?? undefined,
     subtype_code: subtype_code ?? undefined,
     xp: xp ?? 0,
   };
 }
 
 function sort(...cards: CardInit[]) {
-  return sortPlayerCards(cards as Card[], { assetSlots, classes, playerCardTypes, sortingOrder });
+  return sortPlayerCards(cards as Card[], {
+    assetsBySlots: assetSlots,
+    byClasses: classes,
+    byPlayerCardTypes: playerCardTypes,
+    sortingOrder,
+  });
 }

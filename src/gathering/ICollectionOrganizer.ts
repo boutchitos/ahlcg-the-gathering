@@ -1,18 +1,26 @@
-import type {
-  CLASS,
-  PLAYER_CARDS_SORTER,
-  PLAYER_CARD_TYPE,
-  SLOT,
-} from './CollectionOrganizer/sort-player-cards/sorter-config';
 import type { IBinderOutput } from './IBinderOutput';
-
-export { CLASS, PLAYER_CARD_TYPE, PLAYER_CARDS_SORTER, SLOT };
+import type {
+  AssetSlot,
+  PlayerCardClass,
+  PlayerCardsSorter,
+  PlayerCardtype,
+} from './CollectionOrganizer/sort-player-cards';
+export {
+  fixAssetsBySlotsOrder,
+  fixByClassesOrder,
+  fixByPlayerCardtypesOrder,
+  fixPlayerCardsSortingOrder,
+  type AssetSlot,
+  type PlayerCardClass,
+  type PlayerCardtype,
+  type PlayerCardsSorter,
+} from './CollectionOrganizer/sort-player-cards';
 
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;
 
-  reorderByClasses(classes: CLASS[]): void;
-  reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void;
-  reorderBySlots(slots: SLOT[]): void;
-  reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]): void;
+  reorderByClasses(classes: PlayerCardClass[]): void;
+  reorderByPlayerCardTypes(types: PlayerCardtype[]): void;
+  reorderBySlots(slots: AssetSlot[]): void;
+  reorderPlayerCardSorters(sorters: PlayerCardsSorter[]): void;
 }

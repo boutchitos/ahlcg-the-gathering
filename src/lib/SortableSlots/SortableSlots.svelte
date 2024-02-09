@@ -2,8 +2,8 @@
   import type { Writable } from 'svelte/store';
   import { DragDrop } from '$lib/dragDrop';
 
-  import type { SLOT } from '$gathering/ICollectionOrganizer';
-  export let slots: Writable<SLOT[]>;
+  import type { AssetSlot } from '$gathering/ICollectionOrganizer';
+  export let slots: Writable<AssetSlot[]>;
 
   const icons = {
     Accessory: 'accessory',
@@ -19,10 +19,10 @@
     'Hand x2': 'hand_2',
     'Hand. Arcane': 'hand_1',
     Tarot: 'tarot',
-    no_slot: 'no_slot',
+    '-no-slot-': 'no_slot',
   };
 
-  const dragDrop = new DragDrop<SLOT>(slots);
+  const dragDrop = new DragDrop<AssetSlot>(slots);
 </script>
 
 <div class="flex">
@@ -35,7 +35,7 @@
       on:drop={() => dragDrop.onDragDrop()}
       class="size-20 rounded-full hover:cursor-pointer hover:shadow-md hover:shadow-black"
       title={slot ?? 'no slot'}
-      src={`/icon/slot_${icons[slot ?? 'no_slot']}.png`}
+      src={`/icon/slot_${icons[slot]}.png`}
       alt={`${slot} slot icon`}
     />
   {/each}

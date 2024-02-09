@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
-  import type { PLAYER_CARD_TYPE } from '$gathering/ICollectionOrganizer';
   import { DragDrop } from '$lib/dragDrop';
+  import type { PlayerCardtype } from '$gathering/ICollectionOrganizer';
 
-  export let playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
+  export let playerCardTypes: Writable<PlayerCardtype[]>;
 
-  const dragDrop = new DragDrop<PLAYER_CARD_TYPE>(playerCardTypes);
+  const dragDrop = new DragDrop<PlayerCardtype>(playerCardTypes);
 </script>
 
 <ul class="inline-flex">
