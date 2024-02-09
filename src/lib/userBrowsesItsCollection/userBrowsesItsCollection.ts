@@ -2,13 +2,14 @@ import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import {
-  toByClasses,
+  fixByClasses,
   type CLASS,
   type ICollectionOrganizer,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,
   type SLOT,
 } from '$gathering/ICollectionOrganizer';
+import { fixAssetsBySlots } from '$gathering/CollectionOrganizer/sort-player-cards/by-asset-slots';
 
 export type CardListing = { label: string }[];
 
@@ -76,31 +77,13 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
     return { pockets: pockets.slice(base, base + 9) };
   }
 
-  const classes = writable<CLASS[]>(toByClasses(sortingDirectives.classes));
+  const classes = writable<CLASS[]>(fixByClasses(sortingDirectives.classes));
   classes.subscribe((value) => {
     organizer.reorderByClasses(value);
   });
 
-  const slots = writable<SLOT[]>(sortingDirectives.assetsSlots as SLOT[]);
+  const slots = writable<SLOT[]>(fixAssetsBySlots(sortingDirectives.assetsSlots));
   slots.subscribe((value) => {
-    if (value.length === 0) {
-      slots.set([
-        'Arcane',
-        'Arcane x2',
-        'Hand',
-        'Hand x2',
-        'Hand. Arcane',
-        'Hand x2. Arcane',
-        'Ally',
-        'Ally. Arcane',
-        'Accessory',
-        'Body',
-        'Body. Arcane',
-        'Body. Hand x2',
-        'Tarot',
-        undefined,
-      ]);
-    }
     organizer.reorderBySlots(value);
   });
 

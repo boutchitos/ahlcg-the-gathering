@@ -31,7 +31,7 @@ describe('fixAssetsBySlots', () => {
     ).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
   });
 
-  it.only('fixes repeating values', () => {
+  it('fixes repeating values', () => {
     const repeating = [
       'Ally',
       'Ally',

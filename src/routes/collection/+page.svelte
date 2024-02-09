@@ -10,10 +10,6 @@
   const { binder, classes, playerCardTypes, slots, sortingOrder } = userBrowsesItsCollection(
     new SortPlayerCardsDirectivesConfig(),
   );
-  slots.update((value) => {
-    console.log(value);
-    return value;
-  });
 </script>
 
 <h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>
