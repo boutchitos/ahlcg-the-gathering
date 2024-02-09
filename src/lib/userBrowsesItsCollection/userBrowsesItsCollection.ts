@@ -8,7 +8,7 @@ import {
   fixPlayerCardsSortingOrder,
   type PlayerCardClass,
   type ICollectionOrganizer,
-  type PLAYER_CARDS_SORTER,
+  type PlayerCardsSorter,
   type AssetSlot,
   type PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
@@ -51,7 +51,7 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
   classes: Writable<PlayerCardClass[]>;
   playerCardTypes: Writable<PlayerCardtype[]>;
   slots: Writable<AssetSlot[]>;
-  sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;
+  sortingOrder: Writable<PlayerCardsSorter[]>;
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
   const binderOutput = new BinderOutput();

@@ -5,7 +5,7 @@ import type { ICardRepository } from '$gathering/ICardRepository';
 import type {
   PlayerCardClass,
   ICollectionOrganizer,
-  PLAYER_CARDS_SORTER,
+  PlayerCardsSorter,
   AssetSlot,
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
@@ -55,7 +55,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.notifyBinderUpdated();
   }
 
-  reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]) {
+  reorderPlayerCardSorters(sorters: PlayerCardsSorter[]) {
     this.sorters = sorters;
     this.organizeCollection();
     this.notifyBinderUpdated();

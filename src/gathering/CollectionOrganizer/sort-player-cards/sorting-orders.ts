@@ -1,21 +1,21 @@
-export enum PlayerCardSorter {
+export enum PlayerCardsSorters {
   'by-classes',
   'by-player-card-types',
 }
 
-export type PLAYER_CARDS_SORTER = keyof typeof PlayerCardSorter;
-export const DEFAULT_PLAYER_CARDS_SORTING_ORDER = Object.keys(PlayerCardSorter).filter((v) =>
+export type PlayerCardsSorter = keyof typeof PlayerCardsSorters;
+export const DEFAULT_PLAYER_CARDS_SORTING_ORDER = Object.keys(PlayerCardsSorters).filter((v) =>
   isNaN(Number(v)),
-) as PLAYER_CARDS_SORTER[];
+) as PlayerCardsSorter[];
 
-export function fixPlayerCardsSortingOrder(wannaBe: string[]): PLAYER_CARDS_SORTER[] {
+export function fixPlayerCardsSortingOrder(wannaBe: string[]): PlayerCardsSorter[] {
   const incoming = new Set(
     wannaBe.filter((sorter) =>
-      DEFAULT_PLAYER_CARDS_SORTING_ORDER.includes(sorter as PLAYER_CARDS_SORTER),
+      DEFAULT_PLAYER_CARDS_SORTING_ORDER.includes(sorter as PlayerCardsSorter),
     ),
   );
   if (incoming.size !== DEFAULT_PLAYER_CARDS_SORTING_ORDER.length) {
     return DEFAULT_PLAYER_CARDS_SORTING_ORDER;
   }
-  return wannaBe as PLAYER_CARDS_SORTER[];
+  return wannaBe as PlayerCardsSorter[];
 }

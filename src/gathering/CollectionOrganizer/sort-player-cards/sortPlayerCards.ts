@@ -1,6 +1,6 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
 import type { SortPlayerCardsDirectives } from './sorter-config';
-import type { PLAYER_CARDS_SORTER } from './sorting-orders';
+import type { PlayerCardsSorter } from './sorting-orders';
 import { sortByClasses, sortByPlayerCardTypes } from './sorters';
 
 export function sortPlayerCards(
@@ -12,7 +12,7 @@ export function sortPlayerCards(
     sortingOrder,
   }: SortPlayerCardsDirectives,
 ): Card[] {
-  const availSorters: Record<PLAYER_CARDS_SORTER, ICardsSorter> = {
+  const availSorters: Record<PlayerCardsSorter, ICardsSorter> = {
     'by-classes': sortByClasses(classes),
     'by-player-card-types': sortByPlayerCardTypes(playerCardTypes, assetSlots),
   };

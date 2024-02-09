@@ -8,6 +8,5 @@ export { fixByPlayerCardtypes, DEFAULT_PLAYER_CARDTYPES_ORDER } from './by-playe
 export {
   fixPlayerCardsSortingOrder,
   DEFAULT_PLAYER_CARDS_SORTING_ORDER,
-  type PLAYER_CARDS_SORTER,
-  type PlayerCardSorter,
+  type PlayerCardsSorter,
 } from './sorting-orders';
