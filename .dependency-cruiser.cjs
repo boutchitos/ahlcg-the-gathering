@@ -195,7 +195,7 @@ module.exports = {
           leave out if you want to exclude neither (recommended!)
     */
     exclude: {
-      path: '.*.test..*|.*collection/edit/.*|.*index.ts',
+      path: '.*.test..*|.*collection/edit/.*', // |.*index.ts
       //   dynamic: true
     },
 
