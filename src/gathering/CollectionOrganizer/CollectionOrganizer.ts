@@ -9,7 +9,13 @@ import type {
   PLAYER_CARDS_SORTER,
   SLOT,
 } from '$gathering/ICollectionOrganizer';
-import { DEFAULT_ASSET_SLOTS_ORDER, DEFAULT_CLASSES, DEFAULT_PLAYER_CARDS_SORTING_ORDER, DEFAULT_PLAYER_CARDTYPES_ORDER, sortPlayerCards } from './sort-player-cards';
+import {
+  DEFAULT_ASSET_SLOTS_ORDER,
+  DEFAULT_CLASSES,
+  DEFAULT_PLAYER_CARDS_SORTING_ORDER,
+  DEFAULT_PLAYER_CARDTYPES_ORDER,
+  sortPlayerCards,
+} from './sort-player-cards';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };

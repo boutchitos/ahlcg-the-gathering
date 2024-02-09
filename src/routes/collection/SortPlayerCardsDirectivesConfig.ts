@@ -10,6 +10,10 @@ export class SortPlayerCardsDirectivesConfig {
     );
   }
 
+  set classes(value: string[]) {
+    isBrowser && (localStorage.classes = JSON.stringify(value));
+  }
+
   get assetsSlots(): string[] {
     return (
       (isBrowser &&
@@ -17,6 +21,10 @@ export class SortPlayerCardsDirectivesConfig {
         JSON.parse(localStorage.slots).map((s: string) => s ?? undefined)) ||
       []
     );
+  }
+
+  set assetsSlots(value: string[]) {
+    isBrowser && (localStorage.slots = JSON.stringify(value));
   }
 
   get playerCardTypes(): string[] {
@@ -28,6 +36,10 @@ export class SortPlayerCardsDirectivesConfig {
     );
   }
 
+  set playerCardTypes(value: string[]) {
+    isBrowser && (localStorage.playerCardTypes = JSON.stringify(value));
+  }
+
   get sortingOrder(): string[] {
     return (
       (isBrowser &&
@@ -36,9 +48,8 @@ export class SortPlayerCardsDirectivesConfig {
       []
     );
   }
-}
 
-//$: isBrowser && (localStorage.classes = JSON.stringify($classes));
-//$: isBrowser && (localStorage.slots = JSON.stringify($slots));
-//$: isBrowser && (localStorage.playerCardTypes = JSON.stringify($playerCardTypes));
-//$: isBrowser && (localStorage.sortingOrder = JSON.stringify($sortingOrder));
+  set sortingOrder(value: string[]) {
+    isBrowser && (localStorage.sortingOrder = JSON.stringify(value));
+  }
+}

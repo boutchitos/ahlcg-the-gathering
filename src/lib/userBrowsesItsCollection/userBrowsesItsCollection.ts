@@ -81,21 +81,29 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
 
   const classes = writable(fixByClasses(sortingDirectives.classes));
   classes.subscribe((value) => {
-    organizer.reorderByClasses(value);
+    const fixed = fixByClasses(value);
+    sortingDirectives.classes = fixed;
+    organizer.reorderByClasses(fixed);
   });
 
   const slots = writable(fixAssetsBySlots(sortingDirectives.assetsSlots));
   slots.subscribe((value) => {
+    const fixed = fixAssetsBySlots(value);
+    sortingDirectives.assetsSlots = fixed;
     organizer.reorderBySlots(value);
   });
 
   const playerCardTypes = writable(fixByPlayerCardtypes(sortingDirectives.playerCardTypes));
   playerCardTypes.subscribe((value) => {
+    const fixed = fixByPlayerCardtypes(value);
+    sortingDirectives.playerCardTypes = fixed;
     organizer.reorderByPlayerCardTypes(value);
   });
 
   const sortingOrder = writable(fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder));
   sortingOrder.subscribe((value) => {
+    const fixed = fixPlayerCardsSortingOrder(value);
+    sortingDirectives.sortingOrder = fixed;
     organizer.reorderPlayerCardSorters(value);
   });
 
