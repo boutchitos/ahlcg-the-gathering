@@ -1,20 +1,21 @@
 import { beforeEach, expect, it } from 'vitest';
 import type { Card } from '$gathering/IBinderOutput';
-import { DEFAULT_CLASSES } from './by-classes';
+import { DEFAULT_CLASSES_ORDER } from './by-classes';
 import { DEFAULT_PLAYER_CARDTYPES_ORDER, type PLAYER_CARD_TYPE } from './by-player-card-types';
 import { DEFAULT_PLAYER_CARDS_SORTING_ORDER, type PLAYER_CARDS_SORTER } from './sorting-orders';
-import { DEFAULT_ASSET_SLOTS_ORDER, type SLOT } from './by-asset-slots';
+import { DEFAULT_ASSET_SLOTS_ORDER } from './by-asset-slots';
 import { sortPlayerCards } from './sortPlayerCards';
 import type { PlayerCardClass } from './PlayerCardClass';
+import type { AssetSlot } from './AssetSlot';
 
-let assetSlots: SLOT[];
+let assetSlots: AssetSlot[];
 let classes: PlayerCardClass[];
 let playerCardTypes: PLAYER_CARD_TYPE[];
 let sortingOrder: PLAYER_CARDS_SORTER[];
 
 beforeEach(() => {
   assetSlots = [...DEFAULT_ASSET_SLOTS_ORDER];
-  classes = [...DEFAULT_CLASSES];
+  classes = [...DEFAULT_CLASSES_ORDER];
   playerCardTypes = [...DEFAULT_PLAYER_CARDTYPES_ORDER];
   sortingOrder = [...DEFAULT_PLAYER_CARDS_SORTING_ORDER];
 });

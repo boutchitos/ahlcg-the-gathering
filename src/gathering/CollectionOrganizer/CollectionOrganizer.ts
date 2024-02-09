@@ -7,11 +7,11 @@ import type {
   ICollectionOrganizer,
   PLAYER_CARD_TYPE,
   PLAYER_CARDS_SORTER,
-  SLOT,
+  AssetSlot,
 } from '$gathering/ICollectionOrganizer';
 import {
   DEFAULT_ASSET_SLOTS_ORDER,
-  DEFAULT_CLASSES,
+  DEFAULT_CLASSES_ORDER,
   DEFAULT_PLAYER_CARDS_SORTING_ORDER,
   DEFAULT_PLAYER_CARDTYPES_ORDER,
   sortPlayerCards,
@@ -22,7 +22,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
 
-  private classes = DEFAULT_CLASSES;
+  private classes = DEFAULT_CLASSES_ORDER;
   private playerCardTypes = DEFAULT_PLAYER_CARDTYPES_ORDER;
   private slots = DEFAULT_ASSET_SLOTS_ORDER;
   private sorters = DEFAULT_PLAYER_CARDS_SORTING_ORDER;
@@ -49,7 +49,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.notifyBinderUpdated();
   }
 
-  reorderBySlots(slots: SLOT[]): void {
+  reorderBySlots(slots: AssetSlot[]): void {
     this.slots = slots;
     this.organizeCollection();
     this.notifyBinderUpdated();

@@ -1,7 +1,8 @@
 export { sortPlayerCards } from './sortPlayerCards';
+export { type AssetSlot } from './AssetSlot'
 export { type PlayerCardClass } from './PlayerCardClass';
-export { fixAssetsBySlots, DEFAULT_ASSET_SLOTS_ORDER, type SLOT } from './by-asset-slots';
-export { fixByClasses, DEFAULT_CLASSES } from './by-classes';
+export { fixAssetsBySlots, DEFAULT_ASSET_SLOTS_ORDER } from './by-asset-slots';
+export { fixByClasses, DEFAULT_CLASSES_ORDER } from './by-classes';
 export {
   fixByPlayerCardtypes,
   DEFAULT_PLAYER_CARDTYPES_ORDER,

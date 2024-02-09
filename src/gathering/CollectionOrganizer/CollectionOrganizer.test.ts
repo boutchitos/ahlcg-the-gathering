@@ -3,7 +3,7 @@ import { captor, mock, mockClear } from 'vitest-mock-extended';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { findPocketWithCard, indexOfPocketWithCard, setup } from './test-utils';
 import { DEFAULT_ASSET_SLOTS_ORDER } from './sort-player-cards/by-asset-slots';
-import { DEFAULT_CLASSES } from './sort-player-cards/by-classes';
+import { DEFAULT_CLASSES_ORDER } from './sort-player-cards/by-classes';
 
 it('organizes an empty collection', () => {
   const { binder } = setup();
@@ -49,7 +49,7 @@ it('updates binder after classes reordering', () => {
   const { binderOutput, organizer } = setup('Core Set');
   mockClear(binderOutput);
 
-  const mysticFirst = putItemFirst('mystic', DEFAULT_CLASSES);
+  const mysticFirst = putItemFirst('mystic', DEFAULT_CLASSES_ORDER);
   organizer.reorderByClasses(mysticFirst);
 
   const binder = captor<Binder>();

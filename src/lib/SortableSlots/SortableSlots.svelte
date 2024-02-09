@@ -2,8 +2,8 @@
   import type { Writable } from 'svelte/store';
   import { DragDrop } from '$lib/dragDrop';
 
-  import type { SLOT } from '$gathering/ICollectionOrganizer';
-  export let slots: Writable<SLOT[]>;
+  import type { AssetSlot } from '$gathering/ICollectionOrganizer';
+  export let slots: Writable<AssetSlot[]>;
 
   const icons = {
     Accessory: 'accessory',
@@ -22,7 +22,7 @@
     '-no-slot-': 'no_slot',
   };
 
-  const dragDrop = new DragDrop<SLOT>(slots);
+  const dragDrop = new DragDrop<AssetSlot>(slots);
 </script>
 
 <div class="flex">

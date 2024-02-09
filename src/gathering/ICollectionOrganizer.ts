@@ -1,19 +1,19 @@
 import type { IBinderOutput } from './IBinderOutput';
 import type {
+  AssetSlot,
   PlayerCardClass,
   PLAYER_CARDS_SORTER,
   PLAYER_CARD_TYPE,
-  SLOT,
 } from './CollectionOrganizer/sort-player-cards';
 export {
   fixAssetsBySlots,
   fixByClasses,
   fixByPlayerCardtypes,
   fixPlayerCardsSortingOrder,
+  type AssetSlot,
   type PlayerCardClass,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,
-  type SLOT,
 } from './CollectionOrganizer/sort-player-cards';
 
 export interface ICollectionOrganizer {
@@ -21,6 +21,6 @@ export interface ICollectionOrganizer {
 
   reorderByClasses(classes: PlayerCardClass[]): void;
   reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void;
-  reorderBySlots(slots: SLOT[]): void;
+  reorderBySlots(slots: AssetSlot[]): void;
   reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]): void;
 }

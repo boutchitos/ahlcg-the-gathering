@@ -1,46 +1,29 @@
+import { AssetSlots, type AssetSlot } from './AssetSlot';
 import type { Card, ICardsSorter } from './ICardsSorter';
 
-export enum AssetSlots {
-  'Accessory',
-  'Ally. Arcane',
-  'Ally',
-  'Arcane x2',
-  'Arcane',
-  'Body. Arcane',
-  'Body. Hand x2',
-  'Body',
-  'Hand x2. Arcane',
-  'Hand x2',
-  'Hand. Arcane',
-  'Hand',
-  'Tarot',
-  '-no-slot-',
-}
-
-export type SLOT = keyof typeof AssetSlots;
 export const DEFAULT_ASSET_SLOTS_ORDER = Object.keys(AssetSlots).filter((v) =>
   isNaN(Number(v)),
-) as SLOT[];
+) as AssetSlot[];
 
-export function fixAssetsBySlots(wannaBe: string[]): SLOT[] {
+export function fixAssetsBySlots(wannaBe: string[]): AssetSlot[] {
   const incoming = new Set(
-    wannaBe.filter((slot) => DEFAULT_ASSET_SLOTS_ORDER.includes(slot as SLOT)),
+    wannaBe.filter((slot) => DEFAULT_ASSET_SLOTS_ORDER.includes(slot as AssetSlot)),
   );
   if (incoming.size !== DEFAULT_ASSET_SLOTS_ORDER.length) {
     return DEFAULT_ASSET_SLOTS_ORDER;
   }
-  return wannaBe as SLOT[];
+  return wannaBe as AssetSlot[];
 }
 
 export class SortAssetsBySlots implements ICardsSorter {
-  constructor(private slots: SLOT[]) {}
+  constructor(private slots: AssetSlot[]) {}
 
   sortCards(a: Card, b: Card): number {
     return sortAssetsBySlot(a, b, this.slots);
   }
 }
 
-function sortAssetsBySlot(a: Card, b: Card, slots: SLOT[]) {
+function sortAssetsBySlot(a: Card, b: Card, slots: AssetSlot[]) {
   if (a.type_code !== 'asset' && b.type_code !== 'asset') {
     return 0;
   }
@@ -73,6 +56,6 @@ function sortAssetsBySlot(a: Card, b: Card, slots: SLOT[]) {
   return aSlot - bSlot;
 }
 
-function toSlot(card: Card): SLOT {
-  return (card.slot as SLOT) ?? '-no-slot-';
+function toSlot(card: Card): AssetSlot {
+  return (card.slot as AssetSlot) ?? '-no-slot-';
 }

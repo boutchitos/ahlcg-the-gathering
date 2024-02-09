@@ -10,7 +10,7 @@ import {
   type ICollectionOrganizer,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,
-  type SLOT,
+  type AssetSlot,
 } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
@@ -50,7 +50,7 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
   binder: BinderAs2Pages;
   classes: Writable<PlayerCardClass[]>;
   playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
-  slots: Writable<SLOT[]>;
+  slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;
 } {
   const organizer: ICollectionOrganizer = createCollectionOrganizer();
