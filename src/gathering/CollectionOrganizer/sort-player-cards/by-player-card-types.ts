@@ -1,6 +1,26 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
 
-export type PLAYER_CARD_TYPE = 'investigator' | 'asset' | 'event' | 'skill';
+export enum PlayerCardtypes {
+  investigator,
+  asset,
+  event,
+  skill,
+}
+
+export type PLAYER_CARD_TYPE = keyof typeof PlayerCardtypes;
+export const DEFAULT_PLAYER_CARDTYPES_ORDER = Object.keys(PlayerCardtypes).filter((v) =>
+  isNaN(Number(v)),
+) as PLAYER_CARD_TYPE[];
+
+export function fixByPlayerCardtypes(wannaBe: string[]): PLAYER_CARD_TYPE[] {
+  const incoming = new Set(
+    wannaBe.filter((playerCardtype) => DEFAULT_PLAYER_CARDTYPES_ORDER.includes(playerCardtype as PLAYER_CARD_TYPE)),
+  );
+  if (incoming.size !== DEFAULT_PLAYER_CARDTYPES_ORDER.length) {
+    return DEFAULT_PLAYER_CARDTYPES_ORDER;
+  }
+  return wannaBe as PLAYER_CARD_TYPE[];
+}
 
 export class SortByPlayerCardTypes implements ICardsSorter {
   constructor(

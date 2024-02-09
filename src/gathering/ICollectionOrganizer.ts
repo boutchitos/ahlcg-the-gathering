@@ -6,7 +6,9 @@ import type {
   SLOT,
 } from './CollectionOrganizer/sort-player-cards';
 export {
+  fixAssetsBySlots,
   fixByClasses,
+  fixByPlayerCardtypes,
   type CLASS,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,
