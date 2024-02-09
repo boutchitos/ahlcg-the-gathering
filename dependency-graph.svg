@@ -19,25 +19,15 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M730.5,-36C730.5,-36 1695.5,-36 1695.5,-36 1701.5,-36 1707.5,-42 1707.5,-48 1707.5,-48 1707.5,-682 1707.5,-682 1707.5,-688 1701.5,-694 1695.5,-694 1695.5,-694 730.5,-694 730.5,-694 724.5,-694 718.5,-688 718.5,-682 718.5,-682 718.5,-48 718.5,-48 718.5,-42 724.5,-36 730.5,-36"/>
 <text text-anchor="middle" x="1213" y="-682.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">gathering</text>
 </g>
-<g id="clust4" class="cluster">
-<title>cluster_src/gathering/CollectionEditor</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M929,-196C929,-196 1013,-196 1013,-196 1019,-196 1025,-202 1025,-208 1025,-208 1025,-236 1025,-236 1025,-242 1019,-248 1013,-248 1013,-248 929,-248 929,-248 923,-248 917,-242 917,-236 917,-236 917,-208 917,-208 917,-202 923,-196 929,-196"/>
-<text text-anchor="middle" x="971" y="-236.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEditor</text>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_src/gathering/CardRepository</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M1184,-246C1184,-246 1351.5,-246 1351.5,-246 1357.5,-246 1363.5,-252 1363.5,-258 1363.5,-258 1363.5,-286 1363.5,-286 1363.5,-292 1357.5,-298 1351.5,-298 1351.5,-298 1184,-298 1184,-298 1178,-298 1172,-292 1172,-286 1172,-286 1172,-258 1172,-258 1172,-252 1178,-246 1184,-246"/>
 <text text-anchor="middle" x="1267.75" y="-286.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CardRepository</text>
 </g>
-<g id="clust7" class="cluster">
-<title>cluster_src/gathering/CollectionOrganizer</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M921.5,-338C921.5,-338 1596.5,-338 1596.5,-338 1602.5,-338 1608.5,-344 1608.5,-350 1608.5,-350 1608.5,-656 1608.5,-656 1608.5,-662 1602.5,-668 1596.5,-668 1596.5,-668 921.5,-668 921.5,-668 915.5,-668 909.5,-662 909.5,-656 909.5,-656 909.5,-350 909.5,-350 909.5,-344 915.5,-338 921.5,-338"/>
-<text text-anchor="middle" x="1259" y="-656.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionOrganizer</text>
-</g>
-<g id="clust8" class="cluster">
-<title>cluster_src/gathering/CollectionOrganizer/sort&#45;player&#45;cards</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M1069.5,-346C1069.5,-346 1588.5,-346 1588.5,-346 1594.5,-346 1600.5,-352 1600.5,-358 1600.5,-358 1600.5,-630 1600.5,-630 1600.5,-636 1594.5,-642 1588.5,-642 1588.5,-642 1069.5,-642 1069.5,-642 1063.5,-642 1057.5,-636 1057.5,-630 1057.5,-630 1057.5,-358 1057.5,-358 1057.5,-352 1063.5,-346 1069.5,-346"/>
-<text text-anchor="middle" x="1329" y="-630.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">sort&#45;player&#45;cards</text>
+<g id="clust4" class="cluster">
+<title>cluster_src/gathering/CollectionEditor</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M929,-196C929,-196 1013,-196 1013,-196 1019,-196 1025,-202 1025,-208 1025,-208 1025,-236 1025,-236 1025,-242 1019,-248 1013,-248 1013,-248 929,-248 929,-248 923,-248 917,-242 917,-236 917,-236 917,-208 917,-208 917,-202 923,-196 929,-196"/>
+<text text-anchor="middle" x="971" y="-236.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionEditor</text>
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_src/gathering/CollectionEntity</title>
@@ -49,6 +39,16 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M1184,-126C1184,-126 1352.5,-126 1352.5,-126 1358.5,-126 1364.5,-132 1364.5,-138 1364.5,-138 1364.5,-166 1364.5,-166 1364.5,-172 1358.5,-178 1352.5,-178 1352.5,-178 1184,-178 1184,-178 1178,-178 1172,-172 1172,-166 1172,-166 1172,-138 1172,-138 1172,-132 1178,-126 1184,-126"/>
 <text text-anchor="middle" x="1268.25" y="-166.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">PackRepository</text>
 </g>
+<g id="clust7" class="cluster">
+<title>cluster_src/gathering/CollectionOrganizer</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M921.5,-338C921.5,-338 1596.5,-338 1596.5,-338 1602.5,-338 1608.5,-344 1608.5,-350 1608.5,-350 1608.5,-656 1608.5,-656 1608.5,-662 1602.5,-668 1596.5,-668 1596.5,-668 921.5,-668 921.5,-668 915.5,-668 909.5,-662 909.5,-656 909.5,-656 909.5,-350 909.5,-350 909.5,-344 915.5,-338 921.5,-338"/>
+<text text-anchor="middle" x="1259" y="-656.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">CollectionOrganizer</text>
+</g>
+<g id="clust8" class="cluster">
+<title>cluster_src/gathering/CollectionOrganizer/sort&#45;player&#45;cards</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M1069.5,-346C1069.5,-346 1588.5,-346 1588.5,-346 1594.5,-346 1600.5,-352 1600.5,-358 1600.5,-358 1600.5,-630 1600.5,-630 1600.5,-636 1594.5,-642 1588.5,-642 1588.5,-642 1069.5,-642 1069.5,-642 1063.5,-642 1057.5,-636 1057.5,-630 1057.5,-630 1057.5,-358 1057.5,-358 1057.5,-352 1063.5,-346 1069.5,-346"/>
+<text text-anchor="middle" x="1329" y="-630.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">sort&#45;player&#45;cards</text>
+</g>
 <g id="clust6" class="cluster">
 <title>cluster_src/gathering/CollectionLoader</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M800.5,-154C800.5,-154 889.5,-154 889.5,-154 895.5,-154 901.5,-160 901.5,-166 901.5,-166 901.5,-194 901.5,-194 901.5,-200 895.5,-206 889.5,-206 889.5,-206 800.5,-206 800.5,-206 794.5,-206 788.5,-200 788.5,-194 788.5,-194 788.5,-166 788.5,-166 788.5,-160 794.5,-154 800.5,-154"/>
@@ -58,6 +58,11 @@
 <title>cluster_src/lib</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M532.5,-16C532.5,-16 698.5,-16 698.5,-16 704.5,-16 710.5,-22 710.5,-28 710.5,-28 710.5,-390 710.5,-390 710.5,-396 704.5,-402 698.5,-402 698.5,-402 532.5,-402 532.5,-402 526.5,-402 520.5,-396 520.5,-390 520.5,-390 520.5,-28 520.5,-28 520.5,-22 526.5,-16 532.5,-16"/>
 <text text-anchor="middle" x="615.5" y="-390.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">lib</text>
+</g>
+<g id="clust13" class="cluster">
+<title>cluster_src/lib/SortablePlayerCardTypes</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M540.5,-264C540.5,-264 690.5,-264 690.5,-264 696.5,-264 702.5,-270 702.5,-276 702.5,-276 702.5,-304 702.5,-304 702.5,-310 696.5,-316 690.5,-316 690.5,-316 540.5,-316 540.5,-316 534.5,-316 528.5,-310 528.5,-304 528.5,-304 528.5,-276 528.5,-276 528.5,-270 534.5,-264 540.5,-264"/>
+<text text-anchor="middle" x="615.5" y="-304.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">SortablePlayerCardTypes</text>
 </g>
 <g id="clust12" class="cluster">
 <title>cluster_src/lib/SortableCriterias</title>
@@ -83,11 +88,6 @@
 <title>cluster_src/lib/userEditsItsCollection</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M561,-84C561,-84 670,-84 670,-84 676,-84 682,-90 682,-96 682,-96 682,-124 682,-124 682,-130 676,-136 670,-136 670,-136 561,-136 561,-136 555,-136 549,-130 549,-124 549,-124 549,-96 549,-96 549,-90 555,-84 561,-84"/>
 <text text-anchor="middle" x="615.5" y="-124.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">userEditsItsCollection</text>
-</g>
-<g id="clust13" class="cluster">
-<title>cluster_src/lib/SortablePlayerCardTypes</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M540.5,-264C540.5,-264 690.5,-264 690.5,-264 696.5,-264 702.5,-270 702.5,-276 702.5,-276 702.5,-304 702.5,-304 702.5,-310 696.5,-316 690.5,-316 690.5,-316 540.5,-316 540.5,-316 534.5,-316 528.5,-310 528.5,-304 528.5,-304 528.5,-276 528.5,-276 528.5,-270 534.5,-264 540.5,-264"/>
-<text text-anchor="middle" x="615.5" y="-304.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">SortablePlayerCardTypes</text>
 </g>
 <g id="clust17" class="cluster">
 <title>cluster_src/routes</title>

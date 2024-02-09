@@ -1,4 +1,4 @@
-import { PlayerCardsSorters, type PlayerCardsSorter } from "./PlayerCardsSorter";
+import { PlayerCardsSorters, type PlayerCardsSorter } from './PlayerCardsSorter';
 
 export const DEFAULT_PLAYER_CARDS_SORTING_ORDER = Object.keys(PlayerCardsSorters).filter((v) =>
   isNaN(Number(v)),
