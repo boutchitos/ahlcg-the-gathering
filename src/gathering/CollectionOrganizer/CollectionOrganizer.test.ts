@@ -2,8 +2,8 @@ import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { findPocketWithCard, indexOfPocketWithCard, setup } from './test-utils';
-import type { CLASS } from '$gathering/ICollectionOrganizer';
 import { DEFAULT_ASSET_SLOTS_ORDER } from './sort-player-cards/by-asset-slots';
+import { DEFAULT_CLASSES } from './sort-player-cards/by-classes';
 
 it('organizes an empty collection', () => {
   const { binder } = setup();
@@ -49,15 +49,7 @@ it('updates binder after classes reordering', () => {
   const { binderOutput, organizer } = setup('Core Set');
   mockClear(binderOutput);
 
-  const mysticFirst: CLASS[] = [
-    'mystic',
-    'guardian',
-    'rogue',
-    'seeker',
-    'survivor',
-    'neutral',
-    'multi',
-  ];
+  const mysticFirst = putItemFirst('mystic', DEFAULT_CLASSES);
   organizer.reorderByClasses(mysticFirst);
 
   const binder = captor<Binder>();
@@ -72,12 +64,7 @@ it('updates binder after asset slots reordering', () => {
   const { binderOutput, binder: binderAtSetup, organizer } = setup('Core Set');
   mockClear(binderOutput);
 
-  let allyFirst = [...DEFAULT_ASSET_SLOTS_ORDER];
-  allyFirst.splice(allyFirst.indexOf('Ally'), 1);
-  allyFirst = ['Ally', ...allyFirst];
-  expect(allyFirst[0]).toEqual('Ally');
-  expect(allyFirst).toHaveLength(DEFAULT_ASSET_SLOTS_ORDER.length);
-
+  const allyFirst = putItemFirst('Ally', DEFAULT_ASSET_SLOTS_ORDER);
   organizer.reorderBySlots(allyFirst);
 
   const binder = captor<Binder>();
@@ -86,3 +73,13 @@ it('updates binder after asset slots reordering', () => {
   const indexAllyFirst = indexOfPocketWithCard(binder.value.pockets, 'Beat Cop');
   expect(indexAllyFirst).toBeLessThan(indexAtSetup);
 });
+
+function putItemFirst<T>(item: string, list: T[]): T[] {
+  const idx = list.indexOf(item as T);
+  expect(idx).not.toEqual(-1);
+
+  const order = [...list];
+  order.splice(idx, 1);
+
+  return [item as T, ...order];
+}
