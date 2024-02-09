@@ -1,5 +1,6 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
-import type { PLAYER_CARDS_SORTER, SortPlayerCardsDirectives } from './sorter-config';
+import type { SortPlayerCardsDirectives } from './sorter-config';
+import type { PLAYER_CARDS_SORTER } from './sorting-orders';
 import { sortByClasses, sortByPlayerCardTypes } from './sorters';
 
 export function sortPlayerCards(

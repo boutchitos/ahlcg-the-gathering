@@ -9,6 +9,7 @@ export {
   fixAssetsBySlots,
   fixByClasses,
   fixByPlayerCardtypes,
+  fixPlayerCardsSortingOrder,
   type CLASS,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,

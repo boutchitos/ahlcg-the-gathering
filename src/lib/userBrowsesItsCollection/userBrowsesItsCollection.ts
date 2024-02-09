@@ -5,6 +5,7 @@ import {
   fixAssetsBySlots,
   fixByClasses,
   fixByPlayerCardtypes,
+  fixPlayerCardsSortingOrder,
   type CLASS,
   type ICollectionOrganizer,
   type PLAYER_CARDS_SORTER,
@@ -93,13 +94,10 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
     organizer.reorderByPlayerCardTypes(value);
   });
 
-  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(
-    sortingDirectives.sortingOrder as PLAYER_CARDS_SORTER[],
+  const sortingOrder = writable(
+    fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder),
   );
   sortingOrder.subscribe((value) => {
-    if (value.length === 0) {
-      sortingOrder.set(['by-classes', 'by-player-card-types']);
-    }
     organizer.reorderPlayerCardSorters(value);
   });
 
