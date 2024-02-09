@@ -1,4 +1,4 @@
-export enum Classes {
+export enum PlayerCardClasses {
   guardian,
   mystic,
   rogue,
@@ -8,4 +8,4 @@ export enum Classes {
   multi,
 }
 
-export type CLASS = keyof typeof Classes;
+export type PlayerCardClass = keyof typeof PlayerCardClasses;

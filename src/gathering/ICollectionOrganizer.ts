@@ -1,6 +1,6 @@
 import type { IBinderOutput } from './IBinderOutput';
 import type {
-  CLASS,
+  PlayerCardClass,
   PLAYER_CARDS_SORTER,
   PLAYER_CARD_TYPE,
   SLOT,
@@ -10,7 +10,7 @@ export {
   fixByClasses,
   fixByPlayerCardtypes,
   fixPlayerCardsSortingOrder,
-  type CLASS,
+  type PlayerCardClass,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,
   type SLOT,
@@ -19,7 +19,7 @@ export {
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;
 
-  reorderByClasses(classes: CLASS[]): void;
+  reorderByClasses(classes: PlayerCardClass[]): void;
   reorderByPlayerCardTypes(types: PLAYER_CARD_TYPE[]): void;
   reorderBySlots(slots: SLOT[]): void;
   reorderPlayerCardSorters(sorters: PLAYER_CARDS_SORTER[]): void;

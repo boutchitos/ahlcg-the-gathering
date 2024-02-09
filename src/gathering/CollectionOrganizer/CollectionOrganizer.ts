@@ -3,7 +3,7 @@ import { theUserCollection, type CollectionEntity } from '$gathering/CollectionE
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type { ICardRepository } from '$gathering/ICardRepository';
 import type {
-  CLASS,
+  PlayerCardClass,
   ICollectionOrganizer,
   PLAYER_CARD_TYPE,
   PLAYER_CARDS_SORTER,
@@ -37,7 +37,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.notifyBinderUpdated(binderOutput);
   }
 
-  reorderByClasses(classes: CLASS[]): void {
+  reorderByClasses(classes: PlayerCardClass[]): void {
     this.classes = classes;
     this.organizeCollection();
     this.notifyBinderUpdated();

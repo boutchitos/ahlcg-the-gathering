@@ -6,7 +6,7 @@ import {
   fixByClasses,
   fixByPlayerCardtypes,
   fixPlayerCardsSortingOrder,
-  type CLASS,
+  type PlayerCardClass,
   type ICollectionOrganizer,
   type PLAYER_CARDS_SORTER,
   type PLAYER_CARD_TYPE,
@@ -48,7 +48,7 @@ type SortingDirectives = {
 
 export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): {
   binder: BinderAs2Pages;
-  classes: Writable<CLASS[]>;
+  classes: Writable<PlayerCardClass[]>;
   playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
   slots: Writable<SLOT[]>;
   sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;

@@ -9,9 +9,9 @@
   import RogueIcon from './RogueIcon.svelte';
   import SeekerIcon from './SeekerIcon.svelte';
   import SurvivorIcon from './SurvivorIcon.svelte';
-  import type { CLASS } from '$gathering/ICollectionOrganizer';
+  import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
 
-  export let classes: Writable<CLASS[]>;
+  export let classes: Writable<PlayerCardClass[]>;
 
   const icons = {
     guardian: GuardianIcon,
@@ -23,7 +23,7 @@
     multi: MultiIcon,
   };
 
-  const dragDrop = new DragDrop<CLASS>(classes);
+  const dragDrop = new DragDrop<PlayerCardClass>(classes);
 </script>
 
 <div>

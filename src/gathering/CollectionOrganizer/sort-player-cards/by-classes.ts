@@ -1,25 +1,29 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
-import { Classes, type CLASS } from './PlayerCardClass';
+import { PlayerCardClasses, type PlayerCardClass } from './PlayerCardClass';
 
-export const DEFAULT_CLASSES = Object.keys(Classes).filter((v) => isNaN(Number(v))) as CLASS[];
+export const DEFAULT_CLASSES = Object.keys(PlayerCardClasses).filter((v) =>
+  isNaN(Number(v)),
+) as PlayerCardClass[];
 
-export function fixByClasses(wannaBe: string[]): CLASS[] {
-  const incoming = new Set(wannaBe.filter((aClass) => DEFAULT_CLASSES.includes(aClass as CLASS)));
+export function fixByClasses(wannaBe: string[]): PlayerCardClass[] {
+  const incoming = new Set(
+    wannaBe.filter((aClass) => DEFAULT_CLASSES.includes(aClass as PlayerCardClass)),
+  );
   if (incoming.size !== DEFAULT_CLASSES.length) {
     return DEFAULT_CLASSES;
   }
-  return wannaBe as CLASS[];
+  return wannaBe as PlayerCardClass[];
 }
 
 export class SortByClasses implements ICardsSorter {
-  constructor(private classes: CLASS[]) {}
+  constructor(private classes: PlayerCardClass[]) {}
 
   sortCards(a: Card, b: Card): number {
     return sortByClasses(a, b, this.classes);
   }
 }
 
-function sortByClasses(a: Card, b: Card, classes: CLASS[]): number {
+function sortByClasses(a: Card, b: Card, classes: PlayerCardClass[]): number {
   const aClass = classes.indexOf(getClassOfPlayerCard(a));
   if (aClass === -1) {
     throw new Error(`unknown faction_code ${a.faction_code}`);
@@ -33,7 +37,7 @@ function sortByClasses(a: Card, b: Card, classes: CLASS[]): number {
   return aClass - bClass;
 }
 
-function getClassOfPlayerCard(card: Card): CLASS {
+function getClassOfPlayerCard(card: Card): PlayerCardClass {
   if (card.faction2_code !== undefined) return 'multi';
-  return card.faction_code as CLASS;
+  return card.faction_code as PlayerCardClass;
 }
