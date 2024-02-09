@@ -1,12 +1,10 @@
 import { beforeEach, expect, it } from 'vitest';
-import {
-  sortPlayerCards,
-  type SLOT,
-  type CLASS,
-  type PLAYER_CARD_TYPE,
-  type PLAYER_CARDS_SORTER,
-} from '.';
 import type { Card } from '$gathering/IBinderOutput';
+import { DEFAULT_CLASSES, type CLASS } from './by-classes';
+import { DEFAULT_PLAYER_CARDTYPES_ORDER, type PLAYER_CARD_TYPE } from './by-player-card-types';
+import { DEFAULT_PLAYER_CARDS_SORTING_ORDER, type PLAYER_CARDS_SORTER } from './sorting-orders';
+import { DEFAULT_ASSET_SLOTS_ORDER, type SLOT } from './by-asset-slots';
+import { sortPlayerCards } from './sortPlayerCards';
 
 let assetSlots: SLOT[];
 let classes: CLASS[];
@@ -14,25 +12,10 @@ let playerCardTypes: PLAYER_CARD_TYPE[];
 let sortingOrder: PLAYER_CARDS_SORTER[];
 
 beforeEach(() => {
-  assetSlots = [
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ];
-  classes = ['guardian', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi'];
-  playerCardTypes = ['investigator', 'asset', 'event', 'skill'];
-  sortingOrder = ['by-classes', 'by-player-card-types'];
+  assetSlots = [...DEFAULT_ASSET_SLOTS_ORDER];
+  classes = [...DEFAULT_CLASSES];
+  playerCardTypes = [...DEFAULT_PLAYER_CARDTYPES_ORDER];
+  sortingOrder = [...DEFAULT_PLAYER_CARDS_SORTING_ORDER];
 });
 
 it('sorts empty cards', () => {
@@ -133,11 +116,13 @@ type CardInit = {
   xp?: number;
 };
 
-function card({ type_code, faction_code, name, subtype_code, xp }: CardInit): CardInit {
+function card({ faction_code, name, slot, subtype_code, type_code, xp }: CardInit): CardInit {
+  const typeCode = type_code ?? 'asset';
   return {
-    type_code: type_code ?? 'asset',
+    type_code: typeCode,
     faction_code: faction_code ?? 'guardian',
     name: name ?? 'a card',
+    slot: slot ?? (typeCode === 'asset' ? '-no-slot-' : undefined),
     subtype_code: subtype_code ?? undefined,
     xp: xp ?? 0,
   };
