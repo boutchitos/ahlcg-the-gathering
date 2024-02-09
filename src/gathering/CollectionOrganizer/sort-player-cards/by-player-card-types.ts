@@ -5,7 +5,7 @@ export const DEFAULT_PLAYER_CARDTYPES_ORDER = Object.keys(PlayerCardtypes).filte
   isNaN(Number(v)),
 ) as PlayerCardtype[];
 
-export function fixByPlayerCardtypes(wannaBe: string[]): PlayerCardtype[] {
+export function fixByPlayerCardtypesOrder(wannaBe: string[]): PlayerCardtype[] {
   const incoming = new Set(
     wannaBe.filter((playerCardtype) =>
       DEFAULT_PLAYER_CARDTYPES_ORDER.includes(playerCardtype as PlayerCardtype),

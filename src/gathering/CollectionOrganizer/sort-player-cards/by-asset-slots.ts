@@ -5,7 +5,7 @@ export const DEFAULT_ASSET_SLOTS_ORDER = Object.keys(AssetSlots).filter((v) =>
   isNaN(Number(v)),
 ) as AssetSlot[];
 
-export function fixAssetsBySlots(wannaBe: string[]): AssetSlot[] {
+export function fixAssetsBySlotsOrder(wannaBe: string[]): AssetSlot[] {
   const incoming = new Set(
     wannaBe.filter((slot) => DEFAULT_ASSET_SLOTS_ORDER.includes(slot as AssetSlot)),
   );

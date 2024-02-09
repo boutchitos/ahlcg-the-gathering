@@ -5,7 +5,7 @@ export const DEFAULT_CLASSES_ORDER = Object.keys(PlayerCardClasses).filter((v) =
   isNaN(Number(v)),
 ) as PlayerCardClass[];
 
-export function fixByClasses(wannaBe: string[]): PlayerCardClass[] {
+export function fixByClassesOrder(wannaBe: string[]): PlayerCardClass[] {
   const incoming = new Set(
     wannaBe.filter((aClass) => DEFAULT_CLASSES_ORDER.includes(aClass as PlayerCardClass)),
   );

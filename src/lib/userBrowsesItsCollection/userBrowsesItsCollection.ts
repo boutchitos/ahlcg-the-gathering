@@ -2,9 +2,9 @@ import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import {
-  fixAssetsBySlots,
-  fixByClasses,
-  fixByPlayerCardtypes,
+  fixAssetsBySlotsOrder,
+  fixByClassesOrder,
+  fixByPlayerCardtypesOrder,
   fixPlayerCardsSortingOrder,
   type PlayerCardClass,
   type ICollectionOrganizer,
@@ -79,23 +79,23 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
     return { pockets: pockets.slice(base, base + 9) };
   }
 
-  const classes = writable(fixByClasses(sortingDirectives.classes));
+  const classes = writable(fixByClassesOrder(sortingDirectives.classes));
   classes.subscribe((value) => {
-    const fixed = fixByClasses(value);
+    const fixed = fixByClassesOrder(value);
     sortingDirectives.classes = fixed;
     organizer.reorderByClasses(fixed);
   });
 
-  const slots = writable(fixAssetsBySlots(sortingDirectives.assetsSlots));
+  const slots = writable(fixAssetsBySlotsOrder(sortingDirectives.assetsSlots));
   slots.subscribe((value) => {
-    const fixed = fixAssetsBySlots(value);
+    const fixed = fixAssetsBySlotsOrder(value);
     sortingDirectives.assetsSlots = fixed;
     organizer.reorderBySlots(value);
   });
 
-  const playerCardTypes = writable(fixByPlayerCardtypes(sortingDirectives.playerCardTypes));
+  const playerCardTypes = writable(fixByPlayerCardtypesOrder(sortingDirectives.playerCardTypes));
   playerCardTypes.subscribe((value) => {
-    const fixed = fixByPlayerCardtypes(value);
+    const fixed = fixByPlayerCardtypesOrder(value);
     sortingDirectives.playerCardTypes = fixed;
     organizer.reorderByPlayerCardTypes(value);
   });
