@@ -1,18 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_ASSET_SLOTS_ORDER, fixAssetsBySlots } from './by-asset-slots';
+import { DEFAULT_ASSET_SLOTS_ORDER, fixAssetsBySlotsOrder } from './by-asset-slots';
 
-describe('fixAssetsBySlots', () => {
+describe('fixAssetsBySlotsOrder', () => {
   it('fixes an empty list', () => {
-    expect(fixAssetsBySlots([])).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
+    expect(fixAssetsBySlotsOrder([])).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
   });
 
   it('fixes an incomplete list', () => {
-    expect(fixAssetsBySlots(['Accessory'])).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
+    expect(fixAssetsBySlotsOrder(['Accessory'])).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
   });
 
   it('fixes an invalid value', () => {
     expect(
-      fixAssetsBySlots([
+      fixAssetsBySlotsOrder([
         'invalid',
         'Ally. Arcane',
         'Ally',
@@ -49,7 +49,7 @@ describe('fixAssetsBySlots', () => {
       'Ally',
     ];
     expect(repeating).toHaveLength(DEFAULT_ASSET_SLOTS_ORDER.length);
-    expect(fixAssetsBySlots(repeating)).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
+    expect(fixAssetsBySlotsOrder(repeating)).toEqual(DEFAULT_ASSET_SLOTS_ORDER);
   });
 
   it('accepts a valid list', () => {
@@ -69,6 +69,6 @@ describe('fixAssetsBySlots', () => {
       'Tarot',
       '-no-slot-',
     ].reverse();
-    expect(fixAssetsBySlots(valid)).toEqual(valid);
+    expect(fixAssetsBySlotsOrder(valid)).toEqual(valid);
   });
 });
