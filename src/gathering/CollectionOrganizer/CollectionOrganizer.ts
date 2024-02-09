@@ -10,38 +10,20 @@ import type {
   SLOT,
 } from '$gathering/ICollectionOrganizer';
 import { sortPlayerCards } from './sort-player-cards';
+import { DEFAULT_ASSET_SLOTS_ORDER } from './sort-player-cards/by-asset-slots';
+import { DEFAULT_CLASSES } from './sort-player-cards/by-classes';
+import { DEFAULT_PLAYER_CARDTYPES_ORDER } from './sort-player-cards/by-player-card-types';
+import { DEFAULT_PLAYER_CARDS_SORTING_ORDER } from './sort-player-cards/sorting-orders';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
   private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
-  private classes: CLASS[] = [
-    'guardian',
-    'mystic',
-    'rogue',
-    'seeker',
-    'survivor',
-    'neutral',
-    'multi',
-  ];
-  private playerCardTypes: PLAYER_CARD_TYPE[] = ['investigator', 'asset', 'event', 'skill'];
-  private slots: SLOT[] = [
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ];
-  private sorters: PLAYER_CARDS_SORTER[] = ['by-classes', 'by-player-card-types'];
+
+  private classes = DEFAULT_CLASSES;
+  private playerCardTypes = DEFAULT_PLAYER_CARDTYPES_ORDER;
+  private slots = DEFAULT_ASSET_SLOTS_ORDER;
+  private sorters = DEFAULT_PLAYER_CARDS_SORTING_ORDER;
 
   constructor(private readonly collection: CollectionEntity) {
     this.classes.sort();

@@ -74,5 +74,5 @@ function sortAssetsBySlot(a: Card, b: Card, slots: SLOT[]) {
 }
 
 function toSlot(card: Card): SLOT {
-  return card.slot as SLOT;
+  return (card.slot as SLOT) ?? '-no-slot-';
 }

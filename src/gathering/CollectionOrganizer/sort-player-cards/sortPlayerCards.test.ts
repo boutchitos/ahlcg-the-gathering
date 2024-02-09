@@ -122,7 +122,7 @@ function card({ faction_code, name, slot, subtype_code, type_code, xp }: CardIni
     type_code: typeCode,
     faction_code: faction_code ?? 'guardian',
     name: name ?? 'a card',
-    slot: slot ?? (typeCode === 'asset' ? '-no-slot-' : undefined),
+    slot: slot ?? undefined,
     subtype_code: subtype_code ?? undefined,
     xp: xp ?? 0,
   };

@@ -2,7 +2,8 @@ import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { findPocketWithCard, indexOfPocketWithCard, setup } from './test-utils';
-import type { CLASS, SLOT } from '$gathering/ICollectionOrganizer';
+import type { CLASS } from '$gathering/ICollectionOrganizer';
+import { DEFAULT_ASSET_SLOTS_ORDER } from './sort-player-cards/by-asset-slots';
 
 it('organizes an empty collection', () => {
   const { binder } = setup();
@@ -71,22 +72,12 @@ it('updates binder after asset slots reordering', () => {
   const { binderOutput, binder: binderAtSetup, organizer } = setup('Core Set');
   mockClear(binderOutput);
 
-  const allyFirst: SLOT[] = [
-    'Ally',
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ];
+  let allyFirst = [...DEFAULT_ASSET_SLOTS_ORDER];
+  allyFirst.splice(allyFirst.indexOf('Ally'), 1);
+  allyFirst = ['Ally', ...allyFirst];
+  expect(allyFirst[0]).toEqual('Ally');
+  expect(allyFirst).toHaveLength(DEFAULT_ASSET_SLOTS_ORDER.length);
+
   organizer.reorderBySlots(allyFirst);
 
   const binder = captor<Binder>();
