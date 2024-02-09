@@ -1,5 +1,5 @@
 import type { ICardsSorter } from './ICardsSorter';
-import { SortAssetBySlots, type SLOT } from './by-asset-slots';
+import { SortAssetsBySlots, type SLOT } from './by-asset-slots';
 import { SortByClasses, type CLASS } from './by-classes';
 import { SortByPlayerCardTypes, type PLAYER_CARD_TYPE } from './by-player-card-types';
 
@@ -12,5 +12,5 @@ export function sortByPlayerCardTypes(types: PLAYER_CARD_TYPE[], slots: SLOT[]):
 }
 
 function sortAssetsBySlots(slots: SLOT[]): ICardsSorter {
-  return new SortAssetBySlots(slots);
+  return new SortAssetsBySlots(slots);
 }

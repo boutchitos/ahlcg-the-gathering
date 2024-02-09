@@ -13,7 +13,7 @@ enum Classes {
 export type CLASS = keyof typeof Classes;
 export const DEFAULT_CLASSES = Object.keys(Classes).filter((v) => isNaN(Number(v))) as CLASS[];
 
-export function toByClasses(wannaBe: string[]): CLASS[] {
+export function fixByClasses(wannaBe: string[]): CLASS[] {
   const incoming = new Set(wannaBe.filter((aClass) => DEFAULT_CLASSES.includes(aClass as CLASS)));
   if (incoming.size !== DEFAULT_CLASSES.length) {
     return DEFAULT_CLASSES;

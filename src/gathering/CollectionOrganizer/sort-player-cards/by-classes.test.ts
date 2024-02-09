@@ -1,25 +1,25 @@
 import { describe, expect, it } from 'vitest';
-import { toByClasses, DEFAULT_CLASSES } from './by-classes';
+import { fixByClasses, DEFAULT_CLASSES } from './by-classes';
 
-describe('toByClasses', () => {
+describe('fixByClasses', () => {
   it('fixes an empty list', () => {
-    expect(toByClasses([])).toEqual(DEFAULT_CLASSES);
+    expect(fixByClasses([])).toEqual(DEFAULT_CLASSES);
   });
 
   it('fixes an incomplete list', () => {
-    expect(toByClasses(['guardian'])).toEqual(DEFAULT_CLASSES);
+    expect(fixByClasses(['guardian'])).toEqual(DEFAULT_CLASSES);
   });
 
   it('fixes an invalid value', () => {
     expect(
-      toByClasses(['invalid', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']),
+      fixByClasses(['invalid', 'mystic', 'rogue', 'seeker', 'survivor', 'neutral', 'multi']),
     ).toEqual(DEFAULT_CLASSES);
   });
 
   it('fixes repeating values', () => {
     const repeating = ['rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue'];
     expect(repeating).toHaveLength(DEFAULT_CLASSES.length);
-    expect(toByClasses(repeating)).toEqual(DEFAULT_CLASSES);
+    expect(fixByClasses(repeating)).toEqual(DEFAULT_CLASSES);
   });
 
   it('accepts a valid list', () => {
@@ -32,6 +32,6 @@ describe('toByClasses', () => {
       'neutral',
       'multi',
     ].reverse();
-    expect(toByClasses(valid)).toEqual(valid);
+    expect(fixByClasses(valid)).toEqual(valid);
   });
 });
