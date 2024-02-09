@@ -54,11 +54,6 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M577,-634C577,-634 691,-634 691,-634 697,-634 703,-640 703,-646 703,-646 703,-674 703,-674 703,-680 697,-686 691,-686 691,-686 577,-686 577,-686 571,-686 565,-680 565,-674 565,-674 565,-646 565,-646 565,-640 571,-634 577,-634"/>
 <text text-anchor="middle" x="634" y="-674.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">SortableCriterias</text>
 </g>
-<g id="clust14" class="cluster">
-<title>cluster_src/lib/userEditsItsCollection</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M579.5,-454C579.5,-454 688.5,-454 688.5,-454 694.5,-454 700.5,-460 700.5,-466 700.5,-466 700.5,-494 700.5,-494 700.5,-500 694.5,-506 688.5,-506 688.5,-506 579.5,-506 579.5,-506 573.5,-506 567.5,-500 567.5,-494 567.5,-494 567.5,-466 567.5,-466 567.5,-460 573.5,-454 579.5,-454"/>
-<text text-anchor="middle" x="634" y="-494.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">userEditsItsCollection</text>
-</g>
 <g id="clust11" class="cluster">
 <title>cluster_src/lib/SortablePlayerCardTypes</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M559,-694C559,-694 709,-694 709,-694 715,-694 721,-700 721,-706 721,-706 721,-734 721,-734 721,-740 715,-746 709,-746 709,-746 559,-746 559,-746 553,-746 547,-740 547,-734 547,-734 547,-706 547,-706 547,-700 553,-694 559,-694"/>
@@ -68,6 +63,11 @@
 <title>cluster_src/lib/userBrowsesItsCollection</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M571.5,-514C571.5,-514 696.5,-514 696.5,-514 702.5,-514 708.5,-520 708.5,-526 708.5,-526 708.5,-554 708.5,-554 708.5,-560 702.5,-566 696.5,-566 696.5,-566 571.5,-566 571.5,-566 565.5,-566 559.5,-560 559.5,-554 559.5,-554 559.5,-526 559.5,-526 559.5,-520 565.5,-514 571.5,-514"/>
 <text text-anchor="middle" x="634" y="-554.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">userBrowsesItsCollection</text>
+</g>
+<g id="clust14" class="cluster">
+<title>cluster_src/lib/userEditsItsCollection</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M579.5,-454C579.5,-454 688.5,-454 688.5,-454 694.5,-454 700.5,-460 700.5,-466 700.5,-466 700.5,-494 700.5,-494 700.5,-500 694.5,-506 688.5,-506 688.5,-506 579.5,-506 579.5,-506 573.5,-506 567.5,-500 567.5,-494 567.5,-494 567.5,-466 567.5,-466 567.5,-460 573.5,-454 579.5,-454"/>
+<text text-anchor="middle" x="634" y="-494.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">userEditsItsCollection</text>
 </g>
 <g id="clust9" class="cluster">
 <title>cluster_src/lib/SortableClasses</title>
