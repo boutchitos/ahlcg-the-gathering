@@ -9,8 +9,8 @@ import {
   type PlayerCardClass,
   type ICollectionOrganizer,
   type PLAYER_CARDS_SORTER,
-  type PLAYER_CARD_TYPE,
   type AssetSlot,
+  type PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
@@ -49,7 +49,7 @@ type SortingDirectives = {
 export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): {
   binder: BinderAs2Pages;
   classes: Writable<PlayerCardClass[]>;
-  playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
+  playerCardTypes: Writable<PlayerCardtype[]>;
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PLAYER_CARDS_SORTER[]>;
 } {
