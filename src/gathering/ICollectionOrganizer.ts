@@ -1,12 +1,17 @@
+import type { IBinderOutput } from './IBinderOutput';
 import type {
   CLASS,
   PLAYER_CARDS_SORTER,
   PLAYER_CARD_TYPE,
   SLOT,
-} from './CollectionOrganizer/sort-player-cards/sorter-config';
-import type { IBinderOutput } from './IBinderOutput';
-
-export { CLASS, PLAYER_CARD_TYPE, PLAYER_CARDS_SORTER, SLOT };
+} from './CollectionOrganizer/sort-player-cards';
+export {
+  toByClasses,
+  type CLASS,
+  type PLAYER_CARDS_SORTER,
+  type PLAYER_CARD_TYPE,
+  type SLOT,
+} from './CollectionOrganizer/sort-player-cards';
 
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;

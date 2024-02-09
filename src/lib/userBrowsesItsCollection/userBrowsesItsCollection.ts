@@ -1,12 +1,13 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import type {
-  CLASS,
-  ICollectionOrganizer,
-  PLAYER_CARDS_SORTER,
-  PLAYER_CARD_TYPE,
-  SLOT,
+import {
+  toByClasses,
+  type CLASS,
+  type ICollectionOrganizer,
+  type PLAYER_CARDS_SORTER,
+  type PLAYER_CARD_TYPE,
+  type SLOT,
 } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
@@ -35,7 +36,14 @@ export type BinderAs2Pages = {
   handleRightPageClick: () => void;
 };
 
-export function userBrowsesItsCollection(): {
+type SortingDirectives = {
+  classes: string[];
+  assetsSlots: string[];
+  playerCardTypes: string[];
+  sortingOrder: string[];
+};
+
+export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): {
   binder: BinderAs2Pages;
   classes: Writable<CLASS[]>;
   playerCardTypes: Writable<PLAYER_CARD_TYPE[]>;
@@ -68,46 +76,51 @@ export function userBrowsesItsCollection(): {
     return { pockets: pockets.slice(base, base + 9) };
   }
 
-  const classes = writable<CLASS[]>([
-    'guardian',
-    'mystic',
-    'rogue',
-    'seeker',
-    'survivor',
-    'neutral',
-    'multi',
-  ]);
+  const classes = writable<CLASS[]>(toByClasses(sortingDirectives.classes));
   classes.subscribe((value) => {
     organizer.reorderByClasses(value);
   });
 
-  const slots = writable<SLOT[]>([
-    'Arcane',
-    'Arcane x2',
-    'Hand',
-    'Hand x2',
-    'Hand. Arcane',
-    'Hand x2. Arcane',
-    'Ally',
-    'Ally. Arcane',
-    'Accessory',
-    'Body',
-    'Body. Arcane',
-    'Body. Hand x2',
-    'Tarot',
-    undefined,
-  ]);
+  const slots = writable<SLOT[]>(sortingDirectives.assetsSlots as SLOT[]);
   slots.subscribe((value) => {
+    if (value.length === 0) {
+      slots.set([
+        'Arcane',
+        'Arcane x2',
+        'Hand',
+        'Hand x2',
+        'Hand. Arcane',
+        'Hand x2. Arcane',
+        'Ally',
+        'Ally. Arcane',
+        'Accessory',
+        'Body',
+        'Body. Arcane',
+        'Body. Hand x2',
+        'Tarot',
+        undefined,
+      ]);
+    }
     organizer.reorderBySlots(value);
   });
 
-  const playerCardTypes = writable<PLAYER_CARD_TYPE[]>(['investigator', 'asset', 'event', 'skill']);
+  const playerCardTypes = writable<PLAYER_CARD_TYPE[]>(
+    sortingDirectives.playerCardTypes as PLAYER_CARD_TYPE[],
+  );
   playerCardTypes.subscribe((value) => {
+    if (value.length === 0) {
+      playerCardTypes.set(['investigator', 'asset', 'event', 'skill']);
+    }
     organizer.reorderByPlayerCardTypes(value);
   });
 
-  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(['by-classes', 'by-player-card-types']);
+  const sortingOrder = writable<PLAYER_CARDS_SORTER[]>(
+    sortingDirectives.sortingOrder as PLAYER_CARDS_SORTER[],
+  );
   sortingOrder.subscribe((value) => {
+    if (value.length === 0) {
+      sortingOrder.set(['by-classes', 'by-player-card-types']);
+    }
     organizer.reorderPlayerCardSorters(value);
   });
 

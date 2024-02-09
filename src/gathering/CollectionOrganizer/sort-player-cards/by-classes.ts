@@ -1,6 +1,25 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
 
-export type CLASS = 'guardian' | 'mystic' | 'rogue' | 'seeker' | 'survivor' | 'neutral' | 'multi';
+enum Classes {
+  guardian,
+  mystic,
+  rogue,
+  seeker,
+  survivor,
+  neutral,
+  multi,
+}
+
+export type CLASS = keyof typeof Classes;
+export const DEFAULT_CLASSES = Object.keys(Classes).filter((v) => isNaN(Number(v))) as CLASS[];
+
+export function toByClasses(wannaBe: string[]): CLASS[] {
+  const incoming = new Set(wannaBe.filter((aClass) => DEFAULT_CLASSES.includes(aClass as CLASS)));
+  if (incoming.size !== DEFAULT_CLASSES.length) {
+    return DEFAULT_CLASSES;
+  }
+  return wannaBe as CLASS[];
+}
 
 export class SortByClasses implements ICardsSorter {
   constructor(private classes: CLASS[]) {}
@@ -11,12 +30,12 @@ export class SortByClasses implements ICardsSorter {
 }
 
 function sortByClasses(a: Card, b: Card, classes: CLASS[]): number {
-  const aClass = classes.indexOf(toClasses(a));
+  const aClass = classes.indexOf(getClassOfPlayerCard(a));
   if (aClass === -1) {
     throw new Error(`unknown faction_code ${a.faction_code}`);
   }
 
-  const bClass = classes.indexOf(toClasses(b));
+  const bClass = classes.indexOf(getClassOfPlayerCard(b));
   if (bClass === -1) {
     throw new Error(`unknown faction_code ${b.faction_code}`);
   }
@@ -24,7 +43,7 @@ function sortByClasses(a: Card, b: Card, classes: CLASS[]): number {
   return aClass - bClass;
 }
 
-function toClasses(card: Card): CLASS {
+function getClassOfPlayerCard(card: Card): CLASS {
   if (card.faction2_code !== undefined) return 'multi';
   return card.faction_code as CLASS;
 }
