@@ -1,16 +1,6 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
+import { Classes, type CLASS } from './PlayerCardClass';
 
-enum Classes {
-  guardian,
-  mystic,
-  rogue,
-  seeker,
-  survivor,
-  neutral,
-  multi,
-}
-
-export type CLASS = keyof typeof Classes;
 export const DEFAULT_CLASSES = Object.keys(Classes).filter((v) => isNaN(Number(v))) as CLASS[];
 
 export function fixByClasses(wannaBe: string[]): CLASS[] {
