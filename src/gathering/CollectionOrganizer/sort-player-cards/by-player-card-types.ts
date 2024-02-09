@@ -1,42 +1,35 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
+import { PlayerCardtypes, type PlayerCardtype } from './PlayerCardtype';
 
-export enum PlayerCardtypes {
-  investigator,
-  asset,
-  event,
-  skill,
-}
-
-export type PLAYER_CARD_TYPE = keyof typeof PlayerCardtypes;
 export const DEFAULT_PLAYER_CARDTYPES_ORDER = Object.keys(PlayerCardtypes).filter((v) =>
   isNaN(Number(v)),
-) as PLAYER_CARD_TYPE[];
+) as PlayerCardtype[];
 
-export function fixByPlayerCardtypes(wannaBe: string[]): PLAYER_CARD_TYPE[] {
+export function fixByPlayerCardtypes(wannaBe: string[]): PlayerCardtype[] {
   const incoming = new Set(
     wannaBe.filter((playerCardtype) =>
-      DEFAULT_PLAYER_CARDTYPES_ORDER.includes(playerCardtype as PLAYER_CARD_TYPE),
+      DEFAULT_PLAYER_CARDTYPES_ORDER.includes(playerCardtype as PlayerCardtype),
     ),
   );
   if (incoming.size !== DEFAULT_PLAYER_CARDTYPES_ORDER.length) {
     return DEFAULT_PLAYER_CARDTYPES_ORDER;
   }
-  return wannaBe as PLAYER_CARD_TYPE[];
+  return wannaBe as PlayerCardtype[];
 }
 
 export class SortByPlayerCardTypes implements ICardsSorter {
   constructor(
-    private playerCardTypes: PLAYER_CARD_TYPE[],
+    private playerCardTypes: PlayerCardtype[],
     private assetsSorter: ICardsSorter,
   ) {}
 
   sortCards(a: Card, b: Card): number {
-    const aTypeCode = this.playerCardTypes.indexOf(a.type_code as PLAYER_CARD_TYPE);
+    const aTypeCode = this.playerCardTypes.indexOf(a.type_code as PlayerCardtype);
     if (aTypeCode === -1) {
       throw new Error(`unknown type code ${a.type_code}`);
     }
 
-    const bTypeCode = this.playerCardTypes.indexOf(b.type_code as PLAYER_CARD_TYPE);
+    const bTypeCode = this.playerCardTypes.indexOf(b.type_code as PlayerCardtype);
     if (bTypeCode === -1) {
       throw new Error(`unknown type code ${b.type_code}`);
     }
