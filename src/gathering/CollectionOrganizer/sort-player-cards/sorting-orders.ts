@@ -1,9 +1,5 @@
-export enum PlayerCardsSorters {
-  'by-classes',
-  'by-player-card-types',
-}
+import { PlayerCardsSorters, type PlayerCardsSorter } from "./PlayerCardsSorter";
 
-export type PlayerCardsSorter = keyof typeof PlayerCardsSorters;
 export const DEFAULT_PLAYER_CARDS_SORTING_ORDER = Object.keys(PlayerCardsSorters).filter((v) =>
   isNaN(Number(v)),
 ) as PlayerCardsSorter[];

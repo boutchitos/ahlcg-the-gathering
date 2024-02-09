@@ -1,13 +1,14 @@
 import { beforeEach, expect, it } from 'vitest';
-import type { Card } from '$gathering/IBinderOutput';
-import { DEFAULT_CLASSES_ORDER } from './by-classes';
-import { DEFAULT_PLAYER_CARDTYPES_ORDER } from './by-player-card-types';
-import { DEFAULT_PLAYER_CARDS_SORTING_ORDER, type PlayerCardsSorter } from './sorting-orders';
-import { DEFAULT_ASSET_SLOTS_ORDER } from './by-asset-slots';
-import { sortPlayerCards } from './sortPlayerCards';
-import type { PlayerCardClass } from './PlayerCardClass';
 import type { AssetSlot } from './AssetSlot';
+import type { Card } from '$gathering/IBinderOutput';
+import type { PlayerCardClass } from './PlayerCardClass';
+import type { PlayerCardsSorter } from './PlayerCardsSorter';
 import type { PlayerCardtype } from './PlayerCardtype';
+import { DEFAULT_ASSET_SLOTS_ORDER } from './by-asset-slots';
+import { DEFAULT_CLASSES_ORDER } from './by-classes';
+import { DEFAULT_PLAYER_CARDS_SORTING_ORDER } from './sorting-orders';
+import { DEFAULT_PLAYER_CARDTYPES_ORDER } from './by-player-card-types';
+import { sortPlayerCards } from './sortPlayerCards';
 
 let assetSlots: AssetSlot[];
 let classes: PlayerCardClass[];
