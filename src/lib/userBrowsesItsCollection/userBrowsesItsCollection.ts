@@ -147,10 +147,7 @@ function toPocketViewModel(pocket: Pocket): PocketViewModel {
   const coverCard = pocket.cards[0];
   return {
     cardListing: getCardListing(pocket.cards),
-    coverImage: {
-      landscape: coverCard.type_code === 'investigator',
-      url: `https://arkhamdb.com${coverCard.imagesrc}`,
-    },
+    coverImage: coverCard.image,
     title: coverCard.name,
   };
 }
