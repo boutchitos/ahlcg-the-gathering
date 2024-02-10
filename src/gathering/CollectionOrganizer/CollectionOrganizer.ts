@@ -169,12 +169,14 @@ function regroupByPockets(cards: Card[]): Pocket[] {
 }
 
 function toPocketCard(card: Card): PocketCard {
+  const { code, name, xp } = card;
   return {
+    code,
     image: {
       landscape: card.type_code === 'investigator',
       url: `https://arkhamdb.com${card.imagesrc}`,
     },
-    name: card.name,
-    xp: card.xp,
+    name,
+    xp,
   };
 }

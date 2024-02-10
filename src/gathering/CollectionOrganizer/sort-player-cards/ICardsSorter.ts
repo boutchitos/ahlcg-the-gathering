@@ -1,4 +1,4 @@
-import type { Card } from '$gathering/ICardRepository';
+import type { Card } from '$gathering/Card';
 
 export { Card };
 

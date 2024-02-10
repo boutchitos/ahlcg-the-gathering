@@ -1,4 +1,5 @@
 export type PocketCard = {
+  code: string;
   image: {
     landscape: boolean;
     url: string;
