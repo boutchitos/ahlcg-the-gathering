@@ -1,6 +1,6 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
-import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import {
   fixAssetsBySlotsOrder,
   fixByClassesOrder,
@@ -152,7 +152,7 @@ function toPocketViewModel(pocket: Pocket): PocketViewModel {
   };
 }
 
-function getCardListing(cards: Card[]): CardListing {
+function getCardListing(cards: PocketCard[]): CardListing {
   const pip = '\u2022';
   const labels: string[] = [];
   const count = new Map<string, number>();

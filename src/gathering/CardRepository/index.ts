@@ -1,5 +1,4 @@
-import type { Card } from '$gathering/IBinderOutput';
-import type { ICardRepository } from '$gathering/ICardRepository';
+import type { Card, ICardRepository } from '$gathering/ICardRepository';
 import type { Pack } from '$gathering/Pack';
 import ahdbCards from './ahdb.cards.json';
 
