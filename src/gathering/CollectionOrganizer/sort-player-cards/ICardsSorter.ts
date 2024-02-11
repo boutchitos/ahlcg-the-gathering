@@ -1,4 +1,4 @@
-import type { Card } from '$gathering/IBinderOutput';
+import type { Card } from '$gathering/Card';
 
 export { Card };
 

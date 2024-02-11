@@ -1,7 +1,7 @@
 import { createCardRepository } from '$gathering/CardRepository';
 import { theUserCollection, type CollectionEntity } from '$gathering/CollectionEntity';
-import type { Binder, Card, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import type { ICardRepository } from '$gathering/ICardRepository';
+import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { Card, ICardRepository } from '$gathering/ICardRepository';
 import type {
   PlayerCardClass,
   ICollectionOrganizer,
@@ -135,7 +135,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
     }
 
     for (let i = 0; i < card.quantity; ++i) {
-      pocket!.cards.push(card);
+      pocket!.cards.push(toPocketCard(card));
     }
 
     return pockets;
@@ -145,7 +145,7 @@ function regroupByPockets(cards: Card[]): Pocket[] {
     for (const code of Object.keys(card.restrictions!.investigator)) {
       const pocket = pocketsByInvestigator.get(code);
       if (pocket !== undefined) {
-        pocket.cards.push(card);
+        pocket.cards.push(toPocketCard(card));
         if (card.bonded_cards !== undefined) {
           card.bonded_cards.forEach((bondedCard) => {
             pocketsByBoundedCard.set(bondedCard.code, pocket!);
@@ -161,9 +161,22 @@ function regroupByPockets(cards: Card[]): Pocket[] {
     assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
 
     for (let i = 0; i < card.quantity; ++i) {
-      pocket!.cards.push(card);
+      pocket!.cards.push(toPocketCard(card));
     }
   });
 
   return regrouped;
+}
+
+function toPocketCard(card: Card): PocketCard {
+  const { code, name, xp } = card;
+  return {
+    code,
+    image: {
+      landscape: card.type_code === 'investigator',
+      url: `https://arkhamdb.com${card.imagesrc}`,
+    },
+    name,
+    xp,
+  };
 }

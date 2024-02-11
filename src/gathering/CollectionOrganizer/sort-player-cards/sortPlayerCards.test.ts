@@ -1,6 +1,6 @@
 import { beforeEach, expect, it } from 'vitest';
+import type { Card } from './ICardsSorter';
 import type { AssetSlot } from './AssetSlot';
-import type { Card } from '$gathering/IBinderOutput';
 import type { PlayerCardClass } from './PlayerCardClass';
 import type { PlayerCardsSorter } from './PlayerCardsSorter';
 import type { PlayerCardtype } from './PlayerCardtype';
