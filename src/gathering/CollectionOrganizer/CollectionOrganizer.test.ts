@@ -2,8 +2,10 @@ import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { findPocketWithCard, indexOfPocketWithCard, setup } from './test-utils';
-import { DEFAULT_ASSET_SLOTS_ORDER } from './sort-player-cards/by-asset-slots';
-import { DEFAULT_CLASSES_ORDER } from './sort-player-cards/by-classes';
+import {
+  DEFAULT_ASSET_SLOTS_ORDER,
+  DEFAULT_CLASSES_ORDER,
+} from './sort-player-cards/sorter-config';
 
 it('organizes an empty collection', () => {
   const { binder } = setup();

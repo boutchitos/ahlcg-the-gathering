@@ -1,19 +1,5 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
-import { PlayerCardClasses, type PlayerCardClass } from './PlayerCardClass';
-
-export const DEFAULT_CLASSES_ORDER = Object.keys(PlayerCardClasses).filter((v) =>
-  isNaN(Number(v)),
-) as PlayerCardClass[];
-
-export function fixByClassesOrder(wannaBe: string[]): PlayerCardClass[] {
-  const incoming = new Set(
-    wannaBe.filter((aClass) => DEFAULT_CLASSES_ORDER.includes(aClass as PlayerCardClass)),
-  );
-  if (incoming.size !== DEFAULT_CLASSES_ORDER.length) {
-    return DEFAULT_CLASSES_ORDER;
-  }
-  return wannaBe as PlayerCardClass[];
-}
+import type { PlayerCardClass } from './PlayerCardClass';
 
 export class SortByClasses implements ICardsSorter {
   constructor(private classes: PlayerCardClass[]) {}
