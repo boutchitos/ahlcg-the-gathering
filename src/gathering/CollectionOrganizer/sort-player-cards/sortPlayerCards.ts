@@ -5,18 +5,16 @@ import { sortByClasses, sortByPlayerCardTypes } from './sorters';
 
 export function sortPlayerCards(
   cards: Iterable<Card>,
-  {
-    assetsBySlots: assetSlots,
-    byClasses: classes,
-    byPlayerCardTypes: playerCardTypes,
-    sortingOrder,
-  }: SortPlayerCardsDirectives,
+  sortDirectives: SortPlayerCardsDirectives,
 ): Card[] {
   const availSorters: Record<PlayerCardsSorter, ICardsSorter> = {
-    'by-classes': sortByClasses(classes),
-    'by-player-card-types': sortByPlayerCardTypes(playerCardTypes, assetSlots),
+    'by-classes': sortByClasses(sortDirectives.byClassesOrder),
+    'by-player-card-types': sortByPlayerCardTypes(
+      sortDirectives.byPlayerCardTypesOrder,
+      sortDirectives.assetsBySlotsOrder,
+    ),
   };
-  const cardsSorters = sortingOrder.map((sorter) => availSorters[sorter]);
+  const cardsSorters = sortDirectives.sortingOrder.map((sorter) => availSorters[sorter]);
 
   const cardSorter = (a: Card, b: Card) => sortCards(a, b, cardsSorters);
   return [...cards].sort(cardSorter);

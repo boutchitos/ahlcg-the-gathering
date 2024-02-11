@@ -4,6 +4,7 @@ import { expect } from 'vitest';
 import { captor, mock } from 'vitest-mock-extended';
 import { CollectionOrganizer } from './CollectionOrganizer';
 import { createPackRepository } from '$gathering';
+import { SortPlayerCardsDirectives } from './sort-player-cards';
 
 export function setup(...packs: string[]) {
   const binder = captor<Binder>();
@@ -22,7 +23,7 @@ export function setup(...packs: string[]) {
 }
 
 export function createOrganizer(collection: CollectionEntity) {
-  const organizer = new CollectionOrganizer(collection);
+  const organizer = new CollectionOrganizer(collection, new SortPlayerCardsDirectives());
   const binderOutput = mock<IBinderOutput>();
   organizer.onBinderUpdated(binderOutput);
   return { binderOutput, organizer };
