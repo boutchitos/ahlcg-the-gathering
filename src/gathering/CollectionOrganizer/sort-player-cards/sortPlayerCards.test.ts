@@ -1,25 +1,12 @@
 import { beforeEach, expect, it } from 'vitest';
 import type { Card } from './ICardsSorter';
-import type { AssetSlot } from './AssetSlot';
-import type { PlayerCardClass } from './PlayerCardClass';
-import type { PlayerCardsSorter } from './PlayerCardsSorter';
-import type { PlayerCardtype } from './PlayerCardtype';
-import { DEFAULT_ASSET_SLOTS_ORDER } from './by-asset-slots';
-import { DEFAULT_CLASSES_ORDER } from './by-classes';
-import { DEFAULT_PLAYER_CARDS_SORTING_ORDER } from './sorting-orders';
-import { DEFAULT_PLAYER_CARDTYPES_ORDER } from './by-player-card-types';
 import { sortPlayerCards } from './sortPlayerCards';
+import { SortPlayerCardsDirectives } from './sorter-config';
 
-let assetSlots: AssetSlot[];
-let classes: PlayerCardClass[];
-let playerCardTypes: PlayerCardtype[];
-let sortingOrder: PlayerCardsSorter[];
+let sortDirectives: SortPlayerCardsDirectives;
 
 beforeEach(() => {
-  assetSlots = [...DEFAULT_ASSET_SLOTS_ORDER];
-  classes = [...DEFAULT_CLASSES_ORDER];
-  playerCardTypes = [...DEFAULT_PLAYER_CARDTYPES_ORDER];
-  sortingOrder = [...DEFAULT_PLAYER_CARDS_SORTING_ORDER];
+  sortDirectives = new SortPlayerCardsDirectives();
 });
 
 it('sorts empty cards', () => {
@@ -75,25 +62,27 @@ it('sorts by location over by weakness', () => {
 });
 
 it('sorts by classes', () => {
-  const cards = classes.sort().map((klass) => card({ faction_code: klass }));
+  const cards = sortDirectives.byClassesOrder.sort().map((klass) => card({ faction_code: klass }));
 
-  classes.reverse();
+  sortDirectives.byClassesOrder = sortDirectives.byClassesOrder.sort().reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
 it('sorts by asset slots', () => {
-  const cards = assetSlots.sort().map((slot) => card({ slot }));
+  const cards = sortDirectives.assetsBySlotsOrder.sort().map((slot) => card({ slot }));
 
-  assetSlots.reverse();
+  sortDirectives.assetsBySlotsOrder = sortDirectives.assetsBySlotsOrder.sort().reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
 it('sorts by player card types', () => {
-  const cards = playerCardTypes.sort().map((type_code) => card({ type_code }));
+  const cards = sortDirectives.byPlayerCardTypesOrder
+    .sort()
+    .map((type_code) => card({ type_code }));
 
-  playerCardTypes.reverse();
+  sortDirectives.byPlayerCardTypesOrder = sortDirectives.byPlayerCardTypesOrder.sort().reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
@@ -102,10 +91,10 @@ it('sorts with sorting order', () => {
   const cards: CardInit[] = [];
   cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
   cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));
-  // assomption: already sorted against test default: by classes, by types, by slots
+  // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
 
-  sortingOrder = ['by-player-card-types', 'by-classes'];
+  sortDirectives.sortingOrder = ['by-player-card-types', 'by-classes'];
 
   // investigator is in front of the guardian asset
   expect(sort(...cards)).toEqual(cards.reverse());
@@ -133,10 +122,5 @@ function card({ faction_code, name, slot, subtype_code, type_code, xp }: CardIni
 }
 
 function sort(...cards: CardInit[]) {
-  return sortPlayerCards(cards as Card[], {
-    assetsBySlots: assetSlots,
-    byClasses: classes,
-    byPlayerCardTypes: playerCardTypes,
-    sortingOrder,
-  });
+  return sortPlayerCards(cards as Card[], sortDirectives);
 }

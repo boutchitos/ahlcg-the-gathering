@@ -1,19 +1,5 @@
-import { AssetSlots, type AssetSlot } from './AssetSlot';
+import type { AssetSlot } from './AssetSlot';
 import type { Card, ICardsSorter } from './ICardsSorter';
-
-export const DEFAULT_ASSET_SLOTS_ORDER = Object.keys(AssetSlots).filter((v) =>
-  isNaN(Number(v)),
-) as AssetSlot[];
-
-export function fixAssetsBySlotsOrder(wannaBe: string[]): AssetSlot[] {
-  const incoming = new Set(
-    wannaBe.filter((slot) => DEFAULT_ASSET_SLOTS_ORDER.includes(slot as AssetSlot)),
-  );
-  if (incoming.size !== DEFAULT_ASSET_SLOTS_ORDER.length) {
-    return DEFAULT_ASSET_SLOTS_ORDER;
-  }
-  return wannaBe as AssetSlot[];
-}
 
 export class SortAssetsBySlots implements ICardsSorter {
   constructor(private slots: AssetSlot[]) {}
