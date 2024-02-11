@@ -1,16 +1,12 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { createCollectionOrganizer } from '$gathering';
 import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
-import {
-  fixAssetsBySlotsOrder,
-  fixByClassesOrder,
-  fixByPlayerCardtypesOrder,
-  fixPlayerCardsSortingOrder,
-  type PlayerCardClass,
-  type ICollectionOrganizer,
-  type PlayerCardsSorter,
-  type AssetSlot,
-  type PlayerCardtype,
+import type {
+  PlayerCardClass,
+  ICollectionOrganizer,
+  PlayerCardsSorter,
+  AssetSlot,
+  PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
 
@@ -83,39 +79,39 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
 
   let atInit = true;
 
-  const classes = writable(fixByClassesOrder(sortingDirectives.classes));
+  const classes = writable(directives.byClassesOrder);
   classes.subscribe((value) => {
-    const fixed = fixByClassesOrder(value);
-    sortingDirectives.classes = fixed;
+    directives.byClassesOrder = value;
+    sortingDirectives.classes = directives.byClassesOrder;
     if (!atInit) {
-      organizer.reorderByClasses(fixed);
+      organizer.reorderByClasses(directives.byClassesOrder);
     }
   });
 
-  const slots = writable(fixAssetsBySlotsOrder(sortingDirectives.assetsSlots));
+  const slots = writable(directives.assetsBySlotsOrder);
   slots.subscribe((value) => {
-    const fixed = fixAssetsBySlotsOrder(value);
-    sortingDirectives.assetsSlots = fixed;
+    directives.assetsBySlotsOrder = value;
+    sortingDirectives.assetsSlots = directives.assetsBySlotsOrder;
     if (!atInit) {
-      organizer.reorderBySlots(value);
+      organizer.reorderBySlots(directives.assetsBySlotsOrder);
     }
   });
 
-  const playerCardTypes = writable(fixByPlayerCardtypesOrder(sortingDirectives.playerCardTypes));
+  const playerCardTypes = writable(directives.byPlayerCardTypesOrder);
   playerCardTypes.subscribe((value) => {
-    const fixed = fixByPlayerCardtypesOrder(value);
-    sortingDirectives.playerCardTypes = fixed;
+    directives.byPlayerCardTypesOrder = value;
+    sortingDirectives.playerCardTypes = directives.byPlayerCardTypesOrder;
     if (!atInit) {
-      organizer.reorderByPlayerCardTypes(value);
+      organizer.reorderByPlayerCardTypes(directives.byPlayerCardTypesOrder);
     }
   });
 
-  const sortingOrder = writable(fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder));
+  const sortingOrder = writable(directives.sortingOrder);
   sortingOrder.subscribe((value) => {
-    const fixed = fixPlayerCardsSortingOrder(value);
-    sortingDirectives.sortingOrder = fixed;
+    directives.sortingOrder = value;
+    sortingDirectives.sortingOrder = directives.sortingOrder;
     if (!atInit) {
-      organizer.reorderPlayerCardSorters(value);
+      organizer.reorderPlayerCardSorters(directives.sortingOrder);
     }
   });
 
@@ -160,7 +156,7 @@ class BinderOutput implements IBinderOutput {
 function createOrganizerDirectives(sortingDirectives: SortingDirectives) {
   const organizerDirectives = new SortPlayerCardsDirectives();
   organizerDirectives.assetsBySlotsOrder = sortingDirectives.assetsSlots as AssetSlot[];
-  organizerDirectives.byClassesOrder = sortingDirectives.classes as PlayerCardClass[];
+  organizerDirectives.byClassesOrder = sortingDirectives.classes;
   organizerDirectives.byPlayerCardTypesOrder =
     sortingDirectives.playerCardTypes as PlayerCardtype[];
   organizerDirectives.sortingOrder = sortingDirectives.sortingOrder as PlayerCardsSorter[];

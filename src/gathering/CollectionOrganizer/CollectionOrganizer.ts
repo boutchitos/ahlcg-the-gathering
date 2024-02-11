@@ -15,10 +15,11 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
   private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
-  private sortDirectives: SortPlayerCardsDirectives;
 
-  constructor(private readonly collection: CollectionEntity, sortDirectives: SortPlayerCardsDirectives) {
-    this.sortDirectives = sortDirectives;
+  constructor(
+    private readonly collection: CollectionEntity,
+    private readonly sortDirectives: SortPlayerCardsDirectives,
+  ) {
     this.organizeCollection();
   }
 
@@ -70,7 +71,9 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 }
 
-export function createCollectionOrganizer(sortDirectives = new SortPlayerCardsDirectives()): ICollectionOrganizer {
+export function createCollectionOrganizer(
+  sortDirectives = new SortPlayerCardsDirectives(),
+): ICollectionOrganizer {
   return new CollectionOrganizer(theUserCollection, sortDirectives);
 }
 

@@ -89,7 +89,7 @@ it('sorts by player card types', () => {
 
 it.only('sorts with sorting order', () => {
   const cards: CardInit[] = [];
-  cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));``
+  cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
   cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));
   // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
