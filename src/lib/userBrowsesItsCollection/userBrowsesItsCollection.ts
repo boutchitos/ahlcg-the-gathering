@@ -12,6 +12,7 @@ import {
   type AssetSlot,
   type PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
+import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
 
 export type CardListing = { label: string }[];
 
@@ -53,7 +54,8 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PlayerCardsSorter[]>;
 } {
-  const organizer: ICollectionOrganizer = createCollectionOrganizer();
+  const directives = createOrganizerDirectives(sortingDirectives);
+  const organizer: ICollectionOrganizer = createCollectionOrganizer(directives);
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
 
@@ -79,33 +81,45 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
     return { pockets: pockets.slice(base, base + 9) };
   }
 
+  let atInit = true;
+
   const classes = writable(fixByClassesOrder(sortingDirectives.classes));
   classes.subscribe((value) => {
     const fixed = fixByClassesOrder(value);
     sortingDirectives.classes = fixed;
-    organizer.reorderByClasses(fixed);
+    if (!atInit) {
+      organizer.reorderByClasses(fixed);
+    }
   });
 
   const slots = writable(fixAssetsBySlotsOrder(sortingDirectives.assetsSlots));
   slots.subscribe((value) => {
     const fixed = fixAssetsBySlotsOrder(value);
     sortingDirectives.assetsSlots = fixed;
-    organizer.reorderBySlots(value);
+    if (!atInit) {
+      organizer.reorderBySlots(value);
+    }
   });
 
   const playerCardTypes = writable(fixByPlayerCardtypesOrder(sortingDirectives.playerCardTypes));
   playerCardTypes.subscribe((value) => {
     const fixed = fixByPlayerCardtypesOrder(value);
     sortingDirectives.playerCardTypes = fixed;
-    organizer.reorderByPlayerCardTypes(value);
+    if (!atInit) {
+      organizer.reorderByPlayerCardTypes(value);
+    }
   });
 
   const sortingOrder = writable(fixPlayerCardsSortingOrder(sortingDirectives.sortingOrder));
   sortingOrder.subscribe((value) => {
     const fixed = fixPlayerCardsSortingOrder(value);
     sortingDirectives.sortingOrder = fixed;
-    organizer.reorderPlayerCardSorters(value);
+    if (!atInit) {
+      organizer.reorderPlayerCardSorters(value);
+    }
   });
+
+  atInit = false;
 
   return {
     binder: {
@@ -141,6 +155,16 @@ class BinderOutput implements IBinderOutput {
   binderUpdated(binder: Binder): void {
     this.binder.set(binder);
   }
+}
+
+function createOrganizerDirectives(sortingDirectives: SortingDirectives) {
+  const organizerDirectives = new SortPlayerCardsDirectives();
+  organizerDirectives.assetsBySlotsOrder = sortingDirectives.assetsSlots as AssetSlot[];
+  organizerDirectives.byClassesOrder = sortingDirectives.classes as PlayerCardClass[];
+  organizerDirectives.byPlayerCardTypesOrder =
+    sortingDirectives.playerCardTypes as PlayerCardtype[];
+  organizerDirectives.sortingOrder = sortingDirectives.sortingOrder as PlayerCardsSorter[];
+  return organizerDirectives;
 }
 
 function toPocketViewModel(pocket: Pocket): PocketViewModel {
