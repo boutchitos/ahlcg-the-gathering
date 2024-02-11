@@ -64,7 +64,7 @@ it('sorts by location over by weakness', () => {
 it('sorts by classes', () => {
   const cards = sortDirectives.byClassesOrder.sort().map((klass) => card({ faction_code: klass }));
 
-  sortDirectives.byClassesOrder.reverse();
+  sortDirectives.byClassesOrder = sortDirectives.byClassesOrder.sort().reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
@@ -72,7 +72,7 @@ it('sorts by classes', () => {
 it('sorts by asset slots', () => {
   const cards = sortDirectives.assetsBySlotsOrder.sort().map((slot) => card({ slot }));
 
-  sortDirectives.assetsBySlotsOrder.reverse();
+  sortDirectives.assetsBySlotsOrder = sortDirectives.assetsBySlotsOrder.sort().reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
@@ -82,12 +82,12 @@ it('sorts by player card types', () => {
     .sort()
     .map((type_code) => card({ type_code }));
 
-  sortDirectives.byPlayerCardTypesOrder.reverse();
+  sortDirectives.byPlayerCardTypesOrder = sortDirectives.byPlayerCardTypesOrder.sort().reverse();
 
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
-it.only('sorts with sorting order', () => {
+it('sorts with sorting order', () => {
   const cards: CardInit[] = [];
   cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
   cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));

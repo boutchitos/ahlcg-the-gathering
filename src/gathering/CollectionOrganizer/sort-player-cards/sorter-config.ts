@@ -26,7 +26,7 @@ export class SortPlayerCardsDirectives {
   private _sortingOrder = DEFAULT_PLAYER_CARDS_SORTING_ORDER;
 
   get assetsBySlotsOrder(): AssetSlot[] {
-    return this._assetsBySlotsOrder;
+    return [...this._assetsBySlotsOrder];
   }
 
   set assetsBySlotsOrder(value: string[]) {
@@ -34,7 +34,7 @@ export class SortPlayerCardsDirectives {
   }
 
   get byClassesOrder(): PlayerCardClass[] {
-    return this._byClassesOrder;
+    return [...this._byClassesOrder];
   }
 
   set byClassesOrder(value: string[]) {
@@ -42,7 +42,7 @@ export class SortPlayerCardsDirectives {
   }
 
   get byPlayerCardTypesOrder(): PlayerCardtype[] {
-    return this._byPlayerCardTypesOrder;
+    return [...this._byPlayerCardTypesOrder];
   }
 
   set byPlayerCardTypesOrder(value: string[]) {
@@ -50,7 +50,7 @@ export class SortPlayerCardsDirectives {
   }
 
   get sortingOrder(): PlayerCardsSorter[] {
-    return this._sortingOrder;
+    return [...this._sortingOrder];
   }
 
   set sortingOrder(value: string[]) {
