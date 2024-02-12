@@ -14,26 +14,26 @@ it('sorts empty cards', () => {
   expect(cards).toEqual([]);
 });
 
-it('sorts by name', () => {
+it('sorts by names', () => {
   const a = card({ name: 'card 1' });
   const b = card({ name: 'card 2' });
   expect(sort(a, b)).toEqual([a, b]);
   expect(sort(b, a)).toEqual([a, b]);
 });
 
-it('sorts by xp', () => {
+it('sorts by names, punctuation ignored', () => {
+  const withPunctuation = card({ name: '"Look what I found!"' });
+  const without = card({ name: 'Look what I found!' });
+  const lucky = card({ name: 'Lucky' });
+  expect(sort(lucky, withPunctuation, without)).toEqual([withPunctuation, without, lucky]);
+  expect(sort(lucky, without, withPunctuation)).toEqual([without, withPunctuation, lucky]);
+});
+
+it('sorts by levels', () => {
   const a = card({ xp: 0 });
   const b = card({ xp: 1 });
   expect(sort(a, b)).toEqual([a, b]);
   expect(sort(b, a)).toEqual([a, b]);
-});
-
-it('sorts by name over xp', () => {
-  const a0 = card({ name: 'card 1', xp: 0 });
-  const a1 = card({ name: 'card 1', xp: 1 });
-  const b0 = card({ name: 'card 2', xp: 0 });
-  const b1 = card({ name: 'card 2', xp: 1 });
-  expect(sort(b1, b0, a1, a0)).toEqual([a0, a1, b0, b1]);
 });
 
 it('sorts weaknesses at end', () => {
@@ -77,7 +77,7 @@ it('sorts by asset slots', () => {
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
-it('sorts by player card types', () => {
+it('sorts by player cardtypes', () => {
   const cards = sortDirectives.byPlayerCardTypesOrder
     .sort()
     .map((type_code) => card({ type_code }));
@@ -94,7 +94,7 @@ it('sorts with sorting order', () => {
   // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
 
-  sortDirectives.sortingOrder = ['by-player-card-types', 'by-classes'];
+  sortDirectives.sortingOrder = ['by-player-cardtypes', 'by-names', 'by-classes', 'by-levels'];
 
   // investigator is in front of the guardian asset
   expect(sort(...cards)).toEqual(cards.reverse());

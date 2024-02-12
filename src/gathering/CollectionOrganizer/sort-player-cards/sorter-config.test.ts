@@ -175,20 +175,20 @@ describe('sortingOrder', () => {
   });
 
   it('fixes an invalid value', () => {
-    const invalid = ['invalid', 'by-player-card-types'];
+    const invalid = ['invalid', 'by-player-cardtypes'];
     directives.sortingOrder = invalid;
     expect(directives.sortingOrder).toEqual(DEFAULT_PLAYER_CARDS_SORTING_ORDER);
   });
 
   it('fixes repeating values', () => {
-    const repeating = ['by-classes', 'by-classes'];
+    const repeating = ['by-classes', 'by-classes', 'by-classes', 'by-classes'];
     directives.sortingOrder = repeating;
     expect(repeating).toHaveLength(DEFAULT_PLAYER_CARDS_SORTING_ORDER.length);
     expect(directives.sortingOrder).toEqual(DEFAULT_PLAYER_CARDS_SORTING_ORDER);
   });
 
   it('accepts a valid list', () => {
-    const valid = ['by-classes', 'by-player-card-types'].reverse();
+    const valid = ['by-classes', 'by-names', 'by-player-cardtypes', 'by-levels'].reverse();
     directives.sortingOrder = valid;
     expect(directives.sortingOrder).toEqual(valid);
   });
