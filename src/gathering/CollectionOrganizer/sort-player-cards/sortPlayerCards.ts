@@ -1,7 +1,7 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
 import type { PlayerCardsSorter } from './PlayerCardsSorter';
 import type { SortPlayerCardsDirectives } from './sorter-config';
-import { sortByClasses, sortByNames, sortByPlayerCardTypes } from './sorters';
+import { sortByClasses, sortByLevels, sortByNames, sortByPlayerCardTypes } from './sorters';
 
 export function sortPlayerCards(
   cards: Iterable<Card>,
@@ -9,6 +9,7 @@ export function sortPlayerCards(
 ): Card[] {
   const availSorters: Record<PlayerCardsSorter, ICardsSorter> = {
     'by-classes': sortByClasses(sortDirectives.byClassesOrder),
+    'by-levels': sortByLevels(),
     'by-names': sortByNames(),
     'by-player-cardtypes': sortByPlayerCardTypes(
       sortDirectives.byPlayerCardTypesOrder,
@@ -38,9 +39,6 @@ function sortCards(a: Card, b: Card, sorters: ICardsSorter[]) {
       if (result !== 0) return result;
     }
   }
-
-  const xp_sort = a.xp - b.xp;
-  if (xp_sort !== 0) return xp_sort;
 
   return 0;
 }

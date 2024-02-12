@@ -4,9 +4,6 @@ export class SortByNames implements ICardsSorter {
   constructor() {}
 
   sortCards(a: Card, b: Card): number {
-    const result = a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
-    if (result !== 0) return result;
-
-    return 0;
+    return a.name.localeCompare(b.name, undefined, { ignorePunctuation: true });
   }
 }

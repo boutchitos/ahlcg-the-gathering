@@ -18,9 +18,11 @@
   {#if item === 'by-classes'}
     <SortableClasses {classes} />
   {:else if item === 'by-names'}
-    <div>by Names</div>
+    <div>by names</div>
   {:else if item === 'by-player-cardtypes'}
     <SortablePlayerCardTypes {playerCardTypes} />
+  {:else if item === 'by-levels'}
+    <div>by levels</div>
   {/if}
 </SortableCriterias>
 <SortableSlots {slots} />
