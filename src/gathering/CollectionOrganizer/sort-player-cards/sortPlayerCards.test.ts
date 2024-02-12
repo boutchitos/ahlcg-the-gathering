@@ -28,14 +28,6 @@ it('sorts by xp', () => {
   expect(sort(b, a)).toEqual([a, b]);
 });
 
-it('sorts by name over xp', () => {
-  const a0 = card({ name: 'card 1', xp: 0 });
-  const a1 = card({ name: 'card 1', xp: 1 });
-  const b0 = card({ name: 'card 2', xp: 0 });
-  const b1 = card({ name: 'card 2', xp: 1 });
-  expect(sort(b1, b0, a1, a0)).toEqual([a0, a1, b0, b1]);
-});
-
 it('sorts weaknesses at end', () => {
   const w = card({ type_code: 'treachery', subtype_code: 'weakness' });
   const a = card({ type_code: 'asset' });
@@ -77,7 +69,7 @@ it('sorts by asset slots', () => {
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
-it('sorts by player card types', () => {
+it('sorts by player cardtypes', () => {
   const cards = sortDirectives.byPlayerCardTypesOrder
     .sort()
     .map((type_code) => card({ type_code }));
@@ -94,7 +86,7 @@ it('sorts with sorting order', () => {
   // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
 
-  sortDirectives.sortingOrder = ['by-player-card-types', 'by-classes'];
+  sortDirectives.sortingOrder = ['by-player-cardtypes', 'by-names', 'by-classes'];
 
   // investigator is in front of the guardian asset
   expect(sort(...cards)).toEqual(cards.reverse());
