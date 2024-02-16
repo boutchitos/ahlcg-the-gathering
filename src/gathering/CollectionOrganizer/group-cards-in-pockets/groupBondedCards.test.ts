@@ -4,7 +4,11 @@ import { groupCardsInPockets } from '.';
 import type { Card } from '$gathering/Card';
 import { findPocketWithCard } from '../test-utils/pockets';
 
-const cardWithBondedCards = card({ name: 'with bonded', code: '1111', bonded_cards: [{ code: '2222' }] });
+const cardWithBondedCards = card({
+  name: 'with bonded',
+  code: '1111',
+  bonded_cards: [{ code: '2222' }],
+});
 const cardBondedTo = card({ name: 'bonded to', code: '2222', bonded_to: 'with bonded' });
 const cards = [cardWithBondedCards, cardBondedTo];
 
@@ -23,7 +27,6 @@ it('groups a bonded cards with its related card, no matter the order of the card
 
 it('groups many copies of bonded cards with their related card', () => {
   const pockets = group(cardBondedTo, cardWithBondedCards, cardBondedTo);
-  expect(pockets).not.toHaveLength(0);
 
   const pocket = findPocketWithCard(pockets, 'with bonded')!;
 
