@@ -1,32 +1,33 @@
 import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
-import { findPocketWithCard, indexOfPocketWithCard, setup } from './test-utils';
+import { setupOrganizer } from './test-utils/setupOrganizer';
+import { findPocketWithCard, indexOfPocketWithCard } from './test-utils/pockets';
 import {
   DEFAULT_ASSET_SLOTS_ORDER,
   DEFAULT_CLASSES_ORDER,
 } from './sort-player-cards/sorter-config';
 
 it('organizes an empty collection', () => {
-  const { binder } = setup();
+  const { binder } = setupOrganizer();
 
   expect(binder).toEqual({ pockets: [] });
 });
 
 it('organizes a collection with 1x Core Set', () => {
-  const knifePocket = setup('Core Set').findPocketWithCard('Knife')!;
+  const knifePocket = setupOrganizer('Core Set').findPocketWithCard('Knife')!;
 
   expect(knifePocket.cards).toHaveLength(4);
 });
 
 it('organizes a collection with 2x Core Set', () => {
-  const knifePocket = setup('Core Set', 'Core Set').findPocketWithCard('Knife')!;
+  const knifePocket = setupOrganizer('Core Set', 'Core Set').findPocketWithCard('Knife')!;
 
   expect(knifePocket.cards).toHaveLength(8);
 });
 
 it('updates many outputs', () => {
-  const { organizer } = setup('Core Set');
+  const { organizer } = setupOrganizer('Core Set');
   const binderOutput2 = mock<IBinderOutput>();
   organizer.onBinderUpdated(binderOutput2);
 
@@ -38,7 +39,7 @@ it('updates many outputs', () => {
 });
 
 it("doesn't update previously attached outputs while attaching to outputs", () => {
-  const { binderOutput, organizer } = setup('Core Set');
+  const { binderOutput, organizer } = setupOrganizer('Core Set');
 
   organizer.onBinderUpdated(mock<IBinderOutput>());
   organizer.onBinderUpdated(mock<IBinderOutput>());
@@ -48,7 +49,7 @@ it("doesn't update previously attached outputs while attaching to outputs", () =
 });
 
 it('updates binder after classes reordering', () => {
-  const { binderOutput, organizer } = setup('Core Set');
+  const { binderOutput, organizer } = setupOrganizer('Core Set');
   mockClear(binderOutput);
 
   const mysticFirst = putItemFirst('mystic', DEFAULT_CLASSES_ORDER);
@@ -63,7 +64,7 @@ it('updates binder after classes reordering', () => {
 });
 
 it('updates binder after asset slots reordering', () => {
-  const { binderOutput, binder: binderAtSetup, organizer } = setup('Core Set');
+  const { binderOutput, binder: binderAtSetup, organizer } = setupOrganizer('Core Set');
   mockClear(binderOutput);
 
   const allyFirst = putItemFirst('Ally', DEFAULT_ASSET_SLOTS_ORDER);

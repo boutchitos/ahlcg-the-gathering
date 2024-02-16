@@ -1,12 +1,13 @@
 import { CollectionEntity } from '$gathering/CollectionEntity';
-import type { Binder, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { expect } from 'vitest';
 import { captor, mock } from 'vitest-mock-extended';
-import { CollectionOrganizer } from './CollectionOrganizer';
+import { CollectionOrganizer } from '../CollectionOrganizer';
 import { createPackRepository } from '$gathering';
-import { SortPlayerCardsDirectives } from './sort-player-cards';
+import { SortPlayerCardsDirectives } from '../sort-player-cards';
+import { findPocketWithCard } from './pockets';
 
-export function setup(...packs: string[]) {
+export function setupOrganizer(...packs: string[]) {
   const binder = captor<Binder>();
   const collection = createCollection(...packs);
   const { binderOutput, organizer } = createOrganizer(collection);
@@ -33,20 +34,4 @@ export function createCollection(...packs: string[]) {
   const collection = new CollectionEntity(createPackRepository());
   packs.forEach((pack) => collection.addPack(pack));
   return collection;
-}
-
-export function findPocketWithCard(pockets: Pocket[], name: string) {
-  return pockets.find((pocket) => pocket.cards.map((c) => c.name).includes(name));
-}
-
-type IndexByName = string;
-type IndexByCode = { name: string; code: string }; // we force name for debugabillity
-export function indexOfPocketWithCard(pockets: Pocket[], name: IndexByName): number;
-export function indexOfPocketWithCard(pockets: Pocket[], { code }: IndexByCode): number;
-export function indexOfPocketWithCard(pockets: Pocket[], arg: IndexByName | IndexByCode): number {
-  if (typeof arg === 'string') {
-    const name = arg;
-    return pockets.findIndex((pocket) => pocket.cards.map((c) => c.name).includes(name));
-  }
-  return pockets.findIndex((pocket) => pocket.cards.map((c) => c.code).includes(arg.code));
 }
