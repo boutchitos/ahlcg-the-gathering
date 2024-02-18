@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest';
-import { setup } from './test-utils';
+import { setupOrganizer } from './test-utils/setupOrganizer';
 
 it('regroups investigator required cards, per Deckbuilding Requirement, with investigator card', () => {
-  const rolandPocket = setup('Core Set').findPocketWithCard('Roland Banks')!;
+  const rolandPocket = setupOrganizer('Core Set').findPocketWithCard('Roland Banks')!;
 
   expect(rolandPocket.cards[0].name).toEqual('Roland Banks');
   expect(rolandPocket.cards[1].name).toEqual("Roland's .38 Special");
@@ -11,7 +11,7 @@ it('regroups investigator required cards, per Deckbuilding Requirement, with inv
 });
 
 it('regroups also all copies of all packs (no hard limit for now)', () => {
-  const rolandPocket = setup('Core Set', 'Core Set').findPocketWithCard('Roland Banks')!;
+  const rolandPocket = setupOrganizer('Core Set', 'Core Set').findPocketWithCard('Roland Banks')!;
 
   expect(rolandPocket.cards[0].name).toEqual('Roland Banks');
   expect(rolandPocket.cards[1].name).toEqual('Roland Banks');

@@ -2,6 +2,7 @@ import { beforeEach, expect, it } from 'vitest';
 import type { Card } from './ICardsSorter';
 import { sortPlayerCards } from './sortPlayerCards';
 import { SortPlayerCardsDirectives } from './sorter-config';
+import { card, type CardInit } from '../test-utils/card';
 
 let sortDirectives: SortPlayerCardsDirectives;
 
@@ -99,27 +100,6 @@ it('sorts with sorting order', () => {
   // investigator is in front of the guardian asset
   expect(sort(...cards)).toEqual(cards.reverse());
 });
-
-type CardInit = {
-  faction_code?: string;
-  name?: string;
-  slot?: string;
-  subtype_code?: 'weakness';
-  type_code?: string;
-  xp?: number;
-};
-
-function card({ faction_code, name, slot, subtype_code, type_code, xp }: CardInit): CardInit {
-  const typeCode = type_code ?? 'asset';
-  return {
-    type_code: typeCode,
-    faction_code: faction_code ?? 'guardian',
-    name: name ?? 'a card',
-    slot: slot ?? undefined,
-    subtype_code: subtype_code ?? undefined,
-    xp: xp ?? 0,
-  };
-}
 
 function sort(...cards: CardInit[]) {
   return sortPlayerCards(cards as Card[], sortDirectives);

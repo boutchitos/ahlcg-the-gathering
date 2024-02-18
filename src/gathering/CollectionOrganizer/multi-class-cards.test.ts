@@ -1,11 +1,12 @@
 import { expect, it } from 'vitest';
-import { indexOfPocketWithCard, setup } from './test-utils';
+import { setupOrganizer } from './test-utils/setupOrganizer';
+import { indexOfPocketWithCard } from './test-utils/pockets';
 import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
 import { captor, mockClear } from 'vitest-mock-extended';
 import type { Binder } from '$gathering/IBinderOutput';
 
 it('organize multi-class cards as a class', () => {
-  const { binderOutput, organizer } = setup('The Secret Name');
+  const { binderOutput, organizer } = setupOrganizer('The Secret Name');
   mockClear(binderOutput);
 
   // 'Enchanted Blade' is guardian/mystic. We order multi classes first,
