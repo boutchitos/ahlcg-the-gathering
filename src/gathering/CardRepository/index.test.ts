@@ -4,7 +4,7 @@ import { createCardRepository } from '.';
 const cardRepository = createCardRepository();
 
 it('can load Core Set', () => {
-  expect(getCards('Core Set')).toHaveLength(103);
+  expect(getCards('Core Set')).toHaveLength(121);
 });
 
 it('removes Random Basic Weakness from Arkham DB', () => {
