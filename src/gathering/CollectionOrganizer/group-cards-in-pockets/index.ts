@@ -40,9 +40,7 @@ export function groupCardsInPockets(cards: Card[]): Pocket[] {
       pockets.push(pocket);
     }
 
-    for (let i = 0; i < card.quantity; ++i) {
-      pocket!.cards.push(toPocketCard(card));
-    }
+    pocket!.cards.push(toPocketCard(card));
 
     return pockets;
   }, []);
@@ -66,9 +64,7 @@ export function groupCardsInPockets(cards: Card[]): Pocket[] {
     const pocket = pocketsByBoundedCard.get(card.code);
     assert(pocket !== undefined, `we should have found a pocket for bonded card ${card.name}`);
 
-    for (let i = 0; i < card.quantity; ++i) {
-      pocket!.cards.push(toPocketCard(card));
-    }
+    pocket!.cards.push(toPocketCard(card));
   });
 
   return regrouped;

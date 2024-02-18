@@ -30,8 +30,8 @@ function getCardsByPackName(ahdbCards: Card[]) {
   return cardsByPackName;
 }
 
-function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, packs: string[]) {
-  const cards = new Array<Card[]>();
+function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, packs: string[]): Card[] {
+  const cards = new Array<Card>();
   for (const packName of packs) {
     const cardsInPack = cardsByPackName.get(packName);
     if (cardsInPack === undefined) {
@@ -54,9 +54,13 @@ function getInvestigatorCards(cardsByPackName: Map<string, Card[]>, packs: strin
       }
       throw new Error(`unknown pack '${packName}'`);
     }
-    cards.push(cardsInPack);
+    cardsInPack.forEach((card) => {
+      for (let i = 0; i < card.quantity; ++i) {
+        cards.push(card);
+      }
+    });
   }
-  return cards.flat();
+  return cards;
 }
 
 function cleanAHDBCards() {
