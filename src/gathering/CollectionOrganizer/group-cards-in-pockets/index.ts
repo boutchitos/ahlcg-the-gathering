@@ -1,6 +1,8 @@
 import type { Card } from '$gathering/Card';
 import type { Pocket, PocketCard } from '$gathering/IBinderOutput';
-import type { GroupPlayerCardsDirectives } from './grouper-config';
+import { GroupPlayerCardsDirectives } from './grouper-config';
+
+export { GroupPlayerCardsDirectives };
 
 export function groupCardsInPockets(
   cards: Card[],

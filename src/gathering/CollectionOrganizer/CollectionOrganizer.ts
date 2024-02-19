@@ -9,8 +9,7 @@ import type {
   AssetSlot,
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
-import { groupCardsInPockets } from './group-cards-in-pockets';
-import { GroupPlayerCardsDirectives } from './group-cards-in-pockets/grouper-config';
+import { groupCardsInPockets, GroupPlayerCardsDirectives } from './group-cards-in-pockets';
 import { sortPlayerCards, SortPlayerCardsDirectives } from './sort-player-cards';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
