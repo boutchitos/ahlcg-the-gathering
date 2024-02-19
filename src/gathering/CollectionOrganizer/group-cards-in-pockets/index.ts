@@ -9,7 +9,7 @@ export function groupCardsInPockets(
   directives: GroupPlayerCardsDirectives,
 ): Pocket[] {
   const pocketsByInvestigator = new Map<string, Pocket>();
-  const pocketsByName = new Map<string, Pocket>();
+  const pocketsByTitle = new Map<string, Pocket>();
   const pocketsByBoundedCard = new Map<string, Pocket>();
 
   const bondedToCards: Card[] = [];
@@ -18,8 +18,10 @@ export function groupCardsInPockets(
   const regrouped = cards.reduce((pockets: Pocket[], card) => {
     let pocket: Pocket | undefined;
 
-    if (directives.groupByTitle === 'group-by-title-any-level' && pocketsByName.has(card.name)) {
-      pocket = pocketsByName.get(card.name);
+    const title = `${card.name}${directives.groupByTitle === 'group-by-title-same-level' ? card.xp : ''}`;
+
+    if (directives.groupByTitle !== 'disabled' && pocketsByTitle.has(title)) {
+      pocket = pocketsByTitle.get(title);
     } else if (card.restrictions !== undefined) {
       cardsWithRestrictions.push(card);
       return pockets;
@@ -31,7 +33,7 @@ export function groupCardsInPockets(
     if (pocket === undefined) {
       pocket = { cards: [] };
 
-      pocketsByName.set(card.name, pocket);
+      pocketsByTitle.set(title, pocket);
 
       if (card.type_code === 'investigator') {
         pocketsByInvestigator.set(card.code, pocket);
