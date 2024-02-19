@@ -1,31 +1,11 @@
 <script lang="ts">
   import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import Binder from './Binder.svelte';
-  import SortableClasses from '$lib/SortableClasses/SortableClasses.svelte';
-  import SortableSlots from '$lib/SortableSlots/SortableSlots.svelte';
-  import SortableCriterias from '$lib/SortableCriterias/SortableCriterias.svelte';
-  import SortablePlayerCardTypes from '$lib/SortablePlayerCardTypes/SortablePlayerCardTypes.svelte';
   import { SortPlayerCardsDirectivesConfig } from './SortPlayerCardsDirectivesConfig';
 
-  const { binder, classes, playerCardTypes, slots, sortingOrder } = userBrowsesItsCollection(
-    new SortPlayerCardsDirectivesConfig(),
-  );
+  const { binder } = userBrowsesItsCollection(new SortPlayerCardsDirectivesConfig());
 </script>
 
-<h1 class="text-4xl font-bold">Couz's Investigator Cards Collection</h1>
+<h1 class="mb-4 text-4xl font-bold">Couz's Investigator Cards Collection</h1>
 
-<SortableCriterias items={sortingOrder} let:item>
-  {#if item === 'by-classes'}
-    <SortableClasses {classes} />
-  {:else if item === 'by-names'}
-    <div>by names</div>
-  {:else if item === 'by-player-cardtypes'}
-    <SortablePlayerCardTypes {playerCardTypes} />
-  {:else if item === 'by-levels'}
-    <div>by levels</div>
-  {/if}
-</SortableCriterias>
-<SortableSlots {slots} />
-<div class="mx-auto flex justify-center">
-  <Binder {binder} />
-</div>
+<Binder {binder} />
