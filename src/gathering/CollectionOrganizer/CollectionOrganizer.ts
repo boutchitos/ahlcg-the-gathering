@@ -26,6 +26,12 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.organizeCollection();
   }
 
+  groupBondedCards(groupBondedCards: boolean): void {
+    this.groupingDirectives.groupBondedCards = groupBondedCards;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
+
   groupByTitle(groupByTitle: GroupByTitle): void {
     this.groupingDirectives.groupByTitle = groupByTitle;
     this.organizeCollection();

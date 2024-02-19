@@ -1,4 +1,4 @@
-import { expect, it } from 'vitest';
+import { beforeEach, expect, it } from 'vitest';
 import { card, type CardInit } from '../test-utils/card';
 import { groupCardsInPockets } from '.';
 import type { Card } from '$gathering/Card';
@@ -12,6 +12,12 @@ const cardWithBondedCards = card({
 });
 const cardBondedTo = card({ name: 'bonded to', code: '2222', bonded_to: 'with bonded' });
 const cards = [cardWithBondedCards, cardBondedTo];
+
+let directives: GroupPlayerCardsDirectives;
+
+beforeEach(() => {
+  directives = new GroupPlayerCardsDirectives();
+});
 
 it('groups a bonded card with its related card', () => {
   const pockets = group(...cards);
@@ -37,6 +43,16 @@ it('groups many copies of bonded cards with their related card', () => {
   expect(pocket.cards).toHaveLength(3);
 });
 
+it('may splits bonded card from its related card', () => {
+  directives.groupBondedCards = false;
+
+  const pockets = group(...cards);
+
+  expect(findPocketWithCard(pockets, 'with bonded')).not.toBe(
+    findPocketWithCard(pockets, 'bonded to'),
+  );
+});
+
 function group(...cards: CardInit[]) {
-  return groupCardsInPockets(cards as Card[], new GroupPlayerCardsDirectives());
+  return groupCardsInPockets(cards as Card[], directives);
 }

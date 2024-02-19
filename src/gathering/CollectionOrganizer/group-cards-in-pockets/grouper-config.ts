@@ -8,6 +8,7 @@ export type GroupByTitle = keyof typeof GroupByTitles;
 
 export class GroupPlayerCardsDirectives {
   private _groupByTitle: GroupByTitle = 'group-by-title-any-level';
+  public groupBondedCards = true;
 
   get groupByTitle(): GroupByTitle {
     return this._groupByTitle;

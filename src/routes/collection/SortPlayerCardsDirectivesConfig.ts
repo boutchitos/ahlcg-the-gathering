@@ -27,6 +27,17 @@ export class SortPlayerCardsDirectivesConfig {
     isBrowser && (localStorage.classes = JSON.stringify(value));
   }
 
+  get groupBondedCards(): boolean {
+    return (
+      (isBrowser && localStorage.groupBondedCards && JSON.parse(localStorage.groupBondedCards)) ??
+      true
+    );
+  }
+
+  set groupBondedCards(value: boolean) {
+    isBrowser && (localStorage.groupBondedCards = JSON.stringify(value));
+  }
+
   get groupByTitle(): string {
     return (isBrowser && localStorage.groupByTitle && JSON.parse(localStorage.groupByTitle)) || '';
   }

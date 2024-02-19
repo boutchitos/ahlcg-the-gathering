@@ -25,7 +25,7 @@ export function groupCardsInPockets(
     } else if (card.restrictions !== undefined) {
       cardsWithRestrictions.push(card);
       return pockets;
-    } else if (card.bonded_to !== undefined) {
+    } else if (directives.groupBondedCards && card.bonded_to !== undefined) {
       bondedToCards.push(card);
       return pockets;
     }

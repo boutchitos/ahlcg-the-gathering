@@ -46,6 +46,7 @@ type OrganizingDirectivesDTO = {
   playerCardTypes: string[];
   sortingOrder: string[];
   groupByTitle: string;
+  groupBondedCards: boolean;
 };
 
 export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDirectivesDTO): {
@@ -55,6 +56,7 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PlayerCardsSorter[]>;
   groupByTitle: Writable<GroupByTitle>;
+  groupBondedCards: Writable<boolean>;
 } {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
@@ -134,6 +136,15 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
     }
   });
 
+  const groupBondedCards = writable(groupingDirectives.groupBondedCards);
+  groupBondedCards.subscribe((value) => {
+    groupingDirectives.groupBondedCards = value;
+    organizingDirectivesDTO.groupBondedCards = groupingDirectives.groupBondedCards;
+    if (!atInit) {
+      organizer.groupBondedCards(groupingDirectives.groupBondedCards);
+    }
+  });
+
   atInit = false;
 
   return {
@@ -158,10 +169,11 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
       },
     },
     classes,
-    groupByTitle,
     playerCardTypes,
     slots,
     sortingOrder,
+    groupByTitle,
+    groupBondedCards,
   };
 }
 
@@ -182,6 +194,7 @@ function createOrganizingDirectives(organizingDirectivesDTO: OrganizingDirective
   sortingDirectives.sortingOrder = organizingDirectivesDTO.sortingOrder as PlayerCardsSorter[];
 
   const groupingDirectives = new GroupPlayerCardsDirectives();
+  groupingDirectives.groupBondedCards = organizingDirectivesDTO.groupBondedCards;
   groupingDirectives.groupByTitle = organizingDirectivesDTO.groupByTitle as GroupByTitle;
 
   return { groupingDirectives, sortingDirectives };

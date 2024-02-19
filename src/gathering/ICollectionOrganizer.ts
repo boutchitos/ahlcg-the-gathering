@@ -22,4 +22,5 @@ export interface ICollectionOrganizer {
   reorderPlayerCardSorters(sorters: PlayerCardsSorter[]): void;
 
   groupByTitle(groupByTitle: GroupByTitle): void;
+  groupBondedCards(groupBondedCards: boolean): void;
 }

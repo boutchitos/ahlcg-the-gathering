@@ -3,12 +3,12 @@
   import SortableCriterias from '$lib/SortableCriterias/SortableCriterias.svelte';
   import SortablePlayerCardTypes from '$lib/SortablePlayerCardTypes/SortablePlayerCardTypes.svelte';
   import SortableSlots from '$lib/SortableSlots/SortableSlots.svelte';
+  import GroupByTitle from './GroupByTitle.svelte';
   import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import { SortPlayerCardsDirectivesConfig } from '../SortPlayerCardsDirectivesConfig';
 
-  const { classes, groupByTitle, playerCardTypes, slots, sortingOrder } = userBrowsesItsCollection(
-    new SortPlayerCardsDirectivesConfig(),
-  );
+  const { classes, groupBondedCards, groupByTitle, playerCardTypes, slots, sortingOrder } =
+    userBrowsesItsCollection(new SortPlayerCardsDirectivesConfig());
 </script>
 
 <SortableCriterias items={sortingOrder} let:item>
@@ -24,23 +24,11 @@
 </SortableCriterias>
 <SortableSlots {slots} />
 
-<label
-  ><input bind:group={$groupByTitle} type="radio" name="grouping" value="disabled" />1 card per
-  pocket</label
->
-<label
-  ><input
-    bind:group={$groupByTitle}
-    type="radio"
-    name="grouping"
-    value="group-by-title-same-level"
-  />group copies by title (same level)</label
->
-<label
-  ><input
-    bind:group={$groupByTitle}
-    type="radio"
-    name="grouping"
-    value="group-by-title-any-level"
-  />group copies by title (any level)</label
->
+<div class="flex flex-col">
+  <GroupByTitle {groupByTitle} />
+  <label class="mt-3"
+    ><input class="mr-3" bind:checked={$groupBondedCards} type="checkbox" />group bonded cards</label
+  >
+  <label class="mt-3"><input class="mr-3" type="checkbox" />group investigator required cards</label
+  >
+</div>
