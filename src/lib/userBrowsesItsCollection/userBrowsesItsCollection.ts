@@ -9,7 +9,10 @@ import type {
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
-import { GroupPlayerCardsDirectives } from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
+import {
+  GroupPlayerCardsDirectives,
+  type GroupByTitle,
+} from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
 
 export type CardListing = { label: string }[];
 
@@ -42,8 +45,7 @@ type OrganizingDirectivesDTO = {
   assetsSlots: string[];
   playerCardTypes: string[];
   sortingOrder: string[];
-  groupCardsIfSameTitle: boolean;
-  groupCardsOfAnyLevels: boolean;
+  groupByTitle: string;
 };
 
 export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDirectivesDTO): {
@@ -52,8 +54,7 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
   playerCardTypes: Writable<PlayerCardtype[]>;
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PlayerCardsSorter[]>;
-  groupCardsIfSameTitle: Writable<boolean>;
-  groupCardsOfAnyLevels: Writable<boolean>;
+  groupByTitle: Writable<GroupByTitle>;
 } {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
@@ -124,21 +125,12 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
     }
   });
 
-  const groupCardsIfSameTitle = writable(groupingDirectives.groupCardsIfSameTitle);
-  groupCardsIfSameTitle.subscribe((value) => {
-    groupingDirectives.groupCardsIfSameTitle = value;
-    organizingDirectivesDTO.groupCardsIfSameTitle = groupingDirectives.groupCardsIfSameTitle;
+  const groupByTitle = writable(groupingDirectives.groupByTitle);
+  groupByTitle.subscribe((value) => {
+    groupingDirectives.groupByTitle = value;
+    organizingDirectivesDTO.groupByTitle = groupingDirectives.groupByTitle;
     if (!atInit) {
-      organizer.groupCardsIfSameTitle(groupingDirectives.groupCardsIfSameTitle);
-    }
-  });
-
-  const groupCardsOfAnyLevels = writable(groupingDirectives.groupCardsOfAnyLevels);
-  groupCardsOfAnyLevels.subscribe((value) => {
-    groupingDirectives.groupCardsOfAnyLevels = value;
-    organizingDirectivesDTO.groupCardsOfAnyLevels = groupingDirectives.groupCardsOfAnyLevels;
-    if (!atInit) {
-      organizer.groupCardsOfAnyLevels(groupingDirectives.groupCardsOfAnyLevels);
+      organizer.groupByTitle(groupingDirectives.groupByTitle);
     }
   });
 
@@ -166,8 +158,7 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
       },
     },
     classes,
-    groupCardsIfSameTitle,
-    groupCardsOfAnyLevels,
+    groupByTitle,
     playerCardTypes,
     slots,
     sortingOrder,
@@ -191,8 +182,7 @@ function createOrganizingDirectives(organizingDirectivesDTO: OrganizingDirective
   sortingDirectives.sortingOrder = organizingDirectivesDTO.sortingOrder as PlayerCardsSorter[];
 
   const groupingDirectives = new GroupPlayerCardsDirectives();
-  groupingDirectives.groupCardsIfSameTitle = organizingDirectivesDTO.groupCardsIfSameTitle;
-  groupingDirectives.groupCardsOfAnyLevels = organizingDirectivesDTO.groupCardsOfAnyLevels;
+  groupingDirectives.groupByTitle = organizingDirectivesDTO.groupByTitle as GroupByTitle;
 
   return { groupingDirectives, sortingDirectives };
 }

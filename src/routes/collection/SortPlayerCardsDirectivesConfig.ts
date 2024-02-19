@@ -27,30 +27,12 @@ export class SortPlayerCardsDirectivesConfig {
     isBrowser && (localStorage.classes = JSON.stringify(value));
   }
 
-  get groupCardsIfSameTitle(): boolean {
-    return (
-      (isBrowser &&
-        localStorage.groupCardsIfSameTitle &&
-        JSON.parse(localStorage.groupCardsIfSameTitle)) ||
-      false
-    );
+  get groupByTitle(): string {
+    return (isBrowser && localStorage.groupByTitle && JSON.parse(localStorage.groupByTitle)) || '';
   }
 
-  set groupCardsIfSameTitle(value: boolean) {
-    isBrowser && (localStorage.groupCardsIfSameTitle = JSON.stringify(value));
-  }
-
-  get groupCardsOfAnyLevels(): boolean {
-    return (
-      (isBrowser &&
-        localStorage.groupCardsOfAnyLevels &&
-        JSON.parse(localStorage.groupCardsOfAnyLevels)) ||
-      false
-    );
-  }
-
-  set groupCardsOfAnyLevels(value: boolean) {
-    isBrowser && (localStorage.groupCardsOfAnyLevels = JSON.stringify(value));
+  set groupByTitle(value: string) {
+    isBrowser && (localStorage.groupByTitle = JSON.stringify(value));
   }
 
   get playerCardTypes(): string[] {

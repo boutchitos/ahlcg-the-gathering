@@ -12,7 +12,7 @@ beforeEach(() => {
 });
 
 it('may groups cards when they have same title', () => {
-  directives.groupCardsIfSameTitle = true;
+  directives.groupByTitle = 'group-by-title-any-level';
 
   const pockets = group(...cards);
 
@@ -21,7 +21,7 @@ it('may groups cards when they have same title', () => {
 });
 
 it('may split cards when they have same title', () => {
-  directives.groupCardsIfSameTitle = false;
+  directives.groupByTitle = 'disabled';
 
   const pockets = group(...cards);
 

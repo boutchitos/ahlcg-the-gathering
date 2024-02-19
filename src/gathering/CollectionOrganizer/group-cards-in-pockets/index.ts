@@ -18,7 +18,7 @@ export function groupCardsInPockets(
   const regrouped = cards.reduce((pockets: Pocket[], card) => {
     let pocket: Pocket | undefined;
 
-    if (directives.groupCardsIfSameTitle && pocketsByName.has(card.name)) {
+    if (directives.groupByTitle === 'group-by-title-any-level' && pocketsByName.has(card.name)) {
       pocket = pocketsByName.get(card.name);
     } else if (card.restrictions !== undefined) {
       cardsWithRestrictions.push(card);

@@ -10,6 +10,7 @@ import type {
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 import { groupCardsInPockets, GroupPlayerCardsDirectives } from './group-cards-in-pockets';
+import type { GroupByTitle } from './group-cards-in-pockets/grouper-config';
 import { sortPlayerCards, SortPlayerCardsDirectives } from './sort-player-cards';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
@@ -25,14 +26,8 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.organizeCollection();
   }
 
-  groupCardsIfSameTitle(groupCardsIfSameTitle: boolean): void {
-    this.groupingDirectives.groupCardsIfSameTitle = groupCardsIfSameTitle;
-    this.organizeCollection();
-    this.notifyBinderUpdated();
-  }
-
-  groupCardsOfAnyLevels(groupCardsOfAnyLevels: boolean): void {
-    this.groupingDirectives.groupCardsOfAnyLevels = groupCardsOfAnyLevels;
+  groupByTitle(groupByTitle: GroupByTitle): void {
+    this.groupingDirectives.groupByTitle = groupByTitle;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
