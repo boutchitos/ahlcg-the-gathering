@@ -9,6 +9,7 @@ import type {
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
+import { GroupPlayerCardsDirectives } from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
 
 export type CardListing = { label: string }[];
 
@@ -36,22 +37,30 @@ export type BinderAs2Pages = {
   handleRightPageClick: () => void;
 };
 
-type SortingDirectives = {
+type OrganizingDirectivesDTO = {
   classes: string[];
   assetsSlots: string[];
   playerCardTypes: string[];
   sortingOrder: string[];
+  groupCardsIfSameTitle: boolean;
+  groupCardsOfAnyLevels: boolean;
 };
 
-export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): {
+export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDirectivesDTO): {
   binder: BinderAs2Pages;
   classes: Writable<PlayerCardClass[]>;
   playerCardTypes: Writable<PlayerCardtype[]>;
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PlayerCardsSorter[]>;
+  groupCardsIfSameTitle: Writable<boolean>;
+  groupCardsOfAnyLevels: Writable<boolean>;
 } {
-  const directives = createOrganizerDirectives(sortingDirectives);
-  const organizer: ICollectionOrganizer = createCollectionOrganizer(directives);
+  const { groupingDirectives, sortingDirectives } =
+    createOrganizingDirectives(organizingDirectivesDTO);
+  const organizer: ICollectionOrganizer = createCollectionOrganizer(
+    sortingDirectives,
+    groupingDirectives,
+  );
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
 
@@ -79,39 +88,57 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
 
   let atInit = true;
 
-  const classes = writable(directives.byClassesOrder);
+  const classes = writable(sortingDirectives.byClassesOrder);
   classes.subscribe((value) => {
-    directives.byClassesOrder = value;
-    sortingDirectives.classes = directives.byClassesOrder;
+    sortingDirectives.byClassesOrder = value;
+    organizingDirectivesDTO.classes = sortingDirectives.byClassesOrder;
     if (!atInit) {
-      organizer.reorderByClasses(directives.byClassesOrder);
+      organizer.reorderByClasses(sortingDirectives.byClassesOrder);
     }
   });
 
-  const slots = writable(directives.assetsBySlotsOrder);
+  const slots = writable(sortingDirectives.assetsBySlotsOrder);
   slots.subscribe((value) => {
-    directives.assetsBySlotsOrder = value;
-    sortingDirectives.assetsSlots = directives.assetsBySlotsOrder;
+    sortingDirectives.assetsBySlotsOrder = value;
+    organizingDirectivesDTO.assetsSlots = sortingDirectives.assetsBySlotsOrder;
     if (!atInit) {
-      organizer.reorderBySlots(directives.assetsBySlotsOrder);
+      organizer.reorderBySlots(sortingDirectives.assetsBySlotsOrder);
     }
   });
 
-  const playerCardTypes = writable(directives.byPlayerCardTypesOrder);
+  const playerCardTypes = writable(sortingDirectives.byPlayerCardTypesOrder);
   playerCardTypes.subscribe((value) => {
-    directives.byPlayerCardTypesOrder = value;
-    sortingDirectives.playerCardTypes = directives.byPlayerCardTypesOrder;
+    sortingDirectives.byPlayerCardTypesOrder = value;
+    organizingDirectivesDTO.playerCardTypes = sortingDirectives.byPlayerCardTypesOrder;
     if (!atInit) {
-      organizer.reorderByPlayerCardTypes(directives.byPlayerCardTypesOrder);
+      organizer.reorderByPlayerCardTypes(sortingDirectives.byPlayerCardTypesOrder);
     }
   });
 
-  const sortingOrder = writable(directives.sortingOrder);
+  const sortingOrder = writable(sortingDirectives.sortingOrder);
   sortingOrder.subscribe((value) => {
-    directives.sortingOrder = value;
-    sortingDirectives.sortingOrder = directives.sortingOrder;
+    sortingDirectives.sortingOrder = value;
+    organizingDirectivesDTO.sortingOrder = sortingDirectives.sortingOrder;
     if (!atInit) {
-      organizer.reorderPlayerCardSorters(directives.sortingOrder);
+      organizer.reorderPlayerCardSorters(sortingDirectives.sortingOrder);
+    }
+  });
+
+  const groupCardsIfSameTitle = writable(groupingDirectives.groupCardsIfSameTitle);
+  groupCardsIfSameTitle.subscribe((value) => {
+    groupingDirectives.groupCardsIfSameTitle = value;
+    organizingDirectivesDTO.groupCardsIfSameTitle = groupingDirectives.groupCardsIfSameTitle;
+    if (!atInit) {
+      organizer.groupCardsIfSameTitle(groupingDirectives.groupCardsIfSameTitle);
+    }
+  });
+
+  const groupCardsOfAnyLevels = writable(groupingDirectives.groupCardsOfAnyLevels);
+  groupCardsOfAnyLevels.subscribe((value) => {
+    groupingDirectives.groupCardsOfAnyLevels = value;
+    organizingDirectivesDTO.groupCardsOfAnyLevels = groupingDirectives.groupCardsOfAnyLevels;
+    if (!atInit) {
+      organizer.groupCardsOfAnyLevels(groupingDirectives.groupCardsOfAnyLevels);
     }
   });
 
@@ -139,6 +166,8 @@ export function userBrowsesItsCollection(sortingDirectives: SortingDirectives): 
       },
     },
     classes,
+    groupCardsIfSameTitle,
+    groupCardsOfAnyLevels,
     playerCardTypes,
     slots,
     sortingOrder,
@@ -153,14 +182,19 @@ class BinderOutput implements IBinderOutput {
   }
 }
 
-function createOrganizerDirectives(sortingDirectives: SortingDirectives) {
-  const organizerDirectives = new SortPlayerCardsDirectives();
-  organizerDirectives.assetsBySlotsOrder = sortingDirectives.assetsSlots as AssetSlot[];
-  organizerDirectives.byClassesOrder = sortingDirectives.classes;
-  organizerDirectives.byPlayerCardTypesOrder =
-    sortingDirectives.playerCardTypes as PlayerCardtype[];
-  organizerDirectives.sortingOrder = sortingDirectives.sortingOrder as PlayerCardsSorter[];
-  return organizerDirectives;
+function createOrganizingDirectives(organizingDirectivesDTO: OrganizingDirectivesDTO) {
+  const sortingDirectives = new SortPlayerCardsDirectives();
+  sortingDirectives.assetsBySlotsOrder = organizingDirectivesDTO.assetsSlots as AssetSlot[];
+  sortingDirectives.byClassesOrder = organizingDirectivesDTO.classes;
+  sortingDirectives.byPlayerCardTypesOrder =
+    organizingDirectivesDTO.playerCardTypes as PlayerCardtype[];
+  sortingDirectives.sortingOrder = organizingDirectivesDTO.sortingOrder as PlayerCardsSorter[];
+
+  const groupingDirectives = new GroupPlayerCardsDirectives();
+  groupingDirectives.groupCardsIfSameTitle = organizingDirectivesDTO.groupCardsIfSameTitle;
+  groupingDirectives.groupCardsOfAnyLevels = organizingDirectivesDTO.groupCardsOfAnyLevels;
+
+  return { groupingDirectives, sortingDirectives };
 }
 
 function toPocketViewModel(pocket: Pocket): PocketViewModel {

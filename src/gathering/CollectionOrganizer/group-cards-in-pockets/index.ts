@@ -1,7 +1,11 @@
 import type { Card } from '$gathering/Card';
 import type { Pocket, PocketCard } from '$gathering/IBinderOutput';
+import type { GroupPlayerCardsDirectives } from './grouper-config';
 
-export function groupCardsInPockets(cards: Card[]): Pocket[] {
+export function groupCardsInPockets(
+  cards: Card[],
+  directives: GroupPlayerCardsDirectives,
+): Pocket[] {
   const pocketsByInvestigator = new Map<string, Pocket>();
   const pocketsByName = new Map<string, Pocket>();
   const pocketsByBoundedCard = new Map<string, Pocket>();
@@ -12,7 +16,7 @@ export function groupCardsInPockets(cards: Card[]): Pocket[] {
   const regrouped = cards.reduce((pockets: Pocket[], card) => {
     let pocket: Pocket | undefined;
 
-    if (pocketsByName.has(card.name)) {
+    if (directives.groupCardsIfSameTitle && pocketsByName.has(card.name)) {
       pocket = pocketsByName.get(card.name);
     } else if (card.restrictions !== undefined) {
       cardsWithRestrictions.push(card);

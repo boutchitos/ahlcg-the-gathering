@@ -1,6 +1,19 @@
 const isBrowser = typeof window !== 'undefined';
 
 export class SortPlayerCardsDirectivesConfig {
+  get assetsSlots(): string[] {
+    return (
+      (isBrowser &&
+        localStorage.slots &&
+        JSON.parse(localStorage.slots).map((s: string) => s ?? undefined)) ||
+      []
+    );
+  }
+
+  set assetsSlots(value: string[]) {
+    isBrowser && (localStorage.slots = JSON.stringify(value));
+  }
+
   get classes(): string[] {
     return (
       (isBrowser &&
@@ -14,17 +27,30 @@ export class SortPlayerCardsDirectivesConfig {
     isBrowser && (localStorage.classes = JSON.stringify(value));
   }
 
-  get assetsSlots(): string[] {
+  get groupCardsIfSameTitle(): boolean {
     return (
       (isBrowser &&
-        localStorage.slots &&
-        JSON.parse(localStorage.slots).map((s: string) => s ?? undefined)) ||
-      []
+        localStorage.groupCardsIfSameTitle &&
+        JSON.parse(localStorage.groupCardsIfSameTitle)) ||
+      false
     );
   }
 
-  set assetsSlots(value: string[]) {
-    isBrowser && (localStorage.slots = JSON.stringify(value));
+  set groupCardsIfSameTitle(value: boolean) {
+    isBrowser && (localStorage.groupCardsIfSameTitle = JSON.stringify(value));
+  }
+
+  get groupCardsOfAnyLevels(): boolean {
+    return (
+      (isBrowser &&
+        localStorage.groupCardsOfAnyLevels &&
+        JSON.parse(localStorage.groupCardsOfAnyLevels)) ||
+      false
+    );
+  }
+
+  set groupCardsOfAnyLevels(value: boolean) {
+    isBrowser && (localStorage.groupCardsOfAnyLevels = JSON.stringify(value));
   }
 
   get playerCardTypes(): string[] {

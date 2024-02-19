@@ -10,6 +10,7 @@ import type {
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 import { groupCardsInPockets } from './group-cards-in-pockets';
+import { GroupPlayerCardsDirectives } from './group-cards-in-pockets/grouper-config';
 import { sortPlayerCards, SortPlayerCardsDirectives } from './sort-player-cards';
 
 export class CollectionOrganizer implements ICollectionOrganizer {
@@ -19,9 +20,22 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   constructor(
     private readonly collection: CollectionEntity,
-    private readonly sortDirectives: SortPlayerCardsDirectives,
+    private readonly sortingDirectives: SortPlayerCardsDirectives,
+    private readonly groupingDirectives: GroupPlayerCardsDirectives,
   ) {
     this.organizeCollection();
+  }
+
+  groupCardsIfSameTitle(groupCardsIfSameTitle: boolean): void {
+    this.groupingDirectives.groupCardsIfSameTitle = groupCardsIfSameTitle;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
+
+  groupCardsOfAnyLevels(groupCardsOfAnyLevels: boolean): void {
+    this.groupingDirectives.groupCardsOfAnyLevels = groupCardsOfAnyLevels;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
   }
 
   onBinderUpdated(binderOutput: IBinderOutput): void {
@@ -30,25 +44,25 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   reorderByClasses(classes: PlayerCardClass[]): void {
-    this.sortDirectives.byClassesOrder = classes;
+    this.sortingDirectives.byClassesOrder = classes;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
   reorderByPlayerCardTypes(types: PlayerCardtype[]): void {
-    this.sortDirectives.byPlayerCardTypesOrder = types;
+    this.sortingDirectives.byPlayerCardTypesOrder = types;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
   reorderBySlots(slots: AssetSlot[]): void {
-    this.sortDirectives.assetsBySlotsOrder = slots;
+    this.sortingDirectives.assetsBySlotsOrder = slots;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
 
   reorderPlayerCardSorters(sorters: PlayerCardsSorter[]) {
-    this.sortDirectives.sortingOrder = sorters;
+    this.sortingDirectives.sortingOrder = sorters;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
@@ -62,8 +76,8 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
-    const sorted = sortPlayerCards(this.investigatorCards, this.sortDirectives);
-    const pockets = groupCardsInPockets(sorted);
+    const sorted = sortPlayerCards(this.investigatorCards, this.sortingDirectives);
+    const pockets = groupCardsInPockets(sorted, this.groupingDirectives);
     this.binder = { pockets };
   }
 
@@ -74,6 +88,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
 export function createCollectionOrganizer(
   sortDirectives = new SortPlayerCardsDirectives(),
+  groupDirectives = new GroupPlayerCardsDirectives(),
 ): ICollectionOrganizer {
-  return new CollectionOrganizer(theUserCollection, sortDirectives);
+  return new CollectionOrganizer(theUserCollection, sortDirectives, groupDirectives);
 }

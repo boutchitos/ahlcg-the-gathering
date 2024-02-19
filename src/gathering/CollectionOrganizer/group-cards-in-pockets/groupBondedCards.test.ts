@@ -3,6 +3,7 @@ import { card, type CardInit } from '../test-utils/card';
 import { groupCardsInPockets } from '.';
 import type { Card } from '$gathering/Card';
 import { findPocketWithCard } from '../test-utils/pockets';
+import { GroupPlayerCardsDirectives } from './grouper-config';
 
 const cardWithBondedCards = card({
   name: 'with bonded',
@@ -37,5 +38,5 @@ it('groups many copies of bonded cards with their related card', () => {
 });
 
 function group(...cards: CardInit[]) {
-  return groupCardsInPockets(cards as Card[]);
+  return groupCardsInPockets(cards as Card[], new GroupPlayerCardsDirectives());
 }

@@ -19,4 +19,7 @@ export interface ICollectionOrganizer {
   reorderByPlayerCardTypes(types: PlayerCardtype[]): void;
   reorderBySlots(slots: AssetSlot[]): void;
   reorderPlayerCardSorters(sorters: PlayerCardsSorter[]): void;
+
+  groupCardsIfSameTitle(groupCardsIfSameTitle: boolean): void;
+  groupCardsOfAnyLevels(groupCardsOfAnyLevels: boolean): void;
 }
