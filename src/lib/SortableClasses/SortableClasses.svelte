@@ -2,6 +2,7 @@
   import type { Writable } from 'svelte/store';
   import { DragDrop } from '$lib/dragDrop';
 
+  import BasicWeaknessIcon from './BasicWeaknessIcon.svelte';
   import GuardianIcon from './GuardianIcon.svelte';
   import MultiIcon from './MultiClassIcon.svelte';
   import MysticIcon from './MysticIcon.svelte';
@@ -14,6 +15,7 @@
   export let classes: Writable<PlayerCardClass[]>;
 
   const icons = {
+    'basic weakness': BasicWeaknessIcon,
     guardian: GuardianIcon,
     mystic: MysticIcon,
     rogue: RogueIcon,

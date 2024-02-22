@@ -3,4 +3,4 @@
   export { klass as class };
 </script>
 
-<img class={klass} src="/icon/seeker.webp" alt="seeker icon" />
+<img class={klass} src="/icon/seeker.webp" alt="seeker icon" title="Seeker" />
