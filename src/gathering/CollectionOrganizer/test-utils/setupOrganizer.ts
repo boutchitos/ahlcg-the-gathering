@@ -6,6 +6,7 @@ import { CollectionOrganizer } from '../CollectionOrganizer';
 import { createPackRepository } from '$gathering';
 import { SortPlayerCardsDirectives } from '../sort-player-cards';
 import { findPocketWithCard } from './pockets';
+import { GroupPlayerCardsDirectives } from '../group-cards-in-pockets/grouper-config';
 
 export function setupOrganizer(...packs: string[]) {
   const binder = captor<Binder>();
@@ -23,14 +24,18 @@ export function setupOrganizer(...packs: string[]) {
   };
 }
 
-export function createOrganizer(collection: CollectionEntity) {
-  const organizer = new CollectionOrganizer(collection, new SortPlayerCardsDirectives());
+function createOrganizer(collection: CollectionEntity) {
+  const organizer = new CollectionOrganizer(
+    collection,
+    new SortPlayerCardsDirectives(),
+    new GroupPlayerCardsDirectives(),
+  );
   const binderOutput = mock<IBinderOutput>();
   organizer.onBinderUpdated(binderOutput);
   return { binderOutput, organizer };
 }
 
-export function createCollection(...packs: string[]) {
+function createCollection(...packs: string[]) {
   const collection = new CollectionEntity(createPackRepository());
   packs.forEach((pack) => collection.addPack(pack));
   return collection;

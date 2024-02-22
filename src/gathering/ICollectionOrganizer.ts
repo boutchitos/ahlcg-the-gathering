@@ -5,6 +5,7 @@ import type {
   PlayerCardsSorter,
   PlayerCardtype,
 } from './CollectionOrganizer/sort-player-cards';
+import type { GroupByTitle } from './CollectionOrganizer/group-cards-in-pockets/grouper-config';
 export {
   type AssetSlot,
   type PlayerCardClass,
@@ -19,4 +20,8 @@ export interface ICollectionOrganizer {
   reorderByPlayerCardTypes(types: PlayerCardtype[]): void;
   reorderBySlots(slots: AssetSlot[]): void;
   reorderPlayerCardSorters(sorters: PlayerCardsSorter[]): void;
+
+  groupByTitle(groupByTitle: GroupByTitle): void;
+  groupBondedCards(groupBondedCards: boolean): void;
+  groupInvestigatorCards(groupInvestigatorCards: boolean): void;
 }

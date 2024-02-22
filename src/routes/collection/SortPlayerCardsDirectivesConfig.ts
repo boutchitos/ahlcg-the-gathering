@@ -1,6 +1,19 @@
 const isBrowser = typeof window !== 'undefined';
 
 export class SortPlayerCardsDirectivesConfig {
+  get assetsSlots(): string[] {
+    return (
+      (isBrowser &&
+        localStorage.slots &&
+        JSON.parse(localStorage.slots).map((s: string) => s ?? undefined)) ||
+      []
+    );
+  }
+
+  set assetsSlots(value: string[]) {
+    isBrowser && (localStorage.slots = JSON.stringify(value));
+  }
+
   get classes(): string[] {
     return (
       (isBrowser &&
@@ -14,17 +27,36 @@ export class SortPlayerCardsDirectivesConfig {
     isBrowser && (localStorage.classes = JSON.stringify(value));
   }
 
-  get assetsSlots(): string[] {
+  get groupBondedCards(): boolean {
     return (
-      (isBrowser &&
-        localStorage.slots &&
-        JSON.parse(localStorage.slots).map((s: string) => s ?? undefined)) ||
-      []
+      (isBrowser && localStorage.groupBondedCards && JSON.parse(localStorage.groupBondedCards)) ??
+      true
     );
   }
 
-  set assetsSlots(value: string[]) {
-    isBrowser && (localStorage.slots = JSON.stringify(value));
+  set groupBondedCards(value: boolean) {
+    isBrowser && (localStorage.groupBondedCards = JSON.stringify(value));
+  }
+
+  get groupInvestigatorCards(): boolean {
+    return (
+      (isBrowser &&
+        localStorage.groupInvestigatorCards &&
+        JSON.parse(localStorage.groupInvestigatorCards)) ??
+      true
+    );
+  }
+
+  set groupInvestigatorCards(value: boolean) {
+    isBrowser && (localStorage.groupInvestigatorCards = JSON.stringify(value));
+  }
+
+  get groupByTitle(): string {
+    return (isBrowser && localStorage.groupByTitle && JSON.parse(localStorage.groupByTitle)) || '';
+  }
+
+  set groupByTitle(value: string) {
+    isBrowser && (localStorage.groupByTitle = JSON.stringify(value));
   }
 
   get playerCardTypes(): string[] {
