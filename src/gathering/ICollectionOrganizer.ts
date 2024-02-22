@@ -23,4 +23,5 @@ export interface ICollectionOrganizer {
 
   groupByTitle(groupByTitle: GroupByTitle): void;
   groupBondedCards(groupBondedCards: boolean): void;
+  groupInvestigatorCards(groupInvestigatorCards: boolean): void;
 }

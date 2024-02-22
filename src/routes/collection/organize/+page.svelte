@@ -7,8 +7,15 @@
   import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import { SortPlayerCardsDirectivesConfig } from '../SortPlayerCardsDirectivesConfig';
 
-  const { classes, groupBondedCards, groupByTitle, playerCardTypes, slots, sortingOrder } =
-    userBrowsesItsCollection(new SortPlayerCardsDirectivesConfig());
+  const {
+    classes,
+    groupBondedCards,
+    groupByTitle,
+    groupInvestigatorCards,
+    playerCardTypes,
+    slots,
+    sortingOrder,
+  } = userBrowsesItsCollection(new SortPlayerCardsDirectivesConfig());
 </script>
 
 <SortableCriterias items={sortingOrder} let:item>
@@ -29,6 +36,8 @@
   <label class="mt-3"
     ><input class="mr-3" bind:checked={$groupBondedCards} type="checkbox" />group bonded cards</label
   >
-  <label class="mt-3"><input class="mr-3" type="checkbox" />group investigator required cards</label
+  <label class="mt-3"
+    ><input class="mr-3" bind:checked={$groupInvestigatorCards} type="checkbox" />group investigator
+    required cards</label
   >
 </div>

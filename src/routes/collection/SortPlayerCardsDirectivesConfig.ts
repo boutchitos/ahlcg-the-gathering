@@ -38,6 +38,19 @@ export class SortPlayerCardsDirectivesConfig {
     isBrowser && (localStorage.groupBondedCards = JSON.stringify(value));
   }
 
+  get groupInvestigatorCards(): boolean {
+    return (
+      (isBrowser &&
+        localStorage.groupInvestigatorCards &&
+        JSON.parse(localStorage.groupInvestigatorCards)) ??
+      true
+    );
+  }
+
+  set groupInvestigatorCards(value: boolean) {
+    isBrowser && (localStorage.groupInvestigatorCards = JSON.stringify(value));
+  }
+
   get groupByTitle(): string {
     return (isBrowser && localStorage.groupByTitle && JSON.parse(localStorage.groupByTitle)) || '';
   }

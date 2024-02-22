@@ -47,6 +47,7 @@ type OrganizingDirectivesDTO = {
   sortingOrder: string[];
   groupByTitle: string;
   groupBondedCards: boolean;
+  groupInvestigatorCards: boolean;
 };
 
 export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDirectivesDTO): {
@@ -57,6 +58,7 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
   sortingOrder: Writable<PlayerCardsSorter[]>;
   groupByTitle: Writable<GroupByTitle>;
   groupBondedCards: Writable<boolean>;
+  groupInvestigatorCards: Writable<boolean>;
 } {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
@@ -145,6 +147,15 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
     }
   });
 
+  const groupInvestigatorCards = writable(groupingDirectives.groupInvestigatorCards);
+  groupInvestigatorCards.subscribe((value) => {
+    groupingDirectives.groupInvestigatorCards = value;
+    organizingDirectivesDTO.groupInvestigatorCards = groupingDirectives.groupInvestigatorCards;
+    if (!atInit) {
+      organizer.groupInvestigatorCards(groupingDirectives.groupInvestigatorCards);
+    }
+  });
+
   atInit = false;
 
   return {
@@ -174,6 +185,7 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
     sortingOrder,
     groupByTitle,
     groupBondedCards,
+    groupInvestigatorCards,
   };
 }
 
@@ -196,6 +208,7 @@ function createOrganizingDirectives(organizingDirectivesDTO: OrganizingDirective
   const groupingDirectives = new GroupPlayerCardsDirectives();
   groupingDirectives.groupBondedCards = organizingDirectivesDTO.groupBondedCards;
   groupingDirectives.groupByTitle = organizingDirectivesDTO.groupByTitle as GroupByTitle;
+  groupingDirectives.groupInvestigatorCards = organizingDirectivesDTO.groupInvestigatorCards;
 
   return { groupingDirectives, sortingDirectives };
 }

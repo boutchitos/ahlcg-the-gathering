@@ -25,7 +25,6 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   ) {
     this.organizeCollection();
   }
-
   groupBondedCards(groupBondedCards: boolean): void {
     this.groupingDirectives.groupBondedCards = groupBondedCards;
     this.organizeCollection();
@@ -34,6 +33,12 @@ export class CollectionOrganizer implements ICollectionOrganizer {
 
   groupByTitle(groupByTitle: GroupByTitle): void {
     this.groupingDirectives.groupByTitle = groupByTitle;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
+
+  groupInvestigatorCards(groupInvestigatorCards: boolean): void {
+    this.groupingDirectives.groupInvestigatorCards = groupInvestigatorCards;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }

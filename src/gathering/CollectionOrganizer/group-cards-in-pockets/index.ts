@@ -22,7 +22,7 @@ export function groupCardsInPockets(
 
     if (directives.groupByTitle !== 'disabled' && pocketsByTitle.has(title)) {
       pocket = pocketsByTitle.get(title);
-    } else if (card.restrictions !== undefined) {
+    } else if (directives.groupInvestigatorCards && card.restrictions !== undefined) {
       cardsWithRestrictions.push(card);
       return pockets;
     } else if (directives.groupBondedCards && card.bonded_to !== undefined) {

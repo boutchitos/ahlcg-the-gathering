@@ -24,7 +24,7 @@ export function setupOrganizer(...packs: string[]) {
   };
 }
 
-export function createOrganizer(collection: CollectionEntity) {
+function createOrganizer(collection: CollectionEntity) {
   const organizer = new CollectionOrganizer(
     collection,
     new SortPlayerCardsDirectives(),
@@ -35,7 +35,7 @@ export function createOrganizer(collection: CollectionEntity) {
   return { binderOutput, organizer };
 }
 
-export function createCollection(...packs: string[]) {
+function createCollection(...packs: string[]) {
   const collection = new CollectionEntity(createPackRepository());
   packs.forEach((pack) => collection.addPack(pack));
   return collection;
