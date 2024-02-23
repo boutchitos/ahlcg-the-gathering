@@ -2,7 +2,7 @@ import { beforeEach, expect, it } from 'vitest';
 import type { Card } from './ICardsSorter';
 import { sortPlayerCards } from './sortPlayerCards';
 import { SortPlayerCardsDirectives } from './sorter-config';
-import { card, type CardInit } from '../test-utils/card';
+import { card } from '../test-utils/card';
 
 let sortDirectives: SortPlayerCardsDirectives;
 
@@ -82,7 +82,7 @@ it('sorts by player cardtypes', () => {
 });
 
 it('sorts with sorting order', () => {
-  const cards: CardInit[] = [];
+  const cards: Card[] = [];
   cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
   cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));
   // assomption: already sorted against test default: by classes, by types
@@ -94,6 +94,6 @@ it('sorts with sorting order', () => {
   expect(sort(...cards)).toEqual(cards.reverse());
 });
 
-function sort(...cards: CardInit[]) {
-  return sortPlayerCards(cards as Card[], sortDirectives);
+function sort(...cards: Card[]) {
+  return sortPlayerCards(cards, sortDirectives);
 }

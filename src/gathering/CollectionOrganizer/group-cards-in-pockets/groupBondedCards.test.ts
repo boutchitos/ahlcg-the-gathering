@@ -1,5 +1,5 @@
 import { beforeEach, expect, it } from 'vitest';
-import { card, type CardInit } from '../test-utils/card';
+import { card } from '../test-utils/card';
 import { groupCardsInPockets } from '.';
 import type { Card } from '$gathering/Card';
 import { findPocketWithCard } from '../test-utils/pockets';
@@ -53,6 +53,6 @@ it('may splits bonded card from its related card', () => {
   );
 });
 
-function group(...cards: CardInit[]) {
-  return groupCardsInPockets(cards as Card[], directives);
+function group(...cards: Card[]) {
+  return groupCardsInPockets(cards, directives);
 }
