@@ -20,6 +20,7 @@ it('organize multi-class cards as a class', () => {
     'neutral',
     'guardian',
     'mystic',
+    'basic weakness',
   ];
   organizer.reorderByClasses(multiFirst);
 

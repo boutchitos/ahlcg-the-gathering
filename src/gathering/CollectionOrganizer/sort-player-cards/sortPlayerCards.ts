@@ -22,18 +22,14 @@ export function sortPlayerCards(
   return [...cards].sort(cardSorter);
 }
 
-// Je pourrais procéder par exception pour sortir de l'algo. dès que je sais le tri.
 function sortCards(a: Card, b: Card, sorters: ICardsSorter[]) {
-  const byWeakness = sortPlayerCardsByWeakness(a, b);
-  if (byWeakness !== 0) return byWeakness;
-
   // I would put locations here after weakness, probably
   // investigator cards that are catched up by pocket regrouping.
   // yup for now : Luke Robinson
   const bylocations = sortPlayerCardsByLocation(a, b);
   if (bylocations !== 0) return bylocations;
 
-  if (!isWeaknessCard(a) && !isLocationCard(a)) {
+  if (!isLocationCard(a)) {
     for (const sorter of sorters) {
       const result = sorter.sortCards(a, b);
       if (result !== 0) return result;
@@ -54,23 +50,6 @@ function sortPlayerCardsByLocation(a: Card, b: Card): number {
   return 0;
 }
 
-function sortPlayerCardsByWeakness(a: Card, b: Card): number {
-  const aIsWeakness = isWeaknessCard(a);
-  const bIsWeakness = isWeaknessCard(b);
-
-  if (aIsWeakness !== bIsWeakness) {
-    return aIsWeakness ? 1 : -1; // weakness at the end
-  }
-
-  return 0;
-}
-
 function isLocationCard(card: Card) {
   return card.type_code === 'location';
-}
-
-function isWeaknessCard(card: Card) {
-  const enemy = card.type_code === 'enemy';
-  const weakness = card.subtype_code?.includes('weakness');
-  return enemy || weakness;
 }

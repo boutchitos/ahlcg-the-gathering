@@ -55,13 +55,6 @@ it('sorts location at end', () => {
   expect(sort(l, s, i, e, a)).toEqual([i, a, e, s, l]);
 });
 
-it('sorts by location over by weakness', () => {
-  const w = card({ type_code: 'treachery', subtype_code: 'weakness' });
-  const l = card({ type_code: 'location' });
-  expect(sort(l, w)).toEqual([l, w]);
-  expect(sort(w, l)).toEqual([l, w]);
-});
-
 it('sorts by classes', () => {
   const cards = sortDirectives.byClassesOrder.sort().map((klass) => card({ faction_code: klass }));
 

@@ -109,7 +109,7 @@ describe('byClassesOrder', () => {
   });
 
   it('fixes repeating values', () => {
-    const repeating = ['rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue'];
+    const repeating = ['rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue', 'rogue'];
     directives.byClassesOrder = repeating;
     expect(repeating).toHaveLength(DEFAULT_CLASSES_ORDER.length);
     expect(directives.byClassesOrder).toEqual(DEFAULT_CLASSES_ORDER);
@@ -124,6 +124,7 @@ describe('byClassesOrder', () => {
       'survivor',
       'neutral',
       'multi',
+      'basic weakness',
     ].reverse();
     directives.byClassesOrder = valid;
     expect(directives.byClassesOrder).toEqual(valid);
