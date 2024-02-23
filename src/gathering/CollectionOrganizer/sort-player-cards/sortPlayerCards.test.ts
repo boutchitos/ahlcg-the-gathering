@@ -76,8 +76,8 @@ it('sorts by player cardtypes', () => {
 
 it('sorts with sorting order', () => {
   const cards: Card[] = [];
-  cards.push(card({ playerCardClass: 'guardian', type_code: 'asset' }));
-  cards.push(card({ playerCardClass: 'survivor', type_code: 'investigator' }));
+  cards.push(card({ playerCardClass: 'guardian', playerCardType: 'asset' }));
+  cards.push(card({ playerCardClass: 'survivor', playerCardType: 'investigator' }));
   // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
 

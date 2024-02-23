@@ -1,7 +1,7 @@
 import { PlayerCardClasses, type PlayerCardClass } from '$gathering/PlayerCardClass';
+import { PlayerCardtypes, type PlayerCardtype } from '$gathering/PlayerCardtype';
 import { AssetSlots, type AssetSlot } from './AssetSlot';
 import { PlayerCardsSorters, type PlayerCardsSorter } from './PlayerCardsSorter';
-import { PlayerCardtypes, type PlayerCardtype } from './PlayerCardtype';
 
 export const DEFAULT_ASSET_SLOTS_ORDER = Object.keys(AssetSlots).filter((v) =>
   isNaN(Number(v)),

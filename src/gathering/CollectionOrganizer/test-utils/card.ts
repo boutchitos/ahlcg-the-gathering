@@ -12,5 +12,9 @@ export function card(props: Partial<AHDBCardProps & CardProps>): Card {
     xp: 0,
     ...props,
   };
-  return new Card({ playerCardClass: 'guardian', ...fullAHDBCards });
+  return new Card({
+    playerCardClass: 'guardian',
+    playerCardType: 'asset',
+    ...fullAHDBCards,
+  });
 }
