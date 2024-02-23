@@ -1,6 +1,9 @@
 import { availablePlayerCardClass, type PlayerCardClass } from './PlayerCardClass';
 
 type BondedCards = { code: string }[];
+export type CardProps = {
+  playerCardClass: PlayerCardClass;
+};
 export type AHDBCardProps = {
   bonded_cards?: BondedCards;
   bonded_to?: string;
@@ -19,12 +22,11 @@ export type AHDBCardProps = {
 };
 
 export class Card {
-  public playerCardClass: PlayerCardClass;
+  public readonly playerCardClass: PlayerCardClass;
 
   bonded_cards?: BondedCards;
   bonded_to?: string;
   code: string;
-  faction_code: string;
   faction2_code?: string;
   imagesrc: string;
   name: string;
@@ -36,11 +38,10 @@ export class Card {
   type_code: string;
   xp: number;
 
-  constructor(props: AHDBCardProps) {
+  constructor(props: AHDBCardProps & CardProps) {
     this.bonded_cards = props.bonded_cards;
     this.bonded_to = props.bonded_to;
     this.code = props.code;
-    this.faction_code = props.faction_code;
     this.faction2_code = props.faction2_code;
     this.imagesrc = props.imagesrc;
     this.name = props.name;
@@ -56,12 +57,19 @@ export class Card {
   }
 }
 
-function getClassOfPlayerCard(props: AHDBCardProps): PlayerCardClass {
+function getClassOfPlayerCard(props: AHDBCardProps & CardProps): PlayerCardClass {
+  if (isFactionCode(props.playerCardClass)) {
+    return props.playerCardClass;
+  }
+
   if (isWeaknessCard(props)) return 'basic weakness';
+
   if (props.faction2_code !== undefined) return 'multi';
+
   if (isFactionCode(props.faction_code)) {
     return props.faction_code;
   }
+
   throw new Error(`Bad classification for this card: ${JSON.stringify(props, undefined, 2)}`);
 }
 

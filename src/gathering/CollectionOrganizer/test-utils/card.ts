@@ -1,6 +1,6 @@
-import { type AHDBCardProps, Card } from '$gathering/Card';
+import { type AHDBCardProps, Card, type CardProps } from '$gathering/Card';
 
-export function card(props: Partial<AHDBCardProps>): Card {
+export function card(props: Partial<AHDBCardProps & CardProps>): Card {
   const fullAHDBCards: AHDBCardProps = {
     code: '0001',
     faction_code: 'guardian',
@@ -12,5 +12,5 @@ export function card(props: Partial<AHDBCardProps>): Card {
     xp: 0,
     ...props,
   };
-  return new Card(fullAHDBCards);
+  return new Card({ playerCardClass: 'guardian', ...fullAHDBCards });
 }

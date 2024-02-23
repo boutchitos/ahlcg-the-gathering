@@ -56,7 +56,7 @@ it('sorts location at end', () => {
 });
 
 it('sorts by classes', () => {
-  const cards = sortDirectives.byClassesOrder.sort().map((klass) => card({ faction_code: klass }));
+  const cards = sortDirectives.byClassesOrder.sort().map((playerCardClass) => card({ playerCardClass }));
 
   sortDirectives.byClassesOrder = sortDirectives.byClassesOrder.sort().reverse();
 
@@ -83,8 +83,8 @@ it('sorts by player cardtypes', () => {
 
 it('sorts with sorting order', () => {
   const cards: Card[] = [];
-  cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
-  cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));
+  cards.push(card({ playerCardClass: 'guardian', type_code: 'asset' }));
+  cards.push(card({ playerCardClass: 'survivor', type_code: 'investigator' }));
   // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
 
