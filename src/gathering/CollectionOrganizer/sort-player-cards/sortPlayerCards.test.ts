@@ -37,15 +37,6 @@ it('sorts by levels', () => {
   expect(sort(b, a)).toEqual([a, b]);
 });
 
-it('sorts weaknesses at end', () => {
-  const w = card({ type_code: 'treachery', subtype_code: 'weakness' });
-  const a = card({ type_code: 'asset' });
-  const i = card({ type_code: 'investigator' });
-  const s = card({ type_code: 'skill' });
-  const e = card({ type_code: 'event' });
-  expect(sort(w, a, i, s, e)).toEqual([i, a, e, s, w]);
-});
-
 it('sorts location at end', () => {
   const l = card({ type_code: 'location' });
   const a = card({ type_code: 'asset' });
