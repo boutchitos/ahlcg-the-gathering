@@ -23,6 +23,8 @@ export type AHDBCardProps = {
 
 export class Card {
   public readonly playerCardClass: PlayerCardClass;
+  public readonly asset: boolean;
+  public readonly investigator: boolean;
 
   bonded_cards?: BondedCards;
   bonded_to?: string;
@@ -53,6 +55,8 @@ export class Card {
     this.type_code = props.type_code;
     this.xp = props.xp;
 
+    this.asset = props.type_code === 'asset';
+    this.investigator = props.type_code === 'investigator';
     this.playerCardClass = getClassOfPlayerCard(props);
   }
 }

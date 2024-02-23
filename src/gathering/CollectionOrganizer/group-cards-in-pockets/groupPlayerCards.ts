@@ -33,7 +33,7 @@ export function groupCardsInPockets(
 
       pocketsByTitle.set(title, pocket);
 
-      if (card.type_code === 'investigator') {
+      if (card.investigator) {
         pocketsByInvestigator.set(card.code, pocket);
       }
 
@@ -87,7 +87,7 @@ function toPocketCard(card: Card): PocketCard {
   return {
     code,
     image: {
-      landscape: card.type_code === 'investigator',
+      landscape: card.investigator,
       url: `https://arkhamdb.com${card.imagesrc}`,
     },
     name,

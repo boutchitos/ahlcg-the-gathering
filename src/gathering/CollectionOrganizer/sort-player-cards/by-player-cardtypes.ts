@@ -19,7 +19,7 @@ export class SortByPlayerCardTypes implements ICardsSorter {
     if (result !== 0) {
       return result;
     }
-    if (a.type_code === 'asset') {
+    if (a.asset) {
       return this.assetsSorter.sortCards(a, b);
     }
     return 0;

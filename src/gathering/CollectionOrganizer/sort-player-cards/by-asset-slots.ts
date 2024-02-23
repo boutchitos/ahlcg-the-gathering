@@ -10,13 +10,13 @@ export class SortAssetsBySlots implements ICardsSorter {
 }
 
 function sortAssetsBySlot(a: Card, b: Card, slots: AssetSlot[]) {
-  if (a.type_code !== 'asset' && b.type_code !== 'asset') {
+  if (!a.asset && !b.asset) {
     return 0;
   }
-  if (a.type_code === 'asset' && b.type_code !== 'asset') {
+  if (a.asset && !b.asset) {
     return -1;
   }
-  if (a.type_code !== 'asset' && b.type_code === 'asset') {
+  if (!a.asset && b.asset) {
     return 1;
   }
 

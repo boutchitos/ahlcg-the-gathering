@@ -47,7 +47,9 @@ it('sorts location at end', () => {
 });
 
 it('sorts by classes', () => {
-  const cards = sortDirectives.byClassesOrder.sort().map((playerCardClass) => card({ playerCardClass }));
+  const cards = sortDirectives.byClassesOrder
+    .sort()
+    .map((playerCardClass) => card({ playerCardClass }));
 
   sortDirectives.byClassesOrder = sortDirectives.byClassesOrder.sort().reverse();
 
