@@ -1,5 +1,5 @@
+import { PlayerCardClasses, type PlayerCardClass } from '$gathering/PlayerCardClass';
 import { AssetSlots, type AssetSlot } from './AssetSlot';
-import { PlayerCardClasses, type PlayerCardClass } from './PlayerCardClass';
 import { PlayerCardsSorters, type PlayerCardsSorter } from './PlayerCardsSorter';
 import { PlayerCardtypes, type PlayerCardtype } from './PlayerCardtype';
 

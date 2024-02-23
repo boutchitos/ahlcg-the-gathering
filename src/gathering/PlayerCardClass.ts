@@ -10,3 +10,7 @@ export enum PlayerCardClasses {
 }
 
 export type PlayerCardClass = keyof typeof PlayerCardClasses;
+
+export const availablePlayerCardClass = Object.keys(PlayerCardClasses).filter(
+  (v) => isNaN(Number(v)),
+) as PlayerCardClass[];

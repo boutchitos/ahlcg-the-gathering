@@ -1,3 +1,5 @@
+import { availablePlayerCardClass, type PlayerCardClass } from './PlayerCardClass';
+
 type BondedCards = { code: string }[];
 export type AHDBCardProps = {
   bonded_cards?: BondedCards;
@@ -17,6 +19,8 @@ export type AHDBCardProps = {
 };
 
 export class Card {
+  public playerCardClass: PlayerCardClass;
+
   bonded_cards?: BondedCards;
   bonded_to?: string;
   code: string;
@@ -47,5 +51,26 @@ export class Card {
     this.subtype_code = props.subtype_code;
     this.type_code = props.type_code;
     this.xp = props.xp;
+
+    this.playerCardClass = getClassOfPlayerCard(props);
   }
+}
+
+function getClassOfPlayerCard(props: AHDBCardProps): PlayerCardClass {
+  if (isWeaknessCard(props)) return 'basic weakness';
+  if (props.faction2_code !== undefined) return 'multi';
+  if (isFactionCode(props.faction_code)) {
+    return props.faction_code;
+  }
+  throw new Error(`Bad classification for this card: ${JSON.stringify(props, undefined, 2)}`);
+}
+
+function isFactionCode(wannaBe: string): wannaBe is PlayerCardClass {
+  return availablePlayerCardClass.includes(wannaBe as PlayerCardClass);
+}
+
+function isWeaknessCard(props: AHDBCardProps) {
+  const enemy = props.type_code === 'enemy';
+  const weakness = props.subtype_code?.includes('weakness');
+  return enemy || weakness;
 }
