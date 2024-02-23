@@ -9,13 +9,10 @@ export class SortByPlayerCardTypes implements ICardsSorter {
 
   sortCards(a: Card, b: Card): number {
     const aTypeCode = this.playerCardTypes.indexOf(a.type_code as PlayerCardtype);
-    if (aTypeCode === -1) {
-      throw new Error(`unknown type code ${a.type_code}`);
-    }
-
     const bTypeCode = this.playerCardTypes.indexOf(b.type_code as PlayerCardtype);
-    if (bTypeCode === -1) {
-      throw new Error(`unknown type code ${b.type_code}`);
+    if (aTypeCode === -1 || bTypeCode === -1) {
+      // kind of a basic weakness, we can't tell which one goes firts.
+      return 0;
     }
 
     const result = aTypeCode - bTypeCode;

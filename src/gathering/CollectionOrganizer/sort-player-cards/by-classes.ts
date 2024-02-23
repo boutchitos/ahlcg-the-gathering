@@ -24,6 +24,13 @@ function sortByClasses(a: Card, b: Card, classes: PlayerCardClass[]): number {
 }
 
 function getClassOfPlayerCard(card: Card): PlayerCardClass {
+  if (isWeaknessCard(card)) return 'basic weakness';
   if (card.faction2_code !== undefined) return 'multi';
   return card.faction_code as PlayerCardClass;
+}
+
+function isWeaknessCard(card: Card) {
+  const enemy = card.type_code === 'enemy';
+  const weakness = card.subtype_code?.includes('weakness');
+  return enemy || weakness;
 }

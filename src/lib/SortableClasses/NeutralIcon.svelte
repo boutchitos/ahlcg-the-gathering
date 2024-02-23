@@ -3,4 +3,4 @@
   export { klass as class };
 </script>
 
-<img class={klass} src="/icon/neutral.webp" alt="neutral icon" />
+<img class={klass} src="/icon/neutral.webp" alt="neutral icon" title="Neutral" />

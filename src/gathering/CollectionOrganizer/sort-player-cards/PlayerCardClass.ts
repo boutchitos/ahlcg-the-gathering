@@ -4,8 +4,9 @@ export enum PlayerCardClasses {
   rogue,
   seeker,
   survivor,
-  neutral,
   multi,
+  neutral,
+  'basic weakness',
 }
 
 export type PlayerCardClass = keyof typeof PlayerCardClasses;
