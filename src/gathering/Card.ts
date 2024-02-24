@@ -7,6 +7,7 @@ import { availablePlayerCardType as availablePlayerCardTypes } from './PlayerCar
 
 type BondedCards = { code: string }[];
 export type CardProps = {
+  location: boolean;
   playerCardClass: PlayerCardClass;
   playerCardType?: PlayerCardtype;
 };
@@ -106,8 +107,8 @@ function isPlayerCardType(wannaBe: string): wannaBe is PlayerCardtype {
   return availablePlayerCardTypes.includes(wannaBe as PlayerCardtype);
 }
 
-function isLocationCard(props: AHDBCardProps) {
-  return props.type_code === 'location';
+function isLocationCard(props: AHDBCardProps & CardProps): boolean {
+  return props.location ?? props.type_code === 'location';
 }
 
 function isWeaknessCard(props: AHDBCardProps) {
