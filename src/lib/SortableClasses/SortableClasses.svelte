@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ComponentType, SvelteComponent } from 'svelte';
   import type { Writable } from 'svelte/store';
   import { DragDrop } from '$lib/dragDrop';
 
@@ -14,7 +15,7 @@
 
   export let classes: Writable<PlayerCardClass[]>;
 
-  const icons: Record<PlayerCardClass, ConstructorOfATypedSvelteComponent> = {
+  const icons: Record<PlayerCardClass, ComponentType<SvelteComponent>> = {
     'basic weakness': BasicWeaknessIcon,
     guardian: GuardianIcon,
     mystic: MysticIcon,
