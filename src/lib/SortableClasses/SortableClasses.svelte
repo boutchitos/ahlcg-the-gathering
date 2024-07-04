@@ -14,7 +14,7 @@
 
   export let classes: Writable<PlayerCardClass[]>;
 
-  const icons: Record<PlayerCardClass, ConstructorOfATypedSvelteComponent > = {
+  const icons: Record<PlayerCardClass, ConstructorOfATypedSvelteComponent> = {
     'basic weakness': BasicWeaknessIcon,
     guardian: GuardianIcon,
     mystic: MysticIcon,

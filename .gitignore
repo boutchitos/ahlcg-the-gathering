@@ -15,3 +15,4 @@ vite.config.ts.timestamp-*
 
 # Test
 /coverage
+test-results/.last-run.json
