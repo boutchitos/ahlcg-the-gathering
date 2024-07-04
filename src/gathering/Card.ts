@@ -1,9 +1,6 @@
 import type { PlayerCardtype } from './ICollectionOrganizer';
-import {
-  availablePlayerCardClass as availablePlayerCardClasses,
-  type PlayerCardClass,
-} from './PlayerCardClass';
-import { availablePlayerCardType as availablePlayerCardTypes } from './PlayerCardtype';
+import { availablePlayerCardClasses, type PlayerCardClass } from './PlayerCardClass';
+import { availablePlayerCardTypes } from './PlayerCardtype';
 
 type BondedCards = { code: string }[];
 export type CardProps = {
