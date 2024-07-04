@@ -1,4 +1,4 @@
-import type { AssetSlot } from './AssetSlot';
+import type { AssetSlot } from '$gathering/AssetSlot';
 import type { Card, ICardsSorter } from './ICardsSorter';
 
 export class SortAssetsBySlots implements ICardsSorter {
