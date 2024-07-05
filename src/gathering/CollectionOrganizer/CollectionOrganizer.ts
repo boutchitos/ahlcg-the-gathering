@@ -3,10 +3,10 @@ import { theUserCollection, type CollectionEntity } from '$gathering/CollectionE
 import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import type { Card, ICardRepository } from '$gathering/ICardRepository';
 import type {
-  PlayerCardClass,
-  ICollectionOrganizer,
-  PlayerCardsSorter,
   AssetSlot,
+  ICollectionOrganizer,
+  PlayerCardClass,
+  PlayerCardsSorter,
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
 import { groupCardsInPockets, GroupPlayerCardsDirectives } from './group-cards-in-pockets';

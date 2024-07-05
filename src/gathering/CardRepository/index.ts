@@ -1,6 +1,6 @@
+import { Card } from '$gathering/Card';
 import type { ICardRepository } from '$gathering/ICardRepository';
 import type { Pack } from '$gathering/Pack';
-import { Card } from '$gathering/Card';
 import ahdbCards from './ahdb.cards.json';
 
 export function createCardRepository(): ICardRepository {

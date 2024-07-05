@@ -1,5 +1,5 @@
-import type { Card, ICardsSorter } from './ICardsSorter';
 import type { PlayerCardtype } from '$gathering/PlayerCardtype';
+import type { Card, ICardsSorter } from './ICardsSorter';
 
 export class SortByPlayerCardTypes implements ICardsSorter {
   constructor(
