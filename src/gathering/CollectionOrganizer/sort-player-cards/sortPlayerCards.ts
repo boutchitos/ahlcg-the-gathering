@@ -1,5 +1,5 @@
-import type { Card, ICardsSorter } from './ICardsSorter';
 import type { PlayerCardsSorter } from '$gathering/PlayerCardsSorter';
+import type { Card, ICardsSorter } from './ICardsSorter';
 import type { SortPlayerCardsDirectives } from './sorter-config';
 import { sortByClasses, sortByLevels, sortByNames, sortByPlayerCardTypes } from './sorters';
 
