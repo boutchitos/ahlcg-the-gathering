@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ComponentType } from 'svelte';
+  import type { ComponentType } from 'svelte';
   import type { Writable } from 'svelte/store';
 
   import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
