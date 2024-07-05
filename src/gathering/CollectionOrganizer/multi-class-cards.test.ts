@@ -1,9 +1,9 @@
-import { expect, it } from 'vitest';
-import { setupOrganizer } from './test-utils/setupOrganizer';
-import { indexOfPocketWithCard } from './test-utils/pockets';
-import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
-import { captor, mockClear } from 'vitest-mock-extended';
 import type { Binder } from '$gathering/IBinderOutput';
+import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
+import { expect, it } from 'vitest';
+import { captor, mockClear } from 'vitest-mock-extended';
+import { indexOfPocketWithCard } from './test-utils/pockets';
+import { setupOrganizer } from './test-utils/setupOrganizer';
 
 it('organize multi-class cards as a class', () => {
   const { binderOutput, organizer } = setupOrganizer('The Secret Name');
