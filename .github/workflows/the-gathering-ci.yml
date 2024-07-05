@@ -15,7 +15,7 @@ jobs:
         with:
           version: 8
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
@@ -28,7 +28,7 @@ jobs:
       - name: Lint
         run: pnpm lint
       - name: Setup Graphviz (dot)
-        uses: ts-graphviz/setup-graphviz@v1
+        uses: ts-graphviz/setup-graphviz@v2
       - name: Generate Architecture Diagrams
         run: |
           chmod +x ./scripts/*.sh

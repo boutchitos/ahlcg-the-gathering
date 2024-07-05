@@ -1,17 +1,18 @@
+import type { AssetSlot } from './AssetSlot';
 import type { IBinderOutput } from './IBinderOutput';
-import type {
-  AssetSlot,
-  PlayerCardsSorter,
-  PlayerCardtype,
-} from './CollectionOrganizer/sort-player-cards';
 import type { GroupByTitle } from './CollectionOrganizer/group-cards-in-pockets/grouper-config';
 import type { PlayerCardClass } from './PlayerCardClass';
-export {
-  type AssetSlot,
-  type PlayerCardtype,
-  type PlayerCardsSorter,
-} from './CollectionOrganizer/sort-player-cards';
-export type { PlayerCardClass } from './PlayerCardClass';
+import type { PlayerCardtype } from './PlayerCardtype';
+import type { PlayerCardsSorter } from './PlayerCardsSorter';
+
+export type {
+  AssetSlot,
+  GroupByTitle,
+  IBinderOutput,
+  PlayerCardClass,
+  PlayerCardsSorter,
+  PlayerCardtype,
+};
 
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;

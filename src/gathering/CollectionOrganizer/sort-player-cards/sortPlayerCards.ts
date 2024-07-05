@@ -1,5 +1,5 @@
 import type { Card, ICardsSorter } from './ICardsSorter';
-import type { PlayerCardsSorter } from './PlayerCardsSorter';
+import type { PlayerCardsSorter } from '$gathering/PlayerCardsSorter';
 import type { SortPlayerCardsDirectives } from './sorter-config';
 import { sortByClasses, sortByLevels, sortByNames, sortByPlayerCardTypes } from './sorters';
 
@@ -29,7 +29,7 @@ function sortCards(a: Card, b: Card, sorters: ICardsSorter[]) {
   const bylocations = sortPlayerCardsByLocation(a, b);
   if (bylocations !== 0) return bylocations;
 
-  if (!isLocationCard(a)) {
+  if (!a.location) {
     for (const sorter of sorters) {
       const result = sorter.sortCards(a, b);
       if (result !== 0) return result;
@@ -40,16 +40,12 @@ function sortCards(a: Card, b: Card, sorters: ICardsSorter[]) {
 }
 
 function sortPlayerCardsByLocation(a: Card, b: Card): number {
-  const aIsLocation = isLocationCard(a);
-  const bIsLocation = isLocationCard(b);
+  const aIsLocation = a.location;
+  const bIsLocation = b.location;
 
   if (aIsLocation !== bIsLocation) {
     return aIsLocation ? 1 : -1; // location at the end
   }
 
   return 0;
-}
-
-function isLocationCard(card: Card) {
-  return card.type_code === 'location';
 }

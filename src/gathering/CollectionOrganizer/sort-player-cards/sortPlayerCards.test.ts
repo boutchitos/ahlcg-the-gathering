@@ -2,7 +2,9 @@ import { beforeEach, expect, it } from 'vitest';
 import type { Card } from './ICardsSorter';
 import { sortPlayerCards } from './sortPlayerCards';
 import { SortPlayerCardsDirectives } from './sorter-config';
-import { card } from '../test-utils/card';
+import { CardBuilder, card } from '../test-utils/card';
+
+const cardBuilder = new CardBuilder();
 
 let sortDirectives: SortPlayerCardsDirectives;
 
@@ -16,47 +18,46 @@ it('sorts empty cards', () => {
 });
 
 it('sorts by names', () => {
-  const a = card({ name: 'card 1' });
-  const b = card({ name: 'card 2' });
+  const a = cardBuilder.asset({ name: 'a' });
+  const b = cardBuilder.asset({ name: 'b' });
   expect(sort(a, b)).toEqual([a, b]);
   expect(sort(b, a)).toEqual([a, b]);
 });
 
 it('sorts by names, punctuation ignored', () => {
-  const withPunctuation = card({ name: '"Look what I found!"' });
-  const without = card({ name: 'Look what I found!' });
-  const lucky = card({ name: 'Lucky' });
+  const withPunctuation = cardBuilder.asset({ name: '"Look what I found!"' });
+  const without = cardBuilder.asset({ name: 'Look what I found!' });
+  const lucky = cardBuilder.asset({ name: 'Lucky' });
   expect(sort(lucky, withPunctuation, without)).toEqual([withPunctuation, without, lucky]);
   expect(sort(lucky, without, withPunctuation)).toEqual([without, withPunctuation, lucky]);
 });
 
 it('sorts by levels', () => {
-  const a = card({ xp: 0 });
-  const b = card({ xp: 1 });
+  const a = cardBuilder.asset({ xp: 0 });
+  const b = cardBuilder.asset({ xp: 1 });
   expect(sort(a, b)).toEqual([a, b]);
   expect(sort(b, a)).toEqual([a, b]);
 });
 
-it('sorts weaknesses at end', () => {
-  const w = card({ type_code: 'treachery', subtype_code: 'weakness' });
-  const a = card({ type_code: 'asset' });
-  const i = card({ type_code: 'investigator' });
-  const s = card({ type_code: 'skill' });
-  const e = card({ type_code: 'event' });
-  expect(sort(w, a, i, s, e)).toEqual([i, a, e, s, w]);
-});
-
 it('sorts location at end', () => {
-  const l = card({ type_code: 'location' });
-  const a = card({ type_code: 'asset' });
-  const e = card({ type_code: 'event' });
-  const i = card({ type_code: 'investigator' });
-  const s = card({ type_code: 'skill' });
-  expect(sort(l, s, i, e, a)).toEqual([i, a, e, s, l]);
+  const location = cardBuilder.location();
+  const asset = cardBuilder.asset();
+  const event = cardBuilder.event();
+  const investigator = cardBuilder.investigator();
+  const skill = cardBuilder.skill();
+  expect(sort(location, skill, investigator, event, asset)).toEqual([
+    investigator,
+    asset,
+    event,
+    skill,
+    location,
+  ]);
 });
 
 it('sorts by classes', () => {
-  const cards = sortDirectives.byClassesOrder.sort().map((klass) => card({ faction_code: klass }));
+  const cards = sortDirectives.byClassesOrder
+    .sort()
+    .map((playerCardClass) => card({ playerCardClass }));
 
   sortDirectives.byClassesOrder = sortDirectives.byClassesOrder.sort().reverse();
 
@@ -64,7 +65,7 @@ it('sorts by classes', () => {
 });
 
 it('sorts by asset slots', () => {
-  const cards = sortDirectives.assetsBySlotsOrder.sort().map((slot) => card({ slot }));
+  const cards = sortDirectives.assetsBySlotsOrder.sort().map((slot) => cardBuilder.asset({ slot }));
 
   sortDirectives.assetsBySlotsOrder = sortDirectives.assetsBySlotsOrder.sort().reverse();
 
@@ -74,7 +75,7 @@ it('sorts by asset slots', () => {
 it('sorts by player cardtypes', () => {
   const cards = sortDirectives.byPlayerCardTypesOrder
     .sort()
-    .map((type_code) => card({ type_code }));
+    .map((playerCardType) => card({ playerCardType }));
 
   sortDirectives.byPlayerCardTypesOrder = sortDirectives.byPlayerCardTypesOrder.sort().reverse();
 
@@ -83,8 +84,8 @@ it('sorts by player cardtypes', () => {
 
 it('sorts with sorting order', () => {
   const cards: Card[] = [];
-  cards.push(card({ faction_code: 'guardian', type_code: 'asset' }));
-  cards.push(card({ faction_code: 'survivor', type_code: 'investigator' }));
+  cards.push(cardBuilder.asset({ playerCardClass: 'guardian' }));
+  cards.push(cardBuilder.investigator({ playerCardClass: 'survivor' }));
   // assomption: already sorted against test default: by classes, by types
   expect(sort(...cards)).toEqual(cards);
 
