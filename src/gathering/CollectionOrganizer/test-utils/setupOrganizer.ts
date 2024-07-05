@@ -1,12 +1,13 @@
-import { CollectionEntity } from '$gathering/CollectionEntity';
-import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { expect } from 'vitest';
 import { captor, mock } from 'vitest-mock-extended';
-import { CollectionOrganizer } from '../CollectionOrganizer';
+
 import { createPackRepository } from '$gathering';
-import { SortPlayerCardsDirectives } from '../sort-player-cards';
+import { CollectionEntity } from '$gathering/CollectionEntity';
+import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { findPocketWithCard } from './pockets';
+import { CollectionOrganizer } from '../CollectionOrganizer';
 import { GroupPlayerCardsDirectives } from '../group-cards-in-pockets/grouper-config';
+import { SortPlayerCardsDirectives } from '../sort-player-cards';
 
 export function setupOrganizer(...packs: string[]) {
   const binder = captor<Binder>();

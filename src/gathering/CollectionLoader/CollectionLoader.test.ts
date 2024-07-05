@@ -1,11 +1,12 @@
-import type { Collection } from '$gathering/Collection';
-import type { ICollectionOutput } from '$gathering/ICollectionOutput';
 import { beforeEach, expect, it } from 'vitest';
-import { CollectionLoader } from './CollectionLoader';
+
+import { createPackRepository } from '$gathering';
+import type { Collection } from '$gathering/Collection';
 import { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
 import { CollectionEntity } from '$gathering/CollectionEntity';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
-import { createPackRepository } from '$gathering';
+import type { ICollectionOutput } from '$gathering/ICollectionOutput';
+import { CollectionLoader } from './CollectionLoader';
 
 const CoreSet = 'Core Set';
 const Dunwich = 'The Dunwich Legacy';

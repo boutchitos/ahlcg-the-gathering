@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
-  import { DragDrop } from '$lib/dragDrop';
+
   import type { PlayerCardtype } from '$gathering/ICollectionOrganizer';
+  import { DragDrop } from '$lib/dragDrop';
 
   export let playerCardTypes: Writable<PlayerCardtype[]>;
 

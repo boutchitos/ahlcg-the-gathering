@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest';
+
 import { setupOrganizer } from './test-utils/setupOrganizer';
 
 it('groups bonded cards with its investigator signature related cards', () => {

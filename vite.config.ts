@@ -1,6 +1,7 @@
+import { resolve } from 'node:path';
+
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
-import { resolve } from 'node:path';
 
 export default defineConfig({
   plugins: [sveltekit()],

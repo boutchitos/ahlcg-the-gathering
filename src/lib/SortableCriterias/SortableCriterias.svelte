@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
-  import { DragDrop } from '$lib/dragDrop';
 
+  import { DragDrop } from '$lib/dragDrop';
   import ReorderIcon from './ReorderIcon.svelte';
 
   export let items: Writable<string[]>;

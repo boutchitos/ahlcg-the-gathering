@@ -1,8 +1,9 @@
 <script lang="ts">
   import { ComponentType } from 'svelte';
   import type { Writable } from 'svelte/store';
-  import { DragDrop } from '$lib/dragDrop';
 
+  import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
+  import { DragDrop } from '$lib/dragDrop';
   import BasicWeaknessIcon from './BasicWeaknessIcon.svelte';
   import GuardianIcon from './GuardianIcon.svelte';
   import MultiIcon from './MultiClassIcon.svelte';
@@ -11,7 +12,6 @@
   import RogueIcon from './RogueIcon.svelte';
   import SeekerIcon from './SeekerIcon.svelte';
   import SurvivorIcon from './SurvivorIcon.svelte';
-  import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
 
   export let classes: Writable<PlayerCardClass[]>;
 

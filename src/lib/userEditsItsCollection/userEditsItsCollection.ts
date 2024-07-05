@@ -1,9 +1,10 @@
+import { writable, type Readable, type Writable, readonly } from 'svelte/store';
+
 import { createCollectionEditor } from '$gathering';
 import type { Collection } from '$gathering/Collection';
-import type { ICollectionOutput } from '$gathering/ICollectionOutput';
-import { writable, type Readable, type Writable, readonly } from 'svelte/store';
-import { allAvailableBundles, allAvailablePacks } from './ahtcgProducts';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
+import type { ICollectionOutput } from '$gathering/ICollectionOutput';
+import { allAvailableBundles, allAvailablePacks } from './ahtcgProducts';
 
 export interface IUserEditsItsCollection {
   allAvailableBundles: BundleOfPacks[];

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+
 import {
   DEFAULT_ASSET_SLOTS_ORDER,
   DEFAULT_CLASSES_ORDER,

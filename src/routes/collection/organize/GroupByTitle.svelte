@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type { GroupByTitle } from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
   import type { Writable } from 'svelte/store';
+
+  import type { GroupByTitle } from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
 
   export let groupByTitle: Writable<GroupByTitle>;
 </script>

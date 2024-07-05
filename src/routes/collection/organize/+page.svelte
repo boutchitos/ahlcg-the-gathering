@@ -3,8 +3,8 @@
   import SortableCriterias from '$lib/SortableCriterias/SortableCriterias.svelte';
   import SortablePlayerCardTypes from '$lib/SortablePlayerCardTypes/SortablePlayerCardTypes.svelte';
   import SortableSlots from '$lib/SortableSlots/SortableSlots.svelte';
-  import GroupByTitle from './GroupByTitle.svelte';
   import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
+  import GroupByTitle from './GroupByTitle.svelte';
   import { SortPlayerCardsDirectivesConfig } from '../SortPlayerCardsDirectivesConfig';
 
   const {

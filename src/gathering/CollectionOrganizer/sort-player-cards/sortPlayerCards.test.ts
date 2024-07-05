@@ -1,7 +1,8 @@
 import { beforeEach, expect, it } from 'vitest';
+
 import type { Card } from './ICardsSorter';
-import { sortPlayerCards } from './sortPlayerCards';
 import { SortPlayerCardsDirectives } from './sorter-config';
+import { sortPlayerCards } from './sortPlayerCards';
 import { CardBuilder, card } from '../test-utils/card';
 
 const cardBuilder = new CardBuilder();

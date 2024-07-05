@@ -1,5 +1,11 @@
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
+
 import { createCollectionOrganizer } from '$gathering';
+import {
+  GroupPlayerCardsDirectives,
+  type GroupByTitle,
+} from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
+import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
 import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type {
   PlayerCardClass,
@@ -8,11 +14,6 @@ import type {
   AssetSlot,
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
-import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
-import {
-  GroupPlayerCardsDirectives,
-  type GroupByTitle,
-} from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
 
 export type CardListing = { label: string }[];
 
