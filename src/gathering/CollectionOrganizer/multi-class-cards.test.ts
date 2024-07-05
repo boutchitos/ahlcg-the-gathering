@@ -1,7 +1,8 @@
-import type { Binder } from '$gathering/IBinderOutput';
-import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
 import { expect, it } from 'vitest';
 import { captor, mockClear } from 'vitest-mock-extended';
+
+import type { Binder } from '$gathering/IBinderOutput';
+import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
 import { indexOfPocketWithCard } from './test-utils/pockets';
 import { setupOrganizer } from './test-utils/setupOrganizer';
 

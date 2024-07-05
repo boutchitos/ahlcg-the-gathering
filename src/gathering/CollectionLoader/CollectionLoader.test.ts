@@ -1,10 +1,11 @@
+import { beforeEach, expect, it } from 'vitest';
+
 import { createPackRepository } from '$gathering';
 import type { Collection } from '$gathering/Collection';
 import { CollectionEditor } from '$gathering/CollectionEditor/CollectionEditor';
 import { CollectionEntity } from '$gathering/CollectionEntity';
 import type { ICollectionEditor } from '$gathering/ICollectionEditor';
 import type { ICollectionOutput } from '$gathering/ICollectionOutput';
-import { beforeEach, expect, it } from 'vitest';
 import { CollectionLoader } from './CollectionLoader';
 
 const CoreSet = 'Core Set';

@@ -1,6 +1,7 @@
-import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
+
+import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import {
   DEFAULT_ASSET_SLOTS_ORDER,
   DEFAULT_CLASSES_ORDER,

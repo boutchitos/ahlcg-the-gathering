@@ -8,7 +8,28 @@ module.exports = {
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
+  rules: {
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal'],
+        pathGroups: [
+          {
+            pattern: '{react,react-dom/**}',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+  },
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2020,

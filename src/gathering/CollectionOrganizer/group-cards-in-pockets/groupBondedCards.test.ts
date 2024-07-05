@@ -1,9 +1,10 @@
-import type { Card } from '$gathering/Card';
 import { beforeEach, expect, it } from 'vitest';
+
+import type { Card } from '$gathering/Card';
 import { groupCardsInPockets } from '.';
+import { GroupPlayerCardsDirectives } from './grouper-config';
 import { card } from '../test-utils/card';
 import { findPocketWithCard } from '../test-utils/pockets';
-import { GroupPlayerCardsDirectives } from './grouper-config';
 
 const cardWithBondedCards = card({
   name: 'with bonded',

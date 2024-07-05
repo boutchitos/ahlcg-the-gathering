@@ -1,6 +1,7 @@
+import { beforeEach, expect, it } from 'vitest';
+
 import { createPackRepository } from '$gathering';
 import type { Pack } from '$gathering/Pack';
-import { beforeEach, expect, it } from 'vitest';
 import { allAvailablePacks } from './ahtcgProducts';
 
 let gathering: Set<Pack>;

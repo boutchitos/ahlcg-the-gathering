@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
-  import { DragDrop } from '$lib/dragDrop';
 
   import type { AssetSlot } from '$gathering/ICollectionOrganizer';
+  import { DragDrop } from '$lib/dragDrop';
+
   export let slots: Writable<AssetSlot[]>;
 
   const icons = {

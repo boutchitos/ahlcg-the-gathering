@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest';
+
 import { createCardRepository } from '.';
 
 const cardRepository = createCardRepository();

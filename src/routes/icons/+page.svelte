@@ -1,9 +1,9 @@
 <script lang="ts">
-  import SortableSlotsBar from './SortableSlotsBar.svelte';
   import Guardian from './guardian.svg.svelte';
   import Mystic from './mystic.svg.svelte';
   import Rogue from './rogue.svg.svelte';
   import Seeker from './seeker.svg.svelte';
+  import SortableSlotsBar from './SortableSlotsBar.svelte';
   import Survivor from './survivor.svg.svelte';
 </script>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { DragDrop } from '$lib/dragDrop';
   import { writable } from 'svelte/store';
+
+  import { DragDrop } from '$lib/dragDrop';
 
   let slots = writable([
     {
