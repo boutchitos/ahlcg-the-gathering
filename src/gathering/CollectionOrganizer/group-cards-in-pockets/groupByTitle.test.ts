@@ -1,6 +1,6 @@
 import { beforeEach, expect, it } from 'vitest';
-import { groupCardsInPockets } from '.';
 import { card } from '../test-utils/card';
+import { groupCardsInPockets } from '.';
 import { GroupPlayerCardsDirectives } from './grouper-config';
 
 let directives: GroupPlayerCardsDirectives;

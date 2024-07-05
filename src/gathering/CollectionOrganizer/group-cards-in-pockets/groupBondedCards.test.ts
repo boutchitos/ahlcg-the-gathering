@@ -1,7 +1,7 @@
-import type { Card } from '$gathering/Card';
 import { beforeEach, expect, it } from 'vitest';
-import { groupCardsInPockets } from '.';
 import { card } from '../test-utils/card';
+import { groupCardsInPockets } from '.';
+import type { Card } from '$gathering/Card';
 import { findPocketWithCard } from '../test-utils/pockets';
 import { GroupPlayerCardsDirectives } from './grouper-config';
 

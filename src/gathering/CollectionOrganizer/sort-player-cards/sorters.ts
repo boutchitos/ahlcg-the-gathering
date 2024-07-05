@@ -1,12 +1,12 @@
 import type { AssetSlot } from '$gathering/AssetSlot';
-import type { PlayerCardClass } from '$gathering/PlayerCardClass';
-import type { PlayerCardtype } from '$gathering/PlayerCardtype';
 import type { ICardsSorter } from './ICardsSorter';
 import { SortAssetsBySlots } from './by-asset-slots';
 import { SortByClasses } from './by-classes';
-import { SortByLevels } from './by-levels';
 import { SortByNames } from './by-names';
 import { SortByPlayerCardTypes } from './by-player-cardtypes';
+import { SortByLevels } from './by-levels';
+import type { PlayerCardClass } from '$gathering/PlayerCardClass';
+import type { PlayerCardtype } from '$gathering/PlayerCardtype';
 
 export function sortByClasses(classes: PlayerCardClass[]): ICardsSorter {
   return new SortByClasses(classes);

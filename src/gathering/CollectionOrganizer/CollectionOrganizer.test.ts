@@ -1,12 +1,12 @@
-import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import { expect, it } from 'vitest';
 import { captor, mock, mockClear } from 'vitest-mock-extended';
+import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
+import { setupOrganizer } from './test-utils/setupOrganizer';
+import { findPocketWithCard, indexOfPocketWithCard } from './test-utils/pockets';
 import {
   DEFAULT_ASSET_SLOTS_ORDER,
   DEFAULT_CLASSES_ORDER,
 } from './sort-player-cards/sorter-config';
-import { findPocketWithCard, indexOfPocketWithCard } from './test-utils/pockets';
-import { setupOrganizer } from './test-utils/setupOrganizer';
 
 it('organizes an empty collection', () => {
   const { binder } = setupOrganizer();

@@ -1,7 +1,7 @@
-import { createPackRepository } from '$gathering';
-import type { Pack } from '$gathering/Pack';
 import { beforeEach, expect, it } from 'vitest';
+import { createPackRepository } from '$gathering';
 import { allAvailablePacks } from './ahtcgProducts';
+import type { Pack } from '$gathering/Pack';
 
 let gathering: Set<Pack>;
 let presented: Set<Pack>;

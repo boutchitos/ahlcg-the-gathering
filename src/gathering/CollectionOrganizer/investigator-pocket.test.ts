@@ -1,7 +1,7 @@
-import type { Binder } from '$gathering/IBinderOutput';
 import { expect, it } from 'vitest';
-import { captor, mockClear } from 'vitest-mock-extended';
 import { setupOrganizer } from './test-utils/setupOrganizer';
+import { captor, mockClear } from 'vitest-mock-extended';
+import type { Binder } from '$gathering/IBinderOutput';
 
 it('groups investigator required cards, per Deckbuilding Requirement, with investigator card', () => {
   const rolandPocket = setupOrganizer('Core Set').findPocketWithCard('Roland Banks')!;
