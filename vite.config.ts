@@ -8,8 +8,8 @@ export default defineConfig({
     coverage: {
       all: true,
       exclude: ['**/*.d.ts', '**/*.server.ts'],
-      include: ['src/**'],
       extension: ['.js', '.cjs', '.mjs', '.ts'],
+      include: ['src/**'],
       reporter: ['text', 'html', 'lcov'],
     },
   },
