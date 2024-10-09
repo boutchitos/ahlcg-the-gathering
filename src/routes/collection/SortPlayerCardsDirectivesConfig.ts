@@ -11,7 +11,10 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set assetsSlots(value: string[]) {
-    isBrowser && (localStorage.slots = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.slots = JSON.stringify(value);
   }
 
   get classes(): string[] {
@@ -24,7 +27,10 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set classes(value: string[]) {
-    isBrowser && (localStorage.classes = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.classes = JSON.stringify(value);
   }
 
   get groupBondedCards(): boolean {
@@ -35,7 +41,10 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set groupBondedCards(value: boolean) {
-    isBrowser && (localStorage.groupBondedCards = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.groupBondedCards = JSON.stringify(value);
   }
 
   get groupInvestigatorCards(): boolean {
@@ -48,7 +57,10 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set groupInvestigatorCards(value: boolean) {
-    isBrowser && (localStorage.groupInvestigatorCards = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.groupInvestigatorCards = JSON.stringify(value);
   }
 
   get groupByTitle(): string {
@@ -56,7 +68,10 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set groupByTitle(value: string) {
-    isBrowser && (localStorage.groupByTitle = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.groupByTitle = JSON.stringify(value);
   }
 
   get playerCardTypes(): string[] {
@@ -69,7 +84,10 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set playerCardTypes(value: string[]) {
-    isBrowser && (localStorage.playerCardTypes = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.playerCardTypes = JSON.stringify(value);
   }
 
   get sortingOrder(): string[] {
@@ -82,6 +100,9 @@ export class SortPlayerCardsDirectivesConfig {
   }
 
   set sortingOrder(value: string[]) {
-    isBrowser && (localStorage.sortingOrder = JSON.stringify(value));
+    if (!isBrowser) {
+      return;
+    }
+    localStorage.sortingOrder = JSON.stringify(value);
   }
 }
