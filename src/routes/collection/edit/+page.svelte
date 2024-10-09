@@ -8,7 +8,10 @@
 
   class SaveLocalStorage implements ICollectionOutput {
     collectionUpdated(collection: Collection): void {
-      isBrowser && (localStorage.collection = JSON.stringify(collection));
+      if (!isBrowser) {
+        return;
+      }
+      localStorage.collection = JSON.stringify(collection);
     }
   }
 
