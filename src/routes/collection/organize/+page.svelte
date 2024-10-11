@@ -1,14 +1,12 @@
 <script lang="ts">
   import { SortPlayerCardsDirectivesConfig } from '$lib/SortPlayerCardsDirectivesConfig';
   import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
-  import SortableClasses from '$lib/SortableClasses/SortableClasses.svelte';
   import SortableCriterias from '$lib/SortableCriterias/SortableCriterias.svelte';
   import SortablePlayerCardTypes from '$lib/SortablePlayerCardTypes/SortablePlayerCardTypes.svelte';
   import SortableSlots from '$lib/SortableSlots/SortableSlots.svelte';
   import GroupByTitle from './GroupByTitle.svelte';
 
   const {
-    classes,
     groupBondedCards,
     groupByTitle,
     groupInvestigatorCards,
@@ -19,9 +17,7 @@
 </script>
 
 <SortableCriterias items={sortingOrder} let:item>
-  {#if item === 'by-classes'}
-    <SortableClasses {classes} />
-  {:else if item === 'by-names'}
+  {#if item === 'by-names'}
     <div>by names</div>
   {:else if item === 'by-player-cardtypes'}
     <SortablePlayerCardTypes {playerCardTypes} />

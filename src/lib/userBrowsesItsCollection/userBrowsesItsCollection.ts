@@ -8,7 +8,6 @@ import {
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
 import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type {
-  PlayerCardClass,
   ICollectionOrganizer,
   PlayerCardsSorter,
   AssetSlot,
@@ -42,7 +41,6 @@ export type BinderAs2Pages = {
 };
 
 type OrganizingDirectivesDTO = {
-  classes: string[];
   assetsSlots: string[];
   playerCardTypes: string[];
   sortingOrder: string[];
@@ -53,7 +51,6 @@ type OrganizingDirectivesDTO = {
 
 export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDirectivesDTO): {
   binder: BinderAs2Pages;
-  classes: Writable<PlayerCardClass[]>;
   playerCardTypes: Writable<PlayerCardtype[]>;
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PlayerCardsSorter[]>;
@@ -94,15 +91,6 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
 
   let atInit = true;
 
-  const classes = writable(sortingDirectives.byClassesOrder);
-  classes.subscribe((value) => {
-    sortingDirectives.byClassesOrder = value;
-    organizingDirectivesDTO.classes = sortingDirectives.byClassesOrder;
-    if (!atInit) {
-      organizer.reorderByClasses(sortingDirectives.byClassesOrder);
-    }
-  });
-
   const slots = writable(sortingDirectives.assetsBySlotsOrder);
   slots.subscribe((value) => {
     sortingDirectives.assetsBySlotsOrder = value;
@@ -121,13 +109,21 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
     }
   });
 
-  const sortingOrder = writable(sortingDirectives.sortingOrder);
+  // Hack pour garder 'by-classes qui est très utilisé dans les tests, car ça ordonne la colleciton au complet avec ça.
+  // Je veux juste l'enlever de la vue pour l'instant. C'est pas grave si la collection est triée par classes.
+  // On extrait des binders par classe pour l'instant.
+  const sortingOrder = writable(
+    sortingDirectives.sortingOrder.toSpliced(
+      sortingDirectives.sortingOrder.indexOf('by-classes'),
+      1,
+    ),
+  );
   sortingOrder.subscribe((value) => {
-    sortingDirectives.sortingOrder = value;
     organizingDirectivesDTO.sortingOrder = sortingDirectives.sortingOrder;
     if (!atInit) {
       organizer.reorderPlayerCardSorters(sortingDirectives.sortingOrder);
     }
+    sortingDirectives.sortingOrder = ['by-classes', ...value];
   });
 
   const groupByTitle = writable(groupingDirectives.groupByTitle);
@@ -180,7 +176,6 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
         });
       },
     },
-    classes,
     playerCardTypes,
     slots,
     sortingOrder,
@@ -201,7 +196,6 @@ class BinderOutput implements IBinderOutput {
 function createOrganizingDirectives(organizingDirectivesDTO: OrganizingDirectivesDTO) {
   const sortingDirectives = new SortPlayerCardsDirectives();
   sortingDirectives.assetsBySlotsOrder = organizingDirectivesDTO.assetsSlots as AssetSlot[];
-  sortingDirectives.byClassesOrder = organizingDirectivesDTO.classes;
   sortingDirectives.byPlayerCardTypesOrder =
     organizingDirectivesDTO.playerCardTypes as PlayerCardtype[];
   sortingDirectives.sortingOrder = organizingDirectivesDTO.sortingOrder as PlayerCardsSorter[];
