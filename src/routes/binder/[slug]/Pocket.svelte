@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PocketViewModel } from '../../collection/organize/userOrganizeItsCollection';
+  import type { PocketViewModel } from './userBrowsesItsBinder';
 
   export let pocket: PocketViewModel;
   let listContent = false;
