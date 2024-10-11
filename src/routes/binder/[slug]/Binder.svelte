@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { BinderAs2Pages } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
+  import type { BinderAs2Pages } from '../../collection/organize/userOrganizeItsCollection';
   import PocketSheet from './PocketSheet.svelte';
 
   export let binder: BinderAs2Pages;

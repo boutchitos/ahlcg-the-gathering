@@ -1,9 +1,9 @@
 <script lang="ts">
   import { derived } from 'svelte/store';
 
-  import type { CardsPack } from '$lib/userEditsItsCollection/userEditsItsCollection';
   import ArrowDown from './arrow-down.svg.svelte';
   import ArrowUp from './arrow-up.svg.svelte';
+  import type { CardsPack } from '../userEditsItsCollection';
 
   export let pack: CardsPack;
   // pack.addPackToCollection();

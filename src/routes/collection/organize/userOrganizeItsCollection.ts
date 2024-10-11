@@ -1,4 +1,4 @@
-import { derived, writable, type Readable, type Writable } from 'svelte/store';
+import { writable, type Readable, type Writable } from 'svelte/store';
 
 import { createCollectionOrganizer } from '$gathering';
 import {
@@ -6,7 +6,7 @@ import {
   type GroupByTitle,
 } from '$gathering/CollectionOrganizer/group-cards-in-pockets/grouper-config';
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
-import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
+import type { Binder, IBinderOutput } from '$gathering/IBinderOutput';
 import type {
   ICollectionOrganizer,
   PlayerCardsSorter,
@@ -50,7 +50,6 @@ type OrganizingDirectivesDTO = {
 };
 
 export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDirectivesDTO): {
-  binder: BinderAs2Pages;
   playerCardTypes: Writable<PlayerCardtype[]>;
   slots: Writable<AssetSlot[]>;
   sortingOrder: Writable<PlayerCardsSorter[]>;
@@ -66,28 +65,6 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
   );
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
-
-  const pocketsVM = derived(binderOutput.binder, (binder: Binder) =>
-    binder.pockets.map(toPocketViewModel),
-  );
-  const pocketOffset = writable(0);
-  const currentPage = derived(pocketOffset, (pocketOffset) => Math.ceil(pocketOffset / 9) + 1);
-  const howManyPages = derived(pocketsVM, (pocketsVM) => Math.ceil(pocketsVM.length / 9));
-  const leftPage = derived([pocketsVM, pocketOffset], ([pocketsVM, pocketOffset]) =>
-    getPockets(pocketsVM, pocketOffset, 0),
-  );
-  const rightPage = derived([pocketsVM, pocketOffset], ([pocketsVM, pocketOffset]) =>
-    getPockets(pocketsVM, pocketOffset, 9),
-  );
-
-  function getPockets(
-    pockets: PocketViewModel[],
-    pocketOffset: number,
-    offset: number,
-  ): BinderPage {
-    const base = pocketOffset + offset;
-    return { pockets: pockets.slice(base, base + 9) };
-  }
 
   let atInit = true;
 
@@ -156,26 +133,6 @@ export function userBrowsesItsCollection(organizingDirectivesDTO: OrganizingDire
   atInit = false;
 
   return {
-    binder: {
-      currentPage,
-      howManyPages,
-
-      leftPage,
-      rightPage,
-
-      handleLeftPageClick: () => {
-        pocketOffset.update((pocketOffset) => {
-          pocketOffset -= 18;
-          return pocketOffset < 0 ? 0 : pocketOffset;
-        });
-      },
-
-      handleRightPageClick: () => {
-        pocketOffset.update((pocketOffset) => {
-          return pocketOffset + 18;
-        });
-      },
-    },
     playerCardTypes,
     slots,
     sortingOrder,
@@ -206,31 +163,4 @@ function createOrganizingDirectives(organizingDirectivesDTO: OrganizingDirective
   groupingDirectives.groupInvestigatorCards = organizingDirectivesDTO.groupInvestigatorCards;
 
   return { groupingDirectives, sortingDirectives };
-}
-
-function toPocketViewModel(pocket: Pocket): PocketViewModel {
-  const coverCard = pocket.cards[0];
-  return {
-    cardListing: getCardListing(pocket.cards),
-    coverImage: coverCard.image,
-    title: coverCard.name,
-  };
-}
-
-function getCardListing(cards: PocketCard[]): CardListing {
-  const pip = '\u2022';
-  const labels: string[] = [];
-  const count = new Map<string, number>();
-
-  cards.forEach((card) => {
-    const label = `${card.name} ${pip.repeat(card.xp)}`;
-    if (count.has(label)) {
-      count.set(label, count.get(label)! + 1);
-    } else {
-      count.set(label, 1);
-      labels.push(label);
-    }
-  });
-
-  return labels.map((label) => `${count.get(label)}x ${label}`).map((label) => ({ label }));
 }

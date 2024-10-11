@@ -1,6 +1,6 @@
 <script lang="ts">
   import { SortPlayerCardsDirectivesConfig } from '$lib/SortPlayerCardsDirectivesConfig';
-  import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
+  import { userBrowsesItsCollection } from './userOrganizeItsCollection';
   import SortableCriterias from '$lib/SortableCriterias/SortableCriterias.svelte';
   import SortablePlayerCardTypes from '$lib/SortablePlayerCardTypes/SortablePlayerCardTypes.svelte';
   import SortableSlots from '$lib/SortableSlots/SortableSlots.svelte';

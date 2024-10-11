@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Collection } from '$gathering/Collection';
   import type { ICollectionOutput } from '$gathering/ICollectionOutput';
-  import { userEditsItsCollection } from '$lib/userEditsItsCollection/userEditsItsCollection';
+  import { userEditsItsCollection } from './userEditsItsCollection';
   import PacksBundle from './PacksBundle/PacksBundle.svelte';
 
   const isBrowser = typeof window !== 'undefined';
