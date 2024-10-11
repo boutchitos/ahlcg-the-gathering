@@ -21,23 +21,37 @@
   <Seeker class="w-24 border" />
   <Survivor class="w-24 border" />
 </div>
+<div class="flex gap-2 bg-slate-400">
+  <img class="size-6" src="/icon/class-guardian.png" alt="guardian icon" />
+  <img class="size-6" src="/icon/class-mystic.png" alt="mystic icon" />
+  <img class="size-6" src="/icon/class-rogue.png" alt="rogue icon" />
+  <img class="size-6" src="/icon/class-seeker.png" alt="seeker icon" />
+  <img class="size-6" src="/icon/class-survivor.png" alt="survivor icon" />
+</div>
+<div class="flex gap-2 bg-slate-400">
+  <img class="size-12" src="/icon/class-guardian.png" alt="guardian icon" />
+  <img class="size-12" src="/icon/class-mystic.png" alt="mystic icon" />
+  <img class="size-12" src="/icon/class-rogue.png" alt="rogue icon" />
+  <img class="size-12" src="/icon/class-seeker.png" alt="seeker icon" />
+  <img class="size-12" src="/icon/class-survivor.png" alt="survivor icon" />
+</div>
 <div class="flex bg-slate-400">
   <img class="size-12" src="/icon/guardian.webp" alt="guardian icon" />
   <img class="size-12" src="/icon/mystic.webp" alt="mystic icon" />
-  <img class="size-12" src="/icon/neutral.webp" alt="neutral icon" />
   <img class="size-12" src="/icon/rogue.webp" alt="rogue icon" />
   <img class="size-12" src="/icon/seeker.webp" alt="seeker icon" />
   <img class="size-12" src="/icon/survivor.webp" alt="survivor icon" />
-  <img class="size-12" src="/icon/multi.png" alt="neutral icon" />
+  <img class="size-12" src="/icon/neutral.webp" alt="neutral icon" />
+  <img class="size-12" src="/icon/multi.png" alt="multi icon" />
 </div>
 <div class="flex bg-slate-400">
   <img class="size-24" src="/icon/guardian.webp" alt="guardian icon" />
   <img class="size-24" src="/icon/mystic.webp" alt="mystic icon" />
-  <img class="size-24" src="/icon/neutral.webp" alt="neutral icon" />
   <img class="size-24" src="/icon/rogue.webp" alt="rogue icon" />
   <img class="size-24" src="/icon/seeker.webp" alt="seeker icon" />
   <img class="size-24" src="/icon/survivor.webp" alt="survivor icon" />
-  <img class="size-24" src="/icon/multi.png" alt="neutral icon" />
+  <img class="size-24" src="/icon/neutral.webp" alt="neutral icon" />
+  <img class="size-24" src="/icon/multi.png" alt="multi icon" />
 </div>
 <div class="flex bg-slate-400">
   <img class="size-24" src="/icon/slot_accessory.png" alt="accessory slot icon" />
