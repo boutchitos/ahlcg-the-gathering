@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "$gathering/*": ["./src/gathering/*"],
+      "$gathering": ["./src/gathering"],
+      "$lib/*": ["./src/lib/*"],
+      "$lib": ["./src/lib"]
+    }
+  }
+}
