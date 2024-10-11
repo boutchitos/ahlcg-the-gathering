@@ -19,7 +19,6 @@
   <div class="md:1/4 w-full shrink grow-0 p-4 sm:w-1/3">
     Main
     <ul class="sticky top-0 flex p-2 sm:flex-col">
-      <a href="/collection/">View your Collection</a>
       <a href="/collection/organize">Organize your Collection</a>
       <a href="/collection/edit">Edit your Collection</a>
     </ul>

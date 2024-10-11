@@ -1,7 +1,7 @@
 <script lang="ts">
   import { userBrowsesItsCollection } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
+  import { SortPlayerCardsDirectivesConfig } from '$lib/SortPlayerCardsDirectivesConfig';
   import Binder from './Binder.svelte';
-  import { SortPlayerCardsDirectivesConfig } from './SortPlayerCardsDirectivesConfig';
 
   const { binder } = userBrowsesItsCollection(new SortPlayerCardsDirectivesConfig());
 </script>

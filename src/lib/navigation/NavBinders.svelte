@@ -10,37 +10,43 @@
 <h2 class="text-xl">Binders</h2>
 <ul class="flex content-center justify-between overflow-hidden sm:flex-col">
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/collection/binder/guardian">
+    <a class="truncate" href="/binder">
+      <GuardianIcon class="mx-2 inline w-7" />
+      <span class="hidden sm:inline">Root for test</span>
+    </a>
+  </li>
+  <li class="rounded py-2 hover:bg-indigo-300">
+    <a class="truncate" href="/binder/guardian">
       <GuardianIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Guardian</span>
     </a>
   </li>
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/collection/binder/mystic">
+    <a class="truncate" href="/binder/mystic">
       <MysticIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Mystic</span>
     </a>
   </li>
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/collection/binder/rogue">
+    <a class="truncate" href="/binder/rogue">
       <RogueIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Rogue</span>
     </a>
   </li>
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/collection/binder/seeker">
+    <a class="truncate" href="/binder/seeker">
       <SeekerIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Seeker</span>
     </a>
   </li>
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/collection/binder/survivor">
+    <a class="truncate" href="/binder/survivor">
       <SurvivorIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Survivor</span>
     </a>
   </li>
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/collection/binder/everything-else">
+    <a class="truncate" href="/binder/everything-else">
       <BasicWeaknessIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Multi-class / Neutral / Weakness </span>
     </a>
