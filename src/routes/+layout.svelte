@@ -2,6 +2,7 @@
   import './app.css';
 
   import { createCollectionLoader } from '$gathering';
+  import NavBinders from '$lib/navigation/NavBinders.svelte';
 
   const isBrowser = typeof window !== 'undefined';
 
@@ -22,6 +23,7 @@
       <a href="/collection/organize">Organize your Collection</a>
       <a href="/collection/edit">Edit your Collection</a>
     </ul>
+    <NavBinders />
   </div>
   <main class="h-full w-full grow overflow-auto p-3">
     <slot />

@@ -4,14 +4,14 @@
 
   import type { PlayerCardClass } from '$gathering/ICollectionOrganizer';
   import { DragDrop } from '$lib/dragDrop';
-  import BasicWeaknessIcon from './BasicWeaknessIcon.svelte';
-  import GuardianIcon from './GuardianIcon.svelte';
-  import MultiIcon from './MultiClassIcon.svelte';
-  import MysticIcon from './MysticIcon.svelte';
-  import NeutralIcon from './NeutralIcon.svelte';
-  import RogueIcon from './RogueIcon.svelte';
-  import SeekerIcon from './SeekerIcon.svelte';
-  import SurvivorIcon from './SurvivorIcon.svelte';
+  import BasicWeaknessIcon from '$lib/icons/BasicWeaknessIcon.svelte';
+  import GuardianIcon from '$lib/icons/GuardianIcon.svelte';
+  import MultiIcon from '$lib/icons/MultiClassIcon.svelte';
+  import MysticIcon from '$lib/icons/MysticIcon.svelte';
+  import NeutralIcon from '$lib/icons/NeutralIcon.svelte';
+  import RogueIcon from '$lib/icons/RogueIcon.svelte';
+  import SeekerIcon from '$lib/icons/SeekerIcon.svelte';
+  import SurvivorIcon from '$lib/icons/SurvivorIcon.svelte';
 
   export let classes: Writable<PlayerCardClass[]>;
 
