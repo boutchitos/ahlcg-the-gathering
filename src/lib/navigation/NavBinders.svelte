@@ -10,12 +10,6 @@
 <h2 class="text-xl">Binders</h2>
 <ul class="flex content-center justify-between overflow-hidden sm:flex-col">
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/binder">
-      <GuardianIcon class="mx-2 inline w-7" />
-      <span class="hidden sm:inline">Root for test</span>
-    </a>
-  </li>
-  <li class="rounded py-2 hover:bg-indigo-300">
     <a class="truncate" href="/binder/guardian">
       <GuardianIcon class="mx-2 inline w-7" />
       <span class="hidden sm:inline">Guardian</span>
@@ -46,9 +40,9 @@
     </a>
   </li>
   <li class="rounded py-2 hover:bg-indigo-300">
-    <a class="truncate" href="/binder/everything-else">
+    <a class="truncate" href="/binder/the-binder-that-store-everything-else">
       <BasicWeaknessIcon class="mx-2 inline w-7" />
-      <span class="hidden sm:inline">Multi-class / Neutral / Weakness </span>
+      <span class="hidden sm:inline">Everything Else</span>
     </a>
   </li>
 </ul>
