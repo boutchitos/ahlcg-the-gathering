@@ -8,10 +8,10 @@ import {
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
 import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type {
-  ICollectionOrganizer,
   PlayerCardsSorter,
   AssetSlot,
   PlayerCardtype,
+  PlayerCardClass,
 } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
@@ -49,15 +49,17 @@ type OrganizingDirectivesDTO = {
   groupInvestigatorCards: boolean;
 };
 
-export function userBrowsesItsBinder(organizingDirectivesDTO: OrganizingDirectivesDTO): {
+export function userBrowsesItsBinder(
+  playerCardClass: PlayerCardClass | null,
+  organizingDirectivesDTO: OrganizingDirectivesDTO,
+): {
   binder: BinderAs2Pages;
 } {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
-  const organizer: ICollectionOrganizer = createCollectionOrganizer(
-    sortingDirectives,
-    groupingDirectives,
-  );
+  const organizer = createCollectionOrganizer(sortingDirectives, groupingDirectives);
+  if(playerCardClass!==null)
+  {organizer.filterByClass(playerCardClass);}
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
 
