@@ -52,9 +52,7 @@ type OrganizingDirectivesDTO = {
 export function userBrowsesItsBinder(
   playerCardClass: PlayerCardClass | null,
   organizingDirectivesDTO: OrganizingDirectivesDTO,
-): {
-  binder: BinderAs2Pages;
-} {
+): BinderAs2Pages {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
   const organizer = createCollectionOrganizer(sortingDirectives, groupingDirectives);
@@ -87,25 +85,23 @@ export function userBrowsesItsBinder(
   }
 
   return {
-    binder: {
-      currentPage,
-      howManyPages,
+    currentPage,
+    howManyPages,
 
-      leftPage,
-      rightPage,
+    leftPage,
+    rightPage,
 
-      handleLeftPageClick: () => {
-        pocketOffset.update((pocketOffset) => {
-          pocketOffset -= 18;
-          return pocketOffset < 0 ? 0 : pocketOffset;
-        });
-      },
+    handleLeftPageClick: () => {
+      pocketOffset.update((pocketOffset) => {
+        pocketOffset -= 18;
+        return pocketOffset < 0 ? 0 : pocketOffset;
+      });
+    },
 
-      handleRightPageClick: () => {
-        pocketOffset.update((pocketOffset) => {
-          return pocketOffset + 18;
-        });
-      },
+    handleRightPageClick: () => {
+      pocketOffset.update((pocketOffset) => {
+        return pocketOffset + 18;
+      });
     },
   };
 }
