@@ -15,4 +15,4 @@ export const load: PageLoad = ({ params }) => {
   const { binder } = userBrowsesItsBinder(playerCardClass, new SortPlayerCardsDirectivesConfig());
 
   return { binder };
-}
+};

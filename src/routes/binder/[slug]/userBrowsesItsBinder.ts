@@ -58,8 +58,9 @@ export function userBrowsesItsBinder(
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
   const organizer = createCollectionOrganizer(sortingDirectives, groupingDirectives);
-  if(playerCardClass!==null)
-  {organizer.filterByClass(playerCardClass);}
+  if (playerCardClass !== null) {
+    organizer.filterByClass(playerCardClass);
+  }
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
 
