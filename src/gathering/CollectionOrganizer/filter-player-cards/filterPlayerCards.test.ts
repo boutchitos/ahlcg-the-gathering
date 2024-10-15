@@ -4,7 +4,6 @@ import { card } from '../test-utils/card';
 import { availablePlayerCardClasses } from '$gathering/PlayerCardClass';
 import { filterPlayerCards } from './filterPlayerCards';
 
-
 const cards = availablePlayerCardClasses.map((playerCardClass) => card({ playerCardClass }));
 
 beforeEach(() => {
