@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { BinderAs2Pages } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import PocketSheet from './PocketSheet.svelte';
+  import type { BinderAs2Pages } from './userBrowsesItsBinder';
 
   export let binder: BinderAs2Pages;
 

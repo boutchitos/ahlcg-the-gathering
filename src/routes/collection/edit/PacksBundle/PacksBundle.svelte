@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CardsPack } from '$lib/userEditsItsCollection/userEditsItsCollection';
+  import type { CardsPack } from '../userEditsItsCollection';
   import CollectiblePack from './CollectiblePack.svelte';
 
   export let title: string;

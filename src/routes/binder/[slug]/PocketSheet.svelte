@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { PocketViewModel } from '$lib/userBrowsesItsCollection/userBrowsesItsCollection';
   import Pocket from './Pocket.svelte';
+  import type { PocketViewModel } from './userBrowsesItsBinder';
 
   export let pockets: PocketViewModel[];
 </script>
