@@ -46,6 +46,24 @@ describe('given a collection of cards, when they are classified', () => {
   });
 });
 
+describe('given a collection of cards containing multi-class cards, when they are classified', () => {
+  const theSecretNameCards = createCollectionOfCards('The Secret Name');
+  const classified = classifyPlayerCards(theSecretNameCards);
+
+  test('then a multi-class card is classified as such', () => {
+    expect(findCardByName(classified.multi, 'Enchanted Blade')).toBeDefined();
+  });
+
+  test('then all cards are classified only once', () => {
+    const allClassifiedCardsCount = Object.values(classified).reduce(
+      (sum, current) => (sum += current.length),
+      0,
+    );
+    expect([...theSecretNameCards]).toHaveLength(22);
+    expect(allClassifiedCardsCount).toHaveLength(22);
+  });
+});
+
 function findCardByName(cards: Card[], name: string) {
   return cards.find((card) => card.name === name);
 }
