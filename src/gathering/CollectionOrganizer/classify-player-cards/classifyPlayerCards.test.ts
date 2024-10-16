@@ -1,33 +1,51 @@
-import { beforeEach, expect, it } from 'vitest';
-
-import { card } from '../test-utils/card';
-import { availablePlayerCardClasses } from '$gathering/PlayerCardClass';
-import { classifyPlayerCards } from './classifyPlayerCards';
+import { describe, expect, test } from 'vitest';
 import type { Card } from '$gathering/Card';
+import { createCollectionOfCards } from '../test-utils/collectionOfCardsFixture';
+import { classifyPlayerCards } from './classifyPlayerCards';
 
-const allClassesCards = availablePlayerCardClasses.map((playerCardClass) =>
-  card({ playerCardClass }),
-);
-const emptyCards: Card[] = [];
+describe('given a collection of cards, when they are classified', () => {
+  const coreSetCards = createCollectionOfCards('Core Set');
+  const classified = classifyPlayerCards(coreSetCards);
 
-beforeEach(() => {
-  expect(allClassesCards).toHaveLength(8);
-  expect(emptyCards).toHaveLength(0);
+  test('then a pure guardian card is classified as such', () => {
+    expect(findCardByName(classified.guardian, 'Machete')).toBeDefined();
+  });
+
+  test('then a pure mystic card is classified as such', () => {
+    expect(findCardByName(classified.mystic, 'Shrivelling')).toBeDefined();
+  });
+
+  test('then a pure rogue card is classified as such', () => {
+    expect(findCardByName(classified.rogue, 'Switchblade')).toBeDefined();
+  });
+
+  test('then a pure seeker card is classified as such', () => {
+    expect(findCardByName(classified.seeker, 'Deduction')).toBeDefined();
+  });
+
+  test('then a pure survivor card is classified as such', () => {
+    expect(findCardByName(classified.survivor, 'Lucky!')).toBeDefined();
+  });
+
+  test('then a pure neutral card is classified as such', () => {
+    expect(findCardByName(classified.neutral, 'Knife')).toBeDefined();
+  });
+
+  test('then all cards are classified only once', () => {
+    const allClassifiedCardsCount = Object.values(classified).reduce(
+      (sum, current) => (sum += current.length),
+      0,
+    );
+    expect(allClassifiedCardsCount).toEqual([...coreSetCards].length);
+  });
+
+  test('then a card specific to an investigator is classified with this investigator', () => {
+    const rolandsSpecial = findCardByName([...coreSetCards], "Roland's .38 Special")!;
+    expect(rolandsSpecial.playerCardClass).toEqual('neutral');
+    expect(findCardByName(classified.guardian, rolandsSpecial.name)).toBeDefined();
+  });
 });
 
-it('filters empty cards', () => {
-  expect(classifyPlayerCards(emptyCards, [])).toEqual([]);
-  expect(classifyPlayerCards(emptyCards, ['guardian'])).toEqual([]);
-});
-
-it('filters cards with one class', () => {
-  expect(classifyPlayerCards(allClassesCards, ['guardian'])).toHaveLength(1);
-});
-
-it('filters cards including many classes', () => {
-  expect(classifyPlayerCards(allClassesCards, ['guardian', 'rogue'])).toHaveLength(2);
-});
-
-it("doesn't filter cards when no classes are provided", () => {
-  expect(classifyPlayerCards(allClassesCards, [])).toHaveLength(8);
-});
+function findCardByName(cards: Card[], name: string) {
+  return cards.find((card) => card.name === name);
+}
