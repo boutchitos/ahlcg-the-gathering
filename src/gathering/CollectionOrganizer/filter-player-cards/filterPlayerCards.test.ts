@@ -3,22 +3,31 @@ import { beforeEach, expect, it } from 'vitest';
 import { card } from '../test-utils/card';
 import { availablePlayerCardClasses } from '$gathering/PlayerCardClass';
 import { filterPlayerCards } from './filterPlayerCards';
+import type { Card } from '$gathering/Card';
 
-const cards = availablePlayerCardClasses.map((playerCardClass) => card({ playerCardClass }));
+const allClassesCards = availablePlayerCardClasses.map((playerCardClass) =>
+  card({ playerCardClass }),
+);
+const emptyCards: Card[] = [];
 
 beforeEach(() => {
-  expect(cards).toHaveLength(8);
+  expect(allClassesCards).toHaveLength(8);
+  expect(emptyCards).toHaveLength(0);
 });
 
 it('filters empty cards', () => {
-  expect(filterPlayerCards([], 'guardian')).toEqual([]);
+  expect(filterPlayerCards(emptyCards, [])).toEqual([]);
+  expect(filterPlayerCards(emptyCards, ['guardian'])).toEqual([]);
 });
 
-it('filters cards with a class', () => {
-  expect(filterPlayerCards(cards, 'guardian')).toHaveLength(1);
+it('filters cards with one class', () => {
+  expect(filterPlayerCards(allClassesCards, ['guardian'])).toHaveLength(1);
 });
 
-// maybe temporary to let other tests pass, also to keep this open, and not only "binder" oriendted.
-it('filters cards by classes, if provided', () => {
-  expect(filterPlayerCards(cards, undefined)).toHaveLength(8);
+it('filters cards including many classes', () => {
+  expect(filterPlayerCards(allClassesCards, ['guardian', 'rogue'])).toHaveLength(2);
+});
+
+it("doesn't filter cards when no classes are provided", () => {
+  expect(filterPlayerCards(allClassesCards, [])).toHaveLength(8);
 });

@@ -18,7 +18,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
   private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
-  private playerCardClassFilter: PlayerCardClass | undefined;
+  private playerCardClassesFilter: PlayerCardClass[] = [];
 
   constructor(
     private readonly collection: CollectionEntity,
@@ -28,8 +28,8 @@ export class CollectionOrganizer implements ICollectionOrganizer {
     this.organizeCollection();
   }
 
-  filterByClass(playerCardClass: PlayerCardClass): void {
-    this.playerCardClassFilter = playerCardClass;
+  filterByClass(playerCardClasses: PlayerCardClass[]): void {
+    this.playerCardClassesFilter = playerCardClasses;
     this.organizeCollection();
     this.notifyBinderUpdated();
   }
@@ -90,7 +90,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
-    const filtered = filterPlayerCards(this.investigatorCards, this.playerCardClassFilter);
+    const filtered = filterPlayerCards(this.investigatorCards, this.playerCardClassesFilter);
     const sorted = sortPlayerCards(filtered, this.sortingDirectives);
     const pockets = groupCardsInPockets(sorted, this.groupingDirectives);
     this.binder = { pockets };

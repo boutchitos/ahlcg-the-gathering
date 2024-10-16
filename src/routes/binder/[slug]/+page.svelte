@@ -7,15 +7,17 @@
   import { userBrowsesItsBinder } from './userBrowsesItsBinder';
   import Binder from './Binder.svelte';
 
-  function toClass(slug: string): PlayerCardClass | null {
+  function slugToClasses(slug: string): PlayerCardClass[] {
     if (isPlayerCardClasses(slug)) {
-      return slug;
+      return [slug];
+    } else if (slug === 'the-binder-that-store-everything-else') {
+      return ['multi', 'neutral', 'basic weakness'];
     }
-    return null;
+    throw Error('unknown slug');
   }
 
-  $: playerCardClass = toClass($page.params.slug);
-  $: binder = userBrowsesItsBinder(playerCardClass, new SortPlayerCardsDirectivesConfig());
+  $: playerCardClasses = slugToClasses($page.params.slug);
+  $: binder = userBrowsesItsBinder(playerCardClasses, new SortPlayerCardsDirectivesConfig());
 </script>
 
 <h1 class="mb-4 text-center text-4xl font-bold">Couz's Investigator Cards Collection</h1>

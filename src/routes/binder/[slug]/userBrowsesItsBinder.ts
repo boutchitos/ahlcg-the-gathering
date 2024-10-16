@@ -50,14 +50,14 @@ type OrganizingDirectivesDTO = {
 };
 
 export function userBrowsesItsBinder(
-  playerCardClass: PlayerCardClass | null,
+  playerCardClasses: PlayerCardClass[],
   organizingDirectivesDTO: OrganizingDirectivesDTO,
 ): BinderAs2Pages {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
   const organizer = createCollectionOrganizer(sortingDirectives, groupingDirectives);
-  if (playerCardClass !== null) {
-    organizer.filterByClass(playerCardClass);
+  if (playerCardClasses.length !== 0) {
+    organizer.filterByClass(playerCardClasses);
   }
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);

@@ -3,10 +3,10 @@ import type { PlayerCardClass } from '$gathering/PlayerCardClass';
 
 export function filterPlayerCards(
   cards: Iterable<Card>,
-  playerCardClass?: PlayerCardClass,
+  playerCardClasses: PlayerCardClass[],
 ): Card[] {
-  if (playerCardClass === undefined) {
+  if (playerCardClasses.length === 0) {
     return [...cards];
   }
-  return [...cards].filter((card) => card.playerCardClass === playerCardClass);
+  return [...cards].filter((card) => playerCardClasses.includes(card.playerCardClass));
 }
