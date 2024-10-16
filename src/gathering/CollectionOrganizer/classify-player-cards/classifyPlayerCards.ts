@@ -1,5 +1,5 @@
 import type { Card } from '$gathering/Card';
-import type { PlayerCardClass } from '$gathering/PlayerCardClass';
+import { type PlayerCardClass } from '$gathering/PlayerCardClass';
 
 type ClassifiedPlayerCards = Record<PlayerCardClass, Card[]>;
 
@@ -19,23 +19,42 @@ export function classifyPlayerCards(cards: Iterable<Card>) {
 
   for (const card of cards) {
     if (card.restrictions?.investigator !== undefined) {
-      const keys = Object.keys(card.restrictions.investigator);
-      if (keys.length !== 1) {
-        throw Error(
-          `find one card with unexpected restrictions ${JSON.stringify(card, undefined, 2)}`,
-        );
-      }
-      const investigatorCode = keys[0];
-      const investigator = cardsByCode.get(investigatorCode);
-      if (investigator === undefined) {
-        throw Error(
-          `hypothesis not respected; we thought the restricted cards followed the investigators in their pack.  ${JSON.stringify(card, undefined, 2)}`,
-        );
-      }
-      classified[investigator.playerCardClass].push(card);
+      const investigatorClass = getRestrictedToInvestigatorClass(card, cardsByCode);
+      classified[investigatorClass].push(card);
+    } else if (card.name === 'Aetheric Current') {
+      // bonded to a restricted card (Flux Stabilizer) for Kate Winthrop
+      // we could chain that
+      classified.seeker.push(card);
     } else {
       classified[card.playerCardClass].push(card);
     }
   }
   return classified;
+}
+
+// On fouille juste dans les cartes de la collection. On en veut un. Si plusieurs, c'est le même.
+function getRestrictedToInvestigatorClass(
+  card: Card,
+  cardsByCode: Map<string, Card>,
+): PlayerCardClass {
+  const restrictedToInvestigatorClasses = new Set<PlayerCardClass>();
+
+  const keys = Object.keys(card.restrictions!.investigator);
+  for (const k of keys) {
+    // verif...
+    if (card.restrictions?.investigator[k] !== k) {
+      // actually investigator[k] === k
+      throw Error(`bad assomption ${JSON.stringify(card, undefined, 2)}`);
+    }
+    const investigator = cardsByCode.get(k);
+    if (investigator !== undefined) {
+      restrictedToInvestigatorClasses.add(investigator.playerCardClass);
+    }
+  }
+  if (restrictedToInvestigatorClasses.size !== 1) {
+    throw Error(
+      `After further analysis, this card sucks to find it's class ${JSON.stringify(card, undefined, 2)}`,
+    );
+  }
+  return [...restrictedToInvestigatorClasses][0];
 }

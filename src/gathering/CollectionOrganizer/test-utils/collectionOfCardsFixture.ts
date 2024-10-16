@@ -1,8 +1,8 @@
-import type { Card } from "$gathering/Card";
-import type { Pack } from "$gathering/Pack";
-import { CollectionEntity } from "$gathering/CollectionEntity";
-import { createPackRepository } from "$gathering/PackRepository";
-import { createCardRepository } from "$gathering/CardRepository";
+import type { Card } from '$gathering/Card';
+import type { Pack } from '$gathering/Pack';
+import { CollectionEntity } from '$gathering/CollectionEntity';
+import { createPackRepository } from '$gathering/PackRepository';
+import { createCardRepository } from '$gathering/CardRepository';
 
 const cardRepository = createCardRepository();
 const packRepository = createPackRepository();

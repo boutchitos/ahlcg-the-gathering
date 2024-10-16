@@ -60,7 +60,18 @@ describe('given a collection of cards containing multi-class cards, when they ar
       0,
     );
     expect([...theSecretNameCards]).toHaveLength(22);
-    expect(allClassifiedCardsCount).toHaveLength(22);
+    expect(allClassifiedCardsCount).toEqual(22);
+  });
+});
+
+describe('given a collection of cards containing edge cases, when they are classified', () => {
+  const feastOfHemlockValeCards = createCollectionOfCards(
+    'The Feast of Hemlock Vale Investigator Expansion',
+  );
+  const classified = classifyPlayerCards(feastOfHemlockValeCards);
+
+  test('then a bonded card, bonded to a card specific to an investigator, is classified with this investigator ', () => {
+    expect(findCardByName(classified.seeker, 'Aetheric Current')).toBeDefined();
   });
 });
 
