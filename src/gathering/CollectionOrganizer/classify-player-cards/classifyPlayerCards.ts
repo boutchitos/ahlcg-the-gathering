@@ -21,13 +21,15 @@ export function classifyPlayerCards(cards: Iterable<Card>) {
     if (card.restrictions?.investigator !== undefined) {
       const keys = Object.keys(card.restrictions.investigator);
       if (keys.length !== 1) {
-        throw Error(`find one card with unexpected restrictions ${JSON.stringify(card)}`);
+        throw Error(
+          `find one card with unexpected restrictions ${JSON.stringify(card, undefined, 2)}`,
+        );
       }
       const investigatorCode = keys[0];
       const investigator = cardsByCode.get(investigatorCode);
       if (investigator === undefined) {
         throw Error(
-          `hypothesis not respected; we thought the restricted cards followed the investigators in their pack.  ${JSON.stringify(card)}`,
+          `hypothesis not respected; we thought the restricted cards followed the investigators in their pack.  ${JSON.stringify(card, undefined, 2)}`,
         );
       }
       classified[investigator.playerCardClass].push(card);
