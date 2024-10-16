@@ -1,7 +1,7 @@
 import type { Card } from '$gathering/Card';
 import type { PlayerCardClass } from '$gathering/PlayerCardClass';
 
-export function filterPlayerCards(
+export function classifyPlayerCards(
   cards: Iterable<Card>,
   playerCardClasses: PlayerCardClass[],
 ): Card[] {

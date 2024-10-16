@@ -2,7 +2,7 @@ import { beforeEach, expect, it } from 'vitest';
 
 import { card } from '../test-utils/card';
 import { availablePlayerCardClasses } from '$gathering/PlayerCardClass';
-import { filterPlayerCards } from './filterPlayerCards';
+import { classifyPlayerCards } from './classifyPlayerCards';
 import type { Card } from '$gathering/Card';
 
 const allClassesCards = availablePlayerCardClasses.map((playerCardClass) =>
@@ -16,18 +16,18 @@ beforeEach(() => {
 });
 
 it('filters empty cards', () => {
-  expect(filterPlayerCards(emptyCards, [])).toEqual([]);
-  expect(filterPlayerCards(emptyCards, ['guardian'])).toEqual([]);
+  expect(classifyPlayerCards(emptyCards, [])).toEqual([]);
+  expect(classifyPlayerCards(emptyCards, ['guardian'])).toEqual([]);
 });
 
 it('filters cards with one class', () => {
-  expect(filterPlayerCards(allClassesCards, ['guardian'])).toHaveLength(1);
+  expect(classifyPlayerCards(allClassesCards, ['guardian'])).toHaveLength(1);
 });
 
 it('filters cards including many classes', () => {
-  expect(filterPlayerCards(allClassesCards, ['guardian', 'rogue'])).toHaveLength(2);
+  expect(classifyPlayerCards(allClassesCards, ['guardian', 'rogue'])).toHaveLength(2);
 });
 
 it("doesn't filter cards when no classes are provided", () => {
-  expect(filterPlayerCards(allClassesCards, [])).toHaveLength(8);
+  expect(classifyPlayerCards(allClassesCards, [])).toHaveLength(8);
 });

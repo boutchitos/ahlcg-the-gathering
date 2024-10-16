@@ -9,7 +9,7 @@ import type {
   AssetSlot,
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
-import { filterPlayerCards } from './filter-player-cards/filterPlayerCards';
+import { classifyPlayerCards } from './classify-player-cards/classifyPlayerCards';
 import { groupCardsInPockets, GroupPlayerCardsDirectives } from './group-cards-in-pockets';
 import type { GroupByTitle } from './group-cards-in-pockets/grouper-config';
 import { sortPlayerCards, SortPlayerCardsDirectives } from './sort-player-cards';
@@ -90,7 +90,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
-    const filtered = filterPlayerCards(this.investigatorCards, this.playerCardClassesFilter);
+    const filtered = classifyPlayerCards(this.investigatorCards, this.playerCardClassesFilter);
     const sorted = sortPlayerCards(filtered, this.sortingDirectives);
     const pockets = groupCardsInPockets(sorted, this.groupingDirectives);
     this.binder = { pockets };
