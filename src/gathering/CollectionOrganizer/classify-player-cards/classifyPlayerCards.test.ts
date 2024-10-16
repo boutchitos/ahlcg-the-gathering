@@ -76,6 +76,7 @@ describe('given a collection of cards containing edge cases, when they are class
   });
 
   test('then a bonded card, bonded to a card specific to an investigator, is classified with this investigator ', () => {
+    expect(findCardByName(classified.mystic, 'Dream-Gate')).toBeDefined();
     expect(findCardByName(classified.seeker, 'Aetheric Current')).toBeDefined();
   });
 });

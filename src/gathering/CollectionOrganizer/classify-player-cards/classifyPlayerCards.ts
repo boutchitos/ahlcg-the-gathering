@@ -26,6 +26,10 @@ export function classifyPlayerCards(cards: Iterable<Card>) {
       // bonded to a restricted card (Flux Stabilizer) for Kate Winthrop
       // we could chain that
       classified.seeker.push(card);
+    } else if (card.name === 'Dream-Gate') {
+      // bonded to a restricted card (Flux Stabilizer) for Kate Winthrop
+      // we could chain that
+      classified.mystic.push(card);
     } else if (card.bonded_to !== undefined) {
       const bondedToCard = cardsByName.get(card.bonded_to);
       if (bondedToCard === undefined) {
@@ -48,22 +52,24 @@ function getRestrictedToInvestigatorClass(
 ): PlayerCardClass {
   const restrictedToInvestigatorClasses = new Set<PlayerCardClass>();
 
-  const keys = Object.keys(card.restrictions!.investigator);
-  for (const k of keys) {
-    // verif...
-    if (card.restrictions?.investigator[k] !== k) {
-      // actually investigator[k] === k
-      throw Error(`bad assomption ${JSON.stringify(card, undefined, 2)}`);
+  for (const [kCode, vCode] of Object.entries(card.restrictions!.investigator)) {
+    if (kCode !== vCode) {
+      throw Error(
+        `Bad assomption: keys and values are always the same ${JSON.stringify(card, undefined, 2)}`,
+      );
     }
-    const investigator = cardsByCode.get(k);
+
+    const investigator = cardsByCode.get(kCode);
     if (investigator !== undefined) {
       restrictedToInvestigatorClasses.add(investigator.playerCardClass);
     }
   }
+
   if (restrictedToInvestigatorClasses.size !== 1) {
     throw Error(
-      `After further analysis, this card sucks to find it's class ${JSON.stringify(card, undefined, 2)}`,
+      `After further analysis, this card sucks to find its class ${JSON.stringify(card, undefined, 2)}`,
     );
   }
+
   return [...restrictedToInvestigatorClasses][0];
 }
