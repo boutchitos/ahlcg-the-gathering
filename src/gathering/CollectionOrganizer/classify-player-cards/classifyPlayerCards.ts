@@ -16,6 +16,7 @@ export function classifyPlayerCards(cards: Iterable<Card>) {
   };
 
   const cardsByCode = new Map<string, Card>([...cards].map((card) => [card.code, card]));
+  const cardsByName = new Map<string, Card>([...cards].map((card) => [card.name, card]));
 
   for (const card of cards) {
     if (card.restrictions?.investigator !== undefined) {
@@ -25,6 +26,14 @@ export function classifyPlayerCards(cards: Iterable<Card>) {
       // bonded to a restricted card (Flux Stabilizer) for Kate Winthrop
       // we could chain that
       classified.seeker.push(card);
+    } else if (card.bonded_to !== undefined) {
+      const bondedToCard = cardsByName.get(card.bonded_to);
+      if (bondedToCard === undefined) {
+        throw Error(
+          `bonded to card not found for bonded card ${JSON.stringify(card, undefined, 2)}`,
+        );
+      }
+      classified[bondedToCard.playerCardClass].push(card);
     } else {
       classified[card.playerCardClass].push(card);
     }

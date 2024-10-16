@@ -66,9 +66,14 @@ describe('given a collection of cards containing multi-class cards, when they ar
 
 describe('given a collection of cards containing edge cases, when they are classified', () => {
   const feastOfHemlockValeCards = createCollectionOfCards(
+    'The Dream-Eaters',
     'The Feast of Hemlock Vale Investigator Expansion',
   );
   const classified = classifyPlayerCards(feastOfHemlockValeCards);
+
+  test('then a weakness bonded card is classified with its bonded to card', () => {
+    expect(findCardByName(classified.guardian, 'Bloodlust')).toBeDefined();
+  });
 
   test('then a bonded card, bonded to a card specific to an investigator, is classified with this investigator ', () => {
     expect(findCardByName(classified.seeker, 'Aetheric Current')).toBeDefined();
