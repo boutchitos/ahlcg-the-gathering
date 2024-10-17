@@ -73,9 +73,9 @@ class PlayerCardClassifier {
 
       const investigator = this.cardsByCode.get(kCode);
       if (investigator === undefined) {
-        throw Error(
-          `Investigator not found for code ${kCode} of investigator restrictions ${JSON.stringify(card, undefined, 2)}`,
-        );
+        // Actually, we are running this analysis only on the collection packs. This should be good. But the card contains
+        // restriction for all known cards so far. Anyway, the goal is to have only one class, we don't need all.
+        continue;
       }
 
       restrictedToInvestigatorClasses.add(investigator.playerCardClass);
