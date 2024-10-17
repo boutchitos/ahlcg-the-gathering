@@ -59,7 +59,10 @@ describe('given a collection of cards containing bonded cards, when they are cla
 });
 
 function countCards(allClassifiedCards: ClassifiedPlayerCards) {
-  return Object.values(allClassifiedCards).reduce((sum, currentClassCards) => (sum += currentClassCards.length), 0);
+  return Object.values(allClassifiedCards).reduce(
+    (sum, currentClassCards) => (sum += currentClassCards.length),
+    0,
+  );
 }
 
 function findCardByName(cards: Card[], name: string) {
