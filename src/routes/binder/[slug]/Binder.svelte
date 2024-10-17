@@ -4,7 +4,10 @@
 
   export let binder: BinderAs2Pages;
 
-  const { currentPage, howManyPages, leftPage, rightPage } = binder;
+  $: currentPage = binder.currentPage;
+  $: howManyPages = binder.howManyPages;
+  $: leftPage = binder.leftPage;
+  $: rightPage = binder.rightPage;
 </script>
 
 <div class="block">

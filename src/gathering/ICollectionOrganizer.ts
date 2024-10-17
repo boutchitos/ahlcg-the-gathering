@@ -17,6 +17,8 @@ export type {
 export interface ICollectionOrganizer {
   onBinderUpdated(binderOutput: IBinderOutput): void;
 
+  filterByClass(playerCardClasses: PlayerCardClass[]): void;
+
   reorderByClasses(classes: PlayerCardClass[]): void;
   reorderByPlayerCardTypes(types: PlayerCardtype[]): void;
   reorderBySlots(slots: AssetSlot[]): void;

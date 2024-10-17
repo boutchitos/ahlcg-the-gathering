@@ -8,6 +8,7 @@ import { findPocketWithCard } from './pockets';
 import { CollectionOrganizer } from '../CollectionOrganizer';
 import { GroupPlayerCardsDirectives } from '../group-cards-in-pockets/grouper-config';
 import { SortPlayerCardsDirectives } from '../sort-player-cards';
+import type { ICollectionOrganizer } from '$gathering/ICollectionOrganizer';
 
 export function setupOrganizer(...packs: string[]) {
   const binder = captor<Binder>();
@@ -26,7 +27,7 @@ export function setupOrganizer(...packs: string[]) {
 }
 
 function createOrganizer(collection: CollectionEntity) {
-  const organizer = new CollectionOrganizer(
+  const organizer: ICollectionOrganizer = new CollectionOrganizer(
     collection,
     new SortPlayerCardsDirectives(),
     new GroupPlayerCardsDirectives(),

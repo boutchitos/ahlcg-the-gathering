@@ -8,10 +8,10 @@ import {
 import { SortPlayerCardsDirectives } from '$gathering/CollectionOrganizer/sort-player-cards';
 import type { Binder, PocketCard, IBinderOutput, Pocket } from '$gathering/IBinderOutput';
 import type {
-  ICollectionOrganizer,
   PlayerCardsSorter,
   AssetSlot,
   PlayerCardtype,
+  PlayerCardClass,
 } from '$gathering/ICollectionOrganizer';
 
 export type CardListing = { label: string }[];
@@ -49,15 +49,16 @@ type OrganizingDirectivesDTO = {
   groupInvestigatorCards: boolean;
 };
 
-export function userBrowsesItsBinder(organizingDirectivesDTO: OrganizingDirectivesDTO): {
-  binder: BinderAs2Pages;
-} {
+export function userBrowsesItsBinder(
+  playerCardClasses: PlayerCardClass[],
+  organizingDirectivesDTO: OrganizingDirectivesDTO,
+): BinderAs2Pages {
   const { groupingDirectives, sortingDirectives } =
     createOrganizingDirectives(organizingDirectivesDTO);
-  const organizer: ICollectionOrganizer = createCollectionOrganizer(
-    sortingDirectives,
-    groupingDirectives,
-  );
+  const organizer = createCollectionOrganizer(sortingDirectives, groupingDirectives);
+  if (playerCardClasses.length !== 0) {
+    organizer.filterByClass(playerCardClasses);
+  }
   const binderOutput = new BinderOutput();
   organizer.onBinderUpdated(binderOutput);
 
@@ -84,25 +85,23 @@ export function userBrowsesItsBinder(organizingDirectivesDTO: OrganizingDirectiv
   }
 
   return {
-    binder: {
-      currentPage,
-      howManyPages,
+    currentPage,
+    howManyPages,
 
-      leftPage,
-      rightPage,
+    leftPage,
+    rightPage,
 
-      handleLeftPageClick: () => {
-        pocketOffset.update((pocketOffset) => {
-          pocketOffset -= 18;
-          return pocketOffset < 0 ? 0 : pocketOffset;
-        });
-      },
+    handleLeftPageClick: () => {
+      pocketOffset.update((pocketOffset) => {
+        pocketOffset -= 18;
+        return pocketOffset < 0 ? 0 : pocketOffset;
+      });
+    },
 
-      handleRightPageClick: () => {
-        pocketOffset.update((pocketOffset) => {
-          return pocketOffset + 18;
-        });
-      },
+    handleRightPageClick: () => {
+      pocketOffset.update((pocketOffset) => {
+        return pocketOffset + 18;
+      });
     },
   };
 }

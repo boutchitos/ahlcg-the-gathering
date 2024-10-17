@@ -9,6 +9,8 @@ import type {
   AssetSlot,
   PlayerCardtype,
 } from '$gathering/ICollectionOrganizer';
+import { availablePlayerCardClasses } from '$gathering/PlayerCardClass';
+import { classifyPlayerCards } from './classify-player-cards/classifyPlayerCards';
 import { groupCardsInPockets, GroupPlayerCardsDirectives } from './group-cards-in-pockets';
 import type { GroupByTitle } from './group-cards-in-pockets/grouper-config';
 import { sortPlayerCards, SortPlayerCardsDirectives } from './sort-player-cards';
@@ -17,6 +19,7 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   private binder: Binder = { pockets: [] };
   private binderOutputs: IBinderOutput[] = [];
   private cardRepository: ICardRepository = createCardRepository();
+  private playerCardClassesFilter: PlayerCardClass[] = [];
 
   constructor(
     private readonly collection: CollectionEntity,
@@ -25,6 +28,13 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   ) {
     this.organizeCollection();
   }
+
+  filterByClass(playerCardClasses: PlayerCardClass[]): void {
+    this.playerCardClassesFilter = playerCardClasses;
+    this.organizeCollection();
+    this.notifyBinderUpdated();
+  }
+
   groupBondedCards(groupBondedCards: boolean): void {
     this.groupingDirectives.groupBondedCards = groupBondedCards;
     this.organizeCollection();
@@ -81,7 +91,16 @@ export class CollectionOrganizer implements ICollectionOrganizer {
   }
 
   private organizeCollection(): void {
-    const sorted = sortPlayerCards(this.investigatorCards, this.sortingDirectives);
+    const classified = classifyPlayerCards(this.investigatorCards);
+    const classes = this.playerCardClassesFilter.length
+      ? this.playerCardClassesFilter
+      : availablePlayerCardClasses;
+    let playerCards = new Array<Card>();
+    for (const klass of classes) {
+      // peu performant... make it works...
+      playerCards = playerCards.concat(classified[klass]);
+    }
+    const sorted = sortPlayerCards(playerCards, this.sortingDirectives);
     const pockets = groupCardsInPockets(sorted, this.groupingDirectives);
     this.binder = { pockets };
   }
