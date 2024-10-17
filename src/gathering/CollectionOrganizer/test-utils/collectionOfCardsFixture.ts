@@ -7,8 +7,8 @@ import { createCardRepository } from '$gathering/CardRepository';
 const cardRepository = createCardRepository();
 const packRepository = createPackRepository();
 
-export function createCollectionOfCards(...packs: Pack[]): Iterable<Card> {
+export function createCollectionOfCards(...packs: Pack[]): Card[] {
   const collection = new CollectionEntity(packRepository);
   packs.forEach((pack) => collection.addPack(pack));
-  return cardRepository.getInvestigatorCards(collection.getPacks());
+  return [...cardRepository.getInvestigatorCards(collection.getPacks())];
 }
